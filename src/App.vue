@@ -7,7 +7,9 @@ import Index from './views/Index.vue';
 <template>
   <div id="app">
    <!-- <router-view></router-view> -->
-  <Index></Index>
+  <!-- <Index></Index>
+   -->
+   <Login></Login>
   </div>
  
 </template>
