@@ -20,7 +20,7 @@
     <div class="business">
       <div class="title">我的企业及企业联系人</div>
       <div class="content">
-        <i class="iconfont icon-gongzhonghao"></i><span>公众号</span>
+        <i class="iconfont icon-gongzhonghao"></i><span>企业微信联系人</span>
       </div>
     </div>
     <div class="friends">
