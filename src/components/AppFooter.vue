@@ -3,7 +3,7 @@
     <div v-for="item in menun" :key="item.path" @click="onGoto(item.path)" :class="item.path==selectPath?'active':''" >
       <i :class="item?.meta?.icon"></i>
       <span>{{ item.name }}</span>
-      <Dots :num="10" :top="5" :right="20" ></Dots>
+      <Dots  :position="true"  :top="15" :right="28" ></Dots>
       </div>
      
   </div>
@@ -45,7 +45,7 @@ const onGoto =(path)=>{
     align-items: center;
     flex: 1;
     i{
-      font-size: 35px;
+      font-size: 28px;
     }
     span{
       font-size: 12px;

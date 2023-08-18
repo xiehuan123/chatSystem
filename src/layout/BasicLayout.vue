@@ -15,9 +15,9 @@ import {io} from 'socket.io-client';
 import axios from "axios";
 
 onMounted(async ()=>{
-  const data=await axios.get("http://127.0.0.1:5000")
-  console.log(data);
-  console.log(11);
+  // const data=await axios.get("http://127.0.0.1:5000")
+  // console.log(data);
+  // console.log(11);
   // 替换为你的 Socket.IO 服务器地址
 const socket = io("http://127.0.0.1:5000");
   socket.on("connect",()=>{
@@ -30,8 +30,10 @@ socket.emit("message", "这是一条测试消息");
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+$primary-color: #2196F3;
 .basic{
   position: relative;
+  height: 100%;
 }
 </style>

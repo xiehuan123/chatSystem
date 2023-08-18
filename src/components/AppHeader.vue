@@ -1,12 +1,13 @@
 <template>
-  <div class="AppHeader">
-    <header><div class="title">微信(52)</div> <div class="option">  <i class="iconfont icon-sousuoxiao"></i> <i class="iconfont icon-jiahao"></i></div></header>
+  <div :class="['AppHeader' ,route.path=='/me' ?'hiden':'']" >
+    <header><div class="title" >{{route.name}}{{  }}</div> <div class="option">  <i class="iconfont icon-sousuoxiao"></i> <i class="iconfont icon-jiahao"></i></div></header>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
-
+import { useRoute } from 'vue-router'
+const route = useRoute();
 </script>
 
 <style scoped lang="scss">
@@ -36,6 +37,11 @@ header{
    
 
   }
-
+ 
 }
+.hiden{
+
+visibility: hidden;
+}
+
 </style>

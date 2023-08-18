@@ -9,4 +9,7 @@ import BasicLayout from './layout/BasicLayout.vue';
  
 </template>
 <style scoped>
+#app{
+  height: 100vh;
+}
 </style>

@@ -12,5 +12,6 @@ import { ref, computed } from 'vue'
 <style scoped>
 .main{
   margin-bottom: 70px;
+  height: calc(100% - 70px);
 }
 </style>

@@ -30,7 +30,7 @@ const routes = [
       name:'发现',
       component:FindView,
       meta:{
-        icon:'iconfont icon-faxian1'
+        icon:'iconfont icon-faxian1',
       }
     },
     {
