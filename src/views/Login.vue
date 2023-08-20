@@ -1,13 +1,15 @@
 <template>
   <div class="login">
-    <div class="close">X</div>
+    <div class="close">
+      <i class="iconfont icon-cuowuguanbiquxiao"></i>
+    </div>
     <h3 class="title">微信号/QQ号/邮箱登陆</h3>
     <div class="ipt">
       <div class="top">
-        账号<input type="text" placeholder="请填写微信号/QQ号/邮箱">
+        账号<input type="text" placeholder="请填写微信号/QQ号/邮箱" />
       </div>
       <div class="bottom">
-        密码<input type="password" placeholder="请填写密码">
+        密码<input type="password" placeholder="请填写密码" />
       </div>
     </div>
     <div class="login_phone">用手机号登陆</div>
@@ -24,23 +26,24 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-
+import { ref, computed } from "vue";
 </script>
 
 <style scoped lang="scss">
 .login {
-  padding: 10px;
-  height: 100vh;
+  padding: 14px;
   .close {
     height: 32px;
     width: 32px;
     font-weight: normal;
     font-size: 20px;
+    i {
+      font-size: 24px;
+    }
   }
   .login_phone {
     margin-top: 26px;
-    color: #3C759E;
+    color: #3c759e;
   }
   .title {
     text-align: center;
@@ -49,52 +52,60 @@ import { ref, computed } from 'vue'
   .ipt {
     .top {
       height: 42px;
-      font-size: 18px;
+      font-size: 14px;
       line-height: 42px;
-      border-bottom: 0.5px solid #000;
+      border-bottom: 0.5px solid #dedede;
       input {
         margin-left: 50px;
-        border: 0;  // 去除未选中状态边框
+        border: 0; // 去除未选中状态边框
         outline: none; // 去除选中状态边框
-        background-color: rgba(0, 0, 0, 0);// 透明背景
+        background-color: rgba(0, 0, 0, 0); // 透明背景
       }
     }
     .bottom {
       height: 42px;
-      font-size: 18px;
+      font-size: 14px;
       line-height: 42px;
-      border-bottom: 0.5px solid #000;
+      border-bottom: 0.5px solid #dedede;
       input {
         margin-left: 50px;
-        border: 0;  // 去除未选中状态边框
+        border: 0; // 去除未选中状态边框
         outline: none; // 去除选中状态边框
-        background-color: rgba(0, 0, 0, 0);// 透明背景
+        background-color: rgba(0, 0, 0, 0); // 透明背景
       }
     }
   }
   .footer {
     width: 100%;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 300px;
+    margin-top: 250px;
     .tip {
       font-size: 10px;
-     margin-bottom: 20px;
+      margin-bottom: 20px;
+      color: #d4d4d4;
     }
     .agree {
-      height: 32px;
-      width: 125px;
+      height: 40px;
+      width: 144px;
       margin-bottom: 30px;
+      border: 0; // 去除未选中状态边框
+      outline: none; // 去除选中状态边框
+      background-color: #e1e1e1;
+      border-radius: 8px;
+      color: #b5b5b5;
     }
     .menu {
       a {
         height: 20px;
         text-decoration: none;
-        color: #3C759E;
-        border-right: 0.2px solid #3C759E;
-        padding:0 4px;
+        color: #3c759e;
+        padding: 0 10px;
+      }
+      a:nth-child(-n + 2) {
+        border-right: 0.2px solid #3c759e;
       }
     }
   }

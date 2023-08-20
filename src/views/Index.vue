@@ -34,7 +34,7 @@ import { ref, computed } from "vue";
       background-color: #07c060;
       border: none;
       color: white;
-      border-radius: 8%;
+      border-radius: 8px;
     }
     .register {
       height: 40px;

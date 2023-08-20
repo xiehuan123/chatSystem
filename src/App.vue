@@ -8,6 +8,7 @@ import Index from './views/Index.vue';
   <div id="app">
    <!-- <router-view></router-view> -->
   <Index></Index>
+  <!-- <Login></Login> -->
   </div>
  
 </template>
