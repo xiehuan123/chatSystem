@@ -38,7 +38,8 @@ const friends = ref([
   .content {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 10px 0;
+    margin: 0 10px;
     border-bottom: 1px solid #e6e6e6;
     .img {
       height: 32px;
