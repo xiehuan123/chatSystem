@@ -39,12 +39,12 @@ const peoples = ref([1, 2, 3]);
 .addressBook {
   .business {
     .title {
-      font-size: 10px;
+      font-size: 8px;
       height: 24px;
       line-height: 24px;
       background-color: #ece9e7;
       color: #6e6e6e;
-      border-radius: 3px;
+      padding: 0 10px;
     }
     .content {
       height: 32px;
@@ -62,8 +62,8 @@ const peoples = ref([1, 2, 3]);
       }
     }
   }
-  padding: 14px;
   .functions {
+    padding: 10px;
     .function {
       height: 32px;
       padding: 8px 0;
@@ -84,5 +84,6 @@ const peoples = ref([1, 2, 3]);
       border-bottom: 0;
     }
   }
+  
 }
 </style>

@@ -33,12 +33,12 @@ const friends = ref([
     line-height: 24px;
     color: #6e6e6e;
     background-color: #ece9e7;
-    border-radius: 3px;
+    padding: 0 10px;
   }
   .content {
     display: flex;
     align-items: center;
-    padding: 10px 0px;
+    padding: 10px;
     border-bottom: 1px solid #e6e6e6;
     .img {
       height: 32px;
