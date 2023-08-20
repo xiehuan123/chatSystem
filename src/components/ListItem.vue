@@ -1,27 +1,30 @@
 <template>
-  <div class="item" :style="{ height: height + 'px' }">
-    <div class="avatar">
-      <img :src="infoItem?.avatar" alt="" />
-      <Dots :num="infoItem?.infoMsg?.length" :top="0" :right="0"></Dots>
-    </div>
-    <div class="content">
+  <div :class="['item',infoItem?.marginTop?'marginTop':'']" :style="{ height: height + 'px' }">
+    <slot name="left">
+
+  </slot>
+    <div :class="['content',infoItem?.marginBorde?'marginBorde':'']">
       <div>{{ infoItem?.infoName }}</div>
-      <div>
+      <div v-if="infoItem.infoMsg">
         <span v-if="infoItem?.infoMsg.length > 1"
           >[{{ infoItem?.infoMsg.length }}]</span
         >{{ lastInfoMsg?.sendName }}:{{ lastInfoMsg?.sendMsg }}
       </div>
     </div>
-    <div class="time" v-if="lastInfoMsg">
-      <div>{{ lastInfoMsg?.sendTime }}</div>
-      <div>勿扰</div>
-    </div>
+
+      <div :class="['time',infoItem?.marginBorde?'marginBorde':'']">
+        <slot name="right">
+        <div>{{ lastInfoMsg?.sendTime }}</div>
+        <div>勿扰</div>
+      </slot>
+
+      </div>
+
   </div>
 </template>
 
 <script setup>
 import { ref, computed, defineProps } from "vue";
-import Dots from "./Dots.vue";
 const props = defineProps({
   infoItem: {
     type: Object,
@@ -62,10 +65,10 @@ const props = defineProps({
 
 // });
 // console.log(props);
-const lastInfoMsg=computed(()=>{
+const lastInfoMsg = computed(() => {
   console.log(props?.infoItem?.infoMsg);
-  return props?.infoItem?.infoMsg[props?.infoItem?.infoMsg.length-1]
-})
+  return props?.infoItem?.infoMsg[props?.infoItem?.infoMsg.length - 1];
+});
 // console.log(lastInfoMsg);
 </script>
 
@@ -73,31 +76,23 @@ const lastInfoMsg=computed(()=>{
 .item {
   display: flex;
   // background: #f0eaea;
-  border: solid 1px #f0eaea;
-  padding: 10px 10px;
-  box-sizing: border-box;
 
-  .avatar {
-    position: relative;
-    padding: 10px;
-    width: 70px;
-    // background: #f07a7a;
-    box-sizing: border-box;
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 5px;
-    }
-  }
+  box-sizing: border-box;
+  background: #fff;
+
+ 
   .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     flex: 1;
-    padding-left: 5px;
-    > div:first-child {
-      font-size: 23px;
+
+
+    > div:nth-child(1) {
+      font-size: 18px;
       font-weight: 500;
-      margin-top: 10px;
     }
-    > div:last-child {
+    > div:nth-child(2) {
       font-size: 13px;
       color: #ccc;
       margin-top: 5px;
@@ -109,9 +104,21 @@ const lastInfoMsg=computed(()=>{
     justify-content: space-evenly;
     align-items: center;
     text-align: right;
-    width: 60px;
+    margin-right: 7px;
     font-size: 12px;
     // background: #282222;
+   
   }
+  .iconSize{
+
+    font-size: 20px;
+  }
+ 
+}
+.marginTop{
+    margin-top: 7px;
+  }
+.marginBorde{
+  border-top: #ccc 1px solid;
 }
 </style>

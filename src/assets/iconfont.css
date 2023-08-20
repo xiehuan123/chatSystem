@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4208734 */
-  src: url('//at.alicdn.com/t/c/font_4208734_m14f923nhm.woff2?t=1692459132077') format('woff2'),
-       url('//at.alicdn.com/t/c/font_4208734_m14f923nhm.woff?t=1692459132077') format('woff'),
-       url('//at.alicdn.com/t/c/font_4208734_m14f923nhm.ttf?t=1692459132077') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_4208734_fg7gay7jx2n.woff2?t=1692538298467') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4208734_fg7gay7jx2n.woff?t=1692538298467') format('woff'),
+       url('//at.alicdn.com/t/c/font_4208734_fg7gay7jx2n.ttf?t=1692538298467') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-qiyeweixinEnterprise-WeChat:before {
+  content: "\e609";
 }
 
 .icon-cuowuguanbiquxiao:before {
