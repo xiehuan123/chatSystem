@@ -2,13 +2,15 @@
 import BasicLayout from './layout/BasicLayout.vue';
 import Login from './views/Login.vue';
 import Index from './views/Index.vue';
+import PhoneLoginView from './views/PhoneLoginView.vue';
 </script>
 
 <template>
   <div id="app">
    <!-- <router-view></router-view> -->
-  <Index></Index>
+  <!-- <Index></Index> -->
   <!-- <Login></Login> -->
+  <PhoneLoginView></PhoneLoginView>
   </div>
  
 </template>

@@ -3,19 +3,19 @@
     <div class="close">
       <i class="iconfont icon-cuowuguanbiquxiao"></i>
     </div>
-    <h3 class="title">微信号/QQ号/邮箱登陆</h3>
+    <h3 class="title">手机号登陆</h3>
     <div class="ipt">
       <div class="top">
-        账号<input type="text" placeholder="请填写微信号/QQ号/邮箱" />
+        国家/地区 <span class="select">中国大陆（+86）</span>
       </div>
       <div class="bottom">
-        密码<input type="password" placeholder="请填写密码" />
+        手机号<input type="password" placeholder="请填写手机号" />
       </div>
     </div>
-    <div class="login_phone">用手机号登陆</div>
+    <div class="login_phone">用微信/手机号/邮箱登陆</div>
     <div class="footer">
-      <h4 class="tip">上述微信号/QQ号/邮箱仅用于登陆验证</h4>
-      <button class="agree">同意并登录</button>
+      <h4 class="tip">上述手机号仅用于登陆验证</h4>
+      <button class="agree">同意并继续</button>
       <div class="menu">
         <a href="#">找回密码</a>
         <a href="#">紧急冻结</a>
@@ -46,21 +46,19 @@ import { ref, computed } from "vue";
     color: #3c759e;
   }
   .title {
-    font-weight: normal;
     text-align: center;
     margin-bottom: 32px;
+
+    font-weight: normal;
   }
   .ipt {
     .top {
       height: 42px;
       font-size: 14px;
       line-height: 42px;
-      border-bottom: 0.5px solid #dedede;
-      input {
-        margin-left: 50px;
-        border: 0; // 去除未选中状态边框
-        outline: none; // 去除选中状态边框
-        background-color: rgba(0, 0, 0, 0); // 透明背景
+      .select {
+        margin-left: 28px;
+        color: #6e6e6e;
       }
     }
     .bottom {
