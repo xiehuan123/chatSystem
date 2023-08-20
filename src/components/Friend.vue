@@ -53,5 +53,8 @@ const friends = ref([
       margin-left: 16px;
     }
   }
+  .content:last-child {
+      border-bottom: 0;
+    }
 }
 </style>

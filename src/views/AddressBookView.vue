@@ -48,7 +48,7 @@ const peoples = ref([1, 2, 3]);
     }
     .content {
       height: 32px;
-      padding: 8px;
+      padding: 8px 0;
       display: flex;
       i {
         height: 32px;
