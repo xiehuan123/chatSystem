@@ -1,6 +1,11 @@
 <template>
   <div class="footer">
-    <div v-for="item in menun" :key="item.path" @click="onGoto(item.path)" :class="item.path==selectPath?'active':''" >
+    <div
+      v-for="item in menun"
+      :key="item.path"
+      @click="onGoto(item.path)"
+      :class="item.path == selectPath ? 'active' : ''"
+    >
       <i :class="item?.meta?.icon"></i>
       <span>{{ item.name }}</span>
       <Dots  :position="true"  :top="15" :right="28" ></Dots>
@@ -12,21 +17,20 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import Dots from "./Dots.vue"
+import Dots from "./Dots.vue";
 const route = useRoute();
 const router = useRouter();
 const menun = computed(() => {
   return router.options.routes[0]["children"];
 });
-const selectPath=ref(route.path)
-const onGoto =(path)=>{
+const selectPath = ref(route.path);
+const onGoto = (path) => {
   console.log(path);
-  selectPath.value=path
+  selectPath.value = path;
   router.push({
-    path
-  })
-}
-
+    path,
+  });
+};
 </script>
 
 <style scoped lang="scss">
@@ -47,11 +51,11 @@ const onGoto =(path)=>{
     i{
       font-size: 28px;
     }
-    span{
+    span {
       font-size: 12px;
     }
   }
-  .active{
+  .active {
     color: greenyellow;
   }
 }

@@ -3,7 +3,11 @@
 
 <template>
   <div id="app">
+  <!-- <Friend></Friend> -->
    <router-view></router-view>
+  <!-- <Index></Index> -->
+  <!-- <Login></Login> -->
+  <!-- <PhoneLoginView></PhoneLoginView> -->
   </div>
  
 </template>
