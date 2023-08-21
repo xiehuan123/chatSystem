@@ -5,8 +5,16 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed,getCurrentInstance } from "vue";
 import HomeList from "../components/HomeList.vue";
+const { appContext : { config: { globalProperties } } } = getCurrentInstance()
+// globalProperties.$loading()
+
+
+globalProperties.$socket.emit("message","这是一条测试信息11")
+globalProperties.$socket.on("hell",(data)=>{
+  console.log("后台回复",data);
+})
 const infoList=ref([
 
 {

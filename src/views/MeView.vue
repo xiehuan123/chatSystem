@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed ,getCurrentInstance} from 'vue'
 import meinfo from '../components/meinfo.vue';
 import FindList from '../components/FindList.vue';
 const meinfoData=
