@@ -12,7 +12,11 @@
   <template #left>
     <div class="avatar">
      
-     <i :class="['iconfont',item?.avatar,'iconSize']"></i>
+     <i class="iconSize">
+      <svg class="icon" aria-hidden="true">
+  <use :href="item?.avatar"></use>
+</svg>
+    </i>
    </div>
   </template>
   </ListItem>

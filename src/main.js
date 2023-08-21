@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import './style.css'
 import router from './router'
 import App from './App.vue'
-import '@/assets/iconfont.css';
+import '@/assets/iconfont.js';
 import loading from "./components/common/Loading"
 import message from "./components/common/Message"
 import openSocket from './utils/Socket';

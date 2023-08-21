@@ -6,7 +6,15 @@
       @click="onGoto(item.path)"
       :class="item.path == selectPath ? 'active' : ''"
     >
-      <i :class="item?.meta?.icon"></i>
+  <i>
+    <svg class="icon" aria-hidden="true">
+  <use :href="item?.meta?.icon"></use>
+</svg>
+  </i>
+
+
+  
+      <!-- <i :class="item?.meta?.icon"></i> -->
       <span>{{ item.name }}</span>
       <Dots  :position="true"  :top="15" :right="28" ></Dots>
       </div>
@@ -50,13 +58,14 @@ const onGoto = (path) => {
     flex: 1;
     i{
       font-size: 28px;
+     
     }
     span {
       font-size: 12px;
     }
   }
   .active {
-    color: greenyellow;
+    color: rgb(221, 242, 189);
   }
 }
 </style>

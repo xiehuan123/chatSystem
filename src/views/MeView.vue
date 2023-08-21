@@ -20,7 +20,7 @@ const infoList=[
 {
     infoId: 1,
     infoName: "服务",
-    avatar: "icon-iconfontzhizuobiaozhunbduan36",
+    avatar: "#icon-iconfontzhizuobiaozhunbduan36",
     marginTop:true,
  
     
@@ -28,41 +28,41 @@ const infoList=[
   {
     infoId: 2,
     infoName: "收藏",
-    avatar: " icon-shoucang",
+    avatar: " #icon-shoucang",
     marginTop:true,
    
   },
   {
     infoId: 3,
     infoName: "朋友圈",
-    avatar: "icon-tupian_o",
+    avatar: "#icon-tupian_o",
     marginBorde:true
    
   },
   {
     infoId: 4,
     infoName: "视频号",
-    avatar: "icon-24gl-playCircle",
+    avatar: "#icon-24gl-playCircle",
     marginBorde:true
    
   },
   {
     infoId: 5,
     infoName: "卡包",
-    avatar: "icon-kabao",
+    avatar: "#icon-kabao",
     marginBorde:true
   },
   {
     infoId: 6,
     infoName: "表情",
-    avatar: "icon-biaoqing",
+    avatar: "#icon-biaoqing",
     marginBorde:true
    
   },
   {
     infoId: 7,
     infoName: "设置",
-    avatar: "icon-shezhi",
+    avatar: "#icon-shezhi",
     marginTop:true,
    
   }

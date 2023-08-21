@@ -5,6 +5,7 @@ import HomeView from '../views/HomeView.vue'
 import AddressBookView from '../views/AddressBookView.vue'
 import FindView from '../views/FindView.vue'
 import MeView from '../views/MeView.vue'
+import userLayout from '../layout/userLayout.vue'
 import Index from '../views/Index.vue'
 import Login from '../views/Login.vue'
 const routes = [
@@ -17,7 +18,7 @@ const routes = [
         name: '微信',
         component: HomeView,
         meta: {
-          icon: 'iconfont icon-xiaoxi'
+          icon: '#icon-xiaoxi'
         }
       },
       {
@@ -25,7 +26,7 @@ const routes = [
         name: '通讯录',
         component: AddressBookView,
         meta: {
-          icon: 'iconfont icon-tongxunlu'
+          icon: '#icon-tongxunlu'
         }
       },
       {
@@ -33,7 +34,7 @@ const routes = [
         name: '发现',
         component: FindView,
         meta: {
-          icon: 'iconfont icon-faxian1'
+          icon: '#icon-faxian1'
         }
       },
       {
@@ -41,10 +42,14 @@ const routes = [
         name: '我',
         component: MeView,
         meta: {
-          icon: 'iconfont icon-my'
+          icon: '#icon-my'
         }
       }
-    ]
-  },
+    ],
+  
+  },{
+    path:'/user',component:userLayout,
+    children:[]
+  }
 ]
 export default routes;
