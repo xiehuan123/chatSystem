@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const client = axios.create({
-   baseURL: 'https://api.example.com', // 设置基准地址
+   baseURL: 'http://127.0.0.1:5000', // 设置基准地址
    timeout: 5000, // 设置请求超时时间（单位：毫秒）
 })
 // 添加请求拦截器
@@ -13,13 +13,14 @@ client.interceptors.request.use(
       if (token) {
          config.headers['Authorization'] = `Bearer ${token}`;
       }
+      
       return config;
    },
    error => {
       return Promise.reject(error);
    }
 );
-const handleNetworkError = (errStatus) => {
+const handleNetworkError = (errStatus,err) => {
    let errMessage = '未知错误'
    if (errStatus) {
       switch (errStatus) {
@@ -60,7 +61,7 @@ const handleNetworkError = (errStatus) => {
             errMessage = 'http版本不支持该请求'
             break
          default:
-            errMessage = `其他连接错误 --${errStatus}`
+            errMessage = `其他连接错误 --${err}`
       }
    } else {
       errMessage = `无法连接到服务器！`
@@ -68,14 +69,15 @@ const handleNetworkError = (errStatus) => {
    return errMessage
 }
 
-export async function request(url, config) {
+export async function request( config) {
    try {
-      const response = await client.request({ url, ...config })
+      const response = await client.request({...config })
       const result = response.data
       return result
    } catch (error) {
+      console.log(error);
       throw new Error(handleNetworkError(error));
-   }common
+   }
 
 }
 

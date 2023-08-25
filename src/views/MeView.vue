@@ -18,51 +18,51 @@ const meinfoData=
 }
 const infoList=[
 {
-    infoId: 1,
-    infoName: "服务",
-    avatar: "#icon-iconfontzhizuobiaozhunbduan36",
+    sesstionId: 1,
+    sesstionName: "服务",
+    avatar: "icon-iconfontzhizuobiaozhunbduan36",
     marginTop:true,
  
     
   },
   {
-    infoId: 2,
-    infoName: "收藏",
-    avatar: " #icon-shoucang",
+    sesstionId: 2,
+    sesstionName: "收藏",
+    avatar: "icon-shoucang",
     marginTop:true,
    
   },
   {
-    infoId: 3,
-    infoName: "朋友圈",
-    avatar: "#icon-tupian_o",
+    sesstionId: 3,
+    sesstionName: "朋友圈",
+    avatar: "icon-tupian_o",
     marginBorde:true
    
   },
   {
-    infoId: 4,
-    infoName: "视频号",
-    avatar: "#icon-24gl-playCircle",
+    sesstionId: 4,
+    sesstionName: "视频号",
+    avatar: "icon-24gl-playCircle",
     marginBorde:true
    
   },
   {
-    infoId: 5,
-    infoName: "卡包",
-    avatar: "#icon-kabao",
+    sesstionId: 5,
+    sesstionName: "卡包",
+    avatar: "icon-kabao",
     marginBorde:true
   },
   {
-    infoId: 6,
-    infoName: "表情",
-    avatar: "#icon-biaoqing",
+    sesstionId: 6,
+    sesstionName: "表情",
+    avatar: "icon-biaoqing",
     marginBorde:true
    
   },
   {
-    infoId: 7,
-    infoName: "设置",
-    avatar: "#icon-shezhi",
+    sesstionId: 7,
+    sesstionName: "设置",
+    avatar: "icon-shezhi",
     marginTop:true,
    
   }

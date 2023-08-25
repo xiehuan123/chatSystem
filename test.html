@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Room</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .chat-box {
+      width: 300px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background-color: #fff;
+      overflow-y: scroll;
+      max-height: 300px;
+    }
+
+    .message {
+      margin: 5px;
+      padding: 8px;
+      border-radius: 8px;
+      background-color: #e0e0e0;
+      display: inline-block;
+    }
+
+    .user-message {
+      background-color: #66bb6a;
+      color: white;
+      align-self: flex-end;
+    }
+
+    .other-message {
+      background-color: #42a5f5;
+      color: white;
+      align-self: flex-start;
+    }
+
+    .input-box {
+      display: flex;
+    }
+
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 5px 10px;
+      border: none;
+      background-color: #42a5f5;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-box" id="chatBox">
+    <div class="message user-message">Hello, how are you?</div>
+    <div class="message other-message">Hi! I'm good, thanks.</div>
+    <!-- More messages here -->
+  </div>
+  <div class="input-box">
+    <input type="text" id="messageInput" placeholder="Type your message...">
+    <button id="sendButton">Send</button>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const messageInput = document.getElementById('messageInput');
+    const sendButton = document.getElementById('sendButton');
+
+    sendButton.addEventListener('click', () => {
+      const messageText = messageInput.value.trim();
+      if (messageText !== '') {
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = messageText;
+        messageDiv.className = 'message user-message';
+        chatBox.appendChild(messageDiv);
+        messageInput.value = '';
+        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+      }
+    });
+  </script>
+</body>
+</html>

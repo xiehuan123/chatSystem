@@ -18,7 +18,7 @@ const routes = [
         name: '微信',
         component: HomeView,
         meta: {
-          icon: '#icon-xiaoxi'
+          icon: 'icon-xiaoxi'
         }
       },
       {
@@ -26,7 +26,7 @@ const routes = [
         name: '通讯录',
         component: AddressBookView,
         meta: {
-          icon: '#icon-tongxunlu'
+          icon: 'icon-tongxunlu'
         }
       },
       {
@@ -34,7 +34,7 @@ const routes = [
         name: '发现',
         component: FindView,
         meta: {
-          icon: '#icon-faxian1'
+          icon: 'icon-faxian1'
         }
       },
       {
@@ -42,14 +42,14 @@ const routes = [
         name: '我',
         component: MeView,
         meta: {
-          icon: '#icon-my'
+          icon: 'icon-my'
         }
       }
     ],
-  
-  },{
-    path:'/user',component:userLayout,
-    children:[]
+
+  }, {
+    path: '/user/:us/:sesstionId', component: userLayout,
+    children: []
   }
 ]
 export default routes;

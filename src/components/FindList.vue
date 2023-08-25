@@ -2,21 +2,23 @@
   <div class="findlist">
     <ListItem
       v-for="item in infoList"
-      :key="item.infoId"
-      :infoItem="item"
+      :key="item.sesstionId"
+      :sesstioItem="item"
       :height="45"
+      :border="border"
+      
     >
   <template #right>
-    <i class="iconfont icon-arrow-right"></i>
+    <Icon iconName="icon-arrow-right"  >
+
+</Icon>
   </template>
   <template #left>
     <div class="avatar">
-     
-     <i class="iconSize">
-      <svg class="icon" aria-hidden="true">
-  <use :href="item?.avatar"></use>
-</svg>
-    </i>
+      <Icon :iconName="item?.avatar"  :fontSize="24">
+
+</Icon>
+
    </div>
   </template>
   </ListItem>
@@ -26,11 +28,16 @@
 <script setup>
 import { ref, computed } from "vue";
 import ListItem from "./ListItem.vue";
+import Icon from "./common/Icon.vue";
 defineProps({
   infoList:{
     type: Array,
     required: true,
 
+  },
+  border:{
+    type: Boolean,
+    default: false,
   }
 })
 </script>

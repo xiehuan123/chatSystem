@@ -2,29 +2,22 @@
   <footer class="footer">
     <div class="main">
       <div class="speech">
-        <i class="">
-          <svg class="icon" aria-hidden="true">
-            <use href="#icon-yuyin"></use>
-          </svg>
-        </i>
+        <Icon  iconName="icon-yuyin" :fontSize="$fs-35"/>
       </div>
       <div class="textInput">
         <div class="inputBox">
-          <input type="text" v-model="textInput" />
+          <input type="text" v-model="textInput"  @keydown.enter="sendInfo()"/>
         </div>
       </div>
       <div class="operation">
-        <i>
-          <svg class="icon" aria-hidden="true">
-            <use href="#icon-xiaolian"></use>
-          </svg>
-        </i>
-        <i class="" v-show="!isTextDom" @click="onOpenOtions()">
-          <svg class="icon" aria-hidden="true">
-            <use href="#icon-jiahao2"></use>
-          </svg>
-        </i>
-        <div class="sendInfo" v-show="isTextDom">发送</div>
+        <Icon  iconName="icon-xiaolian" :fontSize="35"/>
+        <Icon  iconName="icon-jiahao2" v-show="!isTextDom" @click="onOpenOtions()" :fontSize="35"/>
+        <!-- // <i class="" v-show="!isTextDom" @click="onOpenOtions()">
+        //   <svg class="icon" aria-hidden="true">
+        //     <use href="#icon-jiahao2"></use>
+        //   </svg>
+        // </i> -->
+        <div class="sendInfo" v-show="isTextDom" @click="sendInfo()" >发送</div>
       </div>
     </div>
       
@@ -32,21 +25,20 @@
       <ul ref="ul"  @touchstart="onTouchstart($event)" @touchmove="onTouchmove($event)" @touchend="onTouchEnd($event)">
         <li >
           <div class="item" v-for="oItem in optionsFirst" :key="oItem.key">
-            <i>
-              <svg class="icon" aria-hidden="true">
-                <use :href="oItem.oIcon"></use>
-              </svg>
-            </i>
+            <div class="bg"><Icon  :iconName="oItem.oIcon"  :fontSize="30"/></div>
+      
             <div>{{oItem.oName}}</div>
           </div>
         </li>
         <li >
           <div class="item" v-for="oItem in optionsSecond" :key="oItem.key">
-            <i>
+            <div class="bg"><Icon  :iconName="oItem.oIcon"  :fontSize="30"/></div>
+            
+            <!-- <i>
               <svg class="icon" aria-hidden="true">
                 <use :href="oItem.oIcon"></use>
               </svg>
-            </i>
+            </i> -->
             <div>{{oItem.oName}}</div>
           </div>
         </li>
@@ -62,92 +54,97 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed ,defineEmits } from "vue";
+import Icon from "../common/Icon.vue";
 const textInput = ref("");
+const emit = defineEmits();
 const ul = ref(null);
+//判断是否有值显示发送
 const isTextDom = computed(() => {
   return textInput.value;
 });
-
+//第一页
 const optionsFirst = ref([
   {
     oId: 1,
     oName: "相册",
-    oIcon: "#icon-tupian",
+    oIcon: "icon-tupian",
   },
   {
     oId: 2,
     oName: "拍摄",
-    oIcon: "#icon-31paishexuanzhong",
+    oIcon: "icon-31paishexuanzhong",
   },
   {
     oId: 3,
     oName: "语音通话",
-    oIcon: "#icon-vst_shipintonghua",
+    oIcon: "icon-vst_shipintonghua",
   },
   {
     oId: 4,
     oName: "位置",
-    oIcon: "#icon-weizhi",
+    oIcon: "icon-weizhi",
   },
   {
     oId: 5,
     oName: "红包",
-    oIcon: "#icon-hongbao",
+    oIcon: "icon-hongbao",
   },
   {
     oId: 6,
     oName: "转账",
-    oIcon: "#icon-zhuanzhang",
+    oIcon: "icon-zhuanzhang",
   },
   {
     oId: 7,
     oName: "语音输入",
-    oIcon: "#icon-yuyinshuru",
+    oIcon: "icon-yuyinshuru",
   },
   {
     oId: 8,
     oName: "我的收藏",
-    oIcon: "#icon-shoucang",
+    oIcon: "icon-shoucang",
   },
 ]);
 const optionsSecond = ref([
   {
     oId: 1,
     oName: "相册",
-    oIcon: "#icon-tupian",
+    oIcon: "icon-tupian",
   },
   {
     oId: 2,
     oName: "拍摄",
-    oIcon: "#icon-31paishexuanzhong",
+    oIcon: "icon-31paishexuanzhong",
   },
   {
     oId: 3,
     oName: "语音通话",
-    oIcon: "#icon-vst_shipintonghua",
+    oIcon: "icon-vst_shipintonghua",
   },
   {
     oId: 4,
     oName: "位置",
-    oIcon: "#icon-weizhi",
+    oIcon: "icon-weizhi",
   },
   {
     oId: 5,
     oName: "红包",
-    oIcon: "#icon-hongbao",
+    oIcon: "icon-hongbao",
   },
  
 ]);
 const clientX=ref(0)
 const movX=ref(0)
 const isOption=ref(false)
+//目前选项第几页标识
 const activeIndex=ref(1)
 const onTouchstart=(e)=>{
   console.log(ul.value);
   
   clientX.value=e.changedTouches[0].clientX
 }
+//触摸移动捕获x点
 const onTouchmove=(e)=>{
   const moveClientX=e.changedTouches[0].clientX
   if(clientX.value!=0){
@@ -158,6 +155,7 @@ const onTouchmove=(e)=>{
   }
   console.log();
 }
+//触摸结束判断是往左边还是右边滑动
 const onTouchEnd=(e)=>{
   clientX.value=0
   console.log ("松开",  movX.value);
@@ -172,8 +170,16 @@ const onTouchEnd=(e)=>{
   }
   
 }
+//是否显示加号选项
 const onOpenOtions=()=>{
   isOption.value=!isOption.value
+}
+//发送数据
+const sendInfo=()=>{
+  console.log("传递子组件的值",textInput.value);
+  emit("sendInfo",{code :1,msg:textInput.value})
+  textInput.value=''
+
 }
 </script>
 
@@ -183,6 +189,7 @@ const onOpenOtions=()=>{
   width: 100%;
   bottom: 0;
   background: #dfdfdf;
+  transition: 1s;
 
   .main {
     width: 100%;
@@ -273,14 +280,14 @@ const onOpenOtions=()=>{
         align-items: center;
         // background: #000;
   
-        i {
+        .bg{
           display: inline-block;
           width: 50px;
           height: 50px;
           overflow: hidden;
-          font-size: $fs-35;
-          background: #ccc;
+          background: rgb(246, 246, 246);
           text-align: center;
+          line-height: 50px;
           border-radius: 15px;
         }
         div {

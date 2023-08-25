@@ -1,25 +1,36 @@
 <template>
-  <div :class="['AppHeader' ,route.path=='/me' ?'hiden':'']" >
-    <header><div class="title" >{{route.name}}{{  }}</div> <div class="option">  <i class="iconfont icon-sousuoxiao"></i> <i class="iconfont icon-jiahao"></i></div></header>
+  <div :class="['AppHeader', route.path == '/me' ? 'hiden' : '']">
+    <header>
+      <div class="title">{{ route.name }}{{}}</div>
+      <div class="option">
+        <Icon iconName="icon-sousuoxiao" :fontSize="20" >
+
+</Icon>
+<Icon iconName="icon-jiahao"  :fontSize="24">
+
+</Icon>
+      </div>
+    </header>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
+import Icon from "./common/Icon.vue";
 const route = useRoute();
 </script>
 
 <style scoped lang="scss">
-header{
+header {
   position: relative;
   height: 40px;
-  background: #ccc;
+  background: $bg-color;
   line-height: 40px;
- .title{
-  text-align: center;
- }
-  .option{
+  .title {
+    text-align: center;
+  }
+  .option {
     position: absolute;
     top: 0;
     right: 0;
@@ -28,20 +39,11 @@ header{
     padding: 0 10px;
     width: 56px;
     height: 100%;
-    background: #f4dcdc;
-    .icon-sousuoxiao,.icon-jiahao{
-      font-size: 20px;
-      
-    }
-
    
-
+    
   }
- 
 }
-.hiden{
-
-visibility: hidden;
+.hiden {
+  visibility: hidden;
 }
-
 </style>

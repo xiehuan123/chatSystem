@@ -1,49 +1,85 @@
 <template>
   <div class="userLayout">
     <header class="header">
-      <div class="back">
-        <i class="">
-          <svg class="icon" aria-hidden="true">
-            <use href="#icon-arrow-left"></use>
-          </svg>
-        </i>
+      <div class="back" @click="onBack()">
+        <Icon iconName="icon-arrow-left" />
       </div>
-      <div class="title">暮年</div>
+      <div class="title">{{cureentSesstion.sesstionName}}</div>
       <div class="option">
-        <i class="">
-          <svg class="icon" aria-hidden="true">
-            <use href="#icon-ellipsis"></use>
-          </svg>
-        </i>
+        <Icon iconName="icon-ellipsis" />
       </div>
     </header>
-    <Footer></Footer>
+    <main class="main" ref="mainDom">
+      <Dialog :msgs="msgs"></Dialog>
+    </main>
+    <Footer @sendInfo="onSendInfo"  ></Footer>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import  Footer from "../components/userLayout/Footer.vue"
+import { ref, computed,defineProps} from "vue";
+import { useStore } from "../store";
+import { useRouter, useRoute } from "vue-router";
+import Footer from "../components/userLayout/Footer.vue";
+import Icon from "../components/common/Icon.vue";
+import Dialog from "../components/userLayout/Dialog.vue";
+const router = useRouter();
+const route = useRoute();
+const mainDom = ref(null);
+const store=useStore()
+const props=defineProps(["routeMsg"])
+const cureentSesstion=ref(null)
+const msgs = ref([
+]);
+//发送信息
+const onSendInfo = (data) => {
+  const info={
+    ...sesstion,
+    sesstionMsg:{
+    uid: store.user.uId,//发送方的uid
+    code: data["code"], //消息类型 1文本 2 语音 3 文件
+    us: sesstion.us, //1.私聊 2.群聊
+    avatar:store.user.userAvatar,
+    sendName: store.user.userName,
+    className: "my",
+    sendMsg: data["msg"],
+    }
+  }
+  store.$socket.emit("receiveClientMessage",info)
+  mainDom.value.scrollIntoView(false);
+};
+//当前会话的参数 比如 是用户 还是群聊
+const {us,sesstionId}=route.params
+console.log(us,sesstionId,store.infoList);
+const storeInfoLsit = store.infoList.find(item=>item.us==us&&item.sesstionId==sesstionId)
+console.log(storeInfoLsit);
+const {sesstionMsg,...sesstion} =storeInfoLsit
+cureentSesstion.value=sesstion
+msgs.value=sesstionMsg
+
+const onBack = () => {
+  router.go(-1);
+};
 </script>
 
 <style scoped lang='scss'>
 .userLayout {
+  height: 100%;
   .header {
     display: flex;
     height: 40px;
     line-height: 40px;
     justify-content: center;
-     background: #ccc;
+    background: #ccc;
 
     .back {
       width: 50px;
-  
+
       text-align: center;
     }
     .title {
       width: 100%;
       text-align: center;
-   
     }
     .option {
       text-align: center;
@@ -51,6 +87,9 @@ import  Footer from "../components/userLayout/Footer.vue"
       height: 100%;
     }
   }
-
+  .main {
+    height: calc(100% - 90px);
+    margin-bottom: 50px;
+  }
 }
 </style>

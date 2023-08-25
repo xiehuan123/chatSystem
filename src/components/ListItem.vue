@@ -1,18 +1,18 @@
 <template>
-  <div :class="['item',infoItem?.marginTop?'marginTop':'']" :style="{ height: height + 'px' }">
+  <div :class="['item',sesstioItem?.marginTop?'marginTop':'',border?'border':'']" :style="{ height: height + 'px' }">
     <slot name="left">
 
   </slot>
-    <div :class="['content',infoItem?.marginBorde?'marginBorde':'']">
-      <div>{{ infoItem?.infoName }}</div>
-      <div v-if="infoItem.infoMsg">
-        <span v-if="infoItem?.infoMsg.length > 1"
-          >[{{ infoItem?.infoMsg.length }}]</span
-        >{{ lastInfoMsg?.sendName }}:{{ lastInfoMsg?.sendMsg }}
+    <div :class="['content',sesstioItem?.marginBorde?'marginBorde':'']">
+      <div>{{ sesstioItem?.sesstionName }}</div>
+      <div v-if="sesstioItem.sesstionMsg">
+        <span v-if="sesstioItem?.us==2&&sesstioItem?.sesstionMsg.length > 1"
+          >[{{ sesstioItem?.sesstionMsg.length }}]</span>
+          <span v-if="sesstioItem?.us==2">{{ lastInfoMsg?.sendName }}:</span>{{ lastInfoMsg?.sendMsg }}
       </div>
     </div>
 
-      <div :class="['time',infoItem?.marginBorde?'marginBorde':'']">
+      <div :class="['time',sesstioItem?.marginBorde?'marginBorde':'']">
         <slot name="right">
         <div>{{ lastInfoMsg?.sendTime }}</div>
         <div>勿扰</div>
@@ -26,21 +26,26 @@
 <script setup>
 import { ref, computed, defineProps } from "vue";
 const props = defineProps({
-  infoItem: {
+  sesstioItem: {
     type: Object,
     required: true,
   },
   height: {
-    default: "95",
+   
     type: String,
+    default: "95",
   },
+  border:{
+    type: Boolean,
+    default: false,
+  }
 });
 // const props = defineProps({
 //   height: {
 //     default: "95",
 //     type: String,
 //   },
-//   infoName: {
+//   sesstionName: {
 //     default: "秋天-前后端派单",
 //     type: String,
 //   },
@@ -53,7 +58,7 @@ const props = defineProps({
 //     default: "0",
 //     type: String,
 //   },
-//   infoMsg:{
+//   sesstionMsg:{
 //     default:[{
 //       "sendName":"秋天客服002",
 //       "sendMsg":"接单扣2",
@@ -66,8 +71,8 @@ const props = defineProps({
 // });
 // console.log(props);
 const lastInfoMsg = computed(() => {
-  console.log(props?.infoItem?.infoMsg);
-  return props?.infoItem?.infoMsg[props?.infoItem?.infoMsg.length - 1];
+  console.log(props?.sesstioItem?.sesstionMsg);
+  return props?.sesstioItem?.sesstionMsg[props?.sesstioItem?.sesstionMsg.length - 1];
 });
 // console.log(lastInfoMsg);
 </script>
@@ -79,6 +84,7 @@ const lastInfoMsg = computed(() => {
 
   box-sizing: border-box;
   background: #fff;
+
 
  
   .content {
@@ -120,5 +126,8 @@ const lastInfoMsg = computed(() => {
   }
 .marginBorde{
   border-top: #ccc 1px solid;
+}
+.border{
+  border: solid 1px $bd-color;
 }
 </style>

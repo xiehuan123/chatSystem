@@ -1,14 +1,14 @@
 <template>
   <div class="list">
-    <ListItem v-for="item in infoList" :key="item.infoId" :infoItem="item" :height="50">
-      <template #right v-if="item?.infoMsg">
-        <div>{{ item?.infoMsg[item?.infoMsg.length - 1]?.sendTime }}</div>
+    <ListItem v-for="item in infoList" :key="item.sesstionId" :sesstioItem="item" :height="55" :border="true" @click="onGoDialog(item)">
+      <template #right v-if="item?.sesstionMsg">
+        <div>{{ item?.sesstionMsg[item?.sesstionMsg.length - 1]?.sendTime }}</div>
         <div>勿扰</div>
       </template>
       <template #left>
         <div class="avatar">
-          <img :src="item?.avatar" alt="图片加载失败" />
-        <Dots :position="true"  :num="item?.infoMsg?.length" :top="0" :right="0"></Dots>
+          <img :src="item?.sesstioAvatar" alt="图片加载失败" />
+        <Dots :position="true"  :num="item?.sesstionMsg?.length" :top="0" :right="0"></Dots>
        </div>
       </template>
     </ListItem>
@@ -17,6 +17,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import ListItem from "./ListItem.vue";
 import Dots from "./Dots.vue";
 defineProps({
@@ -25,6 +26,12 @@ defineProps({
     required: true,
   },
 });
+const router=useRouter()
+  const onGoDialog=(item)=>{
+  router.push({
+    path:`/user/${item.us}/${item.sesstionId}`,
+  })
+}
 </script>
 
 <style scoped lang="scss">

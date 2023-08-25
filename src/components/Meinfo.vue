@@ -13,8 +13,8 @@
       </div>
     </div>
     <div class="Qrcode">
-      <i class="iconfont icon-erweima"></i>
-      <i class="iconfont icon-arrow-right"></i>
+      <Icon iconName="icon-erweima"  />
+      <Icon iconName="icon-arrow-right"  />
     </div>
   </div>
   <div class="wxState">
@@ -34,6 +34,7 @@
 
 <script setup>
 import { ref, computed ,defineProps} from 'vue'
+import Icon from './common/Icon.vue';
 import Dots from './Dots.vue';
 defineProps({
   meInfo:{
