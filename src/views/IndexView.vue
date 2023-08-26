@@ -1,14 +1,28 @@
 <template>
   <div class="index">
     <div class="bottom">
-      <button class="login">登陆</button>
-      <button class="register">注册</button>
+      <button class="login" @click="login">登陆</button>
+      <button class="register" @click="register">注册</button>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const login = () => {
+  router.push({
+    path: "/login",
+  });
+};
+
+const register = () => {
+  router.push({
+    path: "/register",
+  });
+};
 </script>
 
 <style scoped lang="scss">

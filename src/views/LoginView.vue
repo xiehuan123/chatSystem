@@ -1,21 +1,23 @@
 <template>
   <div class="login">
-    <div class="close">
-      <i class="iconfont icon-cuowuguanbiquxiao"></i>
-    </div>
+    <Close></Close>
     <h3 class="title">微信号/QQ号/邮箱登陆</h3>
     <div class="ipt">
       <div class="top">
-        账号<input type="text" placeholder="请填写微信号/QQ号/邮箱" />
+        账号<input
+          type="text"
+          placeholder="请填写微信号/QQ号/邮箱"
+          v-model="username"
+        />
       </div>
-      <div class="bottom">
-        密码<input type="password" placeholder="请填写密码" />
-      </div>
+      <FillPassword @getPassword="retPassword"></FillPassword>
     </div>
-    <div class="login_phone">用手机号登陆</div>
+    <div class="login_phone" @click="phoneLogin">用手机号登陆</div>
     <div class="footer">
       <h4 class="tip">上述微信号/QQ号/邮箱仅用于登陆验证</h4>
-      <button class="agree">同意并登录</button>
+      <button class="agree" :disabled="!username.length" @click="agreeLogin">
+        同意并登录
+      </button>
       <div class="menu">
         <a href="#">找回密码</a>
         <a href="#">紧急冻结</a>
@@ -27,6 +29,50 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import Close from "../components/Close.vue";
+import FillPassword from "../components/FillPassword.vue";
+import { getInfo, login, zhuce } from "../api/index";
+import { useRouter } from "vue-router";
+import { useStore } from "../../src/stores/index";
+const username = ref("");
+const router = useRouter();
+const store = useStore();
+let myPassword = ref("");
+// getInfo(1).then((data) => {
+//   console.log("hhh");
+//   console.log(data);
+// });
+// zhuce({
+//   nickname: "1",
+//   password: "1",
+//   phone_number: "12311111",
+//   gender: "男",
+//   avatar: "1",
+// })
+//   .then((data) => {
+//     console.log("111", data);
+//   })
+//   .catch((err) => {
+//     console.log("err", err);
+//   });
+
+const phoneLogin = () => {
+  router.push({
+    path: "/phonelogin",
+  });
+};
+const retPassword = (password) => {
+  myPassword = password;
+};
+
+const agreeLogin = () => {
+  login({
+    username,
+    password: myPassword,
+  }).then((data) => {
+    
+  });
+};
 </script>
 
 <style scoped lang="scss">
@@ -88,15 +134,24 @@ import { ref, computed } from "vue";
       margin-bottom: 20px;
       color: #d4d4d4;
     }
+
     .agree {
       height: 40px;
       width: 144px;
       margin-bottom: 30px;
       border: 0; // 去除未选中状态边框
       outline: none; // 去除选中状态边框
-      background-color: #e1e1e1;
+      background-color: #07c060;
       border-radius: 8px;
-      color: #b5b5b5;
+      color: white;
+    }
+    // .agree::disabled {
+    //   background-color: #e1e1e1;
+    //   color: #b4b4b4;
+    // }
+    .agree[disabled] {
+      background-color: #e1e1e1;
+      color: #b4b4b4;
     }
     .menu {
       a {

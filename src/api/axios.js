@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const client = axios.create({
-   baseURL: 'https://api.example.com', // 设置基准地址
+   baseURL: 'http://49.235.114.194:7002', // 设置基准地址
    timeout: 5000, // 设置请求超时时间（单位：毫秒）
 })
 // 添加请求拦截器
@@ -13,6 +13,7 @@ client.interceptors.request.use(
       if (token) {
          config.headers['Authorization'] = `Bearer ${token}`;
       }
+      config.headers['Content-Type'] = 'application/json';
       return config;
    },
    error => {
@@ -68,16 +69,15 @@ const handleNetworkError = (errStatus) => {
    return errMessage
 }
 
-export async function request(url, config) {
+export async function request(config) {
    try {
-      const response = await client.request({ url, ...config })
+      const response = await client.request({ ...config })
       const result = response.data
       return result
    } catch (error) {
-      throw new Error(handleNetworkError(error));
-   }common
+      throw new Error(error);
+   }
 
 }
 
 export default client
-
