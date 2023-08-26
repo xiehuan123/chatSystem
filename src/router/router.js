@@ -5,9 +5,11 @@ import HomeView from '../views/HomeView.vue'
 import AddressBookView from '../views/AddressBookView.vue'
 import FindView from '../views/FindView.vue'
 import MeView from '../views/MeView.vue'
-import userLayout from '../layout/userLayout.vue'
-import Index from '../views/Index.vue'
-import Login from '../views/Login.vue'
+import IndexView from '../views/IndexView.vue'
+import LoginView from '../views/LoginView.vue'
+import RegisterView from '../views/RegisterView.vue'
+import phoneLoginView from '../views/PhoneLoginView.vue'
+import userLayout from '../layout/UserLayout.vue'
 const routes = [
   {
     path: '/', component: BasicLayout,
@@ -51,5 +53,23 @@ const routes = [
     path: '/user/:us/:sesstionId', component: userLayout,
     children: []
   }
+    
+,
+  {
+    path: "/login",
+    component: LoginView,
+  },
+  {
+    path: "/register",
+    component: RegisterView,
+  },
+  {
+    path: "/index",
+    component: IndexView,
+  },
+  {
+    path: "/phonelogin",
+    component: phoneLoginView,
+  },
 ]
 export default routes;

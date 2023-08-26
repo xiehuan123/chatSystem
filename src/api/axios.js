@@ -13,7 +13,7 @@ client.interceptors.request.use(
       if (token) {
          config.headers['Authorization'] = `Bearer ${token}`;
       }
-      
+      config.headers['Content-Type'] = 'application/json';
       return config;
    },
    error => {
@@ -69,17 +69,15 @@ const handleNetworkError = (errStatus,err) => {
    return errMessage
 }
 
-export async function request( config) {
+export async function request(config) {
    try {
-      const response = await client.request({...config })
+      const response = await client.request({ ...config })
       const result = response.data
       return result
    } catch (error) {
-      console.log(error);
-      throw new Error(handleNetworkError(error));
+      throw new Error(error);
    }
 
 }
 
 export default client
-

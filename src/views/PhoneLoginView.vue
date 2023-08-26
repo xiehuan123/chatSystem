@@ -1,16 +1,12 @@
 <template>
   <div class="login">
-    <div class="close">
-      <i class="iconfont icon-cuowuguanbiquxiao"></i>
-    </div>
+   <Close></Close>
     <h3 class="title">手机号登陆</h3>
     <div class="ipt">
       <div class="top">
         国家/地区 <span class="select">中国大陆（+86）</span>
       </div>
-      <div class="bottom">
-        手机号<input type="password" placeholder="请填写手机号" />
-      </div>
+      <FillPhone></FillPhone>
     </div>
     <div class="login_phone">用微信/手机号/邮箱登陆</div>
     <div class="footer">
@@ -27,6 +23,8 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import FillPhone from "../components/FillPhone.vue";
+import Close from "../components/Close.vue";
 </script>
 
 <style scoped lang="scss">
@@ -59,18 +57,6 @@ import { ref, computed } from "vue";
       .select {
         margin-left: 28px;
         color: #6e6e6e;
-      }
-    }
-    .bottom {
-      height: 42px;
-      font-size: 14px;
-      line-height: 42px;
-      border-bottom: 0.5px solid #dedede;
-      input {
-        margin-left: 50px;
-        border: 0; // 去除未选中状态边框
-        outline: none; // 去除选中状态边框
-        background-color: rgba(0, 0, 0, 0); // 透明背景
       }
     }
   }
