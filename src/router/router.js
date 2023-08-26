@@ -10,6 +10,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import phoneLoginView from '../views/PhoneLoginView.vue'
 import userLayout from '../layout/UserLayout.vue'
+import AddFriendView from '../views/AddFriendView.vue'
 const routes = [
   {
     path: '/', component: BasicLayout,
@@ -23,6 +24,7 @@ const routes = [
           icon: 'icon-xiaoxi'
         }
       },
+      
       {
         path: '/addressbook',
         name: '通讯录',
@@ -52,9 +54,7 @@ const routes = [
   }, {
     path: '/user/:us/:sesstionId', component: userLayout,
     children: []
-  }
-    
-,
+  },
   {
     path: "/login",
     component: LoginView,
@@ -70,6 +70,10 @@ const routes = [
   {
     path: "/phonelogin",
     component: phoneLoginView,
+  },
+  {
+    path: "/addfriend",
+    component: AddFriendView,
   },
 ]
 export default routes;
