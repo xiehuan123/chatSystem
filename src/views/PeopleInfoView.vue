@@ -1,5 +1,16 @@
 <template>
   <div class="peopleinfo">
+    
+    <header class="header">
+      <div class="back">
+        <Icon iconName="icon-arrow-left" />
+      </div>
+      <div class="title"></div>
+      <div class="option">
+        <Icon iconName="icon-ellipsis" />
+      </div>
+    </header>
+
     <div class="top">
       <div class="info">
         <div class="left">
@@ -42,9 +53,30 @@ import InfoItem from "../components/InfoItem.vue";
 .peopleinfo {
   background-color: #e3e3e3;
   height: 100%;
+  .header {
+    display: flex;
+    height: 40px;
+    line-height: 40px;
+    justify-content: center;
+    background-color: white;
+
+    .back {
+      width: 50px;
+
+      text-align: center;
+    }
+    .title {
+      width: 100%;
+      text-align: center;
+    }
+    .option {
+      text-align: center;
+      width: 56px;
+      height: 100%;
+    }
+  }
   .top {
     background-color: white;
-    margin-top: 16px;
     .info {
       display: flex;
       align-items: center;
