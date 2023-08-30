@@ -13,6 +13,7 @@ import userLayout from '../layout/UserLayout.vue'
 import AddFriendView from '../views/AddFriendView.vue'
 import SearchView from '../views/SearchView.vue'
 import PeopleInfoView from '../views/PeopleInfoView.vue'
+import PeopleInfoViewTest from '../views/PeopleInfoViewTest.vue'
 const routes = [
   {
     path: '/', component: BasicLayout,
@@ -83,7 +84,7 @@ const routes = [
   },
   {
     path: '/peopleinfo',
-    component: PeopleInfoView,
+    component: PeopleInfoViewTest,
   }
 ]
 export default routes;
