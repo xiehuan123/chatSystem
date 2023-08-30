@@ -1,12 +1,11 @@
 <template>
   <div class="peopleinfo">
-    
     <header class="header">
-      <div class="back">
+      <div class="back" @click="toBack">
         <Icon iconName="icon-arrow-left" />
       </div>
       <div class="title"></div>
-      <div class="option">
+      <div class="option" @click="toMenu">
         <Icon iconName="icon-ellipsis" />
       </div>
     </header>
@@ -43,10 +42,18 @@
 </template>
 
 <script setup>
-import Dialog from "../components/userLayout/Dialog.vue";
 import Icon from "../components/common/Icon.vue";
 import ListItem from "../components/ListItem.vue";
 import InfoItem from "../components/InfoItem.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const toBack = () => {
+  console.log('aaa')
+  router.go(-1);
+};
+const toMenu = () => {
+  console.log('菜单')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -77,6 +84,9 @@ import InfoItem from "../components/InfoItem.vue";
   }
   .top {
     background-color: white;
+    :deep(.infoitem:last-child) {
+      border-bottom: 0;
+    }
     .info {
       display: flex;
       align-items: center;
@@ -86,7 +96,7 @@ import InfoItem from "../components/InfoItem.vue";
       .left {
         width: 80px;
         height: 80px;
-        margin-right: 12px;
+        margin-right: 28px;
         img {
           border-radius: 6px;
           width: 80px;
@@ -114,6 +124,9 @@ import InfoItem from "../components/InfoItem.vue";
   .center {
     margin: 10px 0;
     background-color: white;
+    :deep(.infoitem:last-child) {
+      border-bottom: 0;
+    }
   }
   .bottom {
     .send_msg {

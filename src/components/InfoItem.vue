@@ -18,8 +18,8 @@ const info = defineProps({
 
 <style lang="scss" scoped>
 .infoitem {
-  height: 42px;
-  line-height: 42px;
+  height: 58px;
+  line-height: 58px;
   display: flex;
   justify-content: space-between;
   border-bottom: 0.5px solid #c3c3c3;
