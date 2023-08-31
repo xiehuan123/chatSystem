@@ -52,23 +52,43 @@ const infoList = [
   {
     sesstionId: 1,
     sesstionName: "雷达加朋友",
+    sesstionMsg: [
+      {
+        sendMsg: "添加身边的好友",
+      },
+    ],
     avatar: "icon-weixin",
   },
   {
     sesstionId: 2,
     sesstionName: "面对面建群",
+    sesstionMsg: [
+      {
+        sendMsg: "与身边的朋友进入同一群聊",
+      },
+    ],
     avatar: "icon-qunliao1",
     marginBorde: true,
   },
   {
     sesstionId: 3,
     sesstionName: "扫一扫",
+    sesstionMsg: [
+      {
+        sendMsg: "扫描微信二维码名片",
+      },
+    ],
     avatar: "icon-saoyisao",
     marginBorde: true,
   },
   {
     sesstionId: 4,
     sesstionName: "手机联系人",
+    sesstionMsg: [
+      {
+        sendMsg: "添加或邀请通讯录中的朋友",
+      },
+    ],
     avatar: "icon-tianjiahaoyou",
     marginBorde: true,
   },
@@ -76,11 +96,21 @@ const infoList = [
     sesstionId: 5,
     sesstionName: "公众号",
     avatar: "icon-gongzhonghao",
+    sesstionMsg: [
+      {
+        sendMsg: "获取更多的咨询和服务",
+      },
+    ],
     marginBorde: true,
   },
   {
     sesstionId: 6,
     sesstionName: "企业微信联系人",
+    sesstionMsg: [
+      {
+        sendMsg: "通过手机微信号搜索企业微信用户",
+      },
+    ],
     avatar: "icon-qiyeweixinEnterprise-WeChat",
     marginBorde: true,
   },
@@ -94,7 +124,7 @@ const infoList = [
   background-color: #e3e3e3;
   overflow: hidden;
   .title {
-    margin: 0 12px;
+    margin: 0 7px;
     text-align: center;
     margin-top: 14px;
     margin-bottom: 16px;
@@ -107,7 +137,7 @@ const infoList = [
   }
   .search {
     height: 30px;
-    margin: 0 12px;
+    margin: 0 7px;
     line-height: 30px;
     background-color: white;
     font-size: 12px;
@@ -144,5 +174,12 @@ const infoList = [
 }
 .iconSize {
   font-size: 20px;
+}
+:deep(.item .content > div:nth-child(1)) {
+  font-size: 17px;
+}
+
+:deep(.item .content > div:nth-child(2)) {
+  font-size: 12px;
 }
 </style>
