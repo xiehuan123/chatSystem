@@ -9,7 +9,6 @@
         <Icon iconName="icon-ellipsis" />
       </div>
     </header>
-
     <div class="top">
       <div class="info">
         <div class="left">
@@ -21,13 +20,17 @@
           <div class="region">地区：中国</div>
         </div>
       </div>
-      <InfoItem text="设置备注和标签"></InfoItem>
-      <InfoItem text="朋友权限"></InfoItem>
     </div>
-    <div class="center">
-      <InfoItem text="朋友圈"></InfoItem>
-      <InfoItem text="更多信息" class="bb"></InfoItem>
-    </div>
+    <ListItem
+      v-for="item in infoList"
+      :key="item.sesstionId"
+      :sesstioItem="item"
+      :height="58"
+    >
+      <template #right>
+        <Icon iconName="icon-arrow-right"> </Icon>
+      </template>
+    </ListItem>
     <div class="bottom">
       <div class="send_msg">
         <Icon iconName="icon-xiaoxi" :fontSize="24"></Icon
@@ -42,24 +45,52 @@
 </template>
 
 <script setup>
+import { ref, computed, defineProps } from "vue";
 import Icon from "../components/common/Icon.vue";
 import ListItem from "../components/ListItem.vue";
 import InfoItem from "../components/InfoItem.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const toBack = () => {
-  console.log('aaa')
+  console.log("aaa");
   router.go(-1);
 };
 const toMenu = () => {
-  console.log('菜单')
-}
+  console.log("菜单");
+};
+const infoList = [
+  {
+    sesstionId: 1,
+    sesstionName: "设置备注和标签",
+    avatar: "icon-iconfontzhizuobiaozhunbduan36",
+    marginBorde: true,
+  },
+  {
+    sesstionId: 2,
+    sesstionName: "朋友权限",
+    avatar: "icon-shoucang",
+    marginBorde: true,
+  },
+  {
+    sesstionId: 3,
+    sesstionName: "朋友圈",
+    avatar: "icon-shoucang",
+    marginTop: true,
+  },
+  {
+    sesstionId: 4,
+    sesstionName: "更多信息",
+    avatar: "icon-shoucang",
+    marginBorde: true,
+  },
+];
 </script>
 
 <style lang="scss" scoped>
 .peopleinfo {
   background-color: #e3e3e3;
   height: 100%;
+
   .header {
     display: flex;
     height: 40px;
@@ -92,15 +123,14 @@ const toMenu = () => {
       align-items: center;
       margin: 0 12px;
       height: 130px;
-      border-bottom: 0.5px solid #c3c3c3;
       .left {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         margin-right: 28px;
         img {
           border-radius: 6px;
-          width: 80px;
-          height: 80px;
+          width: 70px;
+          height: 70px;
         }
       }
       .right {
@@ -129,6 +159,7 @@ const toMenu = () => {
     }
   }
   .bottom {
+    margin-top: 7px;
     .send_msg {
       background-color: white;
       text-align: center;
@@ -136,8 +167,9 @@ const toMenu = () => {
       height: 48px;
       line-height: 48px;
       .text {
-        color: #777d8b;
+        color: #6a7c92;
         margin-left: 10px;
+        font-size: 15px;
       }
     }
     .video_msg {
@@ -147,10 +179,26 @@ const toMenu = () => {
       height: 48px;
       line-height: 48px;
       .text {
-        color: #777d8b;
+        color: #6a7c92;
+        font-size: 15px;
         margin-left: 10px;
       }
     }
   }
+}
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+}
+.iconSize {
+  font-size: 20px;
+}
+:deep(.item .content) {
+  margin-left: 12px;
+}
+:deep(.item .content > div:nth-child(1)) {
+  font-size: 15px;
 }
 </style>
