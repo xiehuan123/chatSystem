@@ -16,14 +16,28 @@
       我的微信号：xiehuan666
       <Icon iconName="icon-erweima" class="ico" :fontSize="20"></Icon>
     </div>
-    <FunctionItem v-for="(_, index) in arr" :key="index"></FunctionItem>
+    <ListItem
+      v-for="item in infoList"
+      :key="item.sesstionId"
+      :sesstioItem="item"
+      :height="58"
+    >
+      <template #right>
+        <Icon iconName="icon-arrow-right"> </Icon>
+      </template>
+      <template #left>
+        <div class="avatar">
+          <Icon :iconName="item?.avatar" :fontSize="24"> </Icon>
+        </div>
+      </template>
+    </ListItem>
   </div>
 </template>
 
 <script setup>
-import FunctionItem from "../components/FunctionItem.vue";
 import Icon from "../components/common/Icon.vue";
 import { useRouter } from "vue-router";
+import ListItem from "../components/ListItem.vue";
 const router = useRouter();
 const toBack = () => {
   router.go(-1);
@@ -33,7 +47,44 @@ const toSearch = () => {
     path: "/addfriend/search",
   });
 };
-const arr = [1, 3, 4, 5, 5];
+
+const infoList = [
+  {
+    sesstionId: 1,
+    sesstionName: "雷达加朋友",
+    avatar: "icon-weixin",
+  },
+  {
+    sesstionId: 2,
+    sesstionName: "面对面建群",
+    avatar: "icon-qunliao1",
+    marginBorde: true,
+  },
+  {
+    sesstionId: 3,
+    sesstionName: "扫一扫",
+    avatar: "icon-saoyisao",
+    marginBorde: true,
+  },
+  {
+    sesstionId: 4,
+    sesstionName: "手机联系人",
+    avatar: "icon-tianjiahaoyou",
+    marginBorde: true,
+  },
+  {
+    sesstionId: 5,
+    sesstionName: "公众号",
+    avatar: "icon-gongzhonghao",
+    marginBorde: true,
+  },
+  {
+    sesstionId: 6,
+    sesstionName: "企业微信联系人",
+    avatar: "icon-qiyeweixinEnterprise-WeChat",
+    marginBorde: true,
+  },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -83,5 +134,15 @@ const arr = [1, 3, 4, 5, 5];
       top: 0;
     }
   }
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+}
+.iconSize {
+  font-size: 20px;
 }
 </style>

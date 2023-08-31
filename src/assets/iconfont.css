@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4208734 */
-  src: url('//at.alicdn.com/t/c/font_4208734_8z4so5rr69f.woff2?t=1693066947467') format('woff2'),
-       url('//at.alicdn.com/t/c/font_4208734_8z4so5rr69f.woff?t=1693066947467') format('woff'),
-       url('//at.alicdn.com/t/c/font_4208734_8z4so5rr69f.ttf?t=1693066947467') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_4208734_4p1sazpde5f.woff2?t=1693492237888') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4208734_4p1sazpde5f.woff?t=1693492237888') format('woff'),
+       url('//at.alicdn.com/t/c/font_4208734_4p1sazpde5f.ttf?t=1693492237888') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-weixin:before {
+  content: "\e8bb";
+}
+
+.icon-leida:before {
+  content: "\e62e";
+}
+
+.icon-leidatance:before {
+  content: "\e901";
 }
 
 .icon-iconset0398:before {

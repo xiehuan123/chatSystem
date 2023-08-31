@@ -48,7 +48,6 @@
 import { ref, computed, defineProps } from "vue";
 import Icon from "../components/common/Icon.vue";
 import ListItem from "../components/ListItem.vue";
-import InfoItem from "../components/InfoItem.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const toBack = () => {
