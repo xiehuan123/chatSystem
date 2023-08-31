@@ -28,7 +28,7 @@ const toBack = ()=>{
   .frm {
     display: flex;
     align-items: center;
-    margin: 0 6px;
+    margin: 0 7px;
     .content {
       text-align: center;
       background-color: white;
@@ -42,7 +42,7 @@ const toBack = ()=>{
       }
       .ipt {
         height: 24px;
-        width: 280px;
+        width: 260px;
         border: 0; // 去除未选中状态边框
         outline: none; // 去除选中状态边框
       }
@@ -51,7 +51,7 @@ const toBack = ()=>{
       }
     }
     .text {
-      margin-left: 4px;
+      margin-left: 8px;
       font-size: 14px;
       transform: translateY(5px);
       color: #6a7c92;
