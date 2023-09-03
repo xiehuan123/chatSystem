@@ -22,12 +22,13 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue"
+import { ref, computed ,getCurrentInstance} from "vue"
 import Close from "../components/Close.vue"
 import Input from "../components/common/Input.vue"
-import {  login,test } from "../api/index"
+import {  login } from "../api/index"
 import { useRouter } from "vue-router"
 import { useStore } from "../../src/store/index"
+const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 const router = useRouter()
 const store = useStore()
 const userName = ref("")
@@ -42,6 +43,8 @@ const phoneLogin = () => {
   })
 }
 const agreeLogin = async () => {
+  globalProperties.$loading("正在登录中...")
+
   const {res,err}=await login({
     userName:userName.value,
     userPassword:userPassword.value,
@@ -50,14 +53,14 @@ const agreeLogin = async () => {
     throw err
     
   }
-
+  globalProperties.$loading("正在登录中...",false)
   store.setUser({userAvatar:res["data"]["avatar"],userSex:res["data"]["gender"],useriPhone:res["data"]["phone_number"],userWx:res["data"]["wechat_id"],userRigon:res["data"]["region"],uId:res["data"]["uid"],nickName:res["data"]["nickName"]})
   
   store.openSocket(store.user.uId)
-  const t=await test(store.user.uId)
-  console.log(t)
+  // const t=await test(store.user.uId)
+  // console.log(t)
   router.push({
-    path:`/user/1/${t["res"]["data"]}`
+    path:"/"
   })
 
 }

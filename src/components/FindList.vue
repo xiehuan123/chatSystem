@@ -6,22 +6,16 @@
       :sesstioItem="item"
       :height="45"
       :border="border"
-      
     >
-  <template #right>
-    <Icon iconName="icon-arrow-right"  >
-
-</Icon>
-  </template>
-  <template #left>
-    <div class="avatar">
-      <Icon :iconName="item?.avatar"  :fontSize="24">
-
-</Icon>
-
-   </div>
-  </template>
-  </ListItem>
+      <template #right>
+        <Icon iconName="icon-arrow-right"> </Icon>
+      </template>
+      <template #left>
+        <div class="avatar">
+          <Icon :iconName="item?.avatar" :fontSize="24"> </Icon>
+        </div>
+      </template>
+    </ListItem>
   </div>
 </template>
 
@@ -29,30 +23,27 @@
 import ListItem from "./ListItem.vue"
 import Icon from "./common/Icon.vue"
 defineProps({
-  infoList:{
+  infoList: {
     type: Array,
     required: true,
-
   },
-  border:{
+  border: {
     type: Boolean,
     default: false,
-  }
+  },
 })
 </script>
 
 <style scoped lang="scss">
-.findlist{
-
+.findlist {
   .avatar {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 5px 10px;
   }
-  .iconSize{
+  .iconSize {
     font-size: 20px;
   }
-
 }
 </style>

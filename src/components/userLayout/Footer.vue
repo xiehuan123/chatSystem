@@ -1,12 +1,12 @@
 <template>
-  <footer class="footer">
+  <div class="footer">
     <div class="main">
       <div class="speech">
-        <Icon  iconName="icon-yuyin" :fontSize="$fs-35"/>
+        <Icon iconName="icon-yuyin" :fontSize="$fs - 35" />
       </div>
       <div class="textInput">
         <div class="inputBox">
-          <input type="text" v-model="textInput"  @keydown.enter="sendInfo()"/>
+          <input type="text" v-model="textInput" @keydown.enter="sendInfo()" />
         </div>
       </div>
       <div class="operation">
@@ -15,32 +15,37 @@
         <div class="sendInfo" v-show="isTextDom" @click="sendInfo()" >发送</div>
       </div>
     </div>
-      
-      <div class="option" v-show="isOption">
-      <ul ref="ul"  @touchstart="onTouchstart($event)" @touchmove="onTouchmove($event)" @touchend="onTouchEnd($event)">
-        <li >
+
+    <div class="option" v-show="isOption">
+      <ul
+        ref="ul"
+        @touchstart="onTouchstart($event)"
+        @touchmove="onTouchmove($event)"
+        @touchend="onTouchEnd($event)"
+      >
+        <li>
           <div class="item" v-for="oItem in optionsFirst" :key="oItem.key">
-            <div class="bg"><Icon  :iconName="oItem.oIcon"  :fontSize="30"/></div>
-      
-            <div>{{oItem.oName}}</div>
+            <div class="bg">
+              <Icon :iconName="oItem.oIcon" :fontSize="30" />
+            </div>
+
+            <div>{{ oItem.oName }}</div>
           </div>
         </li>
-        <li >
+        <li>
           <div class="item" v-for="oItem in optionsSecond" :key="oItem.key">
             <div class="bg"><Icon  :iconName="oItem.oIcon"  :fontSize="30"/></div>
           
             <div>{{oItem.oName}}</div>
           </div>
         </li>
-        
       </ul>
       <div class="dian">
-          <div :class="activeIndex==1?'active':''"></div>
-          <div :class="activeIndex==2?'active':''"></div>
-        </div>
+        <div :class="activeIndex == 1 ? 'active' : ''"></div>
+        <div :class="activeIndex == 2 ? 'active' : ''"></div>
+      </div>
     </div>
- 
-  </footer>
+  </div>
 </template>
 
 <script setup>
@@ -134,14 +139,14 @@ const onTouchstart=(e)=>{
   
   clientX.value=e.changedTouches[0].clientX
 }
-//触摸移动捕获x点
-const onTouchmove=(e)=>{
-  const moveClientX=e.changedTouches[0].clientX
-  if(clientX.value!=0){
-    movX.value=moveClientX-clientX.value
-    ul.value.style.left=movX.value+"px"
-    console.log(movX)
 
+//触摸移动捕获x点
+const onTouchmove = (e) => {
+  const moveClientX = e.changedTouches[0].clientX
+  if (clientX.value != 0) {
+    movX.value = moveClientX - clientX.value
+    ul.value.style.left = movX.value + "px"
+    console.log(movX)
   }
   console.log()
 }
@@ -158,11 +163,10 @@ const onTouchEnd=()=>{
     ul.value.style.left="-100%"
    
   }
-  
 }
 //是否显示加号选项
-const onOpenOtions=()=>{
-  isOption.value=!isOption.value
+const onOpenOtions = () => {
+  isOption.value = !isOption.value
 }
 //发送数据
 const sendInfo=()=>{
@@ -243,7 +247,7 @@ const sendInfo=()=>{
   .option {
     position: relative;
     height: 300px;
-   
+
     margin-top: 50px;
     transition: all 5s;
     ul {
@@ -253,7 +257,7 @@ const sendInfo=()=>{
       width: 200%;
       display: flex;
       -webkit-overflow-scrolling: touch;
-      li{
+      li {
         width: 100%;
         height: 200px;
         display: grid;
@@ -262,60 +266,54 @@ const sendInfo=()=>{
         justify-content: flex-start;
         align-items: flex-start;
         .item {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        // background: #000;
-  
-        .bg{
-          display: inline-block;
-          width: 50px;
-          height: 50px;
-          overflow: hidden;
-          background: rgb(246, 246, 246);
-          text-align: center;
-          line-height: 50px;
-          border-radius: 15px;
-        }
-        div {
-          margin-top: 5px;
-          font-size: 15px;
+          display: flex;
+          width: 100%;
+          height: 100%;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          // background: #000;
+
+          .bg {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+            background: rgb(246, 246, 246);
+            text-align: center;
+            line-height: 50px;
+            border-radius: 15px;
+          }
+          div {
+            margin-top: 5px;
+            font-size: 15px;
+          }
         }
       }
-      }
-  
     }
-    .dian{
+    .dian {
+      > div {
+        width: 5px;
+        height: 5px;
+        margin: 5px 5px;
+        border-radius: 50%;
+        opacity: 0.4;
+        background: rgba(110, 110, 110);
+      }
+      .active {
+        opacity: 1;
+      }
+      display: flex;
 
->div{
-width: 5px;
-height: 5px;
-margin: 5px 5px;
-border-radius: 50%;
-opacity: .4;
-background: rgba(110, 110, 110);
-
-}
-.active{
-  opacity: 1;
-}
-display: flex;
-
-position: absolute;
-bottom: 10px;
-left: 50%;
-transform: translateX(-50%);
-border-radius: 50%;
-
-}
-
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+    }
   }
-  .show{
+  .show {
     height: 300px;
-
   }
 }
 </style>

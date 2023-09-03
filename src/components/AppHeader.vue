@@ -3,12 +3,8 @@
     <header>
       <div class="title">{{ route.name }}{{}}</div>
       <div class="option">
-        <Icon iconName="icon-sousuoxiao" :fontSize="20" >
-
-</Icon>
-<Icon iconName="icon-jiahao"  :fontSize="24">
-
-</Icon>
+        <Icon iconName="icon-sousuoxiao" :fontSize="20"> </Icon>
+        <Icon iconName="icon-jiahao" :fontSize="24"> </Icon>
       </div>
     </header>
   </div>
@@ -38,8 +34,6 @@ header {
     padding: 0 10px;
     width: 56px;
     height: 100%;
-   
-    
   }
 }
 .hiden {

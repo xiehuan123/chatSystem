@@ -2,7 +2,7 @@
 import { render, h } from "vue"
 import LoadingComponent from "./Loading.vue"
 
-const loading = (message="加载中", isVisable = true) => {
+const loading = (message="加载中...", isVisable = true) => {
   const handleDestroy = () => {
     // 从 body 上移除组件
     render(null, document.body)

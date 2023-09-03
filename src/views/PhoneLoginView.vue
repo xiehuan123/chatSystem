@@ -6,7 +6,7 @@
       <div class="top">
         国家/地区 <span class="select">中国大陆（+86）</span>
       </div>
-      <Input></Input>
+      <Input  text="手机号" placeholder="请输入手机号"></Input>
     </div>
     <div class="login_phone">用微信/手机号/邮箱登陆</div>
     <div class="footer">

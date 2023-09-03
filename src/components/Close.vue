@@ -1,12 +1,14 @@
 <template>
   <router-link to="/index">
     <div class="Close">
-      <i class="iconfont icon-cuowuguanbiquxiao"></i>
+      <Icon iconName="icon-cuowuguanbiquxiao" :fontSize="24"></Icon>
+   
     </div>
   </router-link>
 </template>
 
 <script setup>
+import Icon from "./common/Icon.vue"
 </script>
 
 <style scoped lang="scss">
@@ -16,10 +18,5 @@ a {
 .Close {
   height: 32px;
   width: 32px;
-  font-weight: normal;
-  font-size: 20px;
-  i {
-    font-size: 24px;
-  }
 }
 </style>  
