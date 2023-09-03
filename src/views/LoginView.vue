@@ -2,20 +2,14 @@
   <div class="login">
     <Close></Close>
     <h3 class="title">微信号/QQ号/邮箱登陆</h3>
-    <div class="ipt">
-      <div class="top">
-        账号<input
-          type="text"
-          placeholder="请填写微信号/QQ号/邮箱"
-          v-model="username"
-        />
-      </div>
-      <FillPassword @getPassword="retPassword"></FillPassword>
-    </div>
+ 
+      <Input text="账号" type="text"  v-model="userName" placeholder="请填写微信号/QQ号/邮箱" ></Input>
+      <Input text="密码" type="password"  v-model="userPassword" placeholder="请输入密码" ></Input>
+
     <div class="login_phone" @click="phoneLogin">用手机号登陆</div>
     <div class="footer">
       <h4 class="tip">上述微信号/QQ号/邮箱仅用于登陆验证</h4>
-      <button class="agree" :disabled="!username.length" @click="agreeLogin">
+      <button class="agree" :disabled="!showSubmitBtn" @click="agreeLogin">
         同意并登录
       </button>
       <div class="menu">
@@ -28,51 +22,45 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import Close from "../components/Close.vue";
-import FillPassword from "../components/FillPassword.vue";
-import { getInfo, login, zhuce } from "../api/index";
-import { useRouter } from "vue-router";
-import { useStore } from "../../src/stores/index";
-const username = ref("");
-const router = useRouter();
-const store = useStore();
-let myPassword = ref("");
-// getInfo(1).then((data) => {
-//   console.log("hhh");
-//   console.log(data);
-// });
-// zhuce({
-//   nickname: "1",
-//   password: "1",
-//   phone_number: "12311111",
-//   gender: "男",
-//   avatar: "1",
-// })
-//   .then((data) => {
-//     console.log("111", data);
-//   })
-//   .catch((err) => {
-//     console.log("err", err);
-//   });
+import { ref, computed } from "vue"
+import Close from "../components/Close.vue"
+import Input from "../components/common/Input.vue"
+import {  login,test } from "../api/index"
+import { useRouter } from "vue-router"
+import { useStore } from "../../src/store/index"
+const router = useRouter()
+const store = useStore()
+const userName = ref("")
+const userPassword = ref("")
+const showSubmitBtn=computed(()=>{
+  return userName.value.length&&userPassword.value.length
+})
 
 const phoneLogin = () => {
   router.push({
     path: "/phonelogin",
-  });
-};
-const retPassword = (password) => {
-  myPassword = password;
-};
-
-const agreeLogin = () => {
-  login({
-    username,
-    password: myPassword,
-  }).then((data) => {
+  })
+}
+const agreeLogin = async () => {
+  const {res,err}=await login({
+    userName:userName.value,
+    userPassword:userPassword.value,
+  })
+  if(err){
+    throw err
     
-  });
-};
+  }
+
+  store.setUser({userAvatar:res["data"]["avatar"],userSex:res["data"]["gender"],useriPhone:res["data"]["phone_number"],userWx:res["data"]["wechat_id"],userRigon:res["data"]["region"],uId:res["data"]["uid"],nickName:res["data"]["nickName"]})
+  
+  store.openSocket(store.user.uId)
+  const t=await test(store.user.uId)
+  console.log(t)
+  router.push({
+    path:`/user/1/${t["res"]["data"]}`
+  })
+
+}
 </script>
 
 <style scoped lang="scss">

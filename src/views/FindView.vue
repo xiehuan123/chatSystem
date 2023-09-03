@@ -5,11 +5,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from "vue"
 import FindList from "../components/FindList.vue"
 const infoList=ref([
 
-    {
+  {
     sesstionId: 1,
     sesstionName: "朋友圈",
     avatar: "icon-iconfontzhizuobiaozhunbduan36",

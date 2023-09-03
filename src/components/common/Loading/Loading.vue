@@ -10,19 +10,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 
 const props = defineProps({ 
- // 消息内容
- message: {
-  type: String,
-  required: true,
-  defalut:"加载中"
+  // 消息内容
+  message: {
+    type: String,
+    required: true,
+    defalut:"加载中"
   },
   isVisable:{
-  type: Boolean,
-  required: true,
-  defalut:true
+    type: Boolean,
+    required: true,
+    defalut:true
   },
   // 关闭时的回调
   destroy: Function

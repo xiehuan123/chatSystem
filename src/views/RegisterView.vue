@@ -4,39 +4,41 @@
     <h3 class="title">手机号注册</h3>
     <div class="form-group">
       <div class="box">
-        <div class="upload">
-          <div id="image-preview1" class="image-preview"></div>
-          <label for="file-upload1" class="upload-label">
-            <i class="fas fa-cloud-upload-alt"></i> 水印
-          </label>
-          <input id="file-upload1" type="file" name="shuiying" hidden />
-        </div>
-        <div class="upload">
-          <div id="image-preview2" class="image-preview"></div>
-          <label for="file-upload2" class="upload-label">
-            <i class="fas fa-cloud-upload-alt"></i> 原图
-          </label>
-          <input id="file-upload2" type="file" name="image" hidden />
+        <div class="upload" @click="onUploadImg">
+          <div id="image-preview1" class="image-preview">
+            <img :src="uploadImgUrl" alt="" v-show="uploadImgUrl">
+          </div>
+
+          <input
+            id="file-upload1"
+            type="file"
+            ref="uploadImgDom"
+            hidden
+            @change="onUploadChange"
+          />
         </div>
       </div>
     </div>
-    <div class="nickname">
-      昵称<input
-        type="text"
-        class="ipt"
-        placeholder="例如：陈晨"
-        v-model="nickname"
-      />
-    </div>
-    <FillPhone @getPhone="retPhone"></FillPhone>
-    <FillPassword @getPassword="retPassword"></FillPassword>
+    <Input placeholder="例如：陈晨" v-model="userName" text="昵称" />
+    <Input placeholder="请填写手机号" v-model="userPhone" text="手机"  type="Number"/>
+    <Input
+      placeholder="请填写密码"
+      v-model="userPasswod"
+      text="密码"
+      type="password"
+    />
     <div class="footer">
       <div class="top">
-        <input type="radio" name="" id="" :checked="isChecked" @click="checked"/><span>我已阅读并同意</span
-        ><a href="">《软件许可及服务协议》</a>
+        <input
+          type="radio"
+          name=""
+          id=""
+          :checked="isChecked"
+          @click="checked"
+        /><span>我已阅读并同意</span><a href="">《软件许可及服务协议》</a>
       </div>
       <div class="center">本页面收集的信息仅用于注册账号</div>
-      <button class="agree" :disabled="!nickname.length" @click="register">
+      <button class="agree"  @click="registerCheck">
         同意并继续
       </button>
     </div>
@@ -44,87 +46,68 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import FillPhone from "../components/FillPhone.vue";
-import FillPassword from "../components/FillPassword.vue";
-import Close from "../components/Close.vue";
-import { zhuce } from "../api/index";
-Window.onload = function () {
-  const fileUpload1 = document.getElementById("file-upload1");
-  const imagePreview1 = document.getElementById("image-preview1");
-  fileUpload1.addEventListener("change", function () {
-    const file = this.files[0];
-    const reader = new FileReader();
+import { ref } from "vue"
+import Input from "../components/common/Input.vue"
+import Close from "../components/Close.vue"
+import { register } from "../api/index"
 
-    reader.onload = function (e) {
-      const imageUrl = e.target.result;
-      imagePreview1.innerHTML = `<img src="${imageUrl}" alt="Preview">`;
-      imagePreview1.style.display = "block";
-    };
 
-    reader.readAsDataURL(file);
-  });
 
-  const fileUpload2 = document.getElementById("file-upload2");
-  const imagePreview2 = document.getElementById("image-preview2");
-
-  fileUpload2.addEventListener("change", function () {
-    const file = this.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      const imageUrl = e.target.result;
-      // const imageUrl = '../assets//image/test.jpg'
-      imagePreview2.innerHTML = `<img src="${imageUrl}" alt="Preview">`;
-      // imagePreview2.innerHTML = `<img src="../assets//image/test.jpg" alt="Preview">`;
-      imagePreview2.style.display = "block";
-    };
-
-    reader.readAsDataURL(file);
-  });
-};
-
-const nickname = ref("");
-let myPhone = ref("");
-let myPassword = ref("");
-let isChecked = ref(false);
-const retPassword = (password) => {
-  myPassword = password;
-};
-const retPhone = (phone) => {
-  myPhone = phone;
-};
-
+const userName = ref("")
+const userPhone = ref("")
+const userPasswod = ref("")
+const isChecked = ref(false)
+const uploadImgDom = ref(null)
+const uploadImgUrl=ref("")
+const uploadImgFile=ref(null)
 const checked = () => {
-  console.log('aaa',isChecked)
-  isChecked = !isChecked;
+  isChecked.value = !isChecked.value
 }
+const onUploadImg = () => {
+  uploadImgDom.value.click()
+}
+const onUploadChange = () => {
+  const file = uploadImgDom.value.files[0]
+  uploadImgFile.value=file
+  console.log(file)
+  uploadImgUrl.value = URL.createObjectURL(file)
 
-const register = () => {
+ 
+}
+const registerCheck = async () => {
   if (
-    !nickname.value.trim() &&
-    !myPassword.value.trim() &&
-    !myPhone.value.trim()
+    !userName.value.trim() &&
+    !userPasswod.value.trim() &&
+    !userPhone.value.trim()
   ) {
-    alert("Please enter");
+    alert("Please enter")
     return
   }
-  zhuce({
-    phone: myPhone,
-    password: myPassword,
-    nickname,
-  }).then((data) => {});
-};
+  const registerData = new FormData()
+  console.log(uploadImgFile.value,"有值")
+  registerData.append("nickname", userName.value)
+  registerData.append("password", userPasswod.value)
+  registerData.append("phone_number", userPhone.value)
+  registerData.append("avatar", uploadImgFile.value)
+  const {err,res}= await register(registerData)
+  if(err){
+    console.log(err)
+    return  
+  }
+  console.log(res)
+
+}
 </script>
 
 <style scoped lang="scss">
 .register {
-  padding: 18px;
+  padding: 5px 18px;
+
   .title {
     text-align: center;
     font-weight: normal;
   }
-  .nickname {
+  .userName {
     width: 100%;
     height: 48px;
     font-size: 16px;
@@ -181,6 +164,39 @@ const register = () => {
     .agree[disabled] {
       background-color: #e1e1e1;
       color: #b4b4b4;
+    }
+  }
+  .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    .upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 80px;
+      width: 80px;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      :hover {
+        border-color: #999;
+      }
+      :hover .upload-label {
+        color: #999;
+      }
+      .image-preview {
+        width: 100%;
+        height: 100%;
+        
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
   }
 }

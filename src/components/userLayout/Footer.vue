@@ -12,11 +12,6 @@
       <div class="operation">
         <Icon  iconName="icon-xiaolian" :fontSize="35"/>
         <Icon  iconName="icon-jiahao2" v-show="!isTextDom" @click="onOpenOtions()" :fontSize="35"/>
-        <!-- // <i class="" v-show="!isTextDom" @click="onOpenOtions()">
-        //   <svg class="icon" aria-hidden="true">
-        //     <use href="#icon-jiahao2"></use>
-        //   </svg>
-        // </i> -->
         <div class="sendInfo" v-show="isTextDom" @click="sendInfo()" >发送</div>
       </div>
     </div>
@@ -33,12 +28,7 @@
         <li >
           <div class="item" v-for="oItem in optionsSecond" :key="oItem.key">
             <div class="bg"><Icon  :iconName="oItem.oIcon"  :fontSize="30"/></div>
-            
-            <!-- <i>
-              <svg class="icon" aria-hidden="true">
-                <use :href="oItem.oIcon"></use>
-              </svg>
-            </i> -->
+          
             <div>{{oItem.oName}}</div>
           </div>
         </li>
@@ -54,15 +44,15 @@
 </template>
 
 <script setup>
-import { ref, computed ,defineEmits } from "vue";
-import Icon from "../common/Icon.vue";
-const textInput = ref("");
-const emit = defineEmits();
-const ul = ref(null);
+import { ref, computed ,defineEmits } from "vue"
+import Icon from "../common/Icon.vue"
+const textInput = ref("")
+const emit = defineEmits("sendInfo")
+const ul = ref(null)
 //判断是否有值显示发送
 const isTextDom = computed(() => {
-  return textInput.value;
-});
+  return textInput.value
+})
 //第一页
 const optionsFirst = ref([
   {
@@ -105,7 +95,7 @@ const optionsFirst = ref([
     oName: "我的收藏",
     oIcon: "icon-shoucang",
   },
-]);
+])
 const optionsSecond = ref([
   {
     oId: 1,
@@ -133,14 +123,14 @@ const optionsSecond = ref([
     oIcon: "icon-hongbao",
   },
  
-]);
+])
 const clientX=ref(0)
 const movX=ref(0)
 const isOption=ref(false)
 //目前选项第几页标识
 const activeIndex=ref(1)
 const onTouchstart=(e)=>{
-  console.log(ul.value);
+  console.log(ul.value)
   
   clientX.value=e.changedTouches[0].clientX
 }
@@ -149,23 +139,23 @@ const onTouchmove=(e)=>{
   const moveClientX=e.changedTouches[0].clientX
   if(clientX.value!=0){
     movX.value=moveClientX-clientX.value
-    ul.value.style.left=movX.value+'px'
-    console.log(movX);
+    ul.value.style.left=movX.value+"px"
+    console.log(movX)
 
   }
-  console.log();
+  console.log()
 }
 //触摸结束判断是往左边还是右边滑动
-const onTouchEnd=(e)=>{
+const onTouchEnd=()=>{
   clientX.value=0
-  console.log ("松开",  movX.value);
+  console.log ("松开",  movX.value)
   if(movX.value>0){
     activeIndex.value=1
-    ul.value.style.left='0'
+    ul.value.style.left="0"
 
   }else{
     activeIndex.value=2
-    ul.value.style.left='-100%'
+    ul.value.style.left="-100%"
    
   }
   
@@ -176,9 +166,9 @@ const onOpenOtions=()=>{
 }
 //发送数据
 const sendInfo=()=>{
-  console.log("传递子组件的值",textInput.value);
+  console.log("传递子组件的值",textInput.value)
   emit("sendInfo",{code :1,msg:textInput.value})
-  textInput.value=''
+  textInput.value=""
 
 }
 </script>

@@ -1,18 +1,21 @@
 <template>
   <div class="home">
-    <HomeList :infoList="store.infoList"></HomeList>
+    <HomeList :infoList="infoList"></HomeList>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, getCurrentInstance } from "vue";
+import { ref,watch  } from "vue"
 import {useStore} from "../store/index"
-import HomeList from "../components/HomeList.vue";
+import HomeList from "../components/HomeList.vue"
 const store=useStore()
-store.openSocket()
-store.$socket.on("receiveServeMessage",(data)=>{
-console.log("后台回复",data);
-})
+const infoList=ref(store.infoList)
+watch(() => store.infoList, (newValue, oldValue) => {
+  console.log(`count 变化，新值：${newValue}，旧值：${oldValue}`)
+  infoList.value = newValue
+     
+}, { deep: true })
+
 // globalProperties.$loading()
 
 // globalProperties.$socket.emit("message", "这是一条测试信息11");
@@ -42,23 +45,8 @@ console.log("后台回复",data);
 //   },
 // ]);
 
-//服务器转发过来的信息
-store.$socket.on("receiveServeMessage", (data) => {
-  console.log("后台回复", data);
-  console.log(store.infoList);
-  //查找当 当前发送的聊天记录在不在当前会话里面 如果在就添加进去
-  const  index= store.infoList.findIndex(info => info.infoId === data.uId)
-  if(index!=-1){
-    return store.infoList[index].infoMsg.push(data)
-  }
-  store.infoList.push({
-    ...data,
-    sesstionMsg:[data.sesstionMsg]
-
-  })
 
 
-});
 </script>
 
 <style scoped lang="scss">

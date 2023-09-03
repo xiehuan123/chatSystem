@@ -41,18 +41,18 @@
 </template>
 
 <script setup>
-import { ref, computed,defineProps ,watch} from "vue";
+import { ref,defineProps ,watch} from "vue"
 const props=defineProps({
   msgs:{
     type:Array,
-    default:[]
+    default:() => []
   }
 }
 )
 //监听对话框 当发送消息拖到底部
 const Dialog=ref(null)
-watch(props, (nweProps)=>{
-  Dialog.value.scrollTop = Dialog.value.scrollHeight;
+watch(props, ()=>{
+  Dialog.value.scrollTop = Dialog.value.scrollHeight
 })
 
 </script>

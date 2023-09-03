@@ -8,21 +8,20 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
-const router = useRouter();
+import { useRouter } from "vue-router"
+const router = useRouter()
 
 const login = () => {
   router.push({
     path: "/login",
-  });
-};
+  })
+}
 
 const register = () => {
   router.push({
     path: "/register",
-  });
-};
+  })
+}
 </script>
 
 <style scoped lang="scss">

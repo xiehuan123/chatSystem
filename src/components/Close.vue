@@ -7,7 +7,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
 </script>
 
 <style scoped lang="scss">

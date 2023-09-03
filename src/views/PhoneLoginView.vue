@@ -6,7 +6,7 @@
       <div class="top">
         国家/地区 <span class="select">中国大陆（+86）</span>
       </div>
-      <FillPhone></FillPhone>
+      <Input></Input>
     </div>
     <div class="login_phone">用微信/手机号/邮箱登陆</div>
     <div class="footer">
@@ -22,9 +22,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import FillPhone from "../components/FillPhone.vue";
-import Close from "../components/Close.vue";
+import Input from "../components/common/Input.vue"
+import Close from "../components/Close.vue"
 </script>
 
 <style scoped lang="scss">

@@ -5,8 +5,6 @@
 </template>
 
 <script setup>
-import { ref, computed ,getCurrentInstance} from 'vue'
-
 </script>
 
 <style scoped>

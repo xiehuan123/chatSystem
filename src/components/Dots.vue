@@ -26,7 +26,6 @@
 </template>
 
 <script setup>
-import { ref, computed, defineProps } from "vue";
 const props = defineProps({
   num: {
     default: 0,
@@ -52,8 +51,8 @@ const props = defineProps({
     default: false,
     type: Boolean,
   },
-});
-console.log(props);
+})
+
 </script>
 
 <style scoped>

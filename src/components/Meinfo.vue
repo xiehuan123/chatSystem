@@ -33,9 +33,9 @@
 </template>
 
 <script setup>
-import { ref, computed ,defineProps} from 'vue'
-import Icon from './common/Icon.vue';
-import Dots from './Dots.vue';
+import {defineProps} from "vue"
+import Icon from "./common/Icon.vue"
+import Dots from "./Dots.vue"
 defineProps({
   meInfo:{
     type:Object,

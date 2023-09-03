@@ -10,24 +10,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue"
 
 const props = defineProps({ 
- // 消息内容
- message: {
-  type: String,
-  required: true,
-  default:"加载中"
+  // 消息内容
+  message: {
+    type: String,
+    required: true,
+    default:"加载中"
   },
   icon:{
-  type: String,
-  required: true,
-  default:"icon-xiaoxi"
+    type: String,
+    required: true,
+    default:"icon-xiaoxi"
   },
-   // 停留时长
-   duration: Number,
-    // 关闭时的回调
-    destroy: Function
+  // 停留时长
+  duration: Number,
+  // 关闭时的回调
+  destroy: Function
 })
 const isVisable=ref(false)
 onMounted(() => {

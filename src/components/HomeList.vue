@@ -16,18 +16,17 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
-import ListItem from "./ListItem.vue";
-import Dots from "./Dots.vue";
+import { useRouter } from "vue-router"
+import ListItem from "./ListItem.vue"
+import Dots from "./Dots.vue"
 defineProps({
   infoList: {
     type: Array,
     required: true,
   },
-});
+})
 const router=useRouter()
-  const onGoDialog=(item)=>{
+const onGoDialog=(item)=>{
   router.push({
     path:`/user/${item.us}/${item.sesstionId}`,
   })
