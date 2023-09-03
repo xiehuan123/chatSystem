@@ -24,7 +24,7 @@ export const useStore = defineStore("user", () => {
 
   })
   const openSocket = (uid, token) => {
-    $socket.value = io("http://127.0.0.1:5000", {
+    $socket.value = io("http://49.235.114.194:7002", {
       query: {
         uid,
         token
