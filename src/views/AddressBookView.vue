@@ -30,9 +30,9 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import Friend from "../components/Friend.vue";
-const peoples = ref([1, 2, 3]);
+import { ref, } from "vue"
+import Friend from "../components/Friend.vue"
+const peoples = ref([1, 2, 3])
 </script>
 
 <style scoped lang="scss">

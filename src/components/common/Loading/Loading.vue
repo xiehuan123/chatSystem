@@ -10,19 +10,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 
 const props = defineProps({ 
- // 消息内容
- message: {
-  type: String,
-  required: true,
-  defalut:"加载中"
+  // 消息内容
+  message: {
+    type: String,
+    required: true,
+    defalut:"加载中"
   },
   isVisable:{
-  type: Boolean,
-  required: true,
-  defalut:true
+    type: Boolean,
+    required: true,
+    defalut:true
   },
   // 关闭时的回调
   destroy: Function
@@ -50,20 +49,25 @@ const props = defineProps({
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30vw;
-    height: 30vw;
-    background: #887676;
+    width: 35vw;
+    height: 35vw;
+    background: rgba(79, 79, 79,.8);
     border-radius: 20px;
   }
   .yuan {
     width: 40px;
     height: 40px;
-    border: 3px solid rgb(108, 103, 95);
+    border: 3px solid  rgb(209, 209, 209)   ;
+
     border-radius: 40px;
     clip-path: polygon(50% 0%, 100% 0%, 100% 3600%, 50% 50%);
     -webkit-clip-path: polygon(50% 0%, 100% 0%, 100% 3600%, 50% 50%);
 
     animation: identifier 1.5s infinite;
+  }
+  .text{
+    color: white;
+    margin-top: 15px;
   }
   // .yuan::before{
   //   content:"";

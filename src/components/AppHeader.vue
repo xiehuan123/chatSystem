@@ -11,10 +11,9 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { useRoute } from "vue-router";
-import Icon from "./common/Icon.vue";
-const route = useRoute();
+import { useRoute } from "vue-router"
+import Icon from "./common/Icon.vue"
+const route = useRoute()
 </script>
 
 <style scoped lang="scss">

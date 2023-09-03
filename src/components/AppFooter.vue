@@ -26,23 +26,23 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import Dots from "./Dots.vue";
-import Icon from "./common/Icon.vue";
-const route = useRoute();
-const router = useRouter();
-const menun = computed(() => {
-  return router.options.routes[0]["children"];
-});
-const selectPath = ref(route.path);
+import { ref, computed } from "vue"
+import { useRoute, useRouter } from "vue-router"
+import Dots from "./Dots.vue"
+import Icon from "./common/Icon.vue"
+const route = useRoute()
+const router = useRouter()
+const menun =  computed (() => {
+  return router.options.routes[0]["children"]
+})
+const selectPath = ref(route.path)
 const onGoto = (path) => {
-  console.log(path);
-  selectPath.value = path;
+  console.log(path)
+  selectPath.value = path
   router.push({
     path,
-  });
-};
+  })
+}
 </script>
 
 <style scoped lang="scss">

@@ -20,9 +20,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import ListItem from "./ListItem.vue";
-import Icon from "./common/Icon.vue";
+import ListItem from "./ListItem.vue"
+import Icon from "./common/Icon.vue"
 defineProps({
   infoList: {
     type: Array,
@@ -32,7 +31,7 @@ defineProps({
     type: Boolean,
     default: false,
   },
-});
+})
 </script>
 
 <style scoped lang="scss">

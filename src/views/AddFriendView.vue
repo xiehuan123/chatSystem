@@ -35,18 +35,18 @@
 </template>
 
 <script setup>
-import Icon from "../components/common/Icon.vue";
-import { useRouter } from "vue-router";
-import ListItem from "../components/ListItem.vue";
-const router = useRouter();
+import Icon from "../components/common/Icon.vue"
+import { useRouter } from "vue-router"
+import ListItem from "../components/ListItem.vue"
+const router = useRouter()
 const toBack = () => {
-  router.go(-1);
-};
+  router.go(-1)
+}
 const toSearch = () => {
   router.push({
     path: "/addfriend/search",
-  });
-};
+  })
+}
 
 const infoList = [
   {
@@ -114,7 +114,7 @@ const infoList = [
     avatar: "icon-qiyeweixinEnterprise-WeChat",
     marginBorde: true,
   },
-];
+]
 </script>
 
 <style lang="scss" scoped>

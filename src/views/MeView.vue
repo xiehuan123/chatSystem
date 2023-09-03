@@ -6,18 +6,18 @@
 </template>
 
 <script setup>
-import { ref, computed ,getCurrentInstance} from 'vue'
-import meinfo from '../components/meinfo.vue';
-import FindList from '../components/FindList.vue';
+import {} from "vue"
+import meinfo from "../components/meinfo.vue"
+import FindList from "../components/FindList.vue"
 const meinfoData=
 {
-    avatar:"https://img0.baidu.com/it/u=1441576986,4133872496&fm=253&fmt=auto&app=138&f=JPEG?w=842&h=500",
-    wx:"xiehuan6666666",
-    nickName:"Appoint"
+  avatar:"https://img0.baidu.com/it/u=1441576986,4133872496&fm=253&fmt=auto&app=138&f=JPEG?w=842&h=500",
+  wx:"xiehuan6666666",
+  nickName:"Appoint"
    
 }
 const infoList=[
-{
+  {
     sesstionId: 1,
     sesstionName: "服务",
     avatar: "icon-iconfontzhizuobiaozhunbduan36",

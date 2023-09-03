@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineProps } from "vue";
+import { computed, defineProps } from "vue"
 const props = defineProps({
   sesstioItem: {
     type: Object,
@@ -42,14 +42,12 @@ const props = defineProps({
   border: {
     type: Boolean,
     default: false,
-  },
-});
+  }
+})
 const lastInfoMsg = computed(() => {
-  console.log(props?.sesstioItem?.sesstionMsg);
-  return props?.sesstioItem?.sesstionMsg[
-    props?.sesstioItem?.sesstionMsg.length - 1
-  ];
-});
+  console.log(props?.sesstioItem?.sesstionMsg)
+  return props?.sesstioItem?.sesstionMsg[props?.sesstioItem?.sesstionMsg.length - 1]
+})
 // console.log(lastInfoMsg);
 </script>
 

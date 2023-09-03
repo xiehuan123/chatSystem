@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineProps } from "vue";
+import { defineProps } from "vue"
 const props = defineProps({
   iconName: {
     type: String,
@@ -22,8 +22,8 @@ const props = defineProps({
     type: Number,
     default: 16,
   },
-});
-console.log(props, "icon");
+})
+console.log(props, "icon")
 </script>
 
 <style scoped lang='scss'>

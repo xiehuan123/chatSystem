@@ -45,18 +45,17 @@
 </template>
 
 <script setup>
-import { ref, computed, defineProps } from "vue";
-import Icon from "../components/common/Icon.vue";
-import ListItem from "../components/ListItem.vue";
-import { useRouter } from "vue-router";
-const router = useRouter();
+import Icon from "../components/common/Icon.vue"
+import ListItem from "../components/ListItem.vue"
+import { useRouter } from "vue-router"
+const router = useRouter()
 const toBack = () => {
-  console.log("aaa");
-  router.go(-1);
-};
+  console.log("aaa")
+  router.go(-1)
+}
 const toMenu = () => {
-  console.log("菜单");
-};
+  console.log("菜单")
+}
 const infoList = [
   {
     sesstionId: 1,
@@ -82,7 +81,7 @@ const infoList = [
     avatar: "icon-shoucang",
     marginBorde: true,
   },
-];
+]
 </script>
 
 <style lang="scss" scoped>
