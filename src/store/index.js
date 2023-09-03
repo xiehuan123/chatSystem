@@ -4,12 +4,14 @@ import { io } from "socket.io-client"
 export const useStore = defineStore("user", () => {
   const $socket = ref(null)
   //存储当前登录用户信息
-  const user = ref(JSON.parse(localStorage.getItem("user")) || null)
+  const user = ref(localStorage.getItem("user")|| null )
+  const token=ref(localStorage.getItem("token")||null)
   //存储所有会话列表以及即时消息
   const infoList = ref([
     //   {
     //   "sesstionMsg": [{ "uId": 1, "gId": 0, "mId": 3, "code": 1, "us": 1, "avatar": "https://img0.baidu.com/it/u=1441576986,4133872496&fm=253&fmt=auto&app=138&f=JPEG?w=842&h=500", "sendName": "小明", "className": "other", "sendMsg": "你好", "sendTime": "12:25" }],
     //   "sesstionId": 1, "us": 1, "sesstionName": "小明",
+    //    
     //   "sesstioAvatar": "https://img0.baidu.com/it/u=1441576986,4133872496&fm=253&fmt=auto&app=138&f=JPEG?w=842&h=500"
     // }
   ])
@@ -45,6 +47,7 @@ export const useStore = defineStore("user", () => {
   const setUser=(data)=>{
     user.value=data
     localStorage.setItem("user", JSON.stringify(data))
+  
   }
   //存储当前会话方法
   const setCuurentSesstion=(data)=>{
@@ -72,5 +75,10 @@ export const useStore = defineStore("user", () => {
     })
 
   }
-  return { $socket, infoList, openSocket, user, cuurentSesstion,setUser ,setCuurentSesstion,clearUser,setInfoList}
+  const setToken=(data)=>{
+    token.value=data
+    localStorage.setItem("token",data)
+
+  }
+  return { $socket, infoList, openSocket, user, cuurentSesstion,setUser ,setToken,setCuurentSesstion,clearUser,setInfoList}
 })

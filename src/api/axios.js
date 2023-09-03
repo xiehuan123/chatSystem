@@ -1,6 +1,7 @@
 import axios from "axios"
 
 const client = axios.create({
+  // baseURL:"http://49.235.114.194:7002",
   baseURL: "http://127.0.0.1:5000", // 设置基准地址
   timeout: 5000, // 设置请求超时时间（单位：毫秒）
 })
@@ -8,10 +9,10 @@ const client = axios.create({
 client.interceptors.request.use(
   config => {
     // 从本地存储或其他地方获取 token
-    const token = "your_token_here"
+    const token = window.localStorage.getItem("token")||""
     // 设置 token 到请求头中
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`
+      config.headers["Authorization"] = token
     }
     
     return config

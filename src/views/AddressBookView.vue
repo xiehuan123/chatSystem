@@ -2,41 +2,72 @@
   <div class="addressBook">
     <div class="functions">
       <div class="function">
-        <i class="iconfont icon-tianjiahaoyou"></i><span>新的朋友</span>
+        <Icon icon-name="icon-tianjiahaoyou"></Icon><span>新的朋友</span>
       </div>
       <div class="function">
-        <i class="iconfont icon-shouye"></i><span>仅聊天的朋友</span>
+        <Icon icon-name="icon-shouye"></Icon><span>仅聊天的朋友</span>
       </div>
       <div class="function">
-        <i class="iconfont icon-qunliao1"></i><span>群聊</span>
+        <Icon icon-name="icon-qunliao1"></Icon><span>群聊</span>
       </div>
       <div class="function">
-        <i class="iconfont icon-biaoqian"></i><span>标签</span>
+        <Icon icon-name="icon-biaoqian"></Icon><span>标签</span>
       </div>
       <div class="function">
-        <i class="iconfont icon-gongzhonghao"></i><span>公众号</span>
+        <Icon icon-name="icon-gongzhongha"></Icon><span>公众号</span>
       </div>
     </div>
     <div class="business">
       <div class="title">我的企业及企业联系人</div>
       <div class="content">
-        <i class="iconfont icon-qiyeweixinEnterprise-WeChat"></i><span>企业微信联系人</span>
+        <Icon icon-name="icon-qiyeweixinEnterprise-WeChat"></Icon><span>企业微信联系人</span>
       </div>
     </div>
     <div class="friends">
-      <Friend v-for="(_,index) in peoples" :key="index"></Friend>
+      <Friend v-for="item in peoples" :key="item.title" :friends="item"></Friend>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, } from "vue"
+import { ref, onMounted} from "vue"
+
 import Friend from "../components/Friend.vue"
-const peoples = ref([1, 2, 3])
+import Icon from "../components/common/Icon.vue"
+import {getFriendsList} from "../api/frindeShip"
+import { getResultSort } from "../utils/index"
+
+
+
+const peoples = ref([{
+  title:"x",
+  list:[
+    { uId:1,
+      userName: "小明",
+    },
+    {uId:2,
+      userName: "小红",
+    },
+    {uId:3,
+      userName: "小蓝2",
+    },
+  ]
+     
+}])
+onMounted(async()=>{
+  const {err,res}=await getFriendsList()
+  if(err){
+    throw err
+  }
+  const data=res["data"]
+  peoples.value=getResultSort(data)
+
+})
 </script>
 
 <style scoped lang="scss">
 .addressBook {
+  height: 100%;
   .business {
     .title {
       font-size: 8px;

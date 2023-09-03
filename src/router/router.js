@@ -82,7 +82,7 @@ const routes = [
     component: SearchView,
   },
   {
-    path: "/peopleinfo",
+    path: "/peopleinfo/:uId",
     component: PeopleInfoView,
   }
 ]

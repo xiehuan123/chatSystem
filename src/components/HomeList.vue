@@ -3,7 +3,7 @@
     <ListItem v-for="item in infoList" :key="item.sesstionId" :sesstioItem="item" :height="55" :border="true" @click="onGoDialog(item)">
       <template #right v-if="item?.sesstionMsg">
         <div>{{ item?.sesstionMsg[item?.sesstionMsg.length - 1]?.sendTime }}</div>
-        <div>勿扰</div>
+        <!-- <div>勿扰</div> -->
       </template>
       <template #left>
         <div class="avatar">

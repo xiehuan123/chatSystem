@@ -1,5 +1,5 @@
 <template>
-  <div class="peopleinfo">
+  <div class="peopleinfo" >
     <header class="header">
       <div class="back" @click="toBack">
         <Icon iconName="icon-arrow-left" />
@@ -12,12 +12,12 @@
     <div class="top">
       <div class="info">
         <div class="left">
-          <img src=".../../../assets/image/test.jpg" alt="" />
+          <img :src="info.avatar" alt="" />
         </div>
         <div class="right">
-          <div class="nickname">昵称</div>
-          <div class="num">微信号：12345566</div>
-          <div class="region">地区：中国</div>
+          <div class="nickname">昵称:{{ info.nickname }}</div>
+          <div class="num">微信号：{{ info.wechat_id }}</div>
+          <div class="region">地区：{{ info.region }}</div>
         </div>
       </div>
     </div>
@@ -34,27 +34,57 @@
     <div class="bottom">
       <div class="send_msg">
         <Icon iconName="icon-xiaoxi" :fontSize="24"></Icon
-        ><span class="text">发消息</span>
+        ><span class="text" @click="onGoSendInfoView()">发消息</span>
       </div>
       <div class="video_msg">
         <Icon iconName="icon-vst_shipintonghua" :fontSize="24"></Icon
-        ><span class="text">音频通话</span>
+        ><span class="text" @click="onGoSendVideoView()">音频通话</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import {ref,onMounted} from "vue"
+import { useRouter,useRoute } from "vue-router"
 import Icon from "../components/common/Icon.vue"
 import ListItem from "../components/ListItem.vue"
-import { useRouter } from "vue-router"
+import { useStore } from "../store"
+import {getInfo} from "../api/index"
 const router = useRouter()
+const route=useRoute()
+const store=useStore()
+const info=ref({})
+const {uId}=route.params
+onMounted(async()=>{
+  const {err,res}=await getInfo(uId)
+  if(err){
+    throw err
+  }
+  info.value=res["data"]
+  console.log(res["data"])
+
+})
+
 const toBack = () => {
+  console.log(uId)
   console.log("aaa")
   router.go(-1)
 }
 const toMenu = () => {
   console.log("菜单")
+}
+// 发送信息跳转
+const onGoSendInfoView=()=>{
+  store.setCuurentSesstion({sesstionId:info.value.uid,sesstionName:info.value.nickname,us:1,sesstioAvatar:info.value.avatar})
+  router.push({
+    path:`/user/1/${uId}`
+  })
+}
+// 音视频通话跳转
+const onGoSendVideoView=()=>{
+ 
+
 }
 const infoList = [
   {

@@ -4,7 +4,7 @@
       <div class="back" @click="onBack()">
         <Icon iconName="icon-arrow-left" />
       </div>
-      <div class="title">小明</div>
+      <div class="title">{{ store.cuurentSesstion.sesstionName }}</div>
       <div class="option">
         <Icon iconName="icon-ellipsis" />
       </div>
@@ -65,7 +65,6 @@ watch(() => store.infoList,(newValue) => {
 }, { deep: true })
 //当前会话的参数 比如 是用户 还是群聊
 const {us,sesstionId}=route.params
-store.setCuurentSesstion({us,sesstionId})
 const storeInfoLsit = store.infoList.find(item=>item.us==us&&item.sesstionId.toString()===sesstionId.toString())
 try {
   const {sesstionMsg,...sesstion} =storeInfoLsit

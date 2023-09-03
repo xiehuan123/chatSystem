@@ -44,7 +44,6 @@ const phoneLogin = () => {
 }
 const agreeLogin = async () => {
   globalProperties.$loading("正在登录中...")
-
   const {res,err}=await login({
     userName:userName.value,
     userPassword:userPassword.value,
@@ -54,8 +53,8 @@ const agreeLogin = async () => {
     
   }
   globalProperties.$loading("正在登录中...",false)
-  store.setUser({userAvatar:res["data"]["avatar"],userSex:res["data"]["gender"],useriPhone:res["data"]["phone_number"],userWx:res["data"]["wechat_id"],userRigon:res["data"]["region"],uId:res["data"]["uid"],nickName:res["data"]["nickName"]})
-  
+  store.setUser({userAvatar:res["data"]["avatar"],userSex:res["data"]["gender"],useriPhone:res["data"]["phone_number"],userWx:res["data"]["wechat_id"],userRigon:res["data"]["region"],uId:res["data"]["uid"],nickName:res["data"]["nickname"]})
+  store.setToken(res["token"])
   store.openSocket(store.user.uId)
   // const t=await test(store.user.uId)
   // console.log(t)

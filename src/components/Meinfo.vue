@@ -1,15 +1,15 @@
 <template>
   <div class="meInfo">
     <div class="avatar">
-      <img :src="meInfo.avatar" alt="avatar">
+      <img :src="store.user.userAvatar" alt="avatar">
     </div>
     <div class="content">
       <div class="nickName">
 
-        {{ meInfo.nickName }}
+        {{ store.user.nickName }}
       </div>
       <div class="wx">
-        微信号:{{ meInfo.wx }}
+        微信号:{{ store.user.userWx }}
       </div>
     </div>
     <div class="Qrcode">
@@ -34,13 +34,16 @@
 
 <script setup>
 import {defineProps} from "vue"
+import { useStore } from "../store"
 import Icon from "./common/Icon.vue"
 import Dots from "./Dots.vue"
+
 defineProps({
   meInfo:{
     type:Object,
   }
 })
+const store=useStore()
 </script>
 
 <style scoped lang='scss'>

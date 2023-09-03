@@ -1,28 +1,47 @@
 <template>
-  <div class="friend">
-    <div class="title">X</div>
-    <div class="content" v-for="(item, index) in friends" :key="index">
+  <div class="friend" >
+    <div class="title">{{friends.title}}</div>
+    <div class="content" v-for="item in friends.list" :key="item.uid" @click="onGoto(item.uid)">
       <div class="img">
-        <img src="../assets/image/test.jpg" alt="" />
+        <img :src="item.avatar" alt="" />
       </div>
-      <div class="nickname">{{ item.name }}</div>
+      <div class="nickname">{{ item.nickname }}</div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue"
-const friends = ref([
-  {
-    name: "小明",
-  },
-  {
-    name: "小红",
-  },
-  {
-    name: "小蓝",
-  },
-])
+import {defineProps} from "vue"
+import { useRouter } from "vue-router"
+const router=useRouter()
+defineProps({
+  friends:{
+    type:Object,
+    default:()=>{
+      return {
+        title:"x",
+        list:[
+          { uId:1,
+            userName: "小明",
+          },
+          {uId:2,
+            userName: "小红",
+          },
+          {uId:3,
+            userName: "小蓝",
+          },
+        ]
+     
+      }
+     
+    }
+  }
+})
+const onGoto=(uId)=>{
+  router.push({
+    path:`/peopleinfo/${uId}`
+  })
+}
 </script>
 
 <style scoped lang="scss">
