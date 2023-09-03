@@ -16,9 +16,8 @@
 </template>
 
 <script setup>
-<<<<<<< HEAD
-import Search from "../components/Search.vue";
-import ListItem from "../components/ListItem.vue";
+import Search from "../components/Search.vue"
+import ListItem from "../components/ListItem.vue"
 const infoList = [
   {
     sesstionId: 1,
@@ -31,18 +30,9 @@ const infoList = [
     ],
     marginBorde: true,
   },
-];
-=======
-import Icon from "../components/common/Icon.vue"
-import { useRouter } from "vue-router"
-const router = useRouter()
-const toBack = ()=>{
-  router.go(-1)
-}
->>>>>>> a090eac1e22f55f1b593fd4f34faad06bca591a7
+]
 </script>
 
 <style lang="scss" scoped>
-.search {
-}
+
 </style>

@@ -12,12 +12,12 @@
 </template>
 
 <script setup>
-import Icon from "../components/common/Icon.vue";
-import { useRouter } from "vue-router";
-const router = useRouter();
+import Icon from "../components/common/Icon.vue"
+import { useRouter } from "vue-router"
+const router = useRouter()
 const toBack = () => {
-  router.go(-1);
-};
+  router.go(-1)
+}
 
 </script>
 

@@ -5,16 +5,10 @@
 </template>
 
 <script setup>
-<<<<<<< HEAD
-import { ref, computed } from "vue";
-import FindList from "../components/FindList.vue";
-const infoList = ref([
-=======
 import { ref } from "vue"
 import FindList from "../components/FindList.vue"
 const infoList=ref([
 
->>>>>>> a090eac1e22f55f1b593fd4f34faad06bca591a7
   {
     sesstionId: 1,
     sesstionName: "朋友圈",
@@ -62,7 +56,7 @@ const infoList=ref([
     avatar: "icon-xiaochengxu",
     marginTop: true,
   },
-]);
+])
 </script>
 
 <style scoped>
