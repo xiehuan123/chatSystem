@@ -57,7 +57,7 @@ const infoList = [
         sendMsg: "添加身边的好友",
       },
     ],
-    avatar: "icon-weixin",
+    avatar: "icon-iconset0398",
   },
   {
     sesstionId: 2,

@@ -123,13 +123,14 @@ const infoList = [
       margin: 0 12px;
       height: 130px;
       .left {
-        width: 70px;
-        height: 70px;
+        width: 55px;
+        height: 55px;
         margin-right: 28px;
         img {
           border-radius: 6px;
-          width: 70px;
-          height: 70px;
+          width: 100%;
+          height: 55px;
+          transform: translateY(-6px);
         }
       }
       .right {
