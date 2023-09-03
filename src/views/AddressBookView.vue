@@ -5,13 +5,13 @@
         <i class="iconfont icon-tianjiahaoyou"></i><span>新的朋友</span>
       </div>
       <div class="function">
-        <i class="iconfont icon-tianjiahaoyou"></i><span>仅聊天的朋友</span>
+        <i class="iconfont icon-shouye"></i><span>仅聊天的朋友</span>
       </div>
       <div class="function">
         <i class="iconfont icon-qunliao1"></i><span>群聊</span>
       </div>
       <div class="function">
-        <i class="iconfont icon-tianjiahaoyou"></i><span>标签</span>
+        <i class="iconfont icon-biaoqian"></i><span>标签</span>
       </div>
       <div class="function">
         <i class="iconfont icon-gongzhonghao"></i><span>公众号</span>
@@ -20,81 +20,35 @@
     <div class="business">
       <div class="title">我的企业及企业联系人</div>
       <div class="content">
-        <i class="iconfont icon-gongzhonghao"></i><span>企业微信联系人</span>
+        <i class="iconfont icon-qiyeweixinEnterprise-WeChat"></i><span>企业微信联系人</span>
       </div>
     </div>
     <div class="friends">
-      <div class="friend">
-        <div class="title">X</div>
-        <div class="content">
-          <div class="img">
-            <img src="../assets/image/test.jpg" alt="" />
-          </div>
-          <div class="nickname">小明</div>
-        </div>
-      </div>
-      <div class="friend">
-        <div class="title">Y</div>
-        <div class="content">
-          <div class="img">
-            <img src="../assets/image/test.jpg" alt="" />
-          </div>
-          <div class="nickname">圆神</div>
-        </div>
-        <div class="content">
-          <div class="img">
-            <img src="../assets/image/test.jpg" alt="" />
-          </div>
-          <div class="nickname">圆神</div>
-        </div>
-        <div class="content">
-          <div class="img">
-            <img src="../assets/image/test.jpg" alt="" />
-          </div>
-          <div class="nickname">圆神</div>
-        </div>
-      </div>
-      <div class="friend">
-        <div class="title">W</div>
-        <div class="content">
-          <div class="img">
-            <img src="../assets/image/test.jpg" alt="" />
-          </div>
-          <div class="nickname">乌龟</div>
-        </div>
-        <div class="content">
-          <div class="img">
-            <img src="../assets/image/test.jpg" alt="" />
-          </div>
-          <div class="nickname">五五</div>
-        </div>
-        <div class="content">
-          <div class="img">
-            <img src="../assets/image/test.jpg" alt="" />
-          </div>
-          <div class="nickname">汪汪汪</div>
-        </div>
-      </div>
+      <Friend v-for="(_,index) in peoples" :key="index"></Friend>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
+import Friend from "../components/Friend.vue";
+const peoples = ref([1, 2, 3]);
 </script>
 
 <style scoped lang="scss">
 .addressBook {
   .business {
     .title {
-      font-size: 10px;
+      font-size: 8px;
       height: 24px;
       line-height: 24px;
       background-color: #ece9e7;
+      color: #6e6e6e;
+      padding: 0 10px;
     }
     .content {
       height: 32px;
-      padding: 8px;
+      padding: 10px;
       display: flex;
       i {
         height: 32px;
@@ -108,13 +62,13 @@ import { ref, computed } from "vue";
       }
     }
   }
-  padding: 14px;
   .functions {
+    padding: 10px;
     .function {
       height: 32px;
-      padding: 8px;
+      padding: 8px 0;
       display: flex;
-      border-bottom: 1px solid #d9dee3;
+      border-bottom: 1px solid #e6e6e6;
       i {
         height: 32px;
         line-height: 32px;
@@ -126,32 +80,10 @@ import { ref, computed } from "vue";
         line-height: 32px;
       }
     }
-  }
-  .friends {
-    .friend {
-      .title {
-        height: 24px;
-        line-height: 24px;
-        background-color: #ece9e7;
-      }
-      .content {
-        display: flex;
-        align-items: center;
-        padding: 10px 8px;
-        .img {
-          height: 32px;
-          width: 32px;
-          img {
-            height: 32px;
-            width: 32px;
-            border-radius: 20%;
-          }
-        }
-        .nickname {
-          margin-left: 16px;
-        }
-      }
+    .function:last-child {
+      border-bottom: 0;
     }
   }
+  
 }
 </style>

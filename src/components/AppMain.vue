@@ -5,12 +5,13 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed ,getCurrentInstance} from 'vue'
 
 </script>
 
 <style scoped>
 .main{
   margin-bottom: 70px;
+  height: calc(100% - 70px);
 }
 </style>

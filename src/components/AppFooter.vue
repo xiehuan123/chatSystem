@@ -6,10 +6,22 @@
       @click="onGoto(item.path)"
       :class="item.path == selectPath ? 'active' : ''"
     >
-      <i :class="item?.meta?.icon"></i>
+    <Icon :iconName="item?.meta?.icon" :active="item.path == selectPath ? 'active' : ''" :fontSize="28">
+
+    </Icon>
+  <!-- <i>
+    <svg :class="['icon',item.path == selectPath ? 'active' : '']" aria-hidden="true">
+  <use :href="item?.meta?.icon"></use>
+</svg>
+  </i> -->
+
+
+  
+      <!-- <i :class="item?.meta?.icon"></i> -->
       <span>{{ item.name }}</span>
-      <Dots :num="10" :top="5" :right="20"></Dots>
-    </div>
+      <Dots  :position="true"  :top="15" :right="28" ></Dots>
+      </div>
+     
   </div>
 </template>
 
@@ -17,6 +29,7 @@
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Dots from "./Dots.vue";
+import Icon from "./common/Icon.vue";
 const route = useRoute();
 const router = useRouter();
 const menun = computed(() => {
@@ -39,7 +52,7 @@ const onGoto = (path) => {
   bottom: 0;
   height: 70px;
   width: 100%;
-  background: rgb(238, 238, 238);
+  background: $bg-color;
   > div {
     position: relative;
     display: flex;
@@ -47,15 +60,11 @@ const onGoto = (path) => {
     justify-content: center;
     align-items: center;
     flex: 1;
-    i {
-      font-size: 35px;
-    }
     span {
       font-size: 12px;
     }
   }
-  .active {
-    color: greenyellow;
-  }
+
 }
+
 </style>

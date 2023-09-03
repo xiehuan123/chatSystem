@@ -1,42 +1,71 @@
 <template>
-  <div v-if="props.num"  class="dots" :style="{top:props.top+'px',right:props.right+'px'}">
+  <div
+    v-if="props.num"
+    class="dots"
+    :style="{
+      position: position ? 'absolute' : '',
+      top: top + 'px',
+      right: right + 'px',
+      height: height + 'px',
+      width: width + 'px',
+    }"
+  >
     {{ props.num }}
   </div>
+  <div
+    v-else
+    class="dots"
+    :style="{
+      position: position ? 'absolute' : '',
+      top: top + 'px',
+      right: right + 'px',
+      height: height + 'px',
+      width: width + 'px',
+    }"
+  ></div>
 </template>
 
 <script setup>
-import { ref, computed,defineProps } from 'vue'
-const props=defineProps({
-      num:{
-        default:0,
-        type:Number
-      },
-      top:{
-        default:0,
-        type:Number
-      },
-      right:{
-        default:0,
-        type:Number
-      },
-
-})
+import { ref, computed, defineProps } from "vue";
+const props = defineProps({
+  num: {
+    default: 0,
+    type: Number,
+  },
+  top: {
+    default: 5,
+    type: Number,
+  },
+  right: {
+    default: 20,
+    type: Number,
+  },
+  width: {
+    default: 10,
+    type: Number,
+  },
+  height: {
+    default: 10,
+    type: Number,
+  },
+  position: {
+    default: false,
+    type: Boolean,
+  },
+});
+console.log(props);
 </script>
 
 <style scoped>
- .dots{
-   
-   position: absolute;
-   right: 0;
-   top: 0;
-   width: 20px;
-   height: 20px;
-   border-radius: 50%;
-   font-size: 12px;
-   text-align: center;
-   line-height: 20px;
-   color: #fff;
-   background: #fd0000;
-
- }
+.dots {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background: #fd0000;
+}
 </style>
