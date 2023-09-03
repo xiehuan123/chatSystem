@@ -5,39 +5,44 @@
 </template>
 
 <script setup>
+<<<<<<< HEAD
+import { ref, computed } from "vue";
+import FindList from "../components/FindList.vue";
+const infoList = ref([
+=======
 import { ref } from "vue"
 import FindList from "../components/FindList.vue"
 const infoList=ref([
 
+>>>>>>> a090eac1e22f55f1b593fd4f34faad06bca591a7
   {
     sesstionId: 1,
     sesstionName: "朋友圈",
     avatar: "icon-iconfontzhizuobiaozhunbduan36",
-    
   },
   {
     sesstionId: 2,
     sesstionName: "视频号",
     avatar: "icon-a-rongqi18",
-    marginTop:true
+    marginTop: true,
   },
   {
     sesstionId: 3,
     sesstionName: "直播",
     avatar: "icon-icon-test",
-    marginBorde:true
+    marginBorde: true,
   },
   {
     sesstionId: 4,
     sesstionName: "扫一扫",
     avatar: "icon-saoyisao",
-    marginTop:true
+    marginTop: true,
   },
   {
     sesstionId: 5,
     sesstionName: "看一看",
     avatar: "icon-kanyikan",
-    marginTop:true
+    marginTop: true,
   },
   {
     sesstionId: 6,
@@ -49,22 +54,19 @@ const infoList=ref([
     sesstionId: 8,
     sesstionName: "游戏",
     avatar: "icon-leidatu",
-    marginTop:true
+    marginTop: true,
   },
   {
     sesstionId: 9,
     sesstionName: "小程序",
     avatar: "icon-xiaochengxu",
-    marginTop:true
-  }
-
-
-
-])
+    marginTop: true,
+  },
+]);
 </script>
 
 <style scoped>
-.find{
+.find {
   background: rgb(227, 227, 227);
   height: 100%;
 }

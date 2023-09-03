@@ -1,61 +1,48 @@
 <template>
   <div class="search">
-    <form action="" class="frm">
+    <Search></Search>
+    <div class="result">
+      <h3 class="title">个人</h3>
       <div class="content">
-        <Icon iconName="icon-sousuoxiao" class="ico_search"></Icon>
-        <input type="text" placeholder="搜索" class="ipt" />
-        <Icon iconName="icon-yuyinshuru" class="ico_mkf"></Icon>
+        <ListItem
+          v-for="item in infoList"
+          :key="item.sesstionId"
+          :sesstioItem="item"
+          :height="58"
+        ></ListItem>
       </div>
-      <span class="text" @click="toBack">取消</span>
-    </form>
+    </div>
   </div>
 </template>
 
 <script setup>
+<<<<<<< HEAD
+import Search from "../components/Search.vue";
+import ListItem from "../components/ListItem.vue";
+const infoList = [
+  {
+    sesstionId: 1,
+    sesstionName: "昵称",
+    // avatar: "icon-iconfontzhizuobiaozhunbduan36",
+    sesstionMsg: [
+      {
+        sendMsg: "个性签名",
+      },
+    ],
+    marginBorde: true,
+  },
+];
+=======
 import Icon from "../components/common/Icon.vue"
 import { useRouter } from "vue-router"
 const router = useRouter()
 const toBack = ()=>{
   router.go(-1)
 }
+>>>>>>> a090eac1e22f55f1b593fd4f34faad06bca591a7
 </script>
 
 <style lang="scss" scoped>
 .search {
-  width: 100%;
-  height: 100%;
-  background-color: #e3e3e3;
-  .frm {
-    display: flex;
-    align-items: center;
-    margin: 0 7px;
-    .content {
-      text-align: center;
-      background-color: white;
-      border-radius: 6px;
-      margin-top: 12px;
-      .ico_search {
-        margin: 0 6px 10px;
-      }
-      .ico_mkf {
-        margin-right: 6px;
-      }
-      .ipt {
-        height: 24px;
-        width: 260px;
-        border: 0; // 去除未选中状态边框
-        outline: none; // 去除选中状态边框
-      }
-      .ipt::placeholder {
-        color: #bbbbbb;
-      }
-    }
-    .text {
-      margin-left: 8px;
-      font-size: 14px;
-      transform: translateY(5px);
-      color: #6a7c92;
-    }
-  }
 }
 </style>
