@@ -13,6 +13,7 @@ import userLayout from "../layout/UserLayout.vue"
 import AddFriendView from "../views/AddFriendView.vue"
 import SearchView from "../views/SearchView.vue"
 import PeopleInfoView from "../views/PeopleInfoView.vue"
+import scanqrcode from "../components/ScanQRCode.vue"
 const routes = [
   {
     path: "/", component: BasicLayout,
@@ -84,6 +85,10 @@ const routes = [
   {
     path: "/peopleinfo/:uId",
     component: PeopleInfoView,
+  },
+  {
+    path: "/scanqrcode",
+    component: scanqrcode,
   }
 ]
 export default routes

@@ -4,6 +4,7 @@ import eslintPlugin from "vite-plugin-eslint"
 import path from "path"
 // https://vitejs.dev/config/
 export default defineConfig({
+  
   plugins: [vue(),
     // 启用 eslint 插件
     eslintPlugin({

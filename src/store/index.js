@@ -1,6 +1,7 @@
 import { ref } from "vue"
 import { defineStore } from "pinia"
 import { io } from "socket.io-client"
+import {BASE_URL} from "../utils/const"
 export const useStore = defineStore("user", () => {
   const $socket = ref(null)
   //存储当前登录用户信息
@@ -24,7 +25,7 @@ export const useStore = defineStore("user", () => {
 
   })
   const openSocket = (uid, token) => {
-    $socket.value = io("http://127.0.0.1:5000", {
+    $socket.value = io(BASE_URL, {
       query: {
         uid,
         token
