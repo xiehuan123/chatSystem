@@ -2,7 +2,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 
 
-import routes from "./router"
+import routes from "@/router/router.js"
 
 // 创建 router 实例并配置
 const router = createRouter({

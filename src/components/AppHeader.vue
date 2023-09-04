@@ -4,10 +4,11 @@
       <div class="title">{{ route.name }}{{}}</div>
       <div class="option">
         <Icon iconName="icon-sousuoxiao" :fontSize="20"> </Icon>
-        <Icon iconName="icon-jiahao" :fontSize="24" @click="onShowMeun()" ref="meunDom"> </Icon>
+        <Icon iconName="icon-jiahao" :fontSize="24" @click="onShowMeun()" > </Icon>
         
       </div>
-      <meunList @update:visible="onClose()"  :visible="isiMeun" ref="meunListDom"></meunList>
+      <!-- 通过这种形式就不用写 事件了 子组件触发就直接改了这个值 -->
+      <meunList  v-model:visible="isiMeun" ></meunList>
     </header>
   </div>
 </template>
@@ -19,17 +20,12 @@ import Icon from "./common/Icon.vue"
 import meunList from "./meunList.vue"
 const route = useRoute()
 const isiMeun=ref(false)
-const meunListDom=ref(null)
-const meunDom=ref(null)
+
 const onShowMeun=()=>{
   isiMeun.value=!isiMeun.value
 
-
 }
-const onClose=(data)=>{
 
-  isiMeun.value=data
-}
 
 
 </script>

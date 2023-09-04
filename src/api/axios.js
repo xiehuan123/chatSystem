@@ -1,5 +1,5 @@
 import axios from "axios"
-import {BASE_URL} from "../utils/const"
+import {BASE_URL} from "@/utils/CONFIG_ENUM"
 const client = axios.create({
   baseURL:BASE_URL,
   // baseURL: "http://127.0.0.1:5000", // 设置基准地址

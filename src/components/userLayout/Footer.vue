@@ -50,7 +50,7 @@
 
 <script setup>
 import { ref, computed ,defineEmits } from "vue"
-import Icon from "../common/Icon.vue"
+import Icon from "@/components/common/Icon.vue"
 const textInput = ref("")
 const emit = defineEmits("sendInfo")
 const ul = ref(null)

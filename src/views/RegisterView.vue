@@ -47,9 +47,9 @@
 
 <script setup>
 import { ref } from "vue"
-import Input from "../components/common/Input.vue"
-import Close from "../components/Close.vue"
-import { register } from "../api/index"
+import Input from "@/components/common/Input.vue"
+import Close from "@/components/Close.vue"
+import { register } from "@/api/index"
 
 
 

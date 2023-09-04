@@ -6,8 +6,8 @@
 
 <script setup>
 import { ref,watch  } from "vue"
-import {useStore} from "../store/index"
-import HomeList from "../components/HomeList.vue"
+import {useStore} from "@/store/index"
+import HomeList from "@/components/HomeList.vue"
 const store=useStore()
 const infoList=ref(store.infoList)
 watch(() => store.infoList, (newValue, oldValue) => {

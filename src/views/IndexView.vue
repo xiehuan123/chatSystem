@@ -28,7 +28,7 @@ const register = () => {
 .index {
   height: 100vh;
   position: relative;
-  background-image: url(../assets/image/index.jpg);
+  background-image: url(@/assets/image/index.jpg);
   margin: 0px;
   background-size: 100% 100%;
   background-attachment: fixed;

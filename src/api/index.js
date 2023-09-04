@@ -1,4 +1,4 @@
-import { request } from "./axios"
+import { request } from "@/api/axios.js"
 // 通过id获取用户信息
 export const getInfo = async (uId, data = {}) => {
 

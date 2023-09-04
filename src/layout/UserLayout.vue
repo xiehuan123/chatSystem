@@ -19,11 +19,11 @@
 
 <script setup>
 import { ref,defineProps,watch} from "vue"
-import { useStore } from "../store"
+import { useStore } from "@/store"
 import { useRouter, useRoute } from "vue-router"
-import Footer from "../components/userLayout/Footer.vue"
-import Icon from "../components/common/Icon.vue"
-import Dialog from "../components/userLayout/Dialog.vue"
+import Footer from "@/components/userLayout/Footer.vue"
+import Icon from "@/components/common/Icon.vue"
+import Dialog from "@/components/userLayout/Dialog.vue"
 const router = useRouter()
 const route = useRoute()
 const mainDom = ref(null)

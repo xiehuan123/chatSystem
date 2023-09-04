@@ -3,7 +3,7 @@
     name="dialog-fade"
     @after-enter="afterEnter"
     @after-leave="afterLeave">
-  <div class="meunListBox" @click.self="onClose()" v-show="visible">
+  <div class="meunListBox" @click.self="onClose()" v-show="isVisible">
     <div class="meunList">
       <ul>
         <router-link :to="item.path" v-for="item in meunList" :key="item.id">
@@ -19,15 +19,16 @@
 </template>
 
 <script setup>
-import { ref ,defineEmits,defineProps,watch} from "vue"
-import Icon from "./common/Icon.vue"
+import { ref ,defineProps,watch,defineEmits} from "vue"
+import Icon from "@/components/common/Icon.vue"
 const props=defineProps({
   visible:{
     type:Boolean,
     default:false
   }
 })
-const emit = defineEmits(["update:visible"])
+const isVisible=ref(false)
+const emit=defineEmits(["update:visible"])
 const meunList = ref([
   {
     id: 1,
@@ -56,11 +57,13 @@ const meunList = ref([
 ])
 const onClose=()=>{
   console.log("关闭")
-  emit("update:visible", false)
+  isVisible.value=false
+  emit("update:visible",false)
 }
-watch(props.visible,(val)=>{
+watch(()=>props.visible,(val)=>{
+  console.log("监听",val)
+  isVisible.value=val
 
-  console.log(val)
 })
 </script>
 

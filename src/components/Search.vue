@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import Icon from "../components/common/Icon.vue"
+import Icon from "@/components/common/Icon.vue"
 import { useRouter } from "vue-router"
 const router = useRouter()
 const toBack = () => {

@@ -34,9 +34,9 @@
 
 <script setup>
 import {defineProps} from "vue"
-import { useStore } from "../store"
-import Icon from "./common/Icon.vue"
-import Dots from "./Dots.vue"
+import { useStore } from "@/store"
+import Icon from "@/components/common/Icon.vue"
+import Dots from "@/components/Dots.vue"
 
 defineProps({
   meInfo:{

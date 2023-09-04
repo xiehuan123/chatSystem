@@ -23,14 +23,16 @@
 
 <script setup>
 import { ref, computed ,getCurrentInstance} from "vue"
-import Close from "../components/Close.vue"
-import Input from "../components/common/Input.vue"
-import {  login } from "../api/index"
-import { useRouter } from "vue-router"
-import { useStore } from "../../src/store/index"
+import Close from "@/components/Close.vue"
+import Input from "@/components/common/Input.vue"
+import {  login } from "@/api/index"
+import { useRouter,useRoute } from "vue-router"
+import { useStore } from "@/store/index"
 const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 const router = useRouter()
+const route=useRoute()
 const store = useStore()
+
 const userName = ref("")
 const userPassword = ref("")
 const showSubmitBtn=computed(()=>{
@@ -58,8 +60,10 @@ const agreeLogin = async () => {
   store.openSocket(store.user.uId)
   // const t=await test(store.user.uId)
   // console.log(t)
+  const path=route.query.redirect||"/"
+  console.log(path)
   router.push({
-    path:"/"
+    path:path
   })
 
 }

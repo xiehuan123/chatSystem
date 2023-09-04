@@ -47,10 +47,10 @@
 <script setup>
 import {ref,onMounted} from "vue"
 import { useRouter,useRoute } from "vue-router"
-import Icon from "../components/common/Icon.vue"
-import ListItem from "../components/ListItem.vue"
-import { useStore } from "../store"
-import {getInfo} from "../api/index"
+import Icon from "@/components/common/Icon.vue"
+import ListItem from "@/components/ListItem.vue"
+import { useStore } from "@/store"
+import {getInfo} from "@/api/index"
 const router = useRouter()
 const route=useRoute()
 const store=useStore()
