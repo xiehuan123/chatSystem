@@ -2,9 +2,19 @@
   <div class="login">
     <Close></Close>
     <h3 class="title">微信号/QQ号/邮箱登陆</h3>
- 
-      <Input text="账号" type="text"  v-model="userName" placeholder="请填写微信号/QQ号/邮箱" ></Input>
-      <Input text="密码" type="password"  v-model="userPassword" placeholder="请输入密码" ></Input>
+
+    <Input
+      text="账号"
+      type="text"
+      v-model="userName"
+      placeholder="请填写微信号/QQ号/邮箱"
+    ></Input>
+    <Input
+      text="密码"
+      type="password"
+      v-model="userPassword"
+      placeholder="请输入密码"
+    ></Input>
 
     <div class="login_phone" @click="phoneLogin">用手机号登陆</div>
     <div class="footer">
@@ -22,47 +32,57 @@
 </template>
 
 <script setup>
-import { ref, computed ,getCurrentInstance} from "vue"
-import Close from "../components/Close.vue"
-import Input from "../components/common/Input.vue"
-import {  login } from "../api/index"
-import { useRouter } from "vue-router"
-import { useStore } from "../../src/store/index"
-const { appContext : { config: { globalProperties } } } = getCurrentInstance()
-const router = useRouter()
-const store = useStore()
-const userName = ref("")
-const userPassword = ref("")
-const showSubmitBtn=computed(()=>{
-  return userName.value.length&&userPassword.value.length
-})
+import { ref, computed, getCurrentInstance } from "vue";
+import Close from "../components/Close.vue";
+import Input from "../components/common/Input.vue";
+import { login } from "../api/index";
+import { useRouter } from "vue-router";
+import { useStore } from "../../src/store/index";
+const {
+  appContext: {
+    config: { globalProperties },
+  },
+} = getCurrentInstance();
+const router = useRouter();
+const store = useStore();
+const userName = ref("");
+const userPassword = ref("");
+const showSubmitBtn = computed(() => {
+  return userName.value.length && userPassword.value.length;
+});
 
 const phoneLogin = () => {
   router.push({
     path: "/phonelogin",
-  })
-}
+  });
+};
 const agreeLogin = async () => {
-  globalProperties.$loading("正在登录中...")
-  const {res,err}=await login({
-    userName:userName.value,
-    userPassword:userPassword.value,
-  })
-  if(err){
-    throw err
-    
+  globalProperties.$loading("正在登录中...");
+  const { res, err } = await login({
+    userName: userName.value,
+    userPassword: userPassword.value,
+  });
+  if (err) {
+    throw err;
   }
-  globalProperties.$loading("正在登录中...",false)
-  store.setUser({userAvatar:res["data"]["avatar"],userSex:res["data"]["gender"],useriPhone:res["data"]["phone_number"],userWx:res["data"]["wechat_id"],userRigon:res["data"]["region"],uId:res["data"]["uid"],nickName:res["data"]["nickname"]})
-  store.setToken(res["token"])
-  store.openSocket(store.user.uId)
+  globalProperties.$loading("正在登录中...", false);
+  store.setUser({
+    userAvatar: res["data"]["avatar"],
+    userSex: res["data"]["gender"],
+    useriPhone: res["data"]["phone_number"],
+    userWx: res["data"]["wechat_id"],
+    userRigon: res["data"]["region"],
+    uId: res["data"]["uid"],
+    nickName: res["data"]["nickname"],
+  });
+  store.setToken(res["token"]);
+  store.openSocket(store.user.uId);
   // const t=await test(store.user.uId)
   // console.log(t)
   router.push({
-    path:"/"
-  })
-
-}
+    path: "/",
+  });
+};
 </script>
 
 <style scoped lang="scss">
