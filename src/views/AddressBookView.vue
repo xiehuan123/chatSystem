@@ -32,10 +32,10 @@
 <script setup>
 import { ref, onMounted} from "vue"
 
-import Friend from "../components/Friend.vue"
-import Icon from "../components/common/Icon.vue"
-import {getFriendsList} from "../api/frindeShip"
-import { getResultSort } from "../utils/index"
+import Friend from "@/components/Friend.vue"
+import Icon from "@/components/common/Icon.vue"
+import {getFriendsList} from "@/api/frindeShip"
+import { getResultSort } from "@/utils/index"
 
 
 

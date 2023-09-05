@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import Icon from "./common/Icon.vue"
+import Icon from "@/components//common/Icon.vue"
 </script>
 
 <style scoped lang="scss">

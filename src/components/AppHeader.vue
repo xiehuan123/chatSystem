@@ -4,16 +4,30 @@
       <div class="title">{{ route.name }}{{}}</div>
       <div class="option">
         <Icon iconName="icon-sousuoxiao" :fontSize="20"> </Icon>
-        <Icon iconName="icon-jiahao" :fontSize="24"> </Icon>
+        <Icon iconName="icon-jiahao" :fontSize="24" @click="onShowMeun()" > </Icon>
+        
       </div>
+      <!-- 通过这种形式就不用写 事件了 子组件触发就直接改了这个值 -->
+      <meunList  v-model:visible="isiMeun" ></meunList>
     </header>
   </div>
 </template>
 
 <script setup>
+import {ref,} from "vue"
 import { useRoute } from "vue-router"
-import Icon from "./common/Icon.vue"
+import Icon from "@/components/common/Icon.vue"
+import meunList from "@/components/meunList.vue"
 const route = useRoute()
+const isiMeun=ref(false)
+
+const onShowMeun=()=>{
+  isiMeun.value=!isiMeun.value
+
+}
+
+
+
 </script>
 
 <style scoped lang="scss">
@@ -34,6 +48,9 @@ header {
     padding: 0 10px;
     width: 56px;
     height: 100%;
+    .jiahao:hover{
+      color: aqua;
+    }
   }
 }
 .hiden {

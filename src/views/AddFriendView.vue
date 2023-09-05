@@ -35,9 +35,9 @@
 </template>
 
 <script setup>
-import Icon from "../components/common/Icon.vue"
+import Icon from "@/components/common/Icon.vue"
 import { useRouter } from "vue-router"
-import ListItem from "../components/ListItem.vue"
+import ListItem from "@/components/ListItem.vue"
 const router = useRouter()
 const toBack = () => {
   router.go(-1)

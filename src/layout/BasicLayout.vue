@@ -8,9 +8,9 @@
 
 <script setup>
 import {  onMounted } from "vue"
-import AppFooter from "../components/AppFooter.vue"
-import AppHeader from "../components/AppHeader.vue"
-import AppMain from "../components/AppMain.vue"
+import AppFooter from "@/components/AppFooter.vue"
+import AppHeader from "@/components/AppHeader.vue"
+import AppMain from "@/components/AppMain.vue"
 // const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 
 // globalProperties.$socket=globalProperties.$openSocket(generateUUID(),2222)

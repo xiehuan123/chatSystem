@@ -28,8 +28,8 @@
 <script setup>
 import { ref, computed } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import Dots from "./Dots.vue"
-import Icon from "./common/Icon.vue"
+import Dots from "@/components/Dots.vue"
+import Icon from "@/components/common/Icon.vue"
 const route = useRoute()
 const router = useRouter()
 const menun =  computed (() => {

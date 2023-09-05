@@ -22,8 +22,8 @@
 </template>
 
 <script setup>
-import Input from "../components/common/Input.vue"
-import Close from "../components/Close.vue"
+import Input from "@/components/common/Input.vue"
+import Close from "@/components/Close.vue"
 </script>
 
 <style scoped lang="scss">

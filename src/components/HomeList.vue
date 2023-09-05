@@ -17,8 +17,8 @@
 
 <script setup>
 import { useRouter } from "vue-router"
-import ListItem from "./ListItem.vue"
-import Dots from "./Dots.vue"
+import ListItem from "@/components/ListItem.vue"
+import Dots from "@/components/Dots.vue"
 defineProps({
   infoList: {
     type: Array,

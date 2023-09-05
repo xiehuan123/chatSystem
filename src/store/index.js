@@ -1,10 +1,11 @@
 import { ref } from "vue"
 import { defineStore } from "pinia"
 import { io } from "socket.io-client"
+import {BASE_URL} from "@/utils/CONFIG_ENUM"
 export const useStore = defineStore("user", () => {
   const $socket = ref(null)
   //存储当前登录用户信息
-  const user = ref(localStorage.getItem("user")|| null )
+  const user = ref(JSON.parse(localStorage.getItem("user")|| null )   )
   const token=ref(localStorage.getItem("token")||null)
   //存储所有会话列表以及即时消息
   const infoList = ref([
@@ -24,7 +25,11 @@ export const useStore = defineStore("user", () => {
 
   })
   const openSocket = (uid, token) => {
+<<<<<<< HEAD
     $socket.value = io("http://49.235.114.194:7002", {
+=======
+    $socket.value = io(BASE_URL, {
+>>>>>>> 39db9fcaccb4d353f55a527a452bc5ad2f2e5c3b
       query: {
         uid,
         token

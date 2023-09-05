@@ -1,5 +1,5 @@
 <template>
-  <i :class="['icon', active]" :style="{fontSize:fontSize+'px'}">
+  <i :class="['icon', active,className]" :style="{fontSize:fontSize+'px'}">
     <svg class="icon" aria-hidden="true">
       <use :href="'#' + iconName"></use>
     </svg>
@@ -22,6 +22,10 @@ const props = defineProps({
     type: Number,
     default: 16,
   },
+  className:{
+    type: String,
+    default: "",
+  }
 })
 console.log(props, "icon")
 </script>
@@ -32,6 +36,7 @@ console.log(props, "icon")
   height: 1.1em;
   vertical-align: -0.15em;
   fill: currentColor;
+  padding: 2px 2px;
 }
 .active {
   color: rgb(16, 185, 99);
