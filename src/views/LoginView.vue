@@ -32,7 +32,6 @@
 </template>
 
 <script setup>
-<<<<<<< HEAD
 import { ref, computed, getCurrentInstance } from "vue";
 import Close from "../components/Close.vue";
 import Input from "../components/common/Input.vue";
@@ -51,24 +50,6 @@ const userPassword = ref("");
 const showSubmitBtn = computed(() => {
   return userName.value.length && userPassword.value.length;
 });
-=======
-import { ref, computed ,getCurrentInstance} from "vue"
-import Close from "@/components/Close.vue"
-import Input from "@/components/common/Input.vue"
-import {  login } from "@/api/index"
-import { useRouter,useRoute } from "vue-router"
-import { useStore } from "@/store/index"
-const { appContext : { config: { globalProperties } } } = getCurrentInstance()
-const router = useRouter()
-const route=useRoute()
-const store = useStore()
-
-const userName = ref("")
-const userPassword = ref("")
-const showSubmitBtn=computed(()=>{
-  return userName.value.length&&userPassword.value.length
-})
->>>>>>> 39db9fcaccb4d353f55a527a452bc5ad2f2e5c3b
 
 const phoneLogin = () => {
   router.push({
@@ -98,19 +79,12 @@ const agreeLogin = async () => {
   store.openSocket(store.user.uId);
   // const t=await test(store.user.uId)
   // console.log(t)
-  const path=route.query.redirect||"/"
-  console.log(path)
+  const path = route.query.redirect || "/";
+  console.log(path);
   router.push({
-<<<<<<< HEAD
-    path: "/",
+    path: path,
   });
 };
-=======
-    path:path
-  })
-
-}
->>>>>>> 39db9fcaccb4d353f55a527a452bc5ad2f2e5c3b
 </script>
 
 <style scoped lang="scss">
