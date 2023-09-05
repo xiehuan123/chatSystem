@@ -78,7 +78,7 @@ const toMenu = () => {
 const onGoSendInfoView=()=>{
   store.setCuurentSesstion({sesstionId:info.value.uid,sesstionName:info.value.nickname,us:1,sesstioAvatar:info.value.avatar})
   router.push({
-    path:`/user/1/${uId}`
+    path:`/user/sesstion/1/${uId}`
   })
 }
 // 音视频通话跳转

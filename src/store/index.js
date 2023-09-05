@@ -5,7 +5,7 @@ import {BASE_URL} from "@/utils/CONFIG_ENUM"
 export const useStore = defineStore("user", () => {
   const $socket = ref(null)
   //存储当前登录用户信息
-  const user = ref(localStorage.getItem("user")|| null )
+  const user = ref(JSON.parse(localStorage.getItem("user")|| null )   )
   const token=ref(localStorage.getItem("token")||null)
   //存储所有会话列表以及即时消息
   const infoList = ref([

@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import {} from "vue"
+import {ref} from "vue"
 import meinfo from "@/components/meinfo.vue"
 import FindList from "@/components/FindList.vue"
 const meinfoData=
@@ -16,7 +16,7 @@ const meinfoData=
   nickName:"Appoint"
    
 }
-const infoList=[
+const infoList=ref([
   {
     sesstionId: 1,
     sesstionName: "服务",
@@ -66,7 +66,7 @@ const infoList=[
     marginTop:true,
    
   }
-]
+])
 </script>
 
 <style scoped>

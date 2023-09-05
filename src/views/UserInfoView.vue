@@ -1,42 +1,66 @@
 <template>
   <div class="userInfo">
-    <ListItem v-for="item in meun" :key="item.id" :sesstioItem="item" ></ListItem>
+    <textItem v-for="item in meun" :key="item.id" :sesstioItem="item" :height="item&&item.height" >
+    </textItem>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue"
-import ListItem from "../components/ListItem.vue"
+import textItem from "@/components/TextItem.vue"
+import { useStore } from "@/store"
+const store=useStore()
 const meun=ref([
   {
     id:1,
-    sesstionName:"头像",
+    name:"头像",
+    height:60,
+    avatar:"https://th.bing.com/th?id=OIP.T5mFPDq5L-pb9_9mMbwcNwHaFW&w=293&h=212&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
+    
   },
   {
     id:2,
-    sesstionName:"名字",
+    name:"名字",
+    marginBorde:true,
+    nickName:store.user.nickName
+    
   }, {
     id:3,
-    sesstionName:"拍一拍",
+    name:"拍一拍",
+    marginBorde:true
+   
   }, {
     id:4,
-    sesstionName:"微信号",
+    name:"微信号",
+    marginBorde:true,
+    userWx:store.user.userWx
+    
   },{
     id:5,
-    sesstionName:"二维码名片"
+    name:"二维码名片",
+    marginBorde:true,
+    icon:"icon-erweima"
+   
   },{
     id:6,
-    sesstionName:"更多信息"
+    name:"更多信息",
+    marginBorde:true
+   
   },{
     id:7,
-    sesstionName:"来电铃声"
+    name:"来电铃声",
+    marginTop:true,
+    text:"背景声音"
+    
   },{
     id:8,
-    sesstionName:"微信豆"
+    name:"微信豆",
+    marginTop:true
   },
   {
     id:9,
-    sesstionName:"我的地址"
+    name:"我的地址",
+    marginTop:true
   }
 
 ])
@@ -44,7 +68,6 @@ const meun=ref([
 
 <style scoped lang='scss'>
 .userInfo{
-
-
+  background: $bg-color;
 }
 </style>

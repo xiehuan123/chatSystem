@@ -2,12 +2,20 @@
   <div
     :class="[
       'item',
-      sesstioItem?.marginTop ? 'marginTop' : '',
-      border ? 'border' : '',
+      sesstioItem?.marginTop && 'marginTop',
+      border && 'border',
     ]"
     :style="{ height: height + 'px' }"
   >
-    <slot name="left"> </slot>
+  <slot name="left">
+    <div class="avatar">
+          <Icon :iconName="sesstioItem?.avatar" :fontSize="24"> </Icon>
+        </div>
+
+  </slot>
+   
+    
+
     <div :class="['content', sesstioItem?.marginBorde ? 'marginBorde' : '']">
       <div>{{ sesstioItem?.sesstionName }}</div>
       <div v-if="sesstioItem.sesstionMsg">
@@ -30,6 +38,7 @@
 
 <script setup>
 import { computed, defineProps } from "vue"
+import Icon from "@/components/common/Icon.vue"
 const props = defineProps({
   sesstioItem: {
     type: Object,
@@ -37,7 +46,7 @@ const props = defineProps({
   },
   height: {
     type: String,
-    default: "95",
+    default: "45",
   },
   border: {
     type: Boolean,
@@ -45,7 +54,11 @@ const props = defineProps({
   }
 })
 const lastInfoMsg = computed(() => {
-  console.log(props?.sesstioItem?.sesstionMsg)
+  // 判断有没有传递中间的消息
+  if(!(props?.sesstioItem?.sesstionMsg.length)){
+    return null
+  }
+  console.log(props?.sesstioItem?.sesstionMsg,777)
   return props?.sesstioItem?.sesstionMsg[props?.sesstioItem?.sesstionMsg.length - 1]
 })
 // console.log(lastInfoMsg);
@@ -58,7 +71,12 @@ const lastInfoMsg = computed(() => {
 
   box-sizing: border-box;
   background: #fff;
-
+  .avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+  }
   .content {
     display: flex;
     flex-direction: column;
@@ -98,4 +116,5 @@ const lastInfoMsg = computed(() => {
 .border {
   border: solid 1px $bd-color;
 }
+
 </style>

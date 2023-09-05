@@ -56,14 +56,12 @@ const meunList = ref([
   },
 ])
 const onClose=()=>{
-  console.log("关闭")
   isVisible.value=false
   emit("update:visible",false)
 }
+// 监听传递的值
 watch(()=>props.visible,(val)=>{
-  console.log("监听",val)
   isVisible.value=val
-
 })
 </script>
 
@@ -91,10 +89,7 @@ watch(()=>props.visible,(val)=>{
           border-bottom: solid 1px $bd-color;
         }
       }
-      a {
-        text-decoration: none;
-        color: inherit;
-      }
+      
       li {
         display: flex;
         line-height: 50px;

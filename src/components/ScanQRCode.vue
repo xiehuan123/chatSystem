@@ -1,6 +1,7 @@
 <template>
   <div>
     <qrcode-stream @decode="onDecode" />
+    <router-view></router-view>
   </div>
 </template>
 

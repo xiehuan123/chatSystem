@@ -4,78 +4,27 @@
       <div class="back" @click="onBack()">
         <Icon iconName="icon-arrow-left" />
       </div>
-      <div class="title">{{ store.cuurentSesstion.sesstionName }}</div>
-      <div class="option">
+      <div class="title">{{title}}</div>
+      <div class="option" v-if="route.name=='会话'">
         <Icon iconName="icon-ellipsis" />
       </div>
     </header>
-    <main class="main" ref="mainDom">
-      <Dialog :msgs="msgs"></Dialog>
-    </main>
-    <Footer @sendInfo="onSendInfo"  >
-    </Footer>
+    <router-view></router-view>
   </div>
 </template>
 
 <script setup>
-import { ref,defineProps,watch} from "vue"
+import { computed } from "vue"
+import { useRouter,useRoute } from "vue-router"
 import { useStore } from "@/store"
-import { useRouter, useRoute } from "vue-router"
-import Footer from "@/components/userLayout/Footer.vue"
 import Icon from "@/components/common/Icon.vue"
-import Dialog from "@/components/userLayout/Dialog.vue"
 const router = useRouter()
 const route = useRoute()
-const mainDom = ref(null)
 const store=useStore()
-defineProps(["routeMsg"])
-const msgs = ref([
-])
+const title=computed(()=>{
+  return  route.name=="会话"?store.cuurentSesstion.sesstionName:route.name
 
-//发送信息
-const onSendInfo = (data) => {
-  const info={
-    ...store.cuurentSesstion,
-    sesstionMsg:{
-      uid: store.user.uId,//发送方的uid
-      code: data["code"], //消息类型 1文本 2 语音 3 文件
-      us: store.cuurentSesstion.us, //1.私聊 2.群聊
-      avatar:store.user.userAvatar,
-      sendName: store.user.nickName,
-      className: "my",
-      sendMsg: data["msg"],
-    }
-  }
-  store.setInfoList(info)
-  store.$socket?.emit("receiveClientMessage",info)
-  mainDom.value.scrollIntoView(false)
-}
-//监听pinia 里面的消息 
-watch(() => store.infoList,(newValue) => {
-  try {
-    const storeInfoLsit = newValue.find(item=>item.us==us&&item.sesstionId.toString()===sesstionId.toString())
-    const {sesstionMsg,...sesstion} =storeInfoLsit
-    store.setCuurentSesstion(sesstion)
-    msgs.value=sesstionMsg 
-  } catch (error) {
-    console.log(error)
-  }
-  
-     
-}, { deep: true })
-//当前会话的参数 比如 是用户 还是群聊
-const {us,sesstionId}=route.params
-const storeInfoLsit = store.infoList.find(item=>item.us==us&&item.sesstionId.toString()===sesstionId.toString())
-try {
-  const {sesstionMsg,...sesstion} =storeInfoLsit
-  store.setCuurentSesstion(sesstion)
-  msgs.value=sesstionMsg 
-} catch (error) {
-  console.log(error)
-}
-
-
-
+})
 const onBack = () => {
   router.go(-1)
 }
@@ -84,12 +33,13 @@ const onBack = () => {
 <style scoped lang='scss'>
 .userLayout {
   height: 100%;
+  background: $bg-color;
   .header {
     display: flex;
     height: 40px;
     line-height: 40px;
     justify-content: center;
-    background: #ccc;
+    background: $bg-color;
 
     .back {
       width: 50px;

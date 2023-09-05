@@ -16,8 +16,8 @@
 <script setup>
 import {ref,} from "vue"
 import { useRoute } from "vue-router"
-import Icon from "./common/Icon.vue"
-import meunList from "./meunList.vue"
+import Icon from "@/components/common/Icon.vue"
+import meunList from "@/components/meunList.vue"
 const route = useRoute()
 const isiMeun=ref(false)
 

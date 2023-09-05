@@ -1,5 +1,6 @@
 <template>
-  <div class="meInfo">
+  <router-link to="/user/userinfo">
+    <div class="meInfo" >
     <div class="avatar">
       <img :src="store.user.userAvatar" alt="avatar">
     </div>
@@ -17,6 +18,10 @@
       <Icon iconName="icon-arrow-right"  />
     </div>
   </div>
+
+
+  </router-link>
+  
   <div class="wxState">
     <div class="elliptic">
       <i class="iconfont icon-jiahao1"></i>状态
