@@ -1,21 +1,25 @@
 <template>
-  <div class="footer">
+  
+  <div class="footer" >
     <div class="main">
       <div class="speech">
-        <Icon iconName="icon-yuyin" :fontSize="$fs - 35" />
+        <Icon :iconName="isShowAduioKeyboard" :fontSize="$fs - 35"  @click="handoff"      />
       </div>
       <div class="textInput">
         <div class="inputBox">
-          <input type="text" v-model="textInput" @keydown.enter="sendInfo()" />
+          <input  v-show="aduioKeyboard"  type="text" v-model="textInput" @keydown.enter="sendInfo()"  ref="inputRef"   @focus="onInputFocus"/>
+          <!-- <div v-else  @touchstart ="startLongPress()" @touchend ="endLongPress()">按住 说话</div> -->
+          <div v-show="!aduioKeyboard"  data-Long="1"   @load="onLoad()" ref="startLongRef"  >按住 说话</div>
+          
         </div>
       </div>
       <div class="operation">
-        <Icon  iconName="icon-xiaolian" :fontSize="35"/>
+        <Icon  iconName="icon-xiaolian" :fontSize="35" />
         <Icon  iconName="icon-jiahao2" v-show="!isTextDom" @click="onOpenOtions()" :fontSize="35"/>
         <div class="sendInfo" v-show="isTextDom" @click="sendInfo()" >发送</div>
       </div>
     </div>
-
+    <audio ref="audioPlayer" controls></audio>
     <div class="option" v-show="isOption">
       <ul
         ref="ul"
@@ -46,18 +50,28 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
-import { ref, computed ,defineEmits } from "vue"
+import { ref, computed ,defineEmits} from "vue"
 import Icon from "@/components/common/Icon.vue"
+
 const textInput = ref("")
+// const Longtime=ref(null)
+// const isRecording = ref(false)
+// const audioChunks = ref([])
+const audioPlayer=ref(null)
+const aduioKeyboard=ref(true)
+const startLongRef=ref(null)
+// let mediaRecorder = null
 const emit = defineEmits("sendInfo")
 const ul = ref(null)
 //判断是否有值显示发送
 const isTextDom = computed(() => {
   return textInput.value
 })
+
 //第一页
 const optionsFirst = ref([
   {
@@ -134,6 +148,7 @@ const movX=ref(0)
 const isOption=ref(false)
 //目前选项第几页标识
 const activeIndex=ref(1)
+const inputRef=ref(null)
 const onTouchstart=(e)=>{
   console.log(ul.value)
   
@@ -175,6 +190,82 @@ const sendInfo=()=>{
   textInput.value=""
 
 }
+// // 语音按下
+// const startLongPress=()=>{
+//   // const hammer = new Hammer(escRef.value)
+//   Longtime.value=setTimeout(async ()=>{
+    
+//     console.log("录制音频")
+//     try {
+//       const stream = await navigator.mediaDevices.getUserMedia({  audio: true })
+//       mediaRecorder = new MediaRecorder(stream)
+      
+//       mediaRecorder.ondataavailable = (event) => {
+//         if (event.data.size > 0) {
+//           audioChunks.value.push(event.data)
+//         }
+//       }
+
+//       mediaRecorder.onstop = () => {
+//         stream.getTracks().forEach((track) => track.stop())
+//       }
+
+//       mediaRecorder.start()
+//       isRecording.value = true
+//     } catch (error) {
+//       alert(error)
+//       console.error("Error starting recording:", error)
+//     }
+//   },1000)
+
+// }
+// //语音松开
+// const endLongPress=async ()=>{
+  
+//   clearTimeout(Longtime.value)
+//   console.log("松开")
+//   if (mediaRecorder) {
+//     mediaRecorder.stop()
+//     isRecording.value = false
+//   }
+//   if (audioChunks.value.length > 0) {
+//     const audioBlob = new Blob(audioChunks.value, { type: "audio/wav" })
+//     const audioUrl = URL.createObjectURL(audioBlob)
+//     audioPlayer.value.src = audioUrl
+//     audioPlayer.value.play()
+//   }
+//   // if (audioChunks.value.length > 0) {
+//   //   const audioBlob = new Blob(audioChunks.value, { type: "audio/wav" })
+
+//   //   const formData = new FormData()
+//   //   formData.append("audio", audioBlob, "audio.wav")
+
+//   //   try {
+//   //     const response = await axios.post("/upload-audio", formData, {
+//   //       headers: {
+//   //         "Content-Type": "multipart/form-data",
+//   //       },
+//   //     })
+
+//   //     console.log("音频上传成功", response.data)
+//   //   } catch (error) {
+//   //     console.error("音频上传失败", error)
+//   //   }
+//   // }
+
+// }
+//判断显示键盘还是鼠标
+const isShowAduioKeyboard=computed(()=>{
+
+  return aduioKeyboard.value?"icon-yuyin":"icon-jianpan"
+})
+//切换点击
+const handoff=()=>{
+  aduioKeyboard.value=!aduioKeyboard.value
+
+}
+
+
 </script>
 
 <style scoped lang='scss'>
@@ -184,7 +275,7 @@ const sendInfo=()=>{
   bottom: 0;
   background: #dfdfdf;
   transition: 1s;
-
+  z-index: 999;
   .main {
     width: 100%;
 
@@ -209,16 +300,27 @@ const sendInfo=()=>{
         height: 100%;
         border-radius: 7px;
         background: #fff;
+    
+        
 
         input {
           outline: none;
           border: none;
           width: 97%;
           height: 100%;
-          line-height: 100%;
+  
           font-size: 21px;
           // width: 98%;
           // height: 98%;
+        }
+        div{
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 100%;
+          line-height: inherit;
+
         }
       }
     }
@@ -245,7 +347,6 @@ const sendInfo=()=>{
     }
   }
   .option {
-    position: relative;
     height: 300px;
 
     margin-top: 50px;

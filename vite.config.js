@@ -1,11 +1,17 @@
 import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
+import basicSsl from "@vitejs/plugin-basic-ssl"
 import eslintPlugin from "vite-plugin-eslint"
 import path from "path"
 // https://vitejs.dev/config/
 export default defineConfig({
-  
-  plugins: [vue(),
+  server:{
+    host: "localhost",
+    port: 5173, // 修改成你的开发服务器端口
+   
+  },
+  plugins: [vue(),basicSsl(),
+    
     // 启用 eslint 插件
     eslintPlugin({
       // 自动修复代码中的 ESLint 错误

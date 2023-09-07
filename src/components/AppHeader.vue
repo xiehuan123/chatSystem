@@ -3,8 +3,9 @@
     <header>
       <div class="title">{{ route.name }}{{}}</div>
       <div class="option">
-        <Icon iconName="icon-sousuoxiao" :fontSize="20"> </Icon>
-        <Icon iconName="icon-jiahao" :fontSize="24" @click="onShowMeun()" > </Icon>
+        <Icon iconName="icon-sousuoxiao" :fontSize="20"  @click="onGotoSearch()"> </Icon>
+      
+        <Icon iconName="icon-jiahao" :fontSize="24" @click="onShowMeun($event)" > </Icon>
         
       </div>
       <!-- 通过这种形式就不用写 事件了 子组件触发就直接改了这个值 -->
@@ -15,17 +16,24 @@
 
 <script setup>
 import {ref,} from "vue"
-import { useRoute } from "vue-router"
+import { useRoute,useRouter } from "vue-router"
 import Icon from "@/components/common/Icon.vue"
 import meunList from "@/components/meunList.vue"
 const route = useRoute()
+const router=useRouter()
 const isiMeun=ref(false)
 
-const onShowMeun=()=>{
+const onShowMeun=(e)=>{
+  console.log(e.target)
+  console.log("显示")
   isiMeun.value=!isiMeun.value
 
 }
-
+const onGotoSearch=()=>{
+  router.push({
+    path:""
+  })
+}
 
 
 </script>
@@ -46,7 +54,7 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
-    width: 56px;
+    width: 70px;
     height: 100%;
     .jiahao:hover{
       color: aqua;

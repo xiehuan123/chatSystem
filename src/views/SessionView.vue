@@ -1,11 +1,13 @@
 <template>
 
-  
-    <main class="main" ref="mainDom">
+
+    <main class="main" ref="mainDom"  >
       <Dialog :msgs="msgs"></Dialog>
     </main>
     <Footer @sendInfo="onSendInfo"  >
     </Footer>
+    
+
 </template>
 
 <script setup>

@@ -35,10 +35,10 @@ defineProps({
   sesstioItem: {
     type: Object,
     required: true,
-  },
+  },    
   height: {
     type: String,
-    default: "45",
+    default: "50",
   },
   border: {
     type: Boolean,
