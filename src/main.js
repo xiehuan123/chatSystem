@@ -6,7 +6,7 @@ import "@/assets/iconfont.js"
 import loading from "@/components/common/Loading"
 import message from "@/components/common/Message"
 import { createPinia } from "pinia"
-import "@/acces"
+// import "@/acces"
 const app=createApp(App)
 app.config.globalProperties.$loading = loading
 app.config.globalProperties.$message = message

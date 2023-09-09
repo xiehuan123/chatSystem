@@ -12,6 +12,7 @@
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "axios": "^1.4.0",
     "hammerjs": "^2.0.8",
+    "js-audio-recorder": "^1.0.7",
     "mitt": "^3.0.1",
     "pinia": "^2.1.6",
     "pinyin-pro": "^3.16.3",

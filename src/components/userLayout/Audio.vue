@@ -1,9 +1,11 @@
 <template>
   <div class="audio"  v-show="auidoShow">
-  <div class="messg"></div>
+  <div :class="['messg',audioBg]">
+    <soundWave :audioBg="audioBg"></soundWave>
+  </div>
   <div class="footer"  >
     <div 
-    :class="['esc',isActive==1?'avtive':'']"  ref="escRef" @touchstart="onStart($event)"></div>
+    :class="['esc',isActive==1?'avtive':'']"  ref="escRef" ></div>
     <div  :class="['transformText',isActive==2?'avtive':'']"   ref="transformTextRef"></div>
   </div>
   </div>
@@ -11,20 +13,31 @@
 
 <script setup>
 
-import { ref, onMounted } from "vue"
+import { ref, onMounted,defineProps } from "vue"
 import Hammer from "hammerjs"
 import emitter from "@/utils/Bus"
 
-
+import soundWave from "../common/soundWave.vue"
+// 录音大组件控制显示
 const auidoShow =ref(false)
+// xdom
 const escRef=ref(null)
+// 文dom
 const transformTextRef=ref(null)
+// 控制是否选中
 const isActive=ref(0)
-const onStart=(e)=>{
-  console.log(e)
-}
+
+defineProps({
+  audioBg:{
+    type:String,
+    default:"",
+  }
+
+})
 onMounted(()=>{
   emitter.on("audioShow",(data)=>{
+    // 初始化
+    isActive.value=0
     console.log("接收数据")
     auidoShow.value=data
 
@@ -49,18 +62,32 @@ onMounted(()=>{
 <style scoped lang='scss'>
 .audio{
   
-  position: fixed;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: calc(100% - 50px);
   background: $mask-bg;
   z-index: 999;
+  .messg{
+    display: flex;
+    padding: 5px 10px;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+  .left{
+    justify-content: flex-start!important;
+
+  }
+  .right{
+    justify-content: flex-end!important;
+  }
   .footer{
     height: 40%;
     width: 100%;
-    position: absolute;
-    bottom: 0;
     >div{
       position: absolute;
       width: 50px;

@@ -46,6 +46,9 @@ const onSendInfo = (data) => {
 watch(() => store.infoList,(newValue) => {
   try {
     const storeInfoLsit = newValue.find(item=>item.us==us&&item.sesstionId.toString()===sesstionId.toString())
+    if(!storeInfoLsit){
+      return 
+    }
     const {sesstionMsg,...sesstion} =storeInfoLsit
     store.setCuurentSesstion(sesstion)
     msgs.value=sesstionMsg 
