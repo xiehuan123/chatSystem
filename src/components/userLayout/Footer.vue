@@ -1,16 +1,20 @@
 <template>
-  <div class="footer">
+  
+  <div class="footer" >
     <div class="main">
       <div class="speech">
-        <Icon iconName="icon-yuyin" :fontSize="$fs - 35" />
+        <Icon :iconName="isShowAduioKeyboard" :fontSize="$fs - 35"  @click="handoff"      />
       </div>
       <div class="textInput">
         <div class="inputBox">
-          <input type="text" v-model="textInput" @keydown.enter="sendInfo()" />
+          <input  v-show="aduioKeyboard"  type="text" v-model="textInput" @keydown.enter="sendInfo()"  ref="inputRef"   @focus="onInputFocus"/>
+          <!-- <div v-else  @touchstart ="startLongPress()" @touchend ="endLongPress()">按住 说话</div> -->
+          <div v-show="!aduioKeyboard"  data-Long="1"   @load="onLoad()" ref="startLongRef"  >按住 说话</div>
+          
         </div>
       </div>
       <div class="operation">
-        <Icon  iconName="icon-xiaolian" :fontSize="35"/>
+        <Icon  iconName="icon-xiaolian" :fontSize="35" />
         <Icon  iconName="icon-jiahao2" v-show="!isTextDom" @click="onOpenOtions()" :fontSize="35"/>
         <div class="sendInfo" v-show="isTextDom" @click="sendInfo()" >发送</div>
       </div>
@@ -46,18 +50,23 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
-import { ref, computed ,defineEmits } from "vue"
+import { ref, computed ,defineEmits} from "vue"
 import Icon from "@/components/common/Icon.vue"
+
 const textInput = ref("")
+const aduioKeyboard=ref(true)
+const startLongRef=ref(null)
 const emit = defineEmits("sendInfo")
 const ul = ref(null)
 //判断是否有值显示发送
 const isTextDom = computed(() => {
   return textInput.value
 })
+
 //第一页
 const optionsFirst = ref([
   {
@@ -134,6 +143,7 @@ const movX=ref(0)
 const isOption=ref(false)
 //目前选项第几页标识
 const activeIndex=ref(1)
+const inputRef=ref(null)
 const onTouchstart=(e)=>{
   console.log(ul.value)
   
@@ -175,6 +185,19 @@ const sendInfo=()=>{
   textInput.value=""
 
 }
+
+//判断显示键盘还是鼠标
+const isShowAduioKeyboard=computed(()=>{
+
+  return aduioKeyboard.value?"icon-yuyin":"icon-jianpan"
+})
+//切换点击
+const handoff=()=>{
+  aduioKeyboard.value=!aduioKeyboard.value
+
+}
+
+
 </script>
 
 <style scoped lang='scss'>
@@ -184,7 +207,7 @@ const sendInfo=()=>{
   bottom: 0;
   background: #dfdfdf;
   transition: 1s;
-
+  z-index: 999;
   .main {
     width: 100%;
 
@@ -209,16 +232,27 @@ const sendInfo=()=>{
         height: 100%;
         border-radius: 7px;
         background: #fff;
+    
+        
 
         input {
           outline: none;
           border: none;
           width: 97%;
           height: 100%;
-          line-height: 100%;
+  
           font-size: 21px;
           // width: 98%;
           // height: 98%;
+        }
+        div{
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 100%;
+          line-height: inherit;
+
         }
       }
     }
@@ -245,7 +279,6 @@ const sendInfo=()=>{
     }
   }
   .option {
-    position: relative;
     height: 300px;
 
     margin-top: 50px;

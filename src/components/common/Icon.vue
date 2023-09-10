@@ -36,7 +36,7 @@ console.log(props, "icon")
   height: 1.1em;
   vertical-align: -0.15em;
   fill: currentColor;
-  padding: 2px 2px;
+  padding: 2px 3px;
 }
 .active {
   color: rgb(16, 185, 99);
