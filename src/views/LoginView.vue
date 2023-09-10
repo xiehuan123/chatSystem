@@ -32,40 +32,40 @@
 </template>
 
 <script setup>
-import { ref, computed, getCurrentInstance } from "vue";
-import Close from "../components/Close.vue";
-import Input from "../components/common/Input.vue";
-import { login } from "../api/index";
-import { useRouter } from "vue-router";
-import { useStore } from "../../src/store/index";
+import { ref, computed, getCurrentInstance } from "vue"
+import Close from "../components/Close.vue"
+import Input from "../components/common/Input.vue"
+import { login } from "../api/index"
+import { useRouter } from "vue-router"
+import { useStore } from "../../src/store/index"
 const {
   appContext: {
     config: { globalProperties },
   },
-} = getCurrentInstance();
-const router = useRouter();
-const store = useStore();
-const userName = ref("");
-const userPassword = ref("");
+} = getCurrentInstance()
+const router = useRouter()
+const store = useStore()
+const userName = ref("")
+const userPassword = ref("")
 const showSubmitBtn = computed(() => {
-  return userName.value.length && userPassword.value.length;
-});
+  return userName.value.length && userPassword.value.length
+})
 
 const phoneLogin = () => {
   router.push({
     path: "/phonelogin",
-  });
-};
+  })
+}
 const agreeLogin = async () => {
-  globalProperties.$loading("正在登录中...");
+  globalProperties.$loading("正在登录中...")
   const { res, err } = await login({
     userName: userName.value,
     userPassword: userPassword.value,
-  });
+  })
   if (err) {
-    throw err;
+    throw err
   }
-  globalProperties.$loading("正在登录中...", false);
+  globalProperties.$loading("正在登录中...", false)
   store.setUser({
     userAvatar: res["data"]["avatar"],
     userSex: res["data"]["gender"],
@@ -74,17 +74,17 @@ const agreeLogin = async () => {
     userRigon: res["data"]["region"],
     uId: res["data"]["uid"],
     nickName: res["data"]["nickname"],
-  });
-  store.setToken(res["token"]);
-  store.openSocket(store.user.uId);
+  })
+  store.setToken(res["token"])
+  store.openSocket(store.user.uId)
   // const t=await test(store.user.uId)
   // console.log(t)
-  const path = route.query.redirect || "/";
-  console.log(path);
+  const path = router.query.redirect || "/"
+  console.log(path)
   router.push({
     path: path,
-  });
-};
+  })
+}
 </script>
 
 <style scoped lang="scss">

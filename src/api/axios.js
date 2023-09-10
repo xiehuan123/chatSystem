@@ -2,11 +2,7 @@ import axios from "axios"
 import {BASE_URL} from "@/utils/CONFIG_ENUM"
 import router from "@/router"
 const client = axios.create({
-<<<<<<< HEAD
-  baseURL: "http://49.235.114.194:7002",
-=======
   baseURL:BASE_URL,
->>>>>>> 39db9fcaccb4d353f55a527a452bc5ad2f2e5c3b
   // baseURL: "http://127.0.0.1:5000", // 设置基准地址
   timeout: 5000, // 设置请求超时时间（单位：毫秒）
 })

@@ -25,11 +25,7 @@ export const useStore = defineStore("user", () => {
 
   })
   const openSocket = (uid, token) => {
-<<<<<<< HEAD
-    $socket.value = io("http://49.235.114.194:7002", {
-=======
     $socket.value = io(BASE_URL, {
->>>>>>> 39db9fcaccb4d353f55a527a452bc5ad2f2e5c3b
       query: {
         uid,
         token
