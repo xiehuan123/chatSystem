@@ -30,7 +30,7 @@ const toBack = () => {
   .frm {
     display: flex;
     align-items: center;
-    margin: 0 7px;
+    margin: 0 3px;
     .content {
       text-align: center;
       background-color: white;
@@ -53,7 +53,7 @@ const toBack = () => {
       }
     }
     .text {
-      margin-left: 8px;
+      margin-left: 6px;
       font-size: 14px;
       transform: translateY(5px);
       color: #6a7c92;
