@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Permission Request</title>
+</head>
+<body>
+    <!-- 点击这个按钮将触发视频权限请求 -->
+    <button id="requestPermissionButton">请求视频权限</button>
+    <video id="videoElement" autoplay muted playsinline style="display: none;">
+        <source src="your-video.mp4" type="video/mp4">
+    </video>
+    <script>
+        const requestPermissionButton = document.getElementById("requestPermissionButton");
+        const videoElement = document.getElementById("videoElement");
+
+        requestPermissionButton.addEventListener("click", () => {
+            // 请求视频权限
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then((stream) => {
+                    // 用户同意权限后，将流赋给视频元素并播放
+                    videoElement.srcObject = stream;
+                    videoElement.style.display = "block";
+                })
+                .catch((error) => {
+                    console.error("获取视频权限失败:", error);
+                });
+        });
+    </script>
+</body>
+</html>

@@ -59,7 +59,7 @@ onMounted(async()=>{
   if(err){
     throw err
   }
-  const data=res["data"]
+  const data=res["data"].map(item=>item.user)
   peoples.value=getResultSort(data)
 
 })

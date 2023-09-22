@@ -16,6 +16,8 @@ import PeopleInfoView from "@/views/PeopleInfoView.vue"
 import scanqrcode from "@/components/ScanQRCode.vue"
 import UserInfoView from "@/views/UserInfoView.vue"
 import SesstionView from "@/views/SessionView.vue"
+import VideoCallView from "@/views/VideoCallView.vue"
+import VideoAcceptView from "@/views/VideoAcceptView.vue"
 const routes = [
   {
     path: "/", component: BasicLayout,
@@ -102,10 +104,22 @@ const routes = [
     path: "/peopleinfo/:uId",
     component: PeopleInfoView,
   },
+  // 扫一扫
   {
     path: "/scanqrcode",
     component: scanqrcode,
   },
+  // 拨打视频/语音通话 页面
+  {
+    path: "/videocall/:fid",
+    component: VideoCallView,
+  },
+  // 接收通话页面
+  {
+    path: "/videoaccept",
+    component: VideoAcceptView,
+  },
+
   
  
 ]
