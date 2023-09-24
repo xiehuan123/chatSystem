@@ -11,11 +11,13 @@ export const login = async (data = {}) => {
 // 注册用户
 export const register = async (data = {}) => {
   console.log("data", data)
-  return await request({ url: "/user/register", method: "POST", data,headers: {
-    "Content-Type": "multipart/form-data"
-  } })
+  return await request({
+    url: "/user/register", method: "POST", data, headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  })
 }
 // 测试请求
-export const test = async (uId,data={}) => {
+export const test = async (uId, data = {}) => {
   return await request({ url: `/user/test/${uId}`, method: "get", data })
 }

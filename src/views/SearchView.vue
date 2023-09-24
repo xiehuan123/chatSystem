@@ -1,17 +1,20 @@
 <template>
   <div class="search_view">
-    <Search></Search>
+    <Search @sendUserData="receiveUserData"></Search>
     <div class="result">
       <div class="bgc">
         <h3 class="title">个人</h3>
       </div>
       <div class="content">
-        <ListItem
-          v-for="item in infoList"
-          :key="item.sesstionId"
-          :sesstioItem="item"
-          :height="58"
-        ></ListItem>
+        <div v-if="true">
+          <ListItem
+            v-for="item in infoList"
+            :key="item.sesstionId"
+            :sesstioItem="item"
+            :height="58"
+          ></ListItem>
+        </div>
+        <p class="notfund">11111</p>
       </div>
     </div>
   </div>
@@ -20,6 +23,7 @@
 <script setup>
 import Search from "@/components/Search.vue"
 import ListItem from "@/components/ListItem.vue"
+import { reactive } from "vue"
 const infoList = [
   {
     sesstionId: 1,
@@ -32,6 +36,11 @@ const infoList = [
     ],
   },
 ]
+const receiveUserData = (userData) => {
+  console.log("aa11111", userData)
+}
+
+const userData = reactive({})
 </script>
 
 <style lang="scss" scoped>
@@ -58,11 +67,15 @@ const infoList = [
       .content {
         background-color: #e3e3e3;
       }
-     
     }
   }
 }
 :deep(.time) {
   opacity: 0;
+}
+.notfund {
+  height: 58px;
+  background-color: white;
+  text-align: center;
 }
 </style>

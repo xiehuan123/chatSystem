@@ -16,6 +16,7 @@ import PeopleInfoView from "@/views/PeopleInfoView.vue"
 import scanqrcode from "@/components/ScanQRCode.vue"
 import UserInfoView from "@/views/UserInfoView.vue"
 import SesstionView from "@/views/SessionView.vue"
+import ResultView from "@/views/ResultView.vue"
 const routes = [
   {
     path: "/", component: BasicLayout,
@@ -97,6 +98,10 @@ const routes = [
   {
     path: "/addfriend/search",
     component: SearchView,
+  },
+  {
+    path: "/addfriend/search/result",
+    component: ResultView,
   },
   {
     path: "/peopleinfo/:uId",

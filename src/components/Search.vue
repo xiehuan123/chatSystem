@@ -1,24 +1,49 @@
 <template>
   <div class="search">
-    <form action="" class="frm">
+    <div class="frm">
       <div class="content">
         <Icon iconName="icon-sousuoxiao" class="ico_search"></Icon>
-        <input type="text" placeholder="搜索" class="ipt"/>
+        <input
+          type="text"
+          placeholder="搜索"
+          class="ipt"
+          @keyup.enter="search"
+          v-model="weixinId"
+        />
         <Icon iconName="icon-yuyinshuru" class="ico_mkf"></Icon>
       </div>
       <span class="text" @click="toBack">取消</span>
-    </form>
+    </div>
   </div>
 </template>
 
 <script setup>
 import Icon from "@/components/common/Icon.vue"
+import { reactive, ref,defineEmits } from "vue"
 import { useRouter } from "vue-router"
 const router = useRouter()
 const toBack = () => {
   router.go(-1)
 }
-
+let userData = {}
+const emit = defineEmits(["sendUserData"])
+const weixinId = ref("")
+const userDataArr = reactive([
+  {
+    name: "cxk",
+    weixinId: "1234",
+  },
+])
+const search = () => {
+  if (!weixinId.value.trim()) {
+    alert("输入不能为空")
+  } else {
+    userData = userDataArr.filter((item) => {
+      return item.weixinId === weixinId.value
+    })
+    emit("sendUserData", userData)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -26,7 +51,7 @@ const toBack = () => {
   width: 100%;
   height: 50px;
   background-color: #e3e3e3;
- 
+
   .frm {
     display: flex;
     align-items: center;
