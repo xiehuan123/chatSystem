@@ -16,7 +16,7 @@
 
 <script setup>
 import { ref,computed,onMounted } from "vue"
-import { useRouter,useRoute } from "vue-router"
+import {useRoute,useRouter } from "vue-router"
 import { useStore } from "@/store"
 import Audio from "@/components/userLayout/Audio.vue"
 import Hammer from "hammerjs"
@@ -32,15 +32,15 @@ const title=computed(()=>{
   return  route.name=="会话"?store.cuurentSesstion.sesstionName:route.name
 
 })
-// 录音实例
+// // 录音实例
 const recorder =ref(null) 
-// 录音存储的数据
+// // 录音存储的数据
 const recorderData=ref(null)
-// 跳转上一级
+// // 跳转上一级
 const onBack = () => {
   router.go(-1)
 }
-// 手指离开事件
+// // 手指离开事件
 const onEnd=async ()=>{
   audioBg.value=""
   recorderData.value={
@@ -51,7 +51,7 @@ const onEnd=async ()=>{
   emitter.emit("audioShow", false)
   emitter.emit("xWen", 0)
 }
-// 手指移动事件
+// // 手指移动事件
 const onMove=(e)=>{
   const clientX=e.touches[0]["clientX"]
   const clientY=e.touches[0]["clientY"]
@@ -93,7 +93,7 @@ const onMove=(e)=>{
 }
 onMounted(()=>{
 
-  
+  console.log(document.querySelector(".userLayout"))
   const hammer=Hammer(document.querySelector(".userLayout"))
   // 可选：您可以设置Hammer.js的options来调整事件的触发条件
   hammer.get("press").set({ time: 500 }) // 500毫秒的长按时间
@@ -117,7 +117,7 @@ onMounted(()=>{
    
   })
   // 长按松开事件
-  hammer.on("pressup", function() {
+  hammer?.on("pressup", function() {
     console.log("长按松开事件触发")
     audioBg.value=""
     recorder.value.stop()

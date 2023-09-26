@@ -18,12 +18,21 @@
 
     <div :class="['content', sesstioItem?.marginBorde ? 'marginBorde' : '']">
       <div>{{ sesstioItem?.sesstionName }}</div>
-      <div v-if="sesstioItem.sesstionMsg">
-        <span v-if="sesstioItem?.us == 2 && sesstioItem?.sesstionMsg.length > 1"
+      <div v-if="sesstioItem.sesstionMsg&&sesstioItem?.us == 2">
+        <span v-if=" sesstioItem?.sesstionMsg.length > 1"
           >[{{ sesstioItem?.sesstionMsg.length }}]</span
         >
-        <span v-if="sesstioItem?.us == 2">{{ lastInfoMsg?.sendName }}:</span
+        <span>{{ lastInfoMsg?.sendName }}:</span
         >{{ lastInfoMsg?.sendMsg }}
+
+      </div>
+      <div v-if="sesstioItem.sesstionMsg&& sesstioItem?.us == 1">
+        <!-- 文本 -->
+       <span v-if="lastInfoMsg.code==1">{{ lastInfoMsg.sendMsg }}</span>
+       <!-- 语音 -->
+       <span v-if="lastInfoMsg.code==2">语音</span>
+       <!-- 文件 -->
+       <span v-if="lastInfoMsg.code==3">文件</span>
       </div>
     </div>
 

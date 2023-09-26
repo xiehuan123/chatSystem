@@ -8,7 +8,13 @@ export default defineConfig({
   server:{
     host: "localhost",
     port: 5173, // 修改成你的开发服务器端口
-   
+    // proxy: {
+    //   "/api": {
+    //     target: "https://127.0.0.1:5000",
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/api/, ""),
+    //   },
+    // },
   },
   // basicSsl()
   plugins: [vue(),basicSsl(),

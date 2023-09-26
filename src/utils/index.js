@@ -1,4 +1,5 @@
 import { pinyin  } from "pinyin-pro"
+import moment from "moment/moment"
 export const getInitials=(str)=> {
   const pinyins = pinyin(str, { pattern: "first" })
   const initials = pinyins.charAt(0).toUpperCase()
@@ -23,6 +24,10 @@ export const getResultSort=(data)=>{
   }
   result.sort((a, b) => a.title.localeCompare(b.title))
   return result
+}
+export const getFormatTime=(time=null)=>{
+  if(!time) return moment().format("HH:mm:ss")
+  return moment(time).format("HH:mm:ss")
 }
 
 

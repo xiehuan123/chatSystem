@@ -18,6 +18,8 @@ import UserInfoView from "@/views/UserInfoView.vue"
 import SesstionView from "@/views/SessionView.vue"
 import VideoCallView from "@/views/VideoCallView.vue"
 import VideoAcceptView from "@/views/VideoAcceptView.vue"
+import { useStore } from "@/store"
+
 const routes = [
   {
     path: "/", component: BasicLayout,
@@ -67,6 +69,13 @@ const routes = [
         path: "sesstion/:us/:sesstionId",
         name:"会话",
         component: SesstionView,
+        beforeRouteLeave(to, from, next) {
+          // 在离开 SessionView 路由时执行的逻辑
+          // 可以在这里添加你的离开路由逻辑
+          const store=useStore()
+          store.setSesstionreadStaus()
+          next() // 确保调用 next() 来允许离开路由
+        },
       },
       //加斜杠 没有父类前缀 一般不加 带前缀
       {

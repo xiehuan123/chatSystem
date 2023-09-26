@@ -8,7 +8,7 @@
       <template #left>
         <div class="avatar">
           <img :src="item?.sesstioAvatar" alt="图片加载失败" />
-        <Dots :position="true"  :num="item?.sesstionMsg?.length" :top="0" :right="0"></Dots>
+        <Dots  v-if="item?.num>0" :position="true"  :num="item?.num" :top="0" :right="0"></Dots>
        </div>
       </template>
     </ListItem>
@@ -28,9 +28,10 @@ defineProps({
 const router=useRouter()
 const onGoDialog=(item)=>{
   router.push({
-    path:`/user/${item.us}/${item.sesstionId}`,
+    path:`/user/sesstion/${item.us}/${item.sesstionId}`,
   })
 }
+
 </script>
 
 <style scoped lang="scss">

@@ -19,23 +19,28 @@
   
       <!-- <i :class="item?.meta?.icon"></i> -->
       <span>{{ item.name }}</span>
-      <Dots  :position="true"  :top="15" :right="28" ></Dots>
+      <Dots  v-if="item.path=='/weixin'&&count>0"    :position="true"  :top="15" :right="28" :num="count" ></Dots>
       </div>
      
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue"
+import { ref, computed, watch } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import Dots from "@/components/Dots.vue"
 import Icon from "@/components/common/Icon.vue"
+import { useStore } from "@/store"
+const store=useStore()
 const route = useRoute()
 const router = useRouter()
+// 底部菜单栏选项
 const menun =  computed (() => {
   return router.options.routes[0]["children"]
 })
+// 默认选中的菜单
 const selectPath = ref(route.path)
+// 跳转到指定的
 const onGoto = (path) => {
   console.log(path)
   selectPath.value = path
@@ -43,6 +48,17 @@ const onGoto = (path) => {
     path,
   })
 }
+const count=ref(0)
+
+// 未读消息
+watch(()=>store.infoList,(val)=>{
+  let temp=0
+  val.forEach(item=>{
+    console.log(item.num)
+    temp+=item.num
+  })
+  count.value=temp
+}, { deep: true })
 </script>
 
 <style scoped lang="scss">

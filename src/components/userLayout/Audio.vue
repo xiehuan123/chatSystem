@@ -14,7 +14,7 @@
 <script setup>
 
 import { ref, onMounted,defineProps } from "vue"
-import Hammer from "hammerjs"
+// import Hammer from "hammerjs"
 import emitter from "@/utils/Bus"
 
 import soundWave from "../common/soundWave.vue"
@@ -47,14 +47,14 @@ onMounted(()=>{
     isActive.value=data
 
   })
-  const hammer = new Hammer(document.querySelector(".audio"))
+  // const hammer = new Hammer(document.querySelector(".audio"))
  
-  hammer.on("tap", (event) => {
-    console.log(event)
-    const rect = event.target.getBoundingClientRect()
-    console.log(rect)
-    console.log("触摸到了")
-  })
+  // hammer.on("tap", (event) => {
+  //   console.log(event)
+  //   const rect = event.target.getBoundingClientRect()
+  //   console.log(rect)
+  //   console.log("触摸到了")
+  // })
 
 })
 </script>

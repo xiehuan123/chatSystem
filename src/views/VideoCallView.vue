@@ -88,14 +88,18 @@ const onTouchStart=(id)=>{
   console.log(index)
   switch(id){
   case 1:
-    
+    console.log("麦克风")
     meun.value[index]["index"]=meun.value[index]["index"]?0:1
     break
   case 2:
-   
+    console.log("挂断")
+    store.cancelMediaStream(store.locahostCall,myVideo.value.srcObject)
+    store.cancelMediaStream(store.remoterCall,remoteVideo.value.srcObject)
+    store.$socket.emit("callPhoneServe",store.remoteUser.uId)
     router.back(fid!=-1?0:fid)
     break
   case 3:
+    // 免提
     meun.value[index]["index"]=meun.value[index]["index"]?0:1
     break
   }
@@ -116,22 +120,22 @@ const videoCall=()=>{
       // 将自己的视频流放到自己标签里面
       myVideo.value.srcObject=stream
       // 调用 call 方法那边接收
-      let call=store.peer.call(fid, stream)
+      store.remoterCall=store.peer.call(fid, stream)
       // 拨打端 接收远程端的流
-      call.on("stream", (stream) => {
+      store.remoterCall.on("stream", (stream) => {
         console.log("接收端获取远程的流",stream)
         remoteVideo.value.srcObject = stream
       })
  
   
-      // // 拨打端接收到了拒绝通话请求
+      // // 拨打端接收到了拒绝通话请求 或者挂断
       store.conn.on("data",(data)=>{
+        console.log("接收到新")
         if (data==0){
           // 关闭自己视频流电话
-          // call.close()
-          
-          // console.log("关闭通话")
-          // router.back(0)
+          store.cancelMediaStream(store.locahostCall,myVideo.value.srcObject)
+          console.log("关闭通话")
+          router.back(0)
         }
       })
       
@@ -160,7 +164,7 @@ if(fid!=-1){
   videoCall()
 }else{
 
-  // 接收方
+  // // 接收方
   nickName.value=store.remoteUser.nickName
   avatar.value=store.remoteUser.userAvatar
   getUserMedia({video: true, audio: true})
@@ -179,9 +183,11 @@ if(fid!=-1){
       console.error("Failed to get local stream", err)
     })
 }
-// store.peer.on("call", (call) => {
- 
-// })
+store.$socket.on("callPhone",()=>{
+  nickName.value=store.remoteUser.nickName
+  avatar.value=store.remoteUser.userAvatar
+  console.log("接收到电话信息")
+})
 
 </script>
 

@@ -8,7 +8,7 @@
 
 <script setup>
 import { defineProps } from "vue"
-const props = defineProps({
+defineProps({
   iconName: {
     type: String,
 
@@ -31,7 +31,7 @@ const props = defineProps({
     default: "",
   }
 })
-console.log(props, "icon")
+
 </script>
 
 <style scoped lang='scss'>

@@ -87,13 +87,14 @@ const onTouchStart=(id)=>{
         store.remoterCall.answer(stream) 
         // 发送标识通知拨打方 拒绝通话
         store.conn.send(0)
-        // 关闭自己视频流
-        store.remoterCall.close()
+        // 关闭远程视频流
+        store.cancelMediaStream(store.remoterCall,stream)
         router.back(0)
       })
     
     break
   case 2:
+    // 接受通话 
     router.push({
       path:"/videocall/-1"
     })

@@ -11,13 +11,12 @@
 </template>
 
 <script setup>
-import { ref,watch} from "vue"
+import { ref,watch } from "vue"
 import { useStore } from "@/store"
 import {  useRoute } from "vue-router"
 import Footer from "@/components/userLayout/Footer.vue"
-
 import Dialog from "@/components/userLayout/Dialog.vue"
-
+import {getFormatTime}  from "@/utils/index"
 const route = useRoute()
 const mainDom = ref(null)
 const store=useStore()
@@ -35,10 +34,13 @@ const onSendInfo = (data) => {
       avatar:store.user.userAvatar,
       sendName: store.user.nickName,
       className: "my",
+      readStatus:true,
+      sendTime:getFormatTime(),
       sendMsg: data["msg"],
     }
   }
   store.setInfoList(info)
+  // 发过去添加到pinia里面是已读的  经过服务器中转到对方就是未读
   store.$socket?.emit("receiveClientMessage",info)
   mainDom.value.scrollIntoView(false)
 }
@@ -69,7 +71,8 @@ try {
   console.log(error)
 }
 
-
+// 进入需要执行当前会话未读消息设置已读 离开也需要
+store.setSesstionreadStaus()
 
 </script>
 
