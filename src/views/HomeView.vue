@@ -50,4 +50,8 @@ watch(() => store.infoList, (newValue, oldValue) => {
 </script>
 
 <style scoped lang="scss">
+.home{
+  height: 100%;
+  background: $white;
+}
 </style>

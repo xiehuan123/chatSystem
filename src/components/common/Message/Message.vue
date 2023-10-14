@@ -31,8 +31,10 @@ const props = defineProps({
 })
 const isVisable=ref(false)
 onMounted(() => {
+  console.log("组件显示成功")
   isVisable.value = true
   setTimeout(() => {
+    console.log("关闭成功")
     isVisable.value = false
   }, props.duration)
 })
@@ -47,7 +49,7 @@ onMounted(() => {
   inset: 0;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.2); /* 半透明黑色 */
+  background-color: $mask-bg; /* 半透明黑色 */
   z-index: 1000; /* 调整遮罩层显示层级 */
   .content {
     position: absolute;
@@ -60,7 +62,7 @@ onMounted(() => {
     transform: translate(-50%, -50%);
     width: 30vw;
     height: 30vw;
-    background: #887676;
+    background: rgba(79, 79, 79,.8);
     border-radius: 20px;
   }
   .yuan {

@@ -1,38 +1,49 @@
 <template>
   <div class="search">
-    <Search></Search>
+    <Search @searchKwd="searchKwd"></Search>
     <div class="result">
-      <h3 class="title">个人</h3>
       <div class="content">
         <ListItem
-          v-for="item in infoList"
-          :key="item.sesstionId"
-          :sesstioItem="item"
+          :sesstioItem="infoItem"
           :height="58"
-        ></ListItem>
+          @click="goSearch"
+        >
+        </ListItem>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import Search from "@/components/Search.vue"
+import {ref} from "vue"
+import Search from "@/components/SearchBar.vue"
 import ListItem from "@/components/ListItem.vue"
-const infoList = [
-  {
-    sesstionId: 1,
-    sesstionName: "昵称",
-    // avatar: "icon-iconfontzhizuobiaozhunbduan36",
-    sesstionMsg: [
-      {
-        sendMsg: "个性签名",
-      },
-    ],
-    marginBorde: true,
-  },
-]
+
+const infoItem =ref({})   
+const searcKwd=ref("")
+const searchKwd=(kwd)=>{
+  searcKwd.value=kwd
+  // 接收到空字符就直接空对象 
+  if(kwd==""){
+    infoItem.value={}
+    return
+  }
+  console.log(kwd)
+  infoItem.value=
+    {
+      sesstionId: 1,
+      sesstionName:`昵称:${searcKwd.value}`,
+      avatar:"icon-a-19ruzhi",
+    }
+}
+const goSearch=()=>{
+  console.log(1111)  
+}
 </script>
 
 <style lang="scss" scoped>
-
+.search{
+  height: 100%;
+  background: $content-color;
+}
 </style>

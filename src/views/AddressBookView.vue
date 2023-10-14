@@ -73,7 +73,7 @@ onMounted(async()=>{
       font-size: 8px;
       height: 24px;
       line-height: 24px;
-      background-color: #ece9e7;
+      
       color: #6e6e6e;
       padding: 0 10px;
     }
@@ -81,6 +81,7 @@ onMounted(async()=>{
       height: 32px;
       padding: 10px;
       display: flex;
+      background-color: $white;
       i {
         height: 32px;
         line-height: 32px;
@@ -95,6 +96,7 @@ onMounted(async()=>{
   }
   .functions {
     padding: 10px;
+    background: white;
     .function {
       height: 32px;
       padding: 8px 0;

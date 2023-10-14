@@ -7,8 +7,10 @@ import "@/assets/iconfont.js"
 import loading from "@/components/common/Loading"
 import message from "@/components/common/Message"
 import { createPinia } from "pinia"
+
 // import "@/acces"
-const app=createApp(App)
+const app = createApp(App)
 app.config.globalProperties.$loading = loading
 app.config.globalProperties.$message = message
-app.use(router).use(createPinia())  .mount("#app")
+
+app.use(router).use(createPinia()).mount("#app")

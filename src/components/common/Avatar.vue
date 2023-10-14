@@ -1,5 +1,5 @@
 <template>
-  <div class="avatar"  :style="{width: width+'px',height:height+'px', borderRadius:border+'px'}">
+  <div class="avatar"  :style="{width: size+'px',height:size+'px', borderRadius:border+'px'}">
       <img :src="src" alt="图片加载失败" >
     </div>
 </template>
@@ -7,13 +7,9 @@
 <script setup>
 import { defineProps } from "vue"
 defineProps({
-  width:{
+  size:{
     type:Number,
-    default:70,
-  },
-  height:{
-    type:Number,
-    default:70,
+    default:45,
   },
   src:{
     type:String,
@@ -21,7 +17,7 @@ defineProps({
   },
   border:{
     type:Number,
-    default:10,
+    default:3,
   }
 
 })

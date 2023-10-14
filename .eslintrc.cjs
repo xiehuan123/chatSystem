@@ -2,7 +2,7 @@ module.exports = {
   "env": {
     "browser": true,
     "es2021": true,
-    
+
   },
   "extends": [
     "eslint:recommended",
@@ -13,11 +13,12 @@ module.exports = {
     "assets/", // 忽略整个 'assets' 目录
     // 可以添加其他要忽略的目录或文件
   ],
+  
   "overrides": [
     {
       "env": {
         "node": true,
-        
+
       },
       "files": [
         ".eslintrc.{js,cjs}"

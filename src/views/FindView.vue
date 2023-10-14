@@ -61,7 +61,7 @@ const infoList=ref([
 
 <style scoped>
 .find {
-  background: rgb(227, 227, 227);
+
   height: 100%;
 }
 </style>

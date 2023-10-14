@@ -2,7 +2,7 @@
 import { render, h } from "vue"
 import messageComponent from "./message.vue"
 
-const message = (message, icon,duration = 3000) => {
+const message = (message, icon,duration = 2000) => {
   const handleDestroy = () => {
     // 从 body 上移除组件
     render(null, document.body)

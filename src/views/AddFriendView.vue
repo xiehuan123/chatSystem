@@ -1,5 +1,6 @@
 <template>
-  <div class="addfriendview">
+<Dialog v-model:visible="isQrcodeVisible"/>
+  <div class="addfriendview" >
     <h4 class="title">
       <Icon
         iconName="icon-arrow-left"
@@ -14,7 +15,7 @@
     </div>
     <div class="num">
       我的微信号：xiehuan666
-      <Icon iconName="icon-erweima" class="ico" :fontSize="20"></Icon>
+      <Icon iconName="icon-erweima" class="ico" :fontSize="20" @click="openQrcode"></Icon>
     </div>
     <ListItem
       v-for="item in infoList"
@@ -35,9 +36,13 @@
 </template>
 
 <script setup>
-import Icon from "@/components/common/Icon.vue"
+import {ref} from "vue"
 import { useRouter } from "vue-router"
+
+import Icon from "@/components/common/Icon.vue"
 import ListItem from "@/components/ListItem.vue"
+import Dialog from "@/components/common/Dialog.vue"
+const isQrcodeVisible=ref(false)
 const router = useRouter()
 const toBack = () => {
   router.go(-1)
@@ -47,7 +52,10 @@ const toSearch = () => {
     path: "/addfriend/search",
   })
 }
-
+const  openQrcode=()=>{
+  console.log("打开二维码")
+  isQrcodeVisible.value=true
+}
 const infoList = [
   {
     sesstionId: 1,
@@ -119,9 +127,11 @@ const infoList = [
 
 <style lang="scss" scoped>
 .addfriendview {
+  position: absolute;
+  top: 0;
   width: 100%;
   height: 100%;
-  background-color: #e3e3e3;
+  background-color: $content-color;
   overflow: hidden;
   .title {
     margin: 0 7px;

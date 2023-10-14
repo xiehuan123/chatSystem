@@ -8,11 +8,11 @@
       :border="border"
     >
       <template #right>
-        <Icon iconName="icon-arrow-right"> </Icon>
+        <Icon iconName="icon-arrow-right" > </Icon>
       </template>
       <template #left>
         <div class="avatar">
-          <Icon :iconName="item?.avatar" :fontSize="24"> </Icon>
+          <Icon :iconName="item?.avatar" :fontSize="24" :color="item?.color"> </Icon>
         </div>
       </template>
     </ListItem>

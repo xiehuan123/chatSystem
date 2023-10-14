@@ -1,11 +1,13 @@
 <template>
   <div
+  v-show="Object.keys(sesstioItem).length!=0"
     :class="[
       'item',
       sesstioItem?.marginTop && 'marginTop',
       border && 'border',
     ]"
     :style="{ height: height + 'px' }"
+  
   >
   <slot name="left">
     <div class="avatar">
@@ -39,7 +41,7 @@
     <div :class="['time', sesstioItem?.marginBorde ? 'marginBorde' : '']">
       <slot name="right">
         <div>{{ lastInfoMsg?.sendTime }}</div>
-        <div>勿扰</div>
+        <div></div>
       </slot>
     </div>
   </div>
@@ -64,7 +66,7 @@ const props = defineProps({
 })
 const lastInfoMsg = computed(() => {
   // 判断有没有传递中间的消息
-  if(!(props?.sesstioItem?.sesstionMsg.length)){
+  if(!(props?.sesstioItem?.sesstionMsg?.length)){
     return null
   }
   console.log(props?.sesstioItem?.sesstionMsg,777)
@@ -93,8 +95,8 @@ const lastInfoMsg = computed(() => {
     flex: 1;
 
     > div:nth-child(1) {
-      font-size: 18px;
-      font-weight: 500;
+      font-size: 17px;
+      
     }
     > div:nth-child(2) {
       font-size: 13px;

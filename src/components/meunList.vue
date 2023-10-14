@@ -3,7 +3,7 @@
     name="dialog-fade"
     @after-enter="afterEnter"
     @after-leave="afterLeave">
-  <div class="meunListBox" @click.self="onClose()" v-show="isVisible">
+  <div class="meunListBox" @click.self="onClose" v-show="isVisible">
     <div class="meunList">
       <ul>
         <router-link :to="item.path" v-for="item in meunList" :key="item.id">

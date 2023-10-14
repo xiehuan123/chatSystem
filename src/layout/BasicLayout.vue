@@ -22,9 +22,10 @@ onMounted( async ()=>{
 </script>
 
 <style scoped lang="scss">
-$primary-color: #2196F3;
+
 .basic{
   position: relative;
   height: 100%;
+  background: $content-color;;
 }
 </style>

@@ -36,13 +36,15 @@ const infoList=ref([
     sesstionId: 3,
     sesstionName: "朋友圈",
     avatar: "icon-tupian_o",
+    color:"#53719f",
     marginBorde:true
    
   },
   {
     sesstionId: 4,
     sesstionName: "视频号",
-    avatar: "icon-24gl-playCircle",
+    avatar: "icon-video",
+    color:"#d2a467",
     marginBorde:true
    
   },
@@ -50,12 +52,14 @@ const infoList=ref([
     sesstionId: 5,
     sesstionName: "卡包",
     avatar: "icon-kabao",
+    color:"#53719f",
     marginBorde:true
   },
   {
     sesstionId: 6,
     sesstionName: "表情",
     avatar: "icon-biaoqing",
+    color:"#d2a467",
     marginBorde:true
    
   },
@@ -63,15 +67,16 @@ const infoList=ref([
     sesstionId: 7,
     sesstionName: "设置",
     avatar: "icon-shezhi",
+    color:"#53719f",
     marginTop:true,
    
   }
 ])
 </script>
 
-<style scoped>
+<style lang="scss"  scoped>
 .me{
-  background: rgb(227, 227, 227);
+  
   height: 100%;
 }
 </style>

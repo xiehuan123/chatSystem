@@ -1,6 +1,6 @@
 <template>
     <transition name="fade" @after-leave="destroy">
-      <div class="Loading" v-if="isVisable">
+      <div class="Loading" v-if="isVisableLoading">
     <div class="content">
       <div class="yuan"></div>
       <div class="text">{{ props.message }}</div>
@@ -18,7 +18,7 @@ const props = defineProps({
     required: true,
     defalut:"加载中"
   },
-  isVisable:{
+  isVisableLoading:{
     type: Boolean,
     required: true,
     defalut:true
@@ -38,7 +38,7 @@ const props = defineProps({
   inset: 0;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.2); /* 半透明黑色 */
+  background-color: $mask-bg; /* 半透明黑色 */
   z-index: 1000; /* 调整遮罩层显示层级 */
   .content {
     position: absolute;

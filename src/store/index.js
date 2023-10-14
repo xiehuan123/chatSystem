@@ -2,7 +2,7 @@ import { ref } from "vue"
 import { defineStore } from "pinia"
 import { useRouter } from "vue-router"
 import { io } from "socket.io-client"
-import { BASE_URL ,PEER_URL} from "@/utils/CONFIG_ENUM"
+import { BASE_URL } from "@/utils/CONFIG_ENUM"
 import Peer from "peerjs"
 export const useStore = defineStore("user", () => {
   const $socket = ref(null)
@@ -69,7 +69,7 @@ export const useStore = defineStore("user", () => {
     //连接peejs服务器
     peer.value=new Peer(uid,
       {
-        host: PEER_URL,
+        host: "127.0.0.1",
         port:8000,
         path: "/peerjs/myapp",
         config: {
@@ -95,7 +95,7 @@ export const useStore = defineStore("user", () => {
     peer.value?.on("call", (call) => {
       console.log(call,"接收到电话")
       remoterCall.value=call
-   
+
       router.push({
         path:"/videoaccept"
       })

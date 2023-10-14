@@ -1,6 +1,6 @@
 <template>
-  <div :class="['AppHeader', route.path == '/me' ? 'hiden' : '']">
-    <header>
+  <div :class="['AppHeader', route.path == '/me' ? 'meBg' : '']">
+    <header :class="route.path == '/me' ? 'hiden' : ''">
       <div class="title">{{ route.name }}{{}}</div>
       <div class="option">
         <Icon iconName="icon-sousuoxiao" :fontSize="20"  @click="onGotoSearch()"> </Icon>
@@ -63,5 +63,8 @@ header {
 }
 .hiden {
   visibility: hidden;
+}
+.meBg{
+  background: rgb(255, 255, 255);
 }
 </style>

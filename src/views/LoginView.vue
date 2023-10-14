@@ -51,16 +51,21 @@ const agreeLogin = async () => {
     userPassword:userPassword.value,
   })
   if(err){
-    throw err
-    
+    throw err 
   }
-  globalProperties.$loading("正在登录中...",false)
+    
+  console.log(res)
+  if(res["code"]!=200){
+    globalProperties.$message(res["message"])
+    return 
+  }
   store.setUser({userAvatar:res["data"]["avatar"],userSex:res["data"]["gender"],useriPhone:res["data"]["phone_number"],userWx:res["data"]["wechat_id"],userRigon:res["data"]["region"],uId:res["data"]["uid"],nickName:res["data"]["nickname"]})
   store.setToken(res["token"])
   store.openSocket(store.user.uId)
   // const t=await test(store.user.uId)
   // console.log(t)
   const path=route.query.redirect||"/"
+  globalProperties.$message("登陆成功")
   console.log(path)
   router.push({
     path:path
