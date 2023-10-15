@@ -14,7 +14,7 @@
       <Icon iconName="icon-sousuoxiao" class="serach_ico"></Icon>账号/手机号
     </div>
     <div class="num">
-      我的微信号：xiehuan666
+      我的微信号：{{store.user.nickName}}
       <Icon iconName="icon-erweima" class="ico" :fontSize="20" @click="openQrcode"></Icon>
     </div>
     <ListItem
@@ -38,12 +38,13 @@
 <script setup>
 import {ref} from "vue"
 import { useRouter } from "vue-router"
-
+import {useStore} from "@/store"
 import Icon from "@/components/common/Icon.vue"
 import ListItem from "@/components/ListItem.vue"
 import Dialog from "@/components/common/Dialog.vue"
 const isQrcodeVisible=ref(false)
 const router = useRouter()
+const store=useStore()
 const toBack = () => {
   router.go(-1)
 }

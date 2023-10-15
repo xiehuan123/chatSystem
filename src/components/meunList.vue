@@ -46,7 +46,7 @@ const meunList = ref([
     id: 3,
     iconName: "icon-saoyisao1",
     name: "扫一扫",
-    path: "",
+    path: "sweepaway",
   },
   {
     id: 4,

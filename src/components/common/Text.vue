@@ -25,6 +25,6 @@ defineProps({
 <style scoped lang='scss'>
 .text{
   // display: inline-block;
-  margin: 7px;
+  margin: 2px;
 }
 </style>

@@ -46,6 +46,7 @@ const onGoto=(uId)=>{
 
 <style scoped lang="scss">
 .friend {
+  background-color: $white;
   .title {
     font-size: 12px;
     height: 24px;

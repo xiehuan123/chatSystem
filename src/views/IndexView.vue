@@ -30,7 +30,7 @@ const register = () => {
   position: relative;
   background-image: url(@/assets/image/index.jpg);
   margin: 0px;
-  background-size: 100% 100%;
+  background-size: contain;
   background-attachment: fixed;
   .bottom {
     width: 100%;

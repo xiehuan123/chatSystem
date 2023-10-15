@@ -13,7 +13,7 @@ import phoneLoginView from "@/views/PhoneLoginView.vue"
 import AddFriendView from "@/views/AddFriendView.vue"
 import SearchView from "@/views/SearchView.vue"
 import PeopleInfoView from "@/views/PeopleInfoView.vue"
-import scanqrcode from "@/components/ScanQRCode.vue"
+import SweepAwayView from "@/views/SweepAwayView.vue"
 import UserInfoView from "@/views/UserInfoView.vue"
 import SesstionView from "@/views/SessionView.vue"
 import VideoCallView from "@/views/VideoCallView.vue"
@@ -115,8 +115,8 @@ const routes = [
   },
   // 扫一扫
   {
-    path: "/scanqrcode",
-    component: scanqrcode,
+    path: "/sweepaway",
+    component: SweepAwayView,
   },
   // 拨打视频/语音通话 页面
   {

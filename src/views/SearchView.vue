@@ -32,7 +32,7 @@ const searchKwd=(kwd)=>{
   infoItem.value=
     {
       sesstionId: 1,
-      sesstionName:`昵称:${searcKwd.value}`,
+      sesstionName:`搜索:${searcKwd.value}`,
       avatar:"icon-a-19ruzhi",
     }
 }

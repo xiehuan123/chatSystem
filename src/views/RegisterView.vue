@@ -46,13 +46,16 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref ,getCurrentInstance} from "vue"
+import {useRouter} from "vue-router"
 import Input from "@/components/common/Input.vue"
 import Close from "@/components/Close.vue"
+
 import { register } from "@/api/index"
 
-
-
+import {compressionFile} from "@/utils/index"
+const { appContext : { config: { globalProperties } } } = getCurrentInstance()
+const router =useRouter()
 const userName = ref("")
 const userPhone = ref("")
 const userPasswod = ref("")
@@ -60,21 +63,24 @@ const isChecked = ref(false)
 const uploadImgDom = ref(null)
 const uploadImgUrl=ref("")
 const uploadImgFile=ref(null)
+
 const checked = () => {
   isChecked.value = !isChecked.value
 }
 const onUploadImg = () => {
   uploadImgDom.value.click()
 }
-const onUploadChange = () => {
+const onUploadChange = async() => {
   const file = uploadImgDom.value.files[0]
-  uploadImgFile.value=file
+  uploadImgFile.value= await compressionFile(file)  
+  console.log(uploadImgFile.value)
   console.log(file)
   uploadImgUrl.value = URL.createObjectURL(file)
 
  
 }
 const registerCheck = async () => {
+ 
   if (
     !userName.value.trim() &&
     !userPasswod.value.trim() &&
@@ -83,6 +89,7 @@ const registerCheck = async () => {
     alert("Please enter")
     return
   }
+  globalProperties.$loading("正在注册中...")
   const registerData = new FormData()
   console.log(uploadImgFile.value,"有值")
   registerData.append("nickname", userName.value)
@@ -91,10 +98,20 @@ const registerCheck = async () => {
   registerData.append("avatar", uploadImgFile.value)
   const {err,res}= await register(registerData)
   if(err){
-    console.log(err)
+    globalProperties.$message("注册失败")
     return  
   }
   console.log(res)
+  if(res["code"]!=200){
+    globalProperties.$message(res["message"])
+    return 
+  }
+  console.log(res)
+  
+  globalProperties.$message("注册成功")
+  router.back(0)
+  
+  
 
 }
 </script>
