@@ -17,8 +17,7 @@
 <script setup>
 import {ref,} from "vue"
 import { useRoute,useRouter } from "vue-router"
-import Icon from "@/components/common/Icon.vue"
-import meunList from "@/components/meunList.vue"
+
 const route = useRoute()
 const router=useRouter()
 const isiMeun=ref(false)
@@ -42,7 +41,7 @@ const onGotoSearch=()=>{
 header {
   position: relative;
   height: 40px;
-  background: $bg-color;
+
   line-height: 40px;
   .title {
     text-align: center;

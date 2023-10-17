@@ -1,21 +1,14 @@
 <template>
   <div class="addressBook">
     <div class="functions">
-      <div class="function">
-        <Icon icon-name="icon-tianjiahaoyou"></Icon><span>新的朋友</span>
-      </div>
-      <div class="function">
-        <Icon icon-name="icon-shouye"></Icon><span>仅聊天的朋友</span>
-      </div>
-      <div class="function">
-        <Icon icon-name="icon-qunliao1"></Icon><span>群聊</span>
-      </div>
-      <div class="function">
-        <Icon icon-name="icon-biaoqian"></Icon><span>标签</span>
-      </div>
-      <div class="function">
-        <Icon icon-name="icon-gongzhongha"></Icon><span>公众号</span>
-      </div>
+      <ListItem v-for="item in meun" :key="item.sesstionId" :sesstio-item="item"></ListItem>
+      <!-- <div class="function" v-for="item in meun" :key="item.id">
+        <Icon :icon-name="icon-tianjiahaoyou"></Icon>
+         <div class="nickname">
+          <div>新的朋友</div>
+        </div>
+      </div> -->
+  
     </div>
     <div class="business">
       <div class="title">我的企业及企业联系人</div>
@@ -27,40 +20,308 @@
       <Friend v-for="item in peoples" :key="item.title" :friends="item"></Friend>
     </div>
   </div>
+  <index-bar></index-bar>
 </template>
 
 <script setup>
 import { ref, onMounted} from "vue"
 
-import Friend from "@/components/Friend.vue"
-import Icon from "@/components/common/Icon.vue"
+
 import {getFriendsList} from "@/api/frindeShip"
 import { getResultSort } from "@/utils/index"
 
 
+const meun =ref([
 
-const peoples = ref([{
-  title:"x",
-  list:[
-    { uId:1,
-      userName: "小明",
+  { sesstionId:1,
+    sesstionName:"新的朋友",
+    avatar:"icon-Dimission-S",
+    path:""
+   
+  },
+  { sesstionId:2,
+    sesstionName:"仅聊天的朋友",
+    avatar:"icon-tianjiahaoyou",
+    marginBorde:true,
+    path:""
+  }, 
+  { sesstionId:3,
+    sesstionName:"群聊",
+
+    avatar:"icon-qunliao1",
+    marginBorde:true,
+    path:""
+  
+  },
+  { sesstionId:3,
+    sesstionName:"标签",
+
+    avatar:"icon-biaoqian",
+    marginBorde:true,
+    path:""
+
+  
+  },
+  { sesstionId:3,
+    sesstionName:"公众号",
+   
+    avatar:"icon-qunliao1",
+    marginBorde:true,
+    path:""
+  
+  
+  }
+
+])
+const peoples = ref(
+  [
+    {
+      "title": "1",
+      "list": [
+        {
+          "uid": 3,
+          "nickname": "123456",
+          "avatar": "uploads/wx_c8a0e42a/avatar.png"
+        },
+        {
+          "uid": 2,
+          "nickname": "789789",
+          "avatar": "uploads/wx_8f5fbab5/avatar.png"
+        }
+      ]
     },
-    {uId:2,
-      userName: "小红",
+    {
+      "title": "7",
+      "list": [
+        {
+          "uid": 4,
+          "nickname": "qwerty",
+          "avatar": "uploads/wx_1a2b3c4d/avatar.png"
+        },
+        {
+          "uid": 5,
+          "nickname": "asdfgh",
+          "avatar": "uploads/wx_5e6f7g8h/avatar.png"
+        }
+      ]
     },
-    {uId:3,
-      userName: "小蓝2",
+    {
+      "title": "Z",
+      "list": [
+        {
+          "uid": 6,
+          "nickname": "zxcvbn",
+          "avatar": "uploads/wx_9i8h7g6f/avatar.png"
+        },
+        {
+          "uid": 7,
+          "nickname": "poiuyt",
+          "avatar": "uploads/wx_4d3c2b1a/avatar.png"
+        }
+      ]
     },
-  ]
-     
-}])
+    {
+      "title": "L",
+      "list": [
+        {
+          "uid": 8,
+          "nickname": "lkjhgf",
+          "avatar": "uploads/wx_1234567/avatar.png"
+        },
+        {
+          "uid": 9,
+          "nickname": "mnbvcx",
+          "avatar": "uploads/wx_7654321/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "0",
+      "list": [
+        {
+          "uid": 10,
+          "nickname": "098765",
+          "avatar": "uploads/wx_a1b2c3d4/avatar.png"
+        },
+        {
+          "uid": 11,
+          "nickname": "543210",
+          "avatar": "uploads/wx_d4c3b2a1/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "A",
+      "list": [
+        {
+          "uid": 12,
+          "nickname": "qwerty",
+          "avatar": "uploads/wx_1a2b3c4d/avatar.png"
+        },
+        {
+          "uid": 13,
+          "nickname": "asdfgh",
+          "avatar": "uploads/wx_5e6f7g8h/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "Z",
+      "list": [
+        {
+          "uid": 14,
+          "nickname": "zxcvbn",
+          "avatar": "uploads/wx_9i8h7g6f/avatar.png"
+        },
+        {
+          "uid": 15,
+          "nickname": "poiuyt",
+          "avatar": "uploads/wx_4d3c2b1a/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "L",
+      "list": [
+        {
+          "uid": 16,
+          "nickname": "lkjhgf",
+          "avatar": "uploads/wx_1234567/avatar.png"
+        },
+        {
+          "uid": 17,
+          "nickname": "mnbvcx",
+          "avatar": "uploads/wx_7654321/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "0",
+      "list": [
+        {
+          "uid": 18,
+          "nickname": "098765",
+          "avatar": "uploads/wx_a1b2c3d4/avatar.png"
+        },
+        {
+          "uid": 19,
+          "nickname": "543210",
+          "avatar": "uploads/wx_d4c3b2a1/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "Q",
+      "list": [
+        {
+          "uid": 20,
+          "nickname": "qwerty",
+          "avatar": "uploads/wx_1a2b3c4d/avatar.png"
+        },
+        {
+          "uid": 21,
+          "nickname": "asdfgh",
+          "avatar": "uploads/wx_5e6f7g8h/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "Z",
+      "list": [
+        {
+          "uid": 22,
+          "nickname": "zxcvbn",
+          "avatar": "uploads/wx_9i8h7g6f/avatar.png"
+        },
+        {
+          "uid": 23,
+          "nickname": "poiuyt",
+          "avatar": "uploads/wx_4d3c2b1a/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "L",
+      "list": [
+        {
+          "uid": 24,
+          "nickname": "lkjhgf",
+          "avatar": "uploads/wx_1234567/avatar.png"
+        },
+        {
+          "uid": 25,
+          "nickname": "mnbvcx",
+          "avatar": "uploads/wx_7654321/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "0",
+      "list": [
+        {
+          "uid": 26,
+          "nickname": "098765",
+          "avatar": "uploads/wx_a1b2c3d4/avatar.png"
+        },
+        {
+          "uid": 27,
+          "nickname": "543210",
+          "avatar": "uploads/wx_d4c3b2a1/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "Q",
+      "list": [
+        {
+          "uid": 28,
+          "nickname": "qwerty",
+          "avatar": "uploads/wx_1a2b3c4d/avatar.png"
+        },
+        {
+          "uid": 29,
+          "nickname": "asdfgh",
+          "avatar": "uploads/wx_5e6f7g8h/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "Z",
+      "list": [
+        {
+          "uid": 30,
+          "nickname": "zxcvbn",
+          "avatar": "uploads/wx_9i8h7g6f/avatar.png"
+        },
+        {
+          "uid": 31,
+          "nickname": "poiuyt",
+          "avatar": "uploads/wx_4d3c2b1a/avatar.png"
+        }
+      ]
+    },
+    {
+      "title": "L",
+      "list": [
+        {
+          "uid": 32,
+          "nickname": "lkjhgf",
+          "avatar": "uploads/wx_1234567/avatar.png"
+        },
+        {
+          "uid": 33,
+          "nickname": "mnbvcx",
+          "avatar": "uploads/wx_7654321/avatar"}
+      ]}])
 onMounted(async()=>{
   const {err,res}=await getFriendsList()
   if(err){
     throw err
   }
   const data=res["data"].map(item=>item.user)
-  peoples.value=getResultSort(data)
+
+  peoples.value=[...getResultSort(data)]
+
 
 })
 </script>
@@ -95,13 +356,15 @@ onMounted(async()=>{
     }
   }
   .functions {
-    padding: 10px;
+  
     background: white;
     .function {
-      height: 32px;
-      padding: 8px 0;
-      display: flex;
-      border-bottom: 1px solid #e6e6e6;
+     display: flex;
+    align-items: center;
+
+    margin-left: 10px;
+    height: 50px;
+
       i {
         height: 32px;
         line-height: 32px;
@@ -109,8 +372,10 @@ onMounted(async()=>{
         margin-right: 16px;
       }
       span {
+        display: inline-block;
         width: 100%;
         line-height: 32px;
+         
       }
     }
     .function:last-child {

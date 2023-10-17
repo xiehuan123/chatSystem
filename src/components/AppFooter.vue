@@ -28,8 +28,6 @@
 <script setup>
 import { ref, computed, watch } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import Dots from "@/components/Dots.vue"
-import Icon from "@/components/common/Icon.vue"
 import { useStore } from "@/store"
 const store=useStore()
 const route = useRoute()
@@ -68,7 +66,7 @@ watch(()=>store.infoList,(val)=>{
   bottom: 0;
   height: 70px;
   width: 100%;
-  background: $bg-color;
+  // background: $bg-color;
   > div {
     position: relative;
     display: flex;

@@ -58,9 +58,7 @@
 import { ref } from "vue"
 import { QrcodeStream } from "vue-qrcode-reader"
 import {useRouter} from "vue-router"
-import CloseBg from "@/components/CloseBg.vue"
-import Icon from "@/components/common/Icon.vue"
-import Text from "@/components/common/Text.vue"
+
 const paused = ref(false)
 const result = ref("")
 const showScanConfirmation = ref(false)

@@ -22,7 +22,7 @@ import Audio from "@/components/userLayout/Audio.vue"
 import Hammer from "hammerjs"
 import Recorder from "js-audio-recorder"
 import emitter from "@/utils/Bus"
-import Icon from "@/components/common/Icon.vue"
+//import Icon from "@/components/common/Icon.vue"
 const router = useRouter()
 const route = useRoute()
 const store=useStore()

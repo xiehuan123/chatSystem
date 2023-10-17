@@ -39,9 +39,7 @@
 import {ref} from "vue"
 import { useRouter } from "vue-router"
 import {useStore} from "@/store"
-import Icon from "@/components/common/Icon.vue"
-import ListItem from "@/components/ListItem.vue"
-import Dialog from "@/components/common/Dialog.vue"
+
 const isQrcodeVisible=ref(false)
 const router = useRouter()
 const store=useStore()

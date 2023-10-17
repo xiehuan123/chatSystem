@@ -14,8 +14,7 @@
 import { ref,watch } from "vue"
 import { useStore } from "@/store"
 import {  useRoute } from "vue-router"
-import Footer from "@/components/userLayout/Footer.vue"
-import Dialog from "@/components/userLayout/Dialog.vue"
+
 import {getFormatTime}  from "@/utils/index"
 const route = useRoute()
 const mainDom = ref(null)

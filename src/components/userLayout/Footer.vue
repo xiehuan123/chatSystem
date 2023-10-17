@@ -55,7 +55,7 @@
 
 <script setup>
 import { ref, computed ,defineEmits} from "vue"
-import Icon from "@/components/common/Icon.vue"
+//import Icon from "@/components/common/Icon.vue"
 
 const textInput = ref("")
 const aduioKeyboard=ref(true)

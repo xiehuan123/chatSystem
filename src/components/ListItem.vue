@@ -49,7 +49,7 @@
 
 <script setup>
 import { computed, defineProps } from "vue"
-import Icon from "@/components/common/Icon.vue"
+//import Icon from "@/components/common/Icon.vue"
 const props = defineProps({
   sesstioItem: {
     type: Object,
@@ -121,8 +121,20 @@ const lastInfoMsg = computed(() => {
 .marginTop {
   margin-top: 7px;
 }
-.marginBorde {
-  border-top: #ccc 1px solid;
+.marginBorde{
+  position: relative;
+}
+.marginBorde::before {
+
+   position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
 }
 .border {
   border: solid 1px $bd-color;

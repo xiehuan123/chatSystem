@@ -1,6 +1,6 @@
 <template>
   <div class="text">
-    <span :style="{fontSize:size+'px', color:color}"><slot >
+    <span :style="{fontSize:size+'px', color:color,fontWeight:weight}"><slot >
     
 
   </slot></span>
@@ -17,6 +17,10 @@ defineProps({
   color:{
     type:String,
     default:"#ccc"
+  },
+  weight:{
+    type:Number,
+    default:0
   }
 
 })

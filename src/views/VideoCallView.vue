@@ -33,9 +33,7 @@
 </template>
 
 <script setup>
-import Avatar from "@/components/common/Avatar.vue"
-import Text from "@/components/common/Text.vue"
-import Icon from "@/components/common/Icon.vue"
+
 import {ref}  from "vue"
 import { useStore } from "@/store"
 import { useRoute,useRouter } from "vue-router"

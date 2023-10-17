@@ -1,11 +1,12 @@
 <template>
   <div class="friend" >
-    <div class="title">{{friends.title}}</div>
+    <div class="title" :id="friends.title">{{friends.title}}</div>
     <div class="content" v-for="item in friends.list" :key="item.uid" @click="onGoto(item.uid)">
-      <div class="img">
-        <img :src="item.avatar" alt="" />
-      </div>
-      <div class="nickname">{{ item.nickname }}</div>
+     <Avatar :src="item.avatar" :size="35"></Avatar>
+  
+      <div class="nickname"><div>
+        {{ item.nickname }}
+      </div></div>
     </div>
   </div>
 </template>
@@ -13,6 +14,7 @@
 <script setup>
 import {defineProps} from "vue"
 import { useRouter } from "vue-router"
+
 const router=useRouter()
 defineProps({
   friends:{
@@ -46,34 +48,52 @@ const onGoto=(uId)=>{
 
 <style scoped lang="scss">
 .friend {
+
   background-color: $white;
   .title {
     font-size: 12px;
     height: 24px;
     line-height: 24px;
     color: #6e6e6e;
-    background-color: #ece9e7;
+    // background-color: #ece9e7;
+    background-color: $bg-color;
     padding: 0 10px;
   }
   .content {
     display: flex;
     align-items: center;
-    padding: 10px 0;
-    margin: 0 10px;
-    border-bottom: 1px solid #e6e6e6;
-    .img {
-      height: 32px;
-      width: 32px;
-      img {
-        height: 32px;
-        width: 32px;
-        border-radius: 20%;
+
+    margin-left: 10px;
+    height: 50px;
+
+    
+    .nickname {
+      position: relative;
+      margin-left: 16px;
+      height: 100%;
+      width: 100%;
+      line-height: 50px;
+      // border-bottom: 1px #ccc solid;
+      &::before{
+      position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
       }
     }
-    .nickname {
-      margin-left: 16px;
+    // 分组最后面那个清楚 
+    &:last-child>.nickname::before{
+      content: none;
+     
     }
+   
   }
+
   .content:last-child {
       border-bottom: 0;
     }

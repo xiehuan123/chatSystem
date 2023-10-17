@@ -23,8 +23,7 @@
 
 <script setup>
 import { ref, computed ,getCurrentInstance} from "vue"
-import Close from "@/components/Close.vue"
-import Input from "@/components/common/Input.vue"
+
 import {  login } from "@/api/index"
 import { useRouter,useRoute } from "vue-router"
 import { useStore } from "@/store/index"

@@ -6,7 +6,7 @@
 
 <script setup>
 import { ref } from "vue"
-import FindList from "@/components/FindList.vue"
+
 const infoList=ref([
 
   {

@@ -2,7 +2,12 @@
 import { pinyin } from "pinyin-pro"
 import moment from "moment/moment"
 export const getInitials = (str) => {
+  let reg=/[a-zA-Z]/
+  
   const pinyins = pinyin(str, { pattern: "first" })
+  if(!reg.test(pinyins)){
+    return "#"
+  }
   const initials = pinyins.charAt(0).toUpperCase()
   return initials
 
@@ -11,8 +16,9 @@ export const getResultSort = (data) => {
 
   const result = []
   for (const key in data) {
+    // 获取昵称首字母拼音 不是字母就是#
     const first = getInitials(data[key]["nickname"])
-    console.log(first)
+    // 判断数组有没有相同的分组名
     const index = result.findIndex(item => item.title == first)
     if (index != -1) {
       result[index]["list"].push(data[key])

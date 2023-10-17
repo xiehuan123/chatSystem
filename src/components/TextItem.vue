@@ -2,26 +2,29 @@
   <div
     :class="[
       'item',
-      sesstioItem?.marginTop && 'marginTop',
-  sesstioItem?.marginBorde && 'marginBorde'
+      item?.marginTop && 'marginTop',
+  item?.marginBorde && 'marginBorde'
      
     ]"
-    :style="{ height: height + 'px' }"
+    :style="{ height: item.height + 'px' }"
   >
   <slot name="left">
-    <div class="avatar">
-          {{ sesstioItem.name}}
+    <div class="Textleft">
+          {{ item.name}}
+           <div   v-if="item&&item.content" >
+            {{ item.content }}
+        </div>
         </div>
 
   </slot>
-   
+  
 
     <div class="time">
-      <img  v-if="sesstioItem && sesstioItem.avatar" :src="sesstioItem.avatar" alt="" width="50" height="50">
-      <span v-if="sesstioItem && sesstioItem.nickName">{{ sesstioItem.nickName }} </span>
-      <span v-if="sesstioItem && sesstioItem.userWx">{{ sesstioItem.userWx }} </span>
-      <Icon  v-if="sesstioItem && sesstioItem.icon"  :icon-name="sesstioItem.icon"></Icon>
-      <span v-if="sesstioItem && sesstioItem.text">{{ sesstioItem.text }} </span>
+      <img  v-if="item && item.avatar" :src="item.avatar" alt="" width="50" height="50">
+      <span v-if="item && item.nickName">{{ item.nickName }} </span>
+      <span v-if="item && item.userWx">{{ item.userWx }} </span>
+      <Icon  v-if="item && item.icon"  :icon-name="item.icon"></Icon>
+      <span v-if="item && item.text">{{ item.text }} </span>
     
       <Icon icon-name="icon-arrow-right"></Icon>
     </div>
@@ -30,15 +33,15 @@
 
 <script setup>
 import {  defineProps } from "vue"
-import Icon from "@/components/common/Icon.vue"
+//import Icon from "@/components/common/Icon.vue"
 defineProps({
-  sesstioItem: {
+  item: {
     type: Object,
     required: true,
   },    
   height: {
-    type: String,
-    default: "50",
+    type: Number,
+    default: 50,
   },
   border: {
     type: Boolean,
@@ -54,11 +57,15 @@ defineProps({
   justify-content: space-between;
   box-sizing: border-box;
   background: #fff;
-  .avatar {
+  .Textleft {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 5px 10px;
+    >div{
+      color:rgb(28, 108, 246);
+      margin-left: 10px ;
+    }
   }
   
   .time {

@@ -26,6 +26,6 @@ onMounted( async ()=>{
 .basic{
   position: relative;
   height: 100%;
-  background: $content-color;;
+  background: $bg-color;
 }
 </style>

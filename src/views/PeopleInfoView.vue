@@ -12,25 +12,28 @@
     <div class="top">
       <div class="info">
         <div class="left">
-          <img :src="info.avatar" alt="" />
+          <Avatar :src="info.avatar" :size="55" :border="5" />
+         
         </div>
         <div class="right">
-          <div class="nickname">昵称:{{ info.nickname }}</div>
-          <div class="num">微信号：{{ info.wechat_id }}</div>
-          <div class="region">地区：{{ info.region }}</div>
+           <Text :size="22" color="#000000" :weight="500">{{ info.nickname }}</Text>
+          <Text>昵称:{{ info.nickname }}</Text>
+          <Text>微信号：{{ info.wechat_id }}</Text>
+          <Text v-if="info.region">地区：{{ info.region }}</Text>
+
         </div>
       </div>
     </div>
-    <ListItem
+    <TextItem
       v-for="item in infoList"
-      :key="item.sesstionId"
-      :sesstioItem="item"
-      :height="58"
+      :key="item.id"
+      :item="item"
+      
     >
       <template #right>
         <Icon iconName="icon-arrow-right"> </Icon>
       </template>
-    </ListItem>
+    </TextItem>
     <div class="bottom">
       <div class="send_msg">
         <Icon iconName="icon-xiaoxi" :fontSize="24"></Icon
@@ -47,14 +50,16 @@
 <script setup>
 import {ref,onMounted} from "vue"
 import { useRouter,useRoute } from "vue-router"
-import Icon from "@/components/common/Icon.vue"
-import ListItem from "@/components/ListItem.vue"
+
+
+
 import { useStore } from "@/store"
 import {getInfo} from "@/api/index"
 const router = useRouter()
 const route=useRoute()
 const store=useStore()
 const info=ref({})
+const infoList=ref({})
 const {uId}=route.params
 onMounted(async()=>{
   const {err,res}=await getInfo(uId)
@@ -62,6 +67,39 @@ onMounted(async()=>{
     throw err
   }
   info.value=res["data"]
+  infoList.value=[
+    {
+      id: 1,
+      name: "设置备注和标签",
+      marginBorde: true,
+      height:58,
+    },
+    {
+      id:8,
+      name:"电话号码",
+      marginBorde: true,
+      height:58,
+      content:info.value.phone_number
+    },
+    {
+      id: 2,
+      name: "朋友权限",
+      height:58,
+      marginBorde: true,
+    },
+    {
+      id: 3,
+      name: "朋友圈",
+      height:70,
+      marginTop: true,
+    },
+    {
+      id: 4,
+      name: "更多信息",
+      height:58,
+      marginBorde: true,
+    },
+  ]
   console.log(res["data"])
 
 })
@@ -93,32 +131,7 @@ const onGoSendVideoView=()=>{
     }
   })
 }
-const infoList = [
-  {
-    sesstionId: 1,
-    sesstionName: "设置备注和标签",
-    avatar: "icon-iconfontzhizuobiaozhunbduan36",
-    marginBorde: true,
-  },
-  {
-    sesstionId: 2,
-    sesstionName: "朋友权限",
-    avatar: "icon-shoucang",
-    marginBorde: true,
-  },
-  {
-    sesstionId: 3,
-    sesstionName: "朋友圈",
-    avatar: "icon-shoucang",
-    marginTop: true,
-  },
-  {
-    sesstionId: 4,
-    sesstionName: "更多信息",
-    avatar: "icon-shoucang",
-    marginBorde: true,
-  },
-]
+
 </script>
 
 <style lang="scss" scoped>
@@ -155,9 +168,9 @@ const infoList = [
     }
     .info {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       margin: 0 12px;
-      height: 130px;
+      padding: 20px 0;
       .left {
         width: 55px;
         height: 55px;
@@ -169,22 +182,7 @@ const infoList = [
           transform: translateY(-6px);
         }
       }
-      .right {
-        .nickname {
-          font-weight: bold;
-          font-size: 22px;
-        }
-        .num {
-          color: #c3c3c3;
-          font-size: 14px;
-          margin: 6px 0;
-        }
 
-        .region {
-          color: #c3c3c3;
-          font-size: 14px;
-        }
-      }
     }
   }
   .center {
@@ -222,12 +220,7 @@ const infoList = [
     }
   }
 }
-.avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 10px;
-}
+
 .iconSize {
   font-size: 20px;
 }

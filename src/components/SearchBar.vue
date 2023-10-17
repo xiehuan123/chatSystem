@@ -19,9 +19,8 @@ import {ref,defineEmits,computed,watch} from "vue"
 import { useRouter } from "vue-router"
 
 import{debounce} from "@/utils/index"
-import Icon from "@/components/common/Icon.vue"
-import  Text from "@/components/common/Text.vue"
-import CloseBg from "@/components/CloseBg.vue"
+
+
 const searcKwd=ref("")
 const router = useRouter()
 // 返回上一级

@@ -16,8 +16,7 @@
 
 <script setup>
 import {ref} from "vue"
-import Search from "@/components/SearchBar.vue"
-import ListItem from "@/components/ListItem.vue"
+
 
 const infoItem =ref({})   
 const searcKwd=ref("")

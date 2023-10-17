@@ -48,8 +48,7 @@
 <script setup>
 import { ref ,getCurrentInstance} from "vue"
 import {useRouter} from "vue-router"
-import Input from "@/components/common/Input.vue"
-import Close from "@/components/Close.vue"
+
 
 import { register } from "@/api/index"
 

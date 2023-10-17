@@ -20,8 +20,7 @@
 </template>
 
 <script setup>
-import ListItem from "@/components/ListItem.vue"
-import Icon from "@/components/common/Icon.vue"
+
 defineProps({
   infoList: {
     type: Array,

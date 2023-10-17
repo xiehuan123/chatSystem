@@ -20,7 +20,7 @@
 
 <script setup>
 import { ref ,defineProps,watch,defineEmits} from "vue"
-import Icon from "@/components/common/Icon.vue"
+//import Icon from "@/components/common/Icon.vue"
 const props=defineProps({
   visible:{
     type:Boolean,
