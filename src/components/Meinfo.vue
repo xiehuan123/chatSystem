@@ -1,9 +1,8 @@
 <template>
   <router-link to="/user/userinfo">
     <div class="meInfo" >
-    <div class="avatar">
-      <img :src="store.user.userAvatar" alt="avatar">
-    </div>
+      <Avatar :src="store.user.userAvatar"></Avatar>
+   
     <div class="content">
       <div class="nickName">
 

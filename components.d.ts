@@ -12,6 +12,8 @@ declare module 'vue' {
     AppMain: typeof import('./src/components/AppMain.vue')['default']
     Audio: typeof import('./src/components/userLayout/Audio.vue')['default']
     Avatar: typeof import('./src/components/common/Avatar.vue')['default']
+    BackHeader: typeof import('./src/components/common/BackHeader.vue')['default']
+    ChatList: typeof import('./src/components/userLayout/ChatList.vue')['default']
     Close: typeof import('./src/components/Close.vue')['default']
     CloseBg: typeof import('./src/components/CloseBg.vue')['default']
     Dialog: typeof import('./src/components/common/Dialog.vue')['default']
@@ -34,6 +36,7 @@ declare module 'vue' {
     ScanQRCode: typeof import('./src/components/ScanQRCode.vue')['default']
     SearchBar: typeof import('./src/components/SearchBar.vue')['default']
     SoundWave: typeof import('./src/components/common/soundWave.vue')['default']
+    Swtich: typeof import('./src/components/common/Swtich.vue')['default']
     Text: typeof import('./src/components/common/Text.vue')['default']
     TextItem: typeof import('./src/components/TextItem.vue')['default']
   }

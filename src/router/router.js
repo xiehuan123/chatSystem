@@ -18,7 +18,9 @@ import UserInfoView from "@/views/UserInfoView.vue"
 import SesstionView from "@/views/SessionView.vue"
 import VideoCallView from "@/views/VideoCallView.vue"
 import VideoAcceptView from "@/views/VideoAcceptView.vue"
+import SearchResuletView from "@/views/SearchResuletView.vue"
 import { useStore } from "@/store"
+import applicationView from "@/views/applicationView.vue"
 
 const routes = [
   {
@@ -82,7 +84,8 @@ const routes = [
         path: "userinfo",
         name:"个人信息",
         component: UserInfoView,
-      }
+      },
+     
     ]
   },
   {
@@ -110,7 +113,12 @@ const routes = [
     component: SearchView,
   },
   {
-    path: "/peopleinfo/:uId",
+    path: "/searchresulet/:kwd",
+    name:"搜索结果",
+    component: SearchResuletView,
+  },
+  {
+    path: "/peopleinfo/:kwd",
     component: PeopleInfoView,
   },
   // 扫一扫
@@ -128,6 +136,10 @@ const routes = [
     path: "/videoaccept",
     component: VideoAcceptView,
   },
+  {
+    path:"/application/:uid",
+    component:applicationView
+  }
 
   
  

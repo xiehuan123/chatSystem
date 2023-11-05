@@ -6,9 +6,11 @@
         <!-- <div>勿扰</div> -->
       </template>
       <template #left>
-        <div class="avatar">
-          <img :src="item?.sesstioAvatar" alt="图片加载失败" />
-        <Dots  v-if="item?.num>0" :position="true"  :num="item?.num" :top="0" :right="0"></Dots>
+
+        <div class="left">
+          <Avatar :src="item?.sesstioAvatar" :size="40" :num="item?.num"></Avatar>
+          
+        
        </div>
       </template>
     </ListItem>
@@ -34,17 +36,15 @@ const onGoDialog=(item)=>{
 </script>
 
 <style scoped lang="scss">
- .avatar {
+ .left {
     position: relative;
-    padding: 5px;
-    width: 50px;
-    // background: #f07a7a;
+    // padding: 5px;
+    // width: 50px;
+    // // background: #f07a7a;
     box-sizing: border-box;
-    margin: 0 10px;
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 5px;
-    }
+    margin: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
   }
 </style>

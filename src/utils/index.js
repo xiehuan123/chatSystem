@@ -37,7 +37,7 @@ export const getFormatTime = (time = null) => {
   return moment(time).format("HH:mm:ss")
 }
 // 防抖函数，非立即执行版本
-export const debounce = (func, wait = 2000) => {
+export const debounce = (func, wait = 1000) => {
   let timeout = null
 
   return function () {

@@ -14,7 +14,8 @@
             <div v-else>{{ item.sendMsg }}</div>
           </div>
         </div>
-        <div class="avatar"><img :src="item.avatar" alt="" /></div>
+        <Avatar :src="item.avatar"/>
+       
       </div>
     </li>
 
@@ -141,16 +142,7 @@ ul {
  
     }
   }
-  .avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
+
   .system {
     clear: both;
     text-align: center;

@@ -4,14 +4,16 @@
       'item',
       item?.marginTop && 'marginTop',
   item?.marginBorde && 'marginBorde'
-     
     ]"
-    :style="{ height: item.height + 'px' }"
+    :style="{ height: item?.height + 'px',background:item?.bg }"
   >
   <slot name="left">
     <div class="Textleft">
-          {{ item.name}}
-           <div   v-if="item&&item.content" >
+      <div>
+    {{ item.name}}
+      </div>
+      
+           <div   v-if="item&&item.content"  :style="{color:item.contentColor}">
             {{ item.content }}
         </div>
         </div>
@@ -59,12 +61,16 @@ defineProps({
   background: #fff;
   .Textleft {
     display: flex;
-    justify-content: center;
+    font-size: 14px;
     align-items: center;
     padding: 5px 10px;
-    >div{
-      color:rgb(28, 108, 246);
-      margin-left: 10px ;
+    >div:nth-child(1){
+     min-width: 60px;
+    }
+    >div:nth-child(2){
+      color:#ccc;
+      margin-left: 10px;
+
     }
   }
   
@@ -86,7 +92,19 @@ defineProps({
   margin-top: 7px;
 }
 .marginBorde {
-  border-top: #ccc 1px solid;
+  // border-top: #ccc 1px solid;
+  position: relative;
+  &::before{
+      position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+      }
 }
 
 </style>

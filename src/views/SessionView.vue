@@ -2,7 +2,7 @@
 
 
     <main class="main" ref="mainDom"  >
-      <Dialog :msgs="msgs"></Dialog>
+      <ChatList :msgs="msgs"></ChatList>
     </main>
     <Footer @sendInfo="onSendInfo"  >
     </Footer>
