@@ -5,9 +5,10 @@
 </template>
 
 <script setup>
-import { ref,watch  } from "vue"
+import { ref,watch,onMounted  } from "vue"
 import {useStore} from "@/store/index"
 import HomeList from "@/components/HomeList.vue"
+import IScroll from "iscroll/build/iscroll-probe"
 const store=useStore()
 const infoList=ref(store.infoList)
 watch(() => store.infoList, (newValue, oldValue) => {
@@ -15,7 +16,12 @@ watch(() => store.infoList, (newValue, oldValue) => {
   infoList.value = newValue
      
 }, { deep: true })
-
+onMounted(()=>{
+// 提示，因为transform是对dom操作，所以需要在这个生命周期操作
+  scroll.value = new IScroll(".home", {
+    mouseWheel: true
+  })
+})
 // globalProperties.$loading()
 
 // globalProperties.$socket.emit("message", "这是一条测试信息11");
@@ -53,5 +59,6 @@ watch(() => store.infoList, (newValue, oldValue) => {
 .home{
   height: 100%;
   background: $white;
+touch-action: none;
 }
 </style>

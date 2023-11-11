@@ -8,9 +8,8 @@
 
         {{ store.user.nickName }}
       </div>
-      <div class="wx">
-        微信号:{{ store.user.userWx }}
-      </div>
+      <Text> 微信号:{{ store.user.userWx }}</Text>
+   
     </div>
     <div class="Qrcode">
       <Icon iconName="icon-erweima"  />
@@ -66,7 +65,7 @@ const store=useStore()
   }
   .content{
 
-    flex: 5;
+    flex: 4;
     .nickName{
       font-size: $small-text-size;
       font-weight: 600;
@@ -74,7 +73,7 @@ const store=useStore()
     }
     .wx{
       color: $small-text-color;
-      margin-top: 10px;
+      margin-top: 2px;
     }
     
   }

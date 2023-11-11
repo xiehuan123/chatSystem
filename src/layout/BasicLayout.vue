@@ -4,6 +4,7 @@
     <AppMain></AppMain>
     <AppFooter></AppFooter>
   </div>
+  
 </template>
 
 <script setup>
@@ -26,6 +27,7 @@ onMounted( async ()=>{
 .basic{
   position: relative;
   height: 100%;
+  width: 100%;
   background: $bg-color;
 }
 </style>

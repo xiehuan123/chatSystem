@@ -1,9 +1,8 @@
 <template>
   <div class="text">
-    <span :style="{fontSize:size+'px', color:color,fontWeight:weight}"><slot >
-    
-
-  </slot></span>
+    <span :style="{fontSize:size+'px', color:color,fontWeight:weight}">
+      <slot></slot>
+   </span>
   </div>
 </template>
 
@@ -27,8 +26,8 @@ defineProps({
 </script>
 
 <style scoped lang='scss'>
-.text{
-  // display: inline-block;
-  margin: 2px;
-}
+// .text{
+//   // display: inline-block;
+//   // margin: 2px;
+// }
 </style>

@@ -37,10 +37,15 @@ const onError=(e)=>{
 <style scoped lang='scss'>
 .avatar{
   position: relative;
-    // overflow: hidden;
-    img{
+  >div{
+
+overflow: hidden;
+  img{
       width: 100%;
       height: 100%;
     }
+  }
+   
+  
 }
 </style>

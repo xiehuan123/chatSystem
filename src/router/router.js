@@ -1,4 +1,5 @@
 // 引入组件
+import { useStore } from "@/store"
 
 import BasicLayout from "@/layout/BasicLayout.vue"
 import userLayout from "@/layout/UserLayout.vue"
@@ -10,18 +11,23 @@ import IndexView from "@/views/IndexView.vue"
 import LoginView from "@/views/LoginView.vue"
 import RegisterView from "@/views/RegisterView.vue"
 import phoneLoginView from "@/views/PhoneLoginView.vue"
-import AddFriendView from "@/views/AddFriendView.vue"
-import SearchView from "@/views/SearchView.vue"
+
+
 import PeopleInfoView from "@/views/PeopleInfoView.vue"
 import SweepAwayView from "@/views/SweepAwayView.vue"
 import UserInfoView from "@/views/UserInfoView.vue"
 import SesstionView from "@/views/SessionView.vue"
 import VideoCallView from "@/views/VideoCallView.vue"
 import VideoAcceptView from "@/views/VideoAcceptView.vue"
-import SearchResuletView from "@/views/SearchResuletView.vue"
-import { useStore } from "@/store"
 import applicationView from "@/views/applicationView.vue"
 
+import SearchResuletView from "@/views/search/SearchResuletView.vue"
+import SearchView from "@/views/search/SearchView.vue"
+
+import AddFriendView from "@/views/friend/AddFriendView.vue"
+import NewFriendView from "@/views/friend/NewFriendView.vue"
+
+import  MomentIndexView from "@/views/moment/MomentIndexView.vue"
 const routes = [
   {
     path: "/", component: BasicLayout,
@@ -32,7 +38,7 @@ const routes = [
         name: "微信",
         component: HomeView,
         meta: {
-          icon: "icon-xiaoxi"
+          icon: "icon-message"
         }
       },
 
@@ -41,7 +47,7 @@ const routes = [
         name: "通讯录",
         component: AddressBookView,
         meta: {
-          icon: "icon-tongxunlu"
+          icon: "icon-dress"
         }
       },
       {
@@ -49,7 +55,7 @@ const routes = [
         name: "发现",
         component: FindView,
         meta: {
-          icon: "icon-faxian1"
+          icon: "icon-find"
         }
       },
       {
@@ -57,7 +63,7 @@ const routes = [
         name: "我",
         component: MeView,
         meta: {
-          icon: "icon-my"
+          icon: "icon-me"
         }
       },
       
@@ -113,6 +119,10 @@ const routes = [
     component: SearchView,
   },
   {
+    path:"/newfriend",
+    component:NewFriendView,
+  },
+  {
     path: "/searchresulet/:kwd",
     name:"搜索结果",
     component: SearchResuletView,
@@ -139,6 +149,11 @@ const routes = [
   {
     path:"/application/:uid",
     component:applicationView
+  },
+  //朋友圈
+  {
+    path:"/momentIndex",
+    component:MomentIndexView
   }
 
   

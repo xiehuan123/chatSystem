@@ -1,5 +1,6 @@
 <template>
-  <div class="addressBook">
+    <div class="addressBook">
+    <div>
     <div class="functions">
       <ListItem v-for="item in meun" :key="item.sesstionId" :sesstio-item="item"></ListItem>
       <!-- <div class="function" v-for="item in meun" :key="item.id">
@@ -19,16 +20,22 @@
     <div class="friends">
       <Friend v-for="item in peoples" :key="item.title" :friends="item"></Friend>
     </div>
+    </div>
+
   </div>
-  <index-bar></index-bar>
+
+
+    <index-bar></index-bar>
 </template>
 
 <script setup>
+
 import { ref, onMounted} from "vue"
 
 
 import {getFriendsList} from "@/api/frindeShip"
 import { getResultSort } from "@/utils/index"
+import IScroll from "iscroll/build/iscroll-probe"
 
 
 const meun =ref([
@@ -311,9 +318,23 @@ const peoples = ref(
         {
           "uid": 33,
           "nickname": "mnbvcx",
+          "avatar": "uploads/wx_7654321/avatar"
+        },
+        {
+          "uid": 32,
+          "nickname": "lkjhgf",
+          "avatar": "uploads/wx_1234567/avatar.png"
+        },
+        {
+          "uid": 33,
+          "nickname": "mnbvcx",
           "avatar": "uploads/wx_7654321/avatar"}
       ]}])
 onMounted(async()=>{
+  // 提示，因为transform是对dom操作，所以需要在这个生命周期操作
+  scroll.value = new IScroll(".addressBook", {
+    mouseWheel: true
+  })
   const {err,res}=await getFriendsList()
   if(err){
     throw err
@@ -322,19 +343,25 @@ onMounted(async()=>{
 
   peoples.value=[...getResultSort(data)]
 
+  // 第一个参数是dom选择器，建议使用唯一性的id，这里以class为例
+  // 第二个参数为参数对象，是iscroll的一些配置
+  // 参数配置可以参考 http://wiki.jikexueyuan.com/project/iscroll-5/
 
 })
 </script>
 
 <style scoped lang="scss">
 .addressBook {
+  width: 100%;
   height: 100%;
+>div{
+   touch-action: none;
+}
   .business {
     .title {
       font-size: 8px;
       height: 24px;
       line-height: 24px;
-      
       color: #6e6e6e;
       padding: 0 10px;
     }
@@ -356,7 +383,7 @@ onMounted(async()=>{
     }
   }
   .functions {
-  
+    flex: 1;
     background: white;
     .function {
      display: flex;

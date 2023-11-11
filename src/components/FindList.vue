@@ -6,6 +6,7 @@
       :sesstioItem="item"
       :height="45"
       :border="border"
+      @click="onGoDialog(item)"
     >
       <template #right>
         <Icon iconName="icon-arrow-right" > </Icon>
@@ -20,7 +21,8 @@
 </template>
 
 <script setup>
-
+import { defineProps } from "vue"
+import { useRouter } from "vue-router"
 defineProps({
   infoList: {
     type: Array,
@@ -31,6 +33,13 @@ defineProps({
     default: false,
   },
 })
+const router =useRouter()
+const onGoDialog=(item)=>{
+
+  router.push({
+    path:item.path
+  })
+}
 </script>
 
 <style scoped lang="scss">

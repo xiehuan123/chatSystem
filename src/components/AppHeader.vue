@@ -38,11 +38,12 @@ const onGotoSearch=()=>{
 </script>
 
 <style scoped lang="scss">
-header {
-  position: relative;
+.AppHeader {
+  position: fixed;
   height: 40px;
-
+  top: 0;
   line-height: 40px;
+  width: 100%;
   .title {
     text-align: center;
   }

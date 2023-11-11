@@ -12,6 +12,7 @@ const infoList=ref([
   {
     sesstionId: 1,
     sesstionName: "朋友圈",
+    path:"/momentIndex",
     avatar: "icon-iconfontzhizuobiaozhunbduan36",
   },
   {

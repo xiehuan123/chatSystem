@@ -1,12 +1,13 @@
 <template>
 
-<header class="header">
+<header class="header" :style="{backgroundColor:bg}">
       <div class="back" @click="toBack">
-        <Icon iconName="icon-arrow-left" />
+        <Icon iconName="icon-arrow-left" :fontSize="20"/>
       </div>
       <div class="title"><slot></slot>  </div>
-      <div class="option" @click="toMenu">
-        <Icon  v-show="option"  iconName="icon-ellipsis" />
+      <div class="option" >
+        <slot name="right"><Icon  v-show="option"  @click="toMenu"  iconName="icon-ellipsis" /></slot>
+     
       </div>
     </header>
 
@@ -19,7 +20,12 @@ defineProps({
   option:{
     type:Boolean,
     default:true
+  },
+  bg:{
+    type:String,
+    default:"#fffff"
   }
+  
 })
 const toBack = () => {
 
@@ -37,23 +43,23 @@ const toMenu = () => {
   .header {
     display: flex;
     height: 40px;
+   
     line-height: 40px;
     justify-content: center;
-    background-color: white;
 
     .back {
-      width: 50px;
+      width: 40px;
 
       text-align: center;
     }
     .title {
-      width: 100%;
+      flex: 1;
       text-align: center;
     }
     .option {
       text-align: center;
-      width: 56px;
       height: 100%;
+      padding-right: 10px ;
     }
   }
 

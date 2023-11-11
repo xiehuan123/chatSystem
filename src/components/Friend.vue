@@ -2,11 +2,13 @@
   <div class="friend" >
     <div class="title" :id="friends.title">{{friends.title}}</div>
     <div class="content" v-for="item in friends.list" :key="item.uid" @click="onGoto(item.wechat_id)">
-     <Avatar :src="item.avatar" :size="35"></Avatar>
+     
+      <Avatar :src="item.avatar" :size="35"></Avatar>
   
       <div class="nickname"><div>
         {{ item.nickname }}
-      </div></div>
+      </div>
+    </div>
     </div>
   </div>
 </template>
