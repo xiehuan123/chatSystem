@@ -1,6 +1,24 @@
 
 import { pinyin } from "pinyin-pro"
 import moment from "moment/moment"
+moment.defineLocale("zh-cn", {
+  relativeTime: {
+    future: "%s内",
+    past: "%s前",
+    s: "几秒",
+    m: "1分钟",
+    mm: "%d分钟",
+    h: "1小时",
+    hh: "%d小时",
+    d: "1天",
+    dd: "%d天",
+    M: "1个月",
+    MM: "%d个月",
+    y: "1年",
+    yy: "%d年"
+  },
+})
+
 export const getInitials = (str) => {
   let reg=/[a-zA-Z]/
   
@@ -35,6 +53,10 @@ export const getResultSort = (data) => {
 export const getFormatTime = (time = null) => {
   if (!time) return moment().format("HH:mm:ss")
   return moment(time).format("HH:mm:ss")
+}
+export const momentFormatTime=(time=null)=>{
+  if (!time) return moment().fromNow()
+  return moment(time).fromNow()
 }
 // 防抖函数，非立即执行版本
 export const debounce = (func, wait = 1000) => {

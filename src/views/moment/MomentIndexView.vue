@@ -21,6 +21,9 @@
                 <Avatar :size="55"  :src="store.user.userAvatar"></Avatar>
               </div>
                <Card></Card>
+               
+               <Card></Card>
+               <Card></Card><Card></Card>
                <Card></Card>
             </div>
            
@@ -33,29 +36,31 @@
 
 
   </div>
+  <ShareSheet   v-model:show="show"></ShareSheet>
 </template>
 <script setup >
 
 
-import Avatar from "@/components/common/Avatar.vue"
-import IScroll from "iscroll/build/iscroll-probe"
+import BScroll from "@better-scroll/core"
 import { ref, onMounted } from "vue"
 import { useStore } from "@/store"
+import ShareSheet from "@/components/common/ShareSheet.vue"
 const scroll = ref(null)
+const show=ref(false)
 const store=useStore()
 onMounted(() => {
   // 提示，因为transform是对dom操作，所以需要在这个生命周期操作
-  scroll.value = new IScroll(".main", {
-    mouseWheel: true
+  scroll.value = new BScroll(".main", {
+    mouseWheel: true,
+    probeType: 3,
+    click:true
   })
-  // 第一个参数是dom选择器，建议使用唯一性的id，这里以class为例
-  // 第二个参数为参数对象，是iscroll的一些配置
-  // 参数配置可以参考 http://wiki.jikexueyuan.com/project/iscroll-5/
-
-
+ 
 })
 
-
+const toMenu=()=>{
+  show.value=!show.value
+}
 </script>
 <style lang="scss" scoped>
 .momentIndex{
@@ -73,8 +78,6 @@ onMounted(() => {
   top: 0;
   height: 100%;
   margin-bottom: 10px;
-
-  /* 给滚动区域固定可滚动高度，并且超出隐藏 */
   .bg{
   
     img{

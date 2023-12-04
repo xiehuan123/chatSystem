@@ -8,7 +8,7 @@
 import { ref,watch,onMounted  } from "vue"
 import {useStore} from "@/store/index"
 import HomeList from "@/components/HomeList.vue"
-import IScroll from "iscroll/build/iscroll-probe"
+import BScroll from "@better-scroll/core"
 const store=useStore()
 const infoList=ref(store.infoList)
 watch(() => store.infoList, (newValue, oldValue) => {
@@ -18,8 +18,8 @@ watch(() => store.infoList, (newValue, oldValue) => {
 }, { deep: true })
 onMounted(()=>{
 // 提示，因为transform是对dom操作，所以需要在这个生命周期操作
-  scroll.value = new IScroll(".home", {
-    mouseWheel: true
+  scroll.value = new BScroll(".home", {
+    click:true
   })
 })
 // globalProperties.$loading()
@@ -59,6 +59,6 @@ onMounted(()=>{
 .home{
   height: 100%;
   background: $white;
-touch-action: none;
+
 }
 </style>

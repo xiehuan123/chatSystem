@@ -8,24 +8,24 @@
         <Icon iconName="icon-jiahao" :fontSize="24" @click="onShowMeun($event)" > </Icon>
         
       </div>
-      <!-- 通过这种形式就不用写 事件了 子组件触发就直接改了这个值 -->
-      <meunList  v-model:visible="isiMeun" ></meunList>
+      
     </header>
   </div>
 </template>
 
 <script setup>
-import {ref,} from "vue"
+import {defineEmits} from "vue"
 import { useRoute,useRouter } from "vue-router"
 
 const route = useRoute()
 const router=useRouter()
-const isiMeun=ref(false)
+const emit=defineEmits(["onShowMeun"])
 
 const onShowMeun=(e)=>{
   console.log(e.target)
   console.log("显示")
-  isiMeun.value=!isiMeun.value
+  emit("onShowMeun")
+ 
 
 }
 const onGotoSearch=()=>{

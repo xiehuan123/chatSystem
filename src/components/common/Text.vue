@@ -1,5 +1,5 @@
 <template>
-  <div class="text">
+  <div class="text" :style="{display:display}">
     <span :style="{fontSize:size+'px', color:color,fontWeight:weight}">
       <slot></slot>
    </span>
@@ -20,6 +20,10 @@ defineProps({
   weight:{
     type:Number,
     default:0
+  },
+  display:{
+    type:String,
+    default:"block"
   }
 
 })

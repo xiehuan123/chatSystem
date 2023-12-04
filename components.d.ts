@@ -37,6 +37,7 @@ declare module 'vue' {
     ScanQRCode: typeof import('./src/components/ScanQRCode.vue')['default']
     SearchBar: typeof import('./src/components/SearchBar.vue')['default']
     SearchShow: typeof import('./src/components/SearchShow.vue')['default']
+    ShareSheet: typeof import('./src/components/common/ShareSheet.vue')['default']
     SoundWave: typeof import('./src/components/common/soundWave.vue')['default']
     Swtich: typeof import('./src/components/common/Swtich.vue')['default']
     Text: typeof import('./src/components/common/Text.vue')['default']

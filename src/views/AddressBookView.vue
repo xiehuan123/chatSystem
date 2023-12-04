@@ -1,6 +1,6 @@
 <template>
     <div class="addressBook">
-    <div>
+  
     <div class="functions">
       <ListItem v-for="item in meun" :key="item.sesstionId" :sesstio-item="item"></ListItem>
       <!-- <div class="function" v-for="item in meun" :key="item.id">
@@ -22,7 +22,7 @@
     </div>
     </div>
 
-  </div>
+ 
 
 
     <index-bar></index-bar>
@@ -35,8 +35,7 @@ import { ref, onMounted} from "vue"
 
 import {getFriendsList} from "@/api/frindeShip"
 import { getResultSort } from "@/utils/index"
-import IScroll from "iscroll/build/iscroll-probe"
-
+import BScroll from "@better-scroll/core"
 
 const meun =ref([
 
@@ -331,9 +330,9 @@ const peoples = ref(
           "avatar": "uploads/wx_7654321/avatar"}
       ]}])
 onMounted(async()=>{
-  // 提示，因为transform是对dom操作，所以需要在这个生命周期操作
-  scroll.value = new IScroll(".addressBook", {
-    mouseWheel: true
+ 
+  scroll.value = new BScroll(".addressBook", {
+    click:true
   })
   const {err,res}=await getFriendsList()
   if(err){
@@ -343,10 +342,6 @@ onMounted(async()=>{
 
   peoples.value=[...getResultSort(data)]
 
-  // 第一个参数是dom选择器，建议使用唯一性的id，这里以class为例
-  // 第二个参数为参数对象，是iscroll的一些配置
-  // 参数配置可以参考 http://wiki.jikexueyuan.com/project/iscroll-5/
-
 })
 </script>
 
@@ -354,10 +349,8 @@ onMounted(async()=>{
 .addressBook {
   width: 100%;
   height: 100%;
->div{
-   touch-action: none;
-}
-  .business {
+
+      .business {
     .title {
       font-size: 8px;
       height: 24px;
@@ -409,6 +402,8 @@ onMounted(async()=>{
       border-bottom: 0;
     }
   }
+ 
+
   
 }
 </style>

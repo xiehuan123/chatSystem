@@ -22,13 +22,14 @@
 
       </div>
       <footer>
-        <Text>{{ data.time }}</Text>
+        <Text>{{ momentformat(data.time) }}</Text>
 
-        <div class="option" >
+        <div class="option">
           <div @click="onShow()">
-          <div>
-            
-          </div></div>
+            <div>
+
+            </div>
+          </div>
           <ul :class="isShow && 'active'">
             <li>
               <Icon iconName="icon-aixin" :fontSize="18"></Icon>赞
@@ -40,11 +41,25 @@
           </ul>
         </div>
       </footer>
+      <div class="appoint">
+        <Icon iconName="icon-aixin" color="blue"></Icon> 
+
+        <span v-for="(item,index) in data.appoints" :key="item.uid" @click="onGOto(item.wxID)"> <span v-if="index!=data.appoints.length-1">{{item.nickName }},</span> <span v-else>{{ item.nickName }}</span>  </span>
+      </div>
+      <div class="comment">
+        <div v-for="item in data.comments" :key="item.uid">
+         <Text color="#737cfe" display="inline-block">{{ item.sendName }}</Text>    
+        <Text  v-if="item.reviewID" color="#737cfe" display="inline-block">回复{{ item.reviewName }}</Text> 
+        :{{ item.comment }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script setup >
-import { defineProps, ref } from "vue"
+import { defineProps, ref,computed, } from "vue"
+import { useRouter } from "vue-router"
+import {momentFormatTime} from "@/utils/index"
 defineProps({
   data: {
     type: Object,
@@ -52,14 +67,36 @@ defineProps({
       return {
         id: 1,
         name: "Azy周螺蛳粉(招代理)",
-        time: "161616161661",
+        time: "2022-07-18T16:55:20",
+      
         content: `有点像冬天的感觉了，
         冷飕飕的，
         又开始了关着门做生意了0000`,
-        isAppoint:false,
+        isAppoint: false,
         imgList: [],
-        comments: [],
-        apppoints: []
+        comments: [
+          {
+            uid:1,
+            sendID: "wx_8f5fbab5",
+            sendName: "Appoint",
+            reviewID:"wx_8f5fbab5",
+            reviewName:"leiwen",
+            comment:"哈哈"
+
+          }
+        ],
+        appoints: [{
+          uid:1,
+          wxID: "wx_8f5fbab5",
+          nickName: "Appoint",
+
+        },
+        {
+          uid: 2,
+          wxID: "wx_8f5fbab5",
+          nickName: "花开富贵",
+
+        }]
       }
 
 
@@ -67,6 +104,24 @@ defineProps({
   }
 
 })
+// const appointFormat = computed(() => {
+//   return function () {
+//     return function () {
+
+//     }
+//   }
+// })
+const router=useRouter()
+
+const momentformat=computed(()=>{
+  return function(time){
+    console.log(time)
+    return momentFormatTime(time)
+  }
+})
+const onGOto=(wxID)=>{
+  router.push({path:`/peopleinfo/${wxID}`})
+}
 const isShow = ref(false)
 
 const onShow = () => {
@@ -83,6 +138,8 @@ const onShow = () => {
   padding-right: 10px;
   padding-bottom: 5px;
   overflow: hidden;
+
+
   &::after {
     position: absolute;
     right: 0;
@@ -123,60 +180,64 @@ const onShow = () => {
 
       .option {
         position: relative;
-         width: 55px;
-        height: 45px;
-      
-        >div{
-        position: absolute;
-        width: 65px;
-        height: 45px;
-        display: flex;
-        justify-content: center;
-        align-items: center;  
-        background-color: $bg-color;
-        z-index: 99;
-        >div{
-          position: relative;
+        width: 55px;
+        height: 30px;
+        top: -10px;
+        >div {
+          position: absolute;
+          width: 65px;
+          height: 45px;
           display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        width: 30px;
-        height: 22px;
-        background-color: #e3e2eb;
-           &::before {
-          content: "";
-          width: 5px;
-          height: 5px;
-          border-radius: 50%;
-          background-color: #6f718f;
-          
+          justify-content: center;
+          align-items: center;
+          background-color: $bg-color;
+          z-index: 99;
+
+          >div {
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 30px;
+            height: 22px;
+            background-color: #e3e2eb;
+
+            &::before {
+              content: "";
+              width: 5px;
+              height: 5px;
+              border-radius: 50%;
+              background-color: #6f718f;
+
+            }
+
+            &::after {
+              content: "";
+              width: 5px;
+              height: 5px;
+              border-radius: 50%;
+              background-color: #6f718f;
+            }
+          }
+
         }
 
-        &::after {
-          content: "";
-          width: 5px;
-          height: 5px;
-          border-radius: 50%;
-          background-color: #6f718f;
-        }
-        }
-     
-        }
         >ul {
           position: absolute;
           display: flex;
           align-items: center;
-       
-          top: 0;
+
+          top: 1px;
           width: 150px;
           height: 40px;
           border-radius: 7px;
           list-style: none;
           background-color: #404040;
           color: #000000;
-     
-     
+
+
           transition: all .5s;
+
           li {
             flex: 1;
             text-align: center;
@@ -185,15 +246,27 @@ const onShow = () => {
         }
 
         .active {
-       
+
           transform: translateX(-100%);
-          
+
         }
 
-        
+
 
       }
 
+    }
+
+    .appoint {
+      display: flex;
+      align-items: center;
+      padding: 2px;
+      background-color: #e3e2eb;
+
+    }
+    .comment{
+      background-color: #e3e2eb;
+      padding: 0 4px;
     }
   }
 }</style>

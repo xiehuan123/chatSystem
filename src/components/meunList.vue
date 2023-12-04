@@ -20,7 +20,6 @@
 
 <script setup>
 import { ref ,defineProps,watch,defineEmits} from "vue"
-//import Icon from "@/components/common/Icon.vue"
 const props=defineProps({
   visible:{
     type:Boolean,
@@ -67,7 +66,8 @@ watch(()=>props.visible,(val)=>{
 
 <style scoped lang='scss'>
 .meunListBox {
-  position: relative;
+  position: absolute;
+  top: 20px;
   width: 100vw;
   height: 100vh;
   z-index: 99;
