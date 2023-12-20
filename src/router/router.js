@@ -28,6 +28,8 @@ import AddFriendView from "@/views/friend/AddFriendView.vue"
 import NewFriendView from "@/views/friend/NewFriendView.vue"
 
 import  MomentIndexView from "@/views/moment/MomentIndexView.vue"
+import PhotoGraphView from "@/views/moment/PhotoGraphView.vue"
+import MomentPublishView from "@/views/moment/MomentPublish.vue"
 const routes = [
   {
     path: "/", component: BasicLayout,
@@ -118,17 +120,20 @@ const routes = [
     path: "/addfriend/search",
     component: SearchView,
   },
+  // 添加新朋友页面
   {
-    path:"/newfriend",
+    path:"/newFriend",
     component:NewFriendView,
   },
+  // 搜索结果页面
   {
     path: "/searchresulet/:kwd",
     name:"搜索结果",
     component: SearchResuletView,
   },
+  // 个人信息页面  1 代表添加个人信息页面 2 代表通过验证页面
   {
-    path: "/peopleinfo/:kwd",
+    path: "/peopleinfo/:flag/:kwd",
     component: PeopleInfoView,
   },
   // 扫一扫
@@ -146,14 +151,25 @@ const routes = [
     path: "/videoaccept",
     component: VideoAcceptView,
   },
-  {
-    path:"/application/:uid",
+  { 
+    // 添加页面 和同意页面 1代表添加 2代表同意
+    path:"/application/:flag/:uid",
     component:applicationView
   },
   //朋友圈
   {
     path:"/momentIndex",
     component:MomentIndexView
+  },
+  // 朋友圈拍照
+  {
+    path:"/photoGraph",
+    component:PhotoGraphView
+  },
+  // 朋友圈发布页面
+  {
+    path:"/mometnPublish",
+    component:MomentPublishView
   }
 
   

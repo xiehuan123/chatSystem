@@ -37,7 +37,8 @@
         ><span class="text" @click="onGoSendVideoView()">音频通话</span>
       </div>
       <div class="send_msg" v-if="info['friendCode']==0">
-        <span class="text" @click="onAddfriendView()">添加到通讯录</span>
+        <span  v-if="flag==1" class="text" @click="onAddfriendView()">添加到通讯录</span>
+        <span  v-if="flag==2" class="text" @click="onAddfriendView()">前往验证</span>
       </div>
     </div>
   </div>
@@ -71,7 +72,7 @@ const sexMap=ref({
     color:"rgb(8, 114, 244)"
   }
 })
-const {kwd}=route.params
+const {kwd,flag}=route.params
 onMounted(async()=>{
   // const {err,res}=await getInfo(uId)
   const {err,res}=await serarchFriend(kwd)
@@ -172,7 +173,7 @@ const onGoSendVideoView=()=>{
 }
 // 跳转到发送好友请求页面
 const onAddfriendView=async ()=>{
-  router.push({path:`/application/${info.value.uid}`})
+  router.push({path:`/application/${flag}/${info.value.uid}`})
   // globalProperties.$loading("发送中...")
   // const {err,res}=await sendhFriend({uid:info.value.uid})
   // if(err){

@@ -21,17 +21,25 @@
     <div class="friends">
       <div class="friend" v-for="friends in peoples" :key="friends.title">
         <div class="listtile" :id="friends.title">{{ friends.title }}</div>
-        <div class="content" v-for="item in friends.list" :key="item.uid" @click="onGoto(item.wechat_id)">
-          <Avatar :src="item.avatar" :size="45"></Avatar>
+        <div class="content" v-for="item in friends.list" :key="item.uid" @click="onGoto(item.user?.wechat_id)">
+          <Avatar :src="item.user?.avatar" :size="45"></Avatar>
           <div class="nickname">
-            <div>
+            <div v-if="item.flag==1">
               <div>
-         
               <Text :size="15" color="#000000">{{ item.nickname }}</Text>
-                <Text :size="12">我:我是Appoint</Text>
+                <Text :size="12" >我:{{ item.friend_msg }}</Text>
+               
               </div>
+              <div class="status">{{ sendOption[item.friend_static] }}</div>
+            </div>
 
-              <div class="status">已添加</div>
+             <div v-if="item.flag==2">
+              <div>
+              <Text :size="15" color="#000000">{{ item.nickname }}</Text>
+                <Text :size="12" >{{item.user.nickname  }}:{{ item.friend_msg }}</Text>
+              </div>
+              <div class="status" v-if="item.friend_static==0"   @click="onGo(item.user?.wechat_id)"><MyButton  backgroundColor="#edededb3"   color="#000">接受</MyButton></div>
+            <div class="status" v-if="item.friend_static==1" >已添加</div>
             </div>
 
           </div>
@@ -45,8 +53,12 @@
 <script setup >
 
 
-import { ref } from "vue"
+import { ref,onMounted } from "vue"
 import { useRouter} from "vue-router"
+import {queryFriendHistory} from "@/api/frindeShip"
+
+import {getFriendResultSort} from "@/utils/index"
+import MyButton from "@/components/common/myButton.vue"
 const router=useRouter()
 const peoples = ref(
   [
@@ -81,10 +93,32 @@ const peoples = ref(
       ]
     },
   ])
+const sendOption=ref(["等待验证","已添加"])
+
+onMounted(async()=>{
+  const {res,err}=await queryFriendHistory()
+  if(err){
+    return err
+  }
+  if(res["code"]==200){
+    peoples.value=getFriendResultSort(res["data"])
+    console.log(peoples.value)
+  }
+  
+})
+
+
+
 const toBack=()=>{
   router.go(-1)
 }
-
+const onGoto=(wechat_id)=>{
+  router.push(
+    {
+      path:`/peopleinfo/2/${wechat_id}`
+    }
+  )
+}
 
 
 </script>
@@ -165,8 +199,8 @@ const toBack=()=>{
             width: 100%;
           }
           .status {
-
-            width: 70px;
+            text-align: center;
+            width: 90px;
           }
         }
       }

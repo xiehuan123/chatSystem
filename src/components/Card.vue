@@ -67,7 +67,7 @@ defineProps({
       return {
         id: 1,
         name: "Azy周螺蛳粉(招代理)",
-        time: "2022-07-18T16:55:20",
+        time: "2022-04-10T16:55:20",
       
         content: `有点像冬天的感觉了，
         冷飕飕的，
@@ -191,7 +191,7 @@ const onShow = () => {
           justify-content: center;
           align-items: center;
           background-color: $bg-color;
-          z-index: 99;
+          z-index: 5;
 
           >div {
             position: relative;

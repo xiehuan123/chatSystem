@@ -43,7 +43,7 @@ defineProps({
 })
 const onGoto=(kwd)=>{
   router.push({
-    path:`/peopleinfo/${kwd}`
+    path:`/peopleinfo/1/${kwd}`
   })
 }
 </script>

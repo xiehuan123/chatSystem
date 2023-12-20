@@ -1,6 +1,12 @@
 
 import { pinyin } from "pinyin-pro"
+import localforage from "localforage"
 import moment from "moment/moment"
+import emitter from "@/utils/Bus"
+
+
+
+
 moment.defineLocale("zh-cn", {
   relativeTime: {
     future: "%s内",
@@ -30,12 +36,37 @@ export const getInitials = (str) => {
   return initials
 
 }
+/**
+ * @description: 
+ * @param {*} 好友列表根据 好友名称做排序
+ * @return {*}
+ */
 export const getResultSort = (data) => {
 
   const result = []
   for (const key in data) {
     // 获取昵称首字母拼音 不是字母就是#
     const first = getInitials(data[key]["nickname"])
+    // 判断数组有没有相同的分组名
+    const index = result.findIndex(item => item.title == first)
+    if (index != -1) {
+      result[index]["list"].push(data[key])
+    } else {
+      result.push({
+        title: first,
+        list: [data[key]]
+      })
+    }
+  }
+  result.sort((a, b) => a.title.localeCompare(b.title))
+  return result
+}
+export const getFriendResultSort = (data) => {
+
+  const result = []
+  for (const key in data) {
+    // 根据时间获取几天前 并且分组
+    const first = momentFormatTime(data[key]["friend_time"])
     // 判断数组有没有相同的分组名
     const index = result.findIndex(item => item.title == first)
     if (index != -1) {
@@ -90,9 +121,9 @@ const dataURLToImage = (dataURL) => {
     img.src = dataURL
   })
 }
-const canvastoFile = (canvas, type, quality) => {
-  return new Promise((resolve) => canvas.toBlob((blob) => resolve(blob), type, quality))
-}
+// const canvastoFile = (canvas, type, quality) => {
+//   return new Promise((resolve) => canvas.toBlob((blob) => resolve(blob), type, quality))
+// }
 /**
  * 图片压缩方法
  * @param {Object}  file 图片文件
@@ -101,7 +132,7 @@ const canvastoFile = (canvas, type, quality) => {
  * @returns 压缩后的新图片
  */
 export const compressionFile = async (file, type = "image/jpeg", quality = 0.5) => {
-  const fileName = file.name
+
   const canvas = document.createElement("canvas")
   const context = canvas.getContext("2d")
   const base64 = await fileToDataURL(file)
@@ -110,14 +141,58 @@ export const compressionFile = async (file, type = "image/jpeg", quality = 0.5) 
   canvas.height = img.height
   context.clearRect(0, 0, img.width, img.height)
   context.drawImage(img, 0, 0, img.width, img.height)
-  const blob = await canvastoFile(canvas, type, quality) // quality:0.5可根据实际情况计算
-  const newFile = await new File([blob], fileName, {
-    type: type
-  })
-  return newFile
+  const base64String = canvas.toDataURL(type, quality)
+  return base64String
 }
 
+/**
+ * @description: 兼容浏览器获取视频流的方法
+ * @param {*} constrains
+ * @return {*}
+ */
+export const getUserMedia=(constrains)=> {
+  if (window.navigator.mediaDevices.getUserMedia) {
+    return window.navigator.mediaDevices.getUserMedia(constrains)
+  } else if (window.navigator.webkitGetUserMedia) {
+    return window.navigator.webkitGetUserMedia(constrains)
+  } else if (window.navigator.mozGetUserMedia) {
+    return window.navigator.mozGetUserMedia(constrains)
+  } else if (window.navigator.getUserMedia) {
+    return window.navigator.getUserMedia(constrains)
+  }
+}
 
+const momentStore = localforage.createInstance({
+  name: "momentStore"
+})
+// momentStore.setDriver(localforage.SESSIONSTORAGE)
+/**
+ * @description: 
+ * @param {*} image bas64字符串
+ * @return {*} none
+ */
+export const setMometimageList=async (image)=>{
+  // 获取当前会话存储的朋友圈图片
+  const momentImageList=await momentStore.getItem("momentImageList")
+  const newmomentImageList=momentImageList||[]   
 
+  // 添加图片
+  newmomentImageList.push({id:+new Date(),"image":image})
+  console.log(newmomentImageList)
+  // 存储到会话
+  await momentStore.setItem("momentImageList",newmomentImageList)
+  await momentStore.setItem("momnetImageListLength",newmomentImageList.length)
+  // 通知订阅了 朋友圈数据更新的组件做更新
+  emitter.emit("moment-store", "")
+}
 
+/**
+ * @description: 
+ * @param {*} key 通过key获取指定里面的参数
+ * @return {*} 返回一个值
+ */
+export const getMomentItem=async (key)=>{
+  const data=await momentStore.getItem(key)
 
+  return data
+}

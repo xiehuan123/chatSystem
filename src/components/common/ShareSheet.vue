@@ -1,35 +1,72 @@
 <template>
   <div class="sharesheet" v-show="isShow">
      <ul>
-    <li v-for="item in props.options" :key="item.id">
+    <li v-for="item in props.options" :key="item.id" @click="onOpen(item.id)">
       {{ item.name }}
     </li>
     <li  @click="close"> 取消</li>
   </ul>
-
+  <input type="file" ref="fileDom"  accept="image/*"  @change="onUploadChange" multiple hidden>
   </div>
  
 </template>
 <script setup>
 import {ref,defineProps, watch,defineEmits } from "vue"
+import { useRouter } from "vue-router"
+import {compressionFile,setMometimageList,getMomentItem} from "@/utils/index"
 
 const props = defineProps({
   options: {
     type: Array,
-    default: () => [{"id":1,"name":"拍摄"},{"id":2,"name":"相册"}],
+    default: () => [{"id":1,"name":"拍摄"},{"id":2,"name":"从相册选择"}],
   },
   show:{
     type:Boolean,
     default:false
   }
 })
+const router =useRouter()
 const isShow=ref(false)
+const fileDom=ref(null)
 const emit=defineEmits(["update:show"])
 watch(()=>props.show,(val)=>{
   isShow.value=val
 })
 const close =()=>{
   emit("update:show",false)
+}
+const onOpen=(id)=>{
+  switch (id){
+  case 1:
+    router.push({
+      path:"/photoGraph"
+    })
+    break
+  case 2:
+    fileDom.value.click()
+    break
+
+  }
+}
+const onUploadChange = async() => {
+
+  const len=parseInt(await getMomentItem("momnetImageListLength")||0)
+  const files = fileDom.value.files
+  console.log(files.length,len,77777777)
+  if(files.length+len>10){
+    alert("最多只能选中9张图片")
+    return
+  }
+  for (const key in files) {
+    if (Object.hasOwnProperty.call(files, key)) {
+      const file = files[key]
+      const compressFileBase64= await compressionFile(file) 
+      setMometimageList(compressFileBase64) 
+    }
+  }
+ 
+  emit("update:show",false)
+ 
 }
 </script>
 <style lang="scss" scoped>
@@ -65,6 +102,9 @@ const close =()=>{
       height: 50px;
       text-align: center;
       line-height: 50px;
+      &:active{
+        background-color: rgba(237, 237, 237,.2);
+      }
     }
    
    

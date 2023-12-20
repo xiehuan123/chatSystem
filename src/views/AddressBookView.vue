@@ -2,7 +2,7 @@
     <div class="addressBook">
   
     <div class="functions">
-      <ListItem v-for="item in meun" :key="item.sesstionId" :sesstio-item="item"></ListItem>
+      <ListItem v-for="item in meun" :key="item.sesstionId" :sesstio-item="item" @click="onGo(item.path)"></ListItem>
       <!-- <div class="function" v-for="item in meun" :key="item.id">
         <Icon :icon-name="icon-tianjiahaoyou"></Icon>
          <div class="nickname">
@@ -36,13 +36,14 @@ import { ref, onMounted} from "vue"
 import {getFriendsList} from "@/api/frindeShip"
 import { getResultSort } from "@/utils/index"
 import BScroll from "@better-scroll/core"
-
+import { useRouter } from "vue-router"
+const router=useRouter()
 const meun =ref([
 
   { sesstionId:1,
     sesstionName:"新的朋友",
     avatar:"icon-Dimission-S",
-    path:""
+    path:"/newFriend"
    
   },
   { sesstionId:2,
@@ -343,6 +344,11 @@ onMounted(async()=>{
   peoples.value=[...getResultSort(data)]
 
 })
+const onGo=(path)=>{
+  router.push({
+    path
+  })
+}
 </script>
 
 <style scoped lang="scss">

@@ -1,8 +1,9 @@
 <template>
   <div class="application">
-    <BackHeader :option="false">申请添加朋友</BackHeader>
+    <BackHeader :option="false" v-if="flag==1">申请添加朋友</BackHeader>
+    <BackHeader :option="false" v-if="flag==2">通过朋友验证</BackHeader>
     <main>
-    <div class="option">
+    <div class="option" v-if="flag==1"> 
       <Text :size="12">发送添加朋友申请</Text>
 
         <textarea :style="{ height: 80 + 'px' }"  :value="greeting"> </textarea>
@@ -65,8 +66,9 @@
 
     
  <div class="submit">
-          <button @click="onAddfriend">发送</button>
-    </div>
+          <button @click="onAddfriend" v-if="flag==1">发送</button>
+          <button @click="onFinishfriend" v-if="flag==2">完成</button>
+        </div>
   </div>
  
 </template>
@@ -74,12 +76,12 @@
 import {getCurrentInstance,computed,ref} from "vue"
 import {useRoute} from "vue-router"
 import { useStore } from "@/store"
-import {sendhFriend} from "@/api/frindeShip"
+import {sendhFriend,finishFriend} from "@/api/frindeShip"
 import Swtich from "@/components/common/Swtich.vue"
 const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 const route=useRoute()
 const store=useStore()
-const {uid}=route.params
+const {uid,flag}=route.params
 const xunzhon=ref(false)
 const greeting=computed(()=>{
   return "我是"+store.user?.nickName
@@ -87,7 +89,7 @@ const greeting=computed(()=>{
 const onAddfriend=async ()=>{
 
   globalProperties.$loading("发送中...")
-  const {err,res}=await sendhFriend({uid:parseInt(uid)})
+  const {err,res}=await sendhFriend({uid:parseInt(uid),msg:greeting.value})
   if(err){
     throw err
   }
@@ -97,6 +99,21 @@ const onAddfriend=async ()=>{
   }
   
   globalProperties.$message("发送成功")
+}
+
+const onFinishfriend=async ()=>{
+  console.log(789798)
+  globalProperties.$loading("同意中...")
+  const {err,res}=await finishFriend({uid:parseInt(uid)})
+  if(err){
+    throw err
+  }
+  if(res["code"]!=200){
+    globalProperties.$message("同意失败")
+    return 
+  }
+  
+  globalProperties.$message("同意成功")
 }
 </script>
 <style lang="scss" scoped>
