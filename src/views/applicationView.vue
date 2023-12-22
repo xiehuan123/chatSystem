@@ -22,12 +22,12 @@
       <Text :size="12">添加标签与描述</Text>
       <div class="operation">
         <div>
-          <Text color="#000000">标签</Text>
+          <Text color="#262626">标签</Text>
           <Icon iconName="icon-arrow-right"></Icon>
         </div>
         <hr>
         <div>
-          <Text color="#000000">描述</Text>
+          <Text color="#262626">描述</Text>
           <Icon iconName="icon-arrow-right"></Icon>
         </div>
       </div>
@@ -37,12 +37,12 @@
       <Text :size="12">设置朋友圈权限</Text>
       <div class="operation">
         <div>
-          <Text color="#000000">聊天、朋友圈、微信运动等</Text>
+          <Text color="#262626">聊天、朋友圈、微信运动等</Text>
           <Icon iconName="icon-arrow-right"></Icon>
         </div>
         <hr>
         <div>
-          <Text color="#000000">仅聊天</Text>
+          <Text color="#262626">仅聊天</Text>
           <Icon iconName="icon-arrow-right"></Icon>
         </div>
       </div>
@@ -51,12 +51,12 @@
       <Text  :size="12">朋友圈和状态</Text>
       <div class="operation">
         <div >
-          <Text color="#000000">不让他(她)看</Text>
+          <Text color="#262626">不让他(她)看</Text>
           <Swtich  v-model:isSelected="xunzhon"></Swtich>
         </div>
         <hr>
         <div >
-          <Text color="#000000">不看他(她)</Text>
+          <Text color="#262626">不看他(她)</Text>
           <Swtich></Swtich>
         </div>
       </div>

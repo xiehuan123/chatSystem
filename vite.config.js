@@ -1,7 +1,7 @@
 import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import Components from "unplugin-vue-components/vite"
-import basicSsl from "@vitejs/plugin-basic-ssl"
+// import basicSsl from "@vitejs/plugin-basic-ssl"
 import eslintPlugin from "vite-plugin-eslint"
 import path from "path"
 // https://vitejs.dev/config/
@@ -18,7 +18,7 @@ export default defineConfig({
     // },
   },
   // basicSsl()
-  plugins: [vue(),basicSsl(),Components({}),
+  plugins: [vue(),Components({}),
     
     // 启用 eslint 插件
     eslintPlugin({

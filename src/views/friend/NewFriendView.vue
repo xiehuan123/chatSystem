@@ -8,12 +8,9 @@
         @click="toBack"
       ></Icon
       ><span>新的朋友</span>
-     
          <span  class="add">
-           <RouterLink to="/addfriend">  添加朋友</RouterLink>
-      
+           <RouterLink to="/addfriend">  添加朋友</RouterLink>  
       </span>
-     
      
     </h4>
  
@@ -26,7 +23,7 @@
           <div class="nickname">
             <div v-if="item.flag==1">
               <div>
-              <Text :size="15" color="#000000">{{ item.nickname }}</Text>
+              <Text :size="15" color="#262626">{{ item.nickname }}</Text>
                 <Text :size="12" >我:{{ item.friend_msg }}</Text>
                
               </div>
@@ -35,7 +32,7 @@
 
              <div v-if="item.flag==2">
               <div>
-              <Text :size="15" color="#000000">{{ item.nickname }}</Text>
+              <Text :size="15" color="#262626">{{ item.nickname }}</Text>
                 <Text :size="12" >{{item.user.nickname  }}:{{ item.friend_msg }}</Text>
               </div>
               <div class="status" v-if="item.friend_static==0"   @click="onGo(item.user?.wechat_id)"><MyButton  backgroundColor="#edededb3"   color="#000">接受</MyButton></div>
@@ -158,7 +155,7 @@ const onGoto=(wechat_id)=>{
       font-size: 12px;
       height: 24px;
       line-height: 24px;
-      color: #000000;
+      color: #262626;
       // background-color: #ece9e7;
       background-color: $content-color;
       padding: 0 10px;

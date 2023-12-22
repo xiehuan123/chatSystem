@@ -1,5 +1,5 @@
 <template>
-  <div class="Card">
+<div class="Card">
     <div class="left">
       <Avatar :size="45">
 
@@ -7,22 +7,28 @@
     </div>
     <div class="right">
       <div>
-        <Text color="#6f718f" :size="18">{{ data.name }}</Text>
+        <Text color="#262626" :size="18">{{ data.user.nickName }}</Text>
       </div>
 
       <div class="content">
-        <Text color="#000000">{{ data.content }}</Text>
+        <Text color="#262626">{{ data.content }}</Text>
       </div>
 
 
       <div class="imgList">
-        <div>
-          <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="">
+        <div  v-for="img in img_list(data.img_list)" :key="img">
+          <img :src="img" alt="">
+          
         </div>
+        <div  v-for="img in img_list(data.img_list)" :key="img">
+          <img :src="img" alt="">
+          
+        </div>
+        
 
       </div>
       <footer>
-        <Text>{{ momentformat(data.time) }}</Text>
+        <Text>{{ momentformat(data.pub_time) }}</Text>
 
         <div class="option">
           <div @click="onShow()">
@@ -32,7 +38,8 @@
           </div>
           <ul :class="isShow && 'active'">
             <li>
-              <Icon iconName="icon-aixin" :fontSize="18"></Icon>赞
+              <Icon   iconName="icon-aixin" :fontSize="18" :color="data.isAppoint&&'#FF0000'"></Icon>赞
+              
             </li>
             |
             <li>
@@ -42,15 +49,17 @@
         </div>
       </footer>
       <div class="appoint">
-        <Icon iconName="icon-aixin" color="blue"></Icon> 
-
-        <span v-for="(item,index) in data.appoints" :key="item.uid" @click="onGOto(item.wxID)"> <span v-if="index!=data.appoints.length-1">{{item.nickName }},</span> <span v-else>{{ item.nickName }}</span>  </span>
+        <Icon iconName="icon-aixin" color="blue" :fontSize="20"></Icon> 
+     
+        <span v-for="(item,index) in data.appoints" :key="item.uid" @click="onGOto(item.wxid)"> <span v-if="index!=data.appoints.length-1">{{item.nickName }},</span> <span v-else>{{ item.nickName }}</span>  </span>
       </div>
       <div class="comment">
+    
         <div v-for="item in data.comments" :key="item.uid">
-         <Text color="#737cfe" display="inline-block">{{ item.sendName }}</Text>    
-        <Text  v-if="item.reviewID" color="#737cfe" display="inline-block">回复{{ item.reviewName }}</Text> 
-        :{{ item.comment }}
+         <Text color="#737cfe" display="inline-block">{{ item.nickName }}</Text>    
+        <Text  v-if="item.rid" color="#737cfe" display="inline-block">回复{{ item.ruser.nickName }}:</Text> 
+        <Text display="inline-block" color="#262626">{{ item.comment }}</Text>
+        
         </div>
       </div>
     </div>
@@ -119,13 +128,18 @@ const momentformat=computed(()=>{
     return momentFormatTime(time)
   }
 })
+const img_list=computed(()=>{
+  return function(imgList){
+    console.log(imgList.split(","))
+    return imgList.split(",")
+  }
+})  
 const onGOto=(wxID)=>{
-  router.push({path:`/peopleinfo/${wxID}`})
+  router.push({path:`/peopleinfo/1/${wxID}`})
 }
 const isShow = ref(false)
 
 const onShow = () => {
-  console.log(75)
   isShow.value = !isShow.value
 }
 </script>
@@ -163,8 +177,9 @@ const onShow = () => {
       flex-wrap: wrap;
 
       >div {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
+        margin: 2px;
 
         img {
           width: 100%;
@@ -174,21 +189,23 @@ const onShow = () => {
     }
 
     footer {
-      display: flex;
-      justify-content: space-between;
-      margin: 7px 0;
-
+      position: relative;
+  
+      
+      margin: 12px 0;
+      width: 100%;
       .option {
-        position: relative;
+        position: absolute;
         width: 55px;
         height: 30px;
-        top: -10px;
+        top: -11px;
+        right: -30px;
         >div {
           position: absolute;
           width: 65px;
           height: 45px;
           display: flex;
-          justify-content: center;
+       
           align-items: center;
           background-color: $bg-color;
           z-index: 5;

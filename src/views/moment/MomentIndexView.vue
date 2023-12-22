@@ -20,11 +20,9 @@
                 <Text color="#ffffff" :size="18">{{store.user.nickName}}</Text>
                 <Avatar :size="55"  :src="store.user.userAvatar"></Avatar>
               </div>
-               <Card></Card>
-               
-               <Card></Card>
-               <Card></Card><Card></Card>
-               <Card></Card>
+               <Card v-for="item in momentList" :key="item.mid" :data="item"></Card>
+               <!-- <Card></Card> -->
+              
             </div>
            
           
@@ -45,10 +43,13 @@ import BScroll from "@better-scroll/core"
 import { ref, onMounted } from "vue"
 import { useStore } from "@/store"
 import ShareSheet from "@/components/common/ShareSheet.vue"
+import {getMomentPublic} from "@/api/moment"
 const scroll = ref(null)
 const show=ref(false)
+const momentList=ref([])
 const store=useStore()
 onMounted(() => {
+  getMomentPublicReuest()
   // 提示，因为transform是对dom操作，所以需要在这个生命周期操作
   scroll.value = new BScroll(".main", {
     mouseWheel: true,
@@ -60,6 +61,17 @@ onMounted(() => {
 
 const toMenu=()=>{
   show.value=!show.value
+}
+// 获取公共朋友圈内容
+const getMomentPublicReuest=async ()=>{
+  const {err,res}=await getMomentPublic()
+  if(err){
+    throw err
+  }
+  if(res["code"]===200){
+    momentList.value=res["data"]
+    console.log(res["data"])
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -78,6 +90,7 @@ const toMenu=()=>{
   top: 0;
   height: 100%;
   margin-bottom: 10px;
+  background-color: #F7FAFD;
   .bg{
   
     img{

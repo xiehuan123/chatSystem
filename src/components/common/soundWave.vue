@@ -62,7 +62,7 @@ defineProps({
     border-color: $msg-box-bg;
     font-size: 14px;
     line-height: 1.5;
-    color: #000;
+    color:#262626;
     padding: 2em 2em;
     margin: 5px 0 0;
     border-radius: 10px;

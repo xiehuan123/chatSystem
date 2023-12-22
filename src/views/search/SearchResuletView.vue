@@ -8,7 +8,7 @@
          
         </div>
         <div class="right">
-           <Text :size="22" color="#000000" :weight="500">{{ info.nickname }}</Text>
+           <Text :size="22" color="#262626" :weight="500">{{ info.nickname }}</Text>
           <Text v-if="info.region">地区：{{ info.region }}</Text>
 
         </div>
