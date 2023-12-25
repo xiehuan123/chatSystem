@@ -8,7 +8,7 @@
          
         </div>
         <div class="right">
-           <Text :size="22" color="#262626" :weight="500">{{ info.nickname }}</Text>
+           <Text :size="22" color="#262626" :weight="500">{{ info.nickName }}</Text>
           <Text v-if="info.region">地区：{{ info.region }}</Text>
 
         </div>
@@ -82,7 +82,7 @@ onMounted(async()=>{
 
 // 发送信息跳转
 const onAddfriend=()=>{
-  store.setCuurentSesstion({sesstionId:info.value.kwd,sesstionName:info.value.nickname,us:1,sesstioAvatar:info.value.avatar})
+  store.setCuurentSesstion({sesstionId:info.value.kwd,sesstionName:info.value.nickName,us:1,sesstioAvatar:info.value.avatar})
   router.push({
     path:`/user/sesstion/1/${kwd}`,
    

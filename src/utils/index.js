@@ -27,9 +27,10 @@ moment.defineLocale("zh-cn", {
 
 export const getInitials = (str) => {
   let reg=/[a-zA-Z]/
-  
+  console.log(str,"---------------")
   const pinyins = pinyin(str, { pattern: "first" })
   if(!reg.test(pinyins)){
+    
     return "#"
   }
   const initials = pinyins.charAt(0).toUpperCase()
@@ -44,9 +45,10 @@ export const getInitials = (str) => {
 export const getResultSort = (data) => {
 
   const result = []
+
   for (const key in data) {
     // 获取昵称首字母拼音 不是字母就是#
-    const first = getInitials(data[key]["nickname"])
+    const first = getInitials(data[key]["nickName"])
     // 判断数组有没有相同的分组名
     const index = result.findIndex(item => item.title == first)
     if (index != -1) {
@@ -193,6 +195,6 @@ export const setMometimageList=async (image)=>{
  */
 export const getMomentItem=async (key)=>{
   const data=await momentStore.getItem(key)
-
-  return data
+ 
+  return data || []
 }

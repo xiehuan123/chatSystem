@@ -7,7 +7,7 @@
       </div>
       <div class="textInput">
         <div class="inputBox">
-          <input  v-show="aduioKeyboard"  type="text" v-model="textInput" @keydown.enter="sendInfo()"  ref="inputRef"   @focus="onInputFocus"/>
+          <input  v-show="aduioKeyboard"  type="text" v-model="textInput" @keydown.enter="sendInfo()"  ref="inputRef"  />
           <!-- <div v-else  @touchstart ="startLongPress()" @touchend ="endLongPress()">按住 说话</div> -->
           <div v-show="!aduioKeyboard"  data-Long="1"   @load="onLoad()" ref="startLongRef"  >按住 说话</div>
           

@@ -37,27 +37,31 @@
             </div>
           </div>
           <ul :class="isShow && 'active'">
-            <li>
-              <Icon   iconName="icon-aixin" :fontSize="18" :color="data.isAppoint&&'#FF0000'"></Icon>赞
-              
+            <li v-show="appoint">
+              <Icon   iconName="icon-aixin" :fontSize="18" color="#FF0000" @click="onSetAppoint"></Icon>赞
+             
+            </li>
+            <li v-show="!appoint">
+          <Icon   iconName="icon-aixin" :fontSize="18"  @click="onSetAppoint"></Icon>赞
             </li>
             |
-            <li>
+            <li @click="onShowComment(data.mid,0  )">
               <Icon iconName="icon-tubiao_pinglun" :fontSize="18"></Icon>评论
             </li>
           </ul>
         </div>
       </footer>
-      <div class="appoint">
+      <div class="appoint" v-if="appoints.length!=0">
         <Icon iconName="icon-aixin" color="blue" :fontSize="20"></Icon> 
      
-        <span v-for="(item,index) in data.appoints" :key="item.uid" @click="onGOto(item.wxid)"> <span v-if="index!=data.appoints.length-1">{{item.nickName }},</span> <span v-else>{{ item.nickName }}</span>  </span>
+        <span v-for="(item,index) in appoints" :key="item.uid" @click="onGOto(item.wxid)"> <span v-if="index!=appoints.length-1">{{item.nickName }},</span> <span v-else>{{ item.nickName }}</span>  </span>
       </div>
       <div class="comment">
     
-        <div v-for="item in data.comments" :key="item.uid">
-         <Text color="#737cfe" display="inline-block">{{ item.nickName }}</Text>    
+        <div v-for="item in comments" :key="item.uid" @click="onShowComment(data.mid,item.uid,  item)" >
+         <Text color="#737cfe" display="inline-block">{{ item.nickName }}:</Text>    
         <Text  v-if="item.rid" color="#737cfe" display="inline-block">回复{{ item.ruser.nickName }}:</Text> 
+        
         <Text display="inline-block" color="#262626">{{ item.comment }}</Text>
         
         </div>
@@ -66,10 +70,14 @@
   </div>
 </template>
 <script setup >
-import { defineProps, ref,computed, } from "vue"
+import { defineProps, ref,computed,watch,defineExpose } from "vue"
 import { useRouter } from "vue-router"
 import {momentFormatTime} from "@/utils/index"
-defineProps({
+import emitter from "@/utils/Bus"
+
+import { useStore } from "@/store"
+
+const props=defineProps({
   data: {
     type: Object,
     default: () => {
@@ -110,6 +118,11 @@ defineProps({
 
 
     }
+  },
+  index:{
+   
+    type:Number,
+    default:-1,
   }
 
 })
@@ -120,40 +133,100 @@ defineProps({
 //     }
 //   }
 // })
+// 路由
 const router=useRouter()
-
+const store=useStore()
+const myUser={...store.user}
+// 组件内部点赞显示 用于做前端展示
+const appoint=ref(props.data.isAppoint)
+// 内部点赞列表
+const appoints=ref(props.data.appoints)
+// 内部评论 
+const comments=ref(props.data.comments)
+// 控制评论点赞弹出
+const isShow = ref(false)
+defineExpose({
+  comments
+})
 const momentformat=computed(()=>{
   return function(time){
-    console.log(time)
+
     return momentFormatTime(time)
   }
 })
 const img_list=computed(()=>{
   return function(imgList){
-    console.log(imgList.split(","))
+
     return imgList.split(",")
   }
 })  
 const onGOto=(wxID)=>{
   router.push({path:`/peopleinfo/1/${wxID}`})
 }
-const isShow = ref(false)
+
 
 const onShow = () => {
   isShow.value = !isShow.value
 }
+// 评论触发父组件执行 弹出对话框
+const onShowComment=(mid,rid,user={})=>{
+  // 关闭弹出的 点赞与评论
+  isShow.value=false
+  // 如果是自己的评论 就不能评论
+  if(rid==myUser.uId)return
+  emitter.emit("ShowComment",{mid,rid,user,index:props.index})
+  
+}
+
+// 点赞
+const onSetAppoint=()=>{
+  appoint.value=!appoint.value
+  if(appoint.value){
+    appoints.value.push({
+      avatar:myUser["userAvatar"],
+      gender:myUser["userSex"],
+      nickName:myUser["nickName"],
+      phone_number:myUser["useriPhone"],
+      region:myUser["userRigon"],
+      uid:myUser["uId"],
+      wechat_id:myUser["userWx"],
+    })
+  }else{
+    appoints.value=appoints.value.filter(item=>item.uid!=myUser.uId)
+  }
+}
+// 监听点赞评论框 当他关闭就向后端发送点赞更新请求
+watch(()=>isShow.value,(val)=>{
+  // val = False 代表 每次关闭 同时满足 修改的状态 不等于之前的状态 才发送请求给后端修改点赞数据
+  if(!val&&appoint.value!=props.data.isAppoint){
+    emitter.emit("notifyMomentIndexAppoint",{mid:props.data.mid,data:{appoint:appoint.value}})
+
+  }
+})
+// // 评论先做展示
+// emitter.on("notifyCardComment",({rid,ruser,comment})=>{
+//   comments.value.push({
+//     avatar:myUser["userAvatar"],
+//     gender:myUser["userSex"],
+//     nickName:myUser["nickName"],
+//     phone_number:myUser["useriPhone"],
+//     region:myUser["userRigon"],
+//     uid:myUser["uId"],
+//     wechat_id:myUser["userWx"],
+//     rid,
+//     ruser,
+//     comment
+//   })
+// })
 </script>
 <style lang="scss" scoped>
 .Card {
   position: relative;
   display: flex;
-  padding-left: 15px;
-  padding-top: 15px;
-  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
   padding-bottom: 5px;
   overflow: hidden;
-
-
   &::after {
     position: absolute;
     right: 0;
@@ -166,11 +239,13 @@ const onShow = () => {
     background-color: #c8c7cc;
   }
 
-  .left {}
+  .left {
+    width: 2.5rem;
+  }
 
   .right {
     margin-left: 10px;
-
+    flex: 1;
     .imgList {
       margin-top: 10px;
       display: flex;
@@ -199,13 +274,13 @@ const onShow = () => {
         width: 55px;
         height: 30px;
         top: -11px;
-        right: -30px;
+        right: 0px;
         >div {
           position: absolute;
           width: 65px;
           height: 45px;
           display: flex;
-       
+          padding: 0 5px;
           align-items: center;
           background-color: $bg-color;
           z-index: 5;
@@ -213,18 +288,19 @@ const onShow = () => {
           >div {
             position: relative;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: center;
             align-items: center;
-            width: 30px;
-            height: 22px;
+            width: 32px;
+            height: 20px;
             background-color: #e3e2eb;
-
+            border-radius: 4px;
             &::before {
               content: "";
               width: 5px;
               height: 5px;
               border-radius: 50%;
               background-color: #6f718f;
+              margin-right: 4px;
 
             }
 
@@ -279,11 +355,20 @@ const onShow = () => {
       align-items: center;
       padding: 2px;
       background-color: #e3e2eb;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      margin-right: 17px;
+      >span{
 
+        padding: 0 2px;
+      }
     }
     .comment{
       background-color: #e3e2eb;
       padding: 0 4px;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      margin-right: 17px;
     }
   }
 }</style>

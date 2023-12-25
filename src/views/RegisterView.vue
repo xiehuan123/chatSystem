@@ -91,7 +91,7 @@ const registerCheck = async () => {
   globalProperties.$loading("正在注册中...")
   const registerData = new FormData()
   console.log(uploadImgFile.value,"有值")
-  registerData.append("nickname", userName.value)
+  registerData.append("nickName", userName.value)
   registerData.append("password", userPasswod.value)
   registerData.append("phone_number", userPhone.value)
   registerData.append("avatar", uploadImgFile.value)

@@ -8,10 +8,10 @@
         </div>
         <div class="right">
           <div>
-            <Text :size="22" color="#000000" :weight="500">{{ info.nickname }}</Text>
+            <Text :size="22" color="#000000" :weight="500">{{ info.nickName }}</Text>
             <Icon  v-if="info.gender"  :iconName="sexMap[info.gender]['iconName']" :color="sexMap[info.gender]['color']"></Icon>
           </div>
-          <Text>昵称:{{ info.nickname }}</Text>
+          <Text>昵称:{{ info.nickName }}</Text>
           <Text>微信号：{{ info.wechat_id }}</Text>
           <Text v-if="info.region">地区：{{ info.region }}</Text>  
         </div>
@@ -154,7 +154,7 @@ onMounted(async()=>{
 
 // 发送信息跳转
 const onGoSendInfoView=()=>{
-  store.setCuurentSesstion({sesstionId:info.value.uid,sesstionName:info.value.nickname,us:1,sesstioAvatar:info.value.avatar})
+  store.setCuurentSesstion({sesstionId:info.value.uid,sesstionName:info.value.nickName,us:1,sesstioAvatar:info.value.avatar})
   router.push({
     path:`/user/sesstion/1/${info.value.uid}`,
    
@@ -167,7 +167,7 @@ const onGoSendVideoView=()=>{
     path:`/videocall/${info.value.uid}`,
     query:{
       src:info.value.avatar,
-      name:info.value.nickname
+      name:info.value.nickName
     }
   })
 }

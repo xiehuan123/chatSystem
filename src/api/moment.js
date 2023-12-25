@@ -11,3 +11,11 @@ export const getMomentSelf=async (data={})=>{
 export const getMomentDetail=async (mid,data={})=>{
   return await request({url:`/moments/${mid}`,method:"GET",data})
 }
+//点赞朋友圈
+export const setMomentAppoint=async (mid,data={})=>{
+  return await request({url:`/moments/${mid}`,method:"PATCH",data})
+} 
+// 评论朋友圈
+export const setMomentComment=async (mid,data={})=>{
+  return await request({url:`moments/${mid}`,method:"POST",data})
+}

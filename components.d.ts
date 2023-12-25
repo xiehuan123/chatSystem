@@ -18,6 +18,7 @@ declare module 'vue' {
     ChatList: typeof import('./src/components/userLayout/ChatList.vue')['default']
     Close: typeof import('./src/components/Close.vue')['default']
     CloseBg: typeof import('./src/components/CloseBg.vue')['default']
+    CommentInput: typeof import('./src/components/common/CommentInput.vue')['default']
     Dialog: typeof import('./src/components/common/Dialog.vue')['default']
     Dots: typeof import('./src/components/Dots.vue')['default']
     FindList: typeof import('./src/components/FindList.vue')['default']

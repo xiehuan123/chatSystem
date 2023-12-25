@@ -58,7 +58,7 @@ const agreeLogin = async () => {
     globalProperties.$message(res["message"])
     return 
   }
-  store.setUser({userAvatar:res["data"]["avatar"],userSex:res["data"]["gender"],useriPhone:res["data"]["phone_number"],userWx:res["data"]["wechat_id"],userRigon:res["data"]["region"],uId:res["data"]["uid"],nickName:res["data"]["nickname"]})
+  store.setUser({userAvatar:res["data"]["avatar"],userSex:res["data"]["gender"],useriPhone:res["data"]["phone_number"],userWx:res["data"]["wechat_id"],userRigon:res["data"]["region"],uId:res["data"]["uid"],nickName:res["data"]["nickName"]})
   store.setToken(res["token"])
   store.openSocket(store.user.uId)
   // const t=await test(store.user.uId)

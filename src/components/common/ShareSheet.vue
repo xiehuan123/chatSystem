@@ -66,6 +66,7 @@ const onUploadChange = async() => {
   }
  
   emit("update:show",false)
+  router.push({path:"/mometnPublish"})
  
 }
 </script>

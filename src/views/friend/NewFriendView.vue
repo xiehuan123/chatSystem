@@ -20,10 +20,10 @@
         <div class="listtile" :id="friends.title">{{ friends.title }}</div>
         <div class="content" v-for="item in friends.list" :key="item.uid" @click="onGoto(item.user?.wechat_id)">
           <Avatar :src="item.user?.avatar" :size="45"></Avatar>
-          <div class="nickname">
+          <div class="nickName">
             <div v-if="item.flag==1">
               <div>
-              <Text :size="15" color="#262626">{{ item.nickname }}</Text>
+              <Text :size="15" color="#262626">{{ item.nickName }}</Text>
                 <Text :size="12" >我:{{ item.friend_msg }}</Text>
                
               </div>
@@ -32,8 +32,8 @@
 
              <div v-if="item.flag==2">
               <div>
-              <Text :size="15" color="#262626">{{ item.nickname }}</Text>
-                <Text :size="12" >{{item.user.nickname  }}:{{ item.friend_msg }}</Text>
+              <Text :size="15" color="#262626">{{ item.nickName }}</Text>
+                <Text :size="12" >{{item.user.nickName  }}:{{ item.friend_msg }}</Text>
               </div>
               <div class="status" v-if="item.friend_static==0"   @click="onGo(item.user?.wechat_id)"><MyButton  backgroundColor="#edededb3"   color="#000">接受</MyButton></div>
             <div class="status" v-if="item.friend_static==1" >已添加</div>
@@ -64,12 +64,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 3,
-          "nickname": "静能生慧",
+          "nickName": "静能生慧",
           "avatar": "uploads/wx_c8a0e42a/avatar.png"
         },
         {
           "uid": 2,
-          "nickname": "789789",
+          "nickName": "789789",
           "avatar": "uploads/wx_8f5fbab5/avatar.png"
         }
       ]
@@ -79,12 +79,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 3,
-          "nickname": "123456",
+          "nickName": "123456",
           "avatar": "uploads/wx_c8a0e42a/avatar.png"
         },
         {
           "uid": 2,
-          "nickname": "789789",
+          "nickName": "789789",
           "avatar": "uploads/wx_8f5fbab5/avatar.png"
         }
       ]
@@ -168,7 +168,7 @@ const onGoto=(wechat_id)=>{
       height: 65px;
 
 
-      .nickname {
+      .nickName {
         position: relative;
         margin-left: 16px;
         height: 100%;
@@ -203,7 +203,7 @@ const onGoto=(wechat_id)=>{
       }
 
       // 分组最后面那个清楚 
-      &:last-child>.nickname::before {
+      &:last-child>.nickName::before {
         content: none;
 
       }

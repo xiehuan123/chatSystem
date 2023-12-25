@@ -5,8 +5,8 @@
      
       <Avatar :src="item.avatar" :size="35"></Avatar>
   
-      <div class="nickname"><div>
-        {{ item.nickname }}
+      <div class="nickName"><div>
+        {{ item.nickName }}
       </div>
     </div>
     </div>
@@ -69,7 +69,7 @@ const onGoto=(kwd)=>{
     height: 50px;
 
     
-    .nickname {
+    .nickName {
       position: relative;
       margin-left: 16px;
       height: 100%;
@@ -89,7 +89,7 @@ const onGoto=(kwd)=>{
       }
     }
     // 分组最后面那个清楚 
-    &:last-child>.nickname::before{
+    &:last-child>.nickName::before{
       content: none;
      
     }

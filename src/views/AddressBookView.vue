@@ -1,11 +1,11 @@
 <template>
     <div class="addressBook">
-  
-    <div class="functions">
+     <div>
+      <div class="functions">
       <ListItem v-for="item in meun" :key="item.sesstionId" :sesstio-item="item" @click="onGo(item.path)"></ListItem>
       <!-- <div class="function" v-for="item in meun" :key="item.id">
         <Icon :icon-name="icon-tianjiahaoyou"></Icon>
-         <div class="nickname">
+         <div class="nickName">
           <div>新的朋友</div>
         </div>
       </div> -->
@@ -21,6 +21,8 @@
       <Friend v-for="item in peoples" :key="item.title" :friends="item"></Friend>
     </div>
     </div>
+     </div> 
+    
 
  
 
@@ -87,12 +89,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 3,
-          "nickname": "123456",
+          "nickName": "123456",
           "avatar": "uploads/wx_c8a0e42a/avatar.png"
         },
         {
           "uid": 2,
-          "nickname": "789789",
+          "nickName": "789789",
           "avatar": "uploads/wx_8f5fbab5/avatar.png"
         }
       ]
@@ -102,12 +104,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 4,
-          "nickname": "qwerty",
+          "nickName": "qwerty",
           "avatar": "uploads/wx_1a2b3c4d/avatar.png"
         },
         {
           "uid": 5,
-          "nickname": "asdfgh",
+          "nickName": "asdfgh",
           "avatar": "uploads/wx_5e6f7g8h/avatar.png"
         }
       ]
@@ -117,12 +119,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 6,
-          "nickname": "zxcvbn",
+          "nickName": "zxcvbn",
           "avatar": "uploads/wx_9i8h7g6f/avatar.png"
         },
         {
           "uid": 7,
-          "nickname": "poiuyt",
+          "nickName": "poiuyt",
           "avatar": "uploads/wx_4d3c2b1a/avatar.png"
         }
       ]
@@ -132,12 +134,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 8,
-          "nickname": "lkjhgf",
+          "nickName": "lkjhgf",
           "avatar": "uploads/wx_1234567/avatar.png"
         },
         {
           "uid": 9,
-          "nickname": "mnbvcx",
+          "nickName": "mnbvcx",
           "avatar": "uploads/wx_7654321/avatar.png"
         }
       ]
@@ -147,12 +149,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 10,
-          "nickname": "098765",
+          "nickName": "098765",
           "avatar": "uploads/wx_a1b2c3d4/avatar.png"
         },
         {
           "uid": 11,
-          "nickname": "543210",
+          "nickName": "543210",
           "avatar": "uploads/wx_d4c3b2a1/avatar.png"
         }
       ]
@@ -162,12 +164,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 12,
-          "nickname": "qwerty",
+          "nickName": "qwerty",
           "avatar": "uploads/wx_1a2b3c4d/avatar.png"
         },
         {
           "uid": 13,
-          "nickname": "asdfgh",
+          "nickName": "asdfgh",
           "avatar": "uploads/wx_5e6f7g8h/avatar.png"
         }
       ]
@@ -177,12 +179,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 14,
-          "nickname": "zxcvbn",
+          "nickName": "zxcvbn",
           "avatar": "uploads/wx_9i8h7g6f/avatar.png"
         },
         {
           "uid": 15,
-          "nickname": "poiuyt",
+          "nickName": "poiuyt",
           "avatar": "uploads/wx_4d3c2b1a/avatar.png"
         }
       ]
@@ -192,12 +194,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 16,
-          "nickname": "lkjhgf",
+          "nickName": "lkjhgf",
           "avatar": "uploads/wx_1234567/avatar.png"
         },
         {
           "uid": 17,
-          "nickname": "mnbvcx",
+          "nickName": "mnbvcx",
           "avatar": "uploads/wx_7654321/avatar.png"
         }
       ]
@@ -207,12 +209,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 18,
-          "nickname": "098765",
+          "nickName": "098765",
           "avatar": "uploads/wx_a1b2c3d4/avatar.png"
         },
         {
           "uid": 19,
-          "nickname": "543210",
+          "nickName": "543210",
           "avatar": "uploads/wx_d4c3b2a1/avatar.png"
         }
       ]
@@ -222,12 +224,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 20,
-          "nickname": "qwerty",
+          "nickName": "qwerty",
           "avatar": "uploads/wx_1a2b3c4d/avatar.png"
         },
         {
           "uid": 21,
-          "nickname": "asdfgh",
+          "nickName": "asdfgh",
           "avatar": "uploads/wx_5e6f7g8h/avatar.png"
         }
       ]
@@ -237,12 +239,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 22,
-          "nickname": "zxcvbn",
+          "nickName": "zxcvbn",
           "avatar": "uploads/wx_9i8h7g6f/avatar.png"
         },
         {
           "uid": 23,
-          "nickname": "poiuyt",
+          "nickName": "poiuyt",
           "avatar": "uploads/wx_4d3c2b1a/avatar.png"
         }
       ]
@@ -252,12 +254,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 24,
-          "nickname": "lkjhgf",
+          "nickName": "lkjhgf",
           "avatar": "uploads/wx_1234567/avatar.png"
         },
         {
           "uid": 25,
-          "nickname": "mnbvcx",
+          "nickName": "mnbvcx",
           "avatar": "uploads/wx_7654321/avatar.png"
         }
       ]
@@ -267,12 +269,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 26,
-          "nickname": "098765",
+          "nickName": "098765",
           "avatar": "uploads/wx_a1b2c3d4/avatar.png"
         },
         {
           "uid": 27,
-          "nickname": "543210",
+          "nickName": "543210",
           "avatar": "uploads/wx_d4c3b2a1/avatar.png"
         }
       ]
@@ -282,12 +284,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 28,
-          "nickname": "qwerty",
+          "nickName": "qwerty",
           "avatar": "uploads/wx_1a2b3c4d/avatar.png"
         },
         {
           "uid": 29,
-          "nickname": "asdfgh",
+          "nickName": "asdfgh",
           "avatar": "uploads/wx_5e6f7g8h/avatar.png"
         }
       ]
@@ -297,12 +299,12 @@ const peoples = ref(
       "list": [
         {
           "uid": 30,
-          "nickname": "zxcvbn",
+          "nickName": "zxcvbn",
           "avatar": "uploads/wx_9i8h7g6f/avatar.png"
         },
         {
           "uid": 31,
-          "nickname": "poiuyt",
+          "nickName": "poiuyt",
           "avatar": "uploads/wx_4d3c2b1a/avatar.png"
         }
       ]
@@ -312,22 +314,22 @@ const peoples = ref(
       "list": [
         {
           "uid": 32,
-          "nickname": "lkjhgf",
+          "nickName": "lkjhgf",
           "avatar": "uploads/wx_1234567/avatar.png"
         },
         {
           "uid": 33,
-          "nickname": "mnbvcx",
+          "nickName": "mnbvcx",
           "avatar": "uploads/wx_7654321/avatar"
         },
         {
           "uid": 32,
-          "nickname": "lkjhgf",
+          "nickName": "lkjhgf",
           "avatar": "uploads/wx_1234567/avatar.png"
         },
         {
           "uid": 33,
-          "nickname": "mnbvcx",
+          "nickName": "mnbvcx",
           "avatar": "uploads/wx_7654321/avatar"}
       ]}])
 onMounted(async()=>{
@@ -342,7 +344,7 @@ onMounted(async()=>{
   const data=res["data"].map(item=>item.user)
 
   peoples.value=[...getResultSort(data)]
-
+  console.log(...getResultSort(data),data)
 })
 const onGo=(path)=>{
   router.push({
@@ -355,7 +357,7 @@ const onGo=(path)=>{
 .addressBook {
   width: 100%;
   height: 100%;
-
+  touch-action: none;
       .business {
     .title {
       font-size: 8px;
