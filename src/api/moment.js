@@ -17,5 +17,13 @@ export const setMomentAppoint=async (mid,data={})=>{
 } 
 // 评论朋友圈
 export const setMomentComment=async (mid,data={})=>{
-  return await request({url:`moments/${mid}`,method:"POST",data})
+  return await request({url:`/moments/${mid}`,method:"POST",data})
+}
+// 发布朋友圈
+export const publishMoment=async (data={})=>{
+  return await request({url:"/moments/",method:"POST",data})
+}
+// 获取指定用户的朋友圈
+export const getMomentUser=async (uid,data={})=>{
+  return await request({url:`/moments/user/${uid}`,method:"GET",data})
 }

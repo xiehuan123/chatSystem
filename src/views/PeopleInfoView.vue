@@ -23,12 +23,13 @@
       :item="item"
       
     >
+ 
       <template #right>
         <Icon iconName="icon-arrow-right"> </Icon>
       </template>
     </TextItem>
     <div class="bottom">
-      <div class="send_msg" v-if="info['friendCode']==1">
+      <div class="send_msg" v-if="info['friendCode']==1 || info['friendCode']==2 ">
         <Icon iconName="icon-xiaoxi" :fontSize="24"></Icon
         ><span class="text" @click="onGoSendInfoView()">发消息</span>
       </div>
@@ -47,9 +48,6 @@
 <script setup>
 import {ref,onMounted} from "vue"
 import { useRouter,useRoute } from "vue-router"
-
-
-
 import { useStore } from "@/store"
 // import {getInfo} from "@/api/index"
 import {serarchFriend} from "@/api/frindeShip"
@@ -133,6 +131,7 @@ onMounted(async()=>{
         id: 3,
         name: "朋友圈",
         height:58,
+        moment:info.value.moment,
         marginTop: true,
       },
       {
@@ -144,6 +143,23 @@ onMounted(async()=>{
     ]
     break
   case 2:
+    infoList.value=[
+      {
+        id: 3,
+        name: "朋友圈",
+        marginTop: true,
+        moment:info.value.moment,
+        height:60,
+      },
+   
+      {
+        id: 2,
+        name: "更多信息",
+        height:45,
+        marginBorde: true,
+     
+      },
+    ]
     break
   }
   console.log(sexMap.value[info.value.gender]["iconName"])
@@ -250,6 +266,7 @@ const onAddfriendView=async ()=>{
     :deep(.infoitem:last-child) {
       border-bottom: 0;
     }
+   
   }
   .bottom {
     margin-top: 7px;

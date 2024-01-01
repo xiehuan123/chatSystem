@@ -3,9 +3,7 @@ import { pinyin } from "pinyin-pro"
 import localforage from "localforage"
 import moment from "moment/moment"
 import emitter from "@/utils/Bus"
-
-
-
+import _ from "lodash"
 
 moment.defineLocale("zh-cn", {
   relativeTime: {
@@ -83,13 +81,46 @@ export const getFriendResultSort = (data) => {
   result.sort((a, b) => a.title.localeCompare(b.title))
   return result
 }
+/**
+//  * @description:  将时间转换成 时分秒
+ * @param {*} time
+ * @return {*}
+ */
 export const getFormatTime = (time = null) => {
   if (!time) return moment().format("HH:mm:ss")
   return moment(time).format("HH:mm:ss")
 }
+/**
+ * @description: 根据时间获取几天前
+ * @param {*} time
+ * @return {*}
+ */
 export const momentFormatTime=(time=null)=>{
   if (!time) return moment().fromNow()
   return moment(time).fromNow()
+}
+export const getMomentDate=(time=null)=>{
+  // 获取今天的日期
+  let today = moment().format("YYYY-MM-DD")
+  // 将日期转换成“今天”或者“1225月”格式
+  {
+    if (time === today) {
+      return "今天"
+    } else {
+      let date = moment(time)
+      return date.format("DD-MM月")
+    }
+  }
+
+
+
+}
+export const  getGroupBy=(data, f)=> {
+  let formattedData = _.map(data, item => {
+    return { ...item, pub_time: getMomentDate(item.pub_time),"firstImage":item.img_list?.split(",")[0]??null  } // 在这里对属性值进行格式化
+  })
+  console.log(formattedData)
+  return _.groupBy(formattedData, f)
 }
 // 防抖函数，非立即执行版本
 export const debounce = (func, wait = 1000) => {
@@ -109,6 +140,11 @@ export const debounce = (func, wait = 1000) => {
 }
 
 
+/**
+ * @description: 文件转换成base64
+ * @param {*} file
+ * @return {*}
+ */
 const fileToDataURL = (file) => {
   return new Promise((resolve) => {
     const reader = new FileReader()
@@ -197,4 +233,11 @@ export const getMomentItem=async (key)=>{
   const data=await momentStore.getItem(key)
  
   return data || []
+}
+/**
+ * @description: 清空朋友圈存储的图片
+ * @return {*}
+ */
+export const clearMomentItem=async()=>{
+  momentStore.clear()
 }

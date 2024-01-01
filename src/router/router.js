@@ -30,6 +30,8 @@ import NewFriendView from "@/views/friend/NewFriendView.vue"
 import  MomentIndexView from "@/views/moment/MomentIndexView.vue"
 import PhotoGraphView from "@/views/moment/PhotoGraphView.vue"
 import MomentPublishView from "@/views/moment/MomentPublish.vue"
+import MomentUserView from "@/views/moment/MomentUserView.vue"
+import MometDetailViewVue from "@/views/moment/MometDetailView.vue"
 const routes = [
   {
     path: "/", component: BasicLayout,
@@ -170,6 +172,17 @@ const routes = [
   {
     path:"/mometnPublish",
     component:MomentPublishView
+  },
+  // 朋友圈个人页面
+  {
+    path:"/momentUser/:uid",
+    component:MomentUserView
+  }
+  // 朋友圈详情页面
+  ,
+  {
+    path:"/momentDetail/:mid",
+    component:MometDetailViewVue
   }
 
   

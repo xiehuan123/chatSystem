@@ -2,8 +2,9 @@ import { ref } from "vue"
 import { defineStore } from "pinia"
 import { useRouter } from "vue-router"
 import { io } from "socket.io-client"
-import { BASE_URL } from "@/utils/CONFIG_ENUM"
+
 import Peer from "peerjs"
+import { BASE_URL } from "@/utils/CONFIG_ENUM"
 export const useStore = defineStore("user", () => {
   const $socket = ref(null)
   //存储当前登录用户信息

@@ -8,7 +8,7 @@
 import { ref,watch,onMounted  } from "vue"
 import {useStore} from "@/store/index"
 import HomeList from "@/components/HomeList.vue"
-import BScroll from "@better-scroll/core"
+import BScroll from "better-scroll"
 const store=useStore()
 const infoList=ref(store.infoList)
 watch(() => store.infoList, (newValue, oldValue) => {

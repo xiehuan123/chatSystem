@@ -1,7 +1,7 @@
 <template>
 <div class="Card">
     <div class="left">
-      <Avatar :size="45">
+      <Avatar :size="45" :src="data.user.avatar">
 
       </Avatar>
     </div>
@@ -18,12 +18,9 @@
       <div class="imgList">
         <div  v-for="img in img_list(data.img_list)" :key="img">
           <img :src="img" alt="">
-          
+        
         </div>
-        <div  v-for="img in img_list(data.img_list)" :key="img">
-          <img :src="img" alt="">
-          
-        </div>
+       
         
 
       </div>
@@ -59,10 +56,10 @@
       <div class="comment">
     
         <div v-for="item in comments" :key="item.uid" @click="onShowComment(data.mid,item.uid,  item)" >
-         <Text color="#737cfe" display="inline-block">{{ item.nickName }}:</Text>    
-        <Text  v-if="item.rid" color="#737cfe" display="inline-block">回复{{ item.ruser.nickName }}:</Text> 
+         <Text color="#737cfe" :style="{display:'inline-block'}">{{ item.nickName }}:</Text>    
+        <Text  v-if="item.rid" color="#737cfe"  :style="{display:'inline-block'}" >回复{{ item.ruser.nickName }}:</Text> 
         
-        <Text display="inline-block" color="#262626">{{ item.comment }}</Text>
+        <Text :style="{display:'inline-block'}" color="#262626">{{ item.comment }}</Text>
         
         </div>
       </div>
@@ -250,12 +247,17 @@ watch(()=>isShow.value,(val)=>{
       margin-top: 10px;
       display: flex;
       flex-wrap: wrap;
-
+     
+   
       >div {
         width: 90px;
         height: 90px;
         margin: 2px;
-
+        &:only-child{
+        width: 90%;
+        height: auto;
+      
+      }
         img {
           width: 100%;
           height: 100%;

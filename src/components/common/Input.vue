@@ -5,6 +5,7 @@
       class="ipt"
       :placeholder="placeholder"
       @input="updateValue"
+      :value="modelValue"
     />
   </div>
 </template>

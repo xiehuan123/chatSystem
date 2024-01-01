@@ -1,6 +1,5 @@
 <template>
   <div class="momentIndex">
-    <!-- <header>11111</header> -->
 
     <BackHeader class="header">
       <template #right>
@@ -10,16 +9,17 @@
     <main class="main">
       <div class="scroll-area">
         <div class="bg">
-          <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="">
+          <Icon :class-name="['pyqlogo',isPulldown]" :font-size="22"  icon-name="icon-iconfontzhizuobiaozhunbduan36"></Icon>
+          <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="" >
         </div>
         <div class="content">
-          <!-- <div v-for="n in 50" class="item" :key="n">{{ n }}</div> -->
+         
           <div class="info">
-            <Text color="#ffffff" :size="18">{{ store.user.nickName }}</Text>
-            <Avatar :size="55" :src="store.user.userAvatar"></Avatar>
+            <Text color="#ffffff" :size="18">{{ store.user.nickName }} </Text>
+            <Avatar :size="55" :src="store.user.userAvatar" @click="onGOto()"></Avatar>
           </div>
           <Card v-for="(item,index) in momentList" :key="item.mid" :data="item" :index="index" @ShowComment="onShowComment" ref="cardListRef"></Card>
-          <!-- <Card></Card> -->
+
           
       
         </div>
@@ -38,26 +38,57 @@
 <script setup >
 
 
-import BScroll from "@better-scroll/core"
+import BScroll from "better-scroll"
 import { ref, onMounted } from "vue"
 import { useStore } from "@/store"
 import ShareSheet from "@/components/common/ShareSheet.vue"
 import { getMomentPublic,setMomentComment,setMomentAppoint } from "@/api/moment"
 import emitter from "@/utils/Bus"
+import Icon from "@/components/common/Icon.vue"
+import { useRouter } from "vue-router"
+// 主要滚动
 const scroll = ref(null)
+// 选择图片 组件显示
 const show = ref(false)
+// 朋友圈 列表信息
 const momentList = ref([])
 const store = useStore()
+// 状态管理里面存储的用户信息
 const myUser={...store.user}
 // 循环子组件的dom结构
 const cardListRef=ref(null)
+// 朋友圈logo类名
+const isPulldown=ref("")
+// 路由
+const router=useRouter()
 onMounted(async () => {
   await getMomentPublicReuest()
   // 提示，因为transform是对dom操作，所以需要在这个生命周期操作
   scroll.value = new BScroll(".main", {
     mouseWheel: true,
     probeType: 3,
-    click: true
+    click: true,
+    pullDownRefresh: {
+      threshold: 60,  // 下拉刷新的阈值
+      stop: 20  // 刷新停留的位置
+    }
+  })
+  // 下拉刷新
+  scroll.value.on("pullingDown", async() => {
+    console.log("下拉刷新")
+    // 在这里执行下拉刷新的操作，比如发送请求获取最新数据等
+    await getMomentPublicReuest()
+    scroll.value.finishPullDown() 
+  })
+  scroll.value.on("scroll", (pos) => {
+    if (pos.y > 1) {
+    // 用户正在下拉，可以在这里执行相应的操作
+    // 比如修改下拉提示的显示状态等
+      isPulldown.value="isPulldown"
+    }
+    if(pos.y==0){
+      isPulldown.value=""
+    }
   })
 
 })
@@ -98,6 +129,13 @@ emitter.on("notifyMomentIndexComment",async({mid,rid,ruser,comment,index})=>{
 emitter.on("notifyMomentIndexAppoint",async({mid,data})=>{
   setMomentAppoint(mid,data)
 })
+// 跳转
+const onGOto=()=>{
+  console.log("跳转")
+  router.push({
+    path:`/peopleinfo/1/${myUser.userWx}`
+  })
+}
 </script>
 <style lang="scss" scoped>
 .momentIndex {
@@ -123,7 +161,31 @@ emitter.on("notifyMomentIndexAppoint",async({mid,data})=>{
     }
 
     .bg {
-
+      position: relative;
+      height: 275px;
+        @keyframes xz {
+        0%{
+          
+          transform:    rotateZ(0deg);
+     
+        }
+    
+        100%{
+          transform:  rotateZ(360deg);
+        }
+      }
+      .pyqlogo{
+        position: absolute;
+        left: 30px;
+        top: -30px;
+        transition: top 1s;
+      }
+     
+      .isPulldown{
+        top: 60px;
+        animation: xz .8s  infinite;
+      }
+      
       img {
         width: 100%;
         height: 100%;

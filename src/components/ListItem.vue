@@ -140,4 +140,5 @@ const lastInfoMsg = computed(() => {
   border: solid 1px $bd-color;
 }
 
+
 </style>

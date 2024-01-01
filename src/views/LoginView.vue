@@ -32,8 +32,8 @@ const router = useRouter()
 const route=useRoute()
 const store = useStore()
 
-const userName = ref("")
-const userPassword = ref("")
+const userName = ref("13087259146")
+const userPassword = ref("123456")
 const showSubmitBtn=computed(()=>{
   return userName.value.length&&userPassword.value.length
 })

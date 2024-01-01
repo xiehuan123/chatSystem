@@ -8,7 +8,7 @@
 
         {{ store.user.nickName }}
       </div>
-      <Text> 微信号:{{ store.user.userWx }}</Text>
+      <Text class="wx"> 微信号:{{ store.user.userWx }}</Text>
    
     </div>
     <div class="Qrcode">
@@ -22,7 +22,7 @@
   
   <div class="wxState">
     <div class="elliptic">
-      <i class="iconfont icon-jiahao1"></i>状态
+      <Icon iconName="icon-jiahao1"></Icon>状态
     </div>
     <div class="elliptic">
  
@@ -69,7 +69,7 @@ const store=useStore()
     .nickName{
       font-size: $small-text-size;
       font-weight: 600;
-     
+   
     }
     .wx{
       color: $small-text-color;
@@ -88,17 +88,20 @@ const store=useStore()
 }
 .wxState{
   display: flex;
-  justify-content: center;
   background: #fff;
-  padding-bottom: 10px;
+  padding: 10px 0;
+  font-size: 12px;
+  color: $bd-color;
+  padding-left: 60px;
   .elliptic{
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 15px;
-    padding: 5px 10px;
+    padding: 2px 10px;
     border:solid 1px #ccc;
+    margin-left: 10px;
 
       img{
     width: 20px;
