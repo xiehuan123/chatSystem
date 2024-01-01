@@ -3,19 +3,25 @@ import { useStore } from "@/store"
 
 import BasicLayout from "@/layout/BasicLayout.vue"
 import userLayout from "@/layout/UserLayout.vue"
-import HomeView from "@/views/HomeView.vue"
-import AddressBookView from "@/views/AddressBookView.vue"
-import FindView from "@/views/FindView.vue"
-import MeView from "@/views/MeView.vue"
-import IndexView from "@/views/IndexView.vue"
-import LoginView from "@/views/LoginView.vue"
-import RegisterView from "@/views/RegisterView.vue"
-import phoneLoginView from "@/views/PhoneLoginView.vue"
+
+import HomeView from "@/views/home/HomeView.vue"
+
+import AddressBookView from "@/views/addressBook/AddressBookView.vue"
+
+import FindView from "@/views/find/FindView.vue"
+
+import MeView from "@/views/me/MeView.vue"
+import UserInfoView from "@/views/me/UserInfoView.vue"
+
+import IndexView from "@/views/user/IndexView.vue"
+import LoginView from "@/views/user/LoginView.vue"
+import RegisterView from "@/views/user/RegisterView.vue"
+import phoneLoginView from "@/views/user/PhoneLoginView.vue"
 
 
-import PeopleInfoView from "@/views/PeopleInfoView.vue"
+
 import SweepAwayView from "@/views/SweepAwayView.vue"
-import UserInfoView from "@/views/UserInfoView.vue"
+
 import SesstionView from "@/views/SessionView.vue"
 import VideoCallView from "@/views/VideoCallView.vue"
 import VideoAcceptView from "@/views/VideoAcceptView.vue"
@@ -26,6 +32,9 @@ import SearchView from "@/views/search/SearchView.vue"
 
 import AddFriendView from "@/views/friend/AddFriendView.vue"
 import NewFriendView from "@/views/friend/NewFriendView.vue"
+import PeopleInfoView from "@/views/friend/PeopleInfoView.vue"
+
+
 
 import  MomentIndexView from "@/views/moment/MomentIndexView.vue"
 import PhotoGraphView from "@/views/moment/PhotoGraphView.vue"

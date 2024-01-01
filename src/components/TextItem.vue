@@ -55,7 +55,7 @@ const props = defineProps({
 })
 // 朋友圈的展示 已完成 部署到服务器上就会显示图片
 const imgList = computed(() => {
-  return props.item.moment.img_list.split(",") || []
+  return props.item.moment.img_list?.split(",") ?? []
 })
 </script>
 

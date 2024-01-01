@@ -1,6 +1,6 @@
 <template>
   <div class="avatar"  >
-    <div :style="{width: size+'px',height:size+'px', borderRadius:border+'px'}">
+    <div :style="{width: size+'px',height:size+'px', borderRadius:border+'px'}" >
       <img :src="src" alt="图片加载失败" @error="onError" >
     </div>
       
@@ -26,7 +26,8 @@ defineProps({
   num:{
     type:Number,
     default:0,
-  }
+  },
+
 
 })
 const onError=(e)=>{

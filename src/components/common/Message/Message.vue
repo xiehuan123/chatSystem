@@ -29,7 +29,7 @@ const props = defineProps({
   // 关闭时的回调
   destroy: Function
 })
-const isVisable=ref(false)
+const isVisable=ref(true)
 onMounted(() => {
   console.log("组件显示成功")
   isVisable.value = true

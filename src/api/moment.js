@@ -27,3 +27,7 @@ export const publishMoment=async (data={})=>{
 export const getMomentUser=async (uid,data={})=>{
   return await request({url:`/moments/user/${uid}`,method:"GET",data})
 }
+// 删除朋友圈
+export const deleteMoment=async (mid,data={})=>{
+  return await request({url:`/moments/${mid}`,method:"DELETE",data})
+}

@@ -30,7 +30,7 @@
           <li><Icon iconName="icon-aite" :font-size="25"></Icon><span>提醒谁看 <Icon iconName="icon-arrow-right"></Icon></span></li>
           <li><Icon iconName="icon-iconrenxiang" :font-size="25"></Icon><span>谁可以看 <Icon iconName="icon-arrow-right"></Icon></span> </li>
           <li><Icon icon-name="icon-qqdt" :font-size="25"></Icon> </li>
-        </ul> .         
+        </ul>         
 
       </div>
 
