@@ -6,6 +6,7 @@
   <div class="meunListBox" @click.self="onClose" v-show="isVisible">
     <div class="meunList">
       <ul>
+
         <router-link :to="item.path" v-for="item in meunList" :key="item.id">
           <li>
             <Icon :icon-name="item.iconName" :font-size="30"></Icon>
@@ -33,19 +34,19 @@ const meunList = ref([
     id: 1,
     iconName: "icon-xiaoxi_o",
     name: "发起群聊",
-    path: "",
+    path: "/groupIndex",
   },
   {
     id: 2,
     iconName: "icon-tianjiajiahaoyoutianjiapengyou",
     name: "添加朋友",
-    path: "addfriend",
+    path: "/addfriend",
   },
   {
     id: 3,
     iconName: "icon-saoyisao1",
     name: "扫一扫",
-    path: "sweepaway",
+    path: "/sweepaway",
   },
   {
     id: 4,

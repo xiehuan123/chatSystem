@@ -4,7 +4,7 @@ import { useRouter } from "vue-router"
 import { io } from "socket.io-client"
 
 import Peer from "peerjs"
-import { BASE_URL } from "@/utils/CONFIG_ENUM"
+
 export const useStore = defineStore("user", () => {
   const $socket = ref(null)
   //存储当前登录用户信息
@@ -126,11 +126,15 @@ export const useStore = defineStore("user", () => {
     sesstioAvatar: "https://img0.baidu.com/it/u=1441576986,4133872496&fm=253&fmt=auto&app=138&f=JPEG?w=842&h=500"
 
   })
-  const openSocket = (uid, token) => {
-    $socket.value = io(BASE_URL, {
-      query: {
-        uid,
-        token
+  const openSocket = (uid,token) => {
+    $socket.value = io(import.meta.env.VITE_BASE_URL, {
+     
+      // query: {
+      //   uid,
+      //   token
+      // },
+      extraHeaders: {
+        "Authorization": `${token}`
       }
     })
     $socket.value.on("connect",()=>{
@@ -138,12 +142,12 @@ export const useStore = defineStore("user", () => {
       console.log("连接成功")
     })
     //服务器转发过来的信息
-    $socket.value.on("receiveServeMessage", (data) => {
+    $socket.value.on("receiveServeMessage", (data,call) => {
       console.log("后台回复", data)
       console.log(infoList)
       setInfoList(data)
-
-
+      call("接收成功")
+ 
     })
     //连接peejs服务器
     peer.value=new Peer(uid,
@@ -217,7 +221,7 @@ export const useStore = defineStore("user", () => {
   //设置即时消息  判断消息存不在存在会话 
   const setInfoList=(data)=>{
     //查找当 当前发送的聊天记录在不在当前会话里面 如果在就添加进去 
-    const  index= infoList.value.findIndex(sesstion => sesstion.sesstionId.toString() === data.sesstionId.toString())
+    const  index= infoList.value.findIndex(sesstion => sesstion.sesstionId.toString() === data.sesstionId.toString()&& sesstion.us.toString() === data.us.toString())
     if(index!=-1){
       console.log("存在当前会话",infoList.value)
       //如果当前会话 存在将信息部分添加到会话中就行
@@ -284,5 +288,5 @@ export const useStore = defineStore("user", () => {
 
  
 
-  return { $socket,user,peer, remoteUser,remoterCall,locahostCall,infoList,conn, openSocket,setConnect, cuurentSesstion,setSesstionreadStaus,setUser ,setToken,setCuurentSesstion,clearUser,cancelMediaStream,setInfoList}
+  return { $socket,user,peer,token, remoteUser,remoterCall,locahostCall,infoList,conn, openSocket,setConnect, cuurentSesstion,setSesstionreadStaus,setUser ,setToken,setCuurentSesstion,clearUser,cancelMediaStream,setInfoList}
 })

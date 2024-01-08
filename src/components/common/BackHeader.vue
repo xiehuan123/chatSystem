@@ -42,9 +42,10 @@ const toMenu = () => {
 </script>
 <style lang="scss" scoped>
   .header {
+    position: relative;
+    z-index: 99999;
     display: flex;
     height: 40px;
-   
     line-height: 40px;
     justify-content: center;
  

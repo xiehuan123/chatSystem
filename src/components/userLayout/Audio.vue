@@ -4,6 +4,7 @@
     <soundWave :audioBg="audioBg"></soundWave>
   </div>
   <div class="footer"  >
+
     <div 
     :class="['esc',isActive==1?'avtive':'']"  ref="escRef" ></div>
     <div  :class="['transformText',isActive==2?'avtive':'']"   ref="transformTextRef"></div>
@@ -12,7 +13,9 @@
 </template>
 
 <script setup>
-
+// document.addEventListener("contextmenu", function(event) {
+//   event.preventDefault()
+// })
 import { ref, onMounted,defineProps } from "vue"
 // import Hammer from "hammerjs"
 import emitter from "@/utils/Bus"

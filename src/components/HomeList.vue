@@ -18,8 +18,9 @@
 </template>
 
 <script setup>
+import { useStore } from "@/store"
 import { useRouter } from "vue-router"
-
+const store=useStore()
 defineProps({
   infoList: {
     type: Array,
@@ -28,6 +29,13 @@ defineProps({
 })
 const router=useRouter()
 const onGoDialog=(item)=>{
+  store.setCuurentSesstion({
+    sesstionId:item.sesstionId,
+    sesstionName:item.sesstionName,
+    us:item.us,
+    memberPerson:item.memberPerson,
+    sesstioAvatar:item.sesstioAvatar
+  })
   router.push({
     path:`/user/sesstion/${item.us}/${item.sesstionId}`,
   })

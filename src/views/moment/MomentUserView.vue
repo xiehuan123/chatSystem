@@ -1,12 +1,12 @@
 <template>
   <div class="momentUser">
-    <BackHeader>
+    <BackHeader >
       <template #right>
         <div></div>
 
       </template>
     </BackHeader>
-    <div class="main" ref="mainRef">
+    <div class="main" >
       <div class="scroll-area">
         <div class="bg">
 
@@ -16,7 +16,7 @@
 
           <div class="info">
             <Text  :style="{padding:'0 5px'}" color="#ffffff" :size="18">{{ user.nickName }} </Text>
-            <Avatar :size="55" :src="user.userAvatar" @click="onGOto()"></Avatar>
+            <Avatar :size="55" :src="user.avatar" @click="onGOto()"></Avatar>
           
           </div>
           <Text className="Autograph">{{ user.Autograph }}</Text>
@@ -35,52 +35,54 @@
 <script setup >
 import MomentItem from "@/components/MomentItem.vue"
 import BScroll from "better-scroll"
-import { ref, onMounted, defineProps } from "vue"
+import { ref, onMounted } from "vue"
 import { useRoute } from "vue-router"
 import { getMomentUser } from "@/api/moment"
+import {getInfo} from "@/api/index"
 import { getGroupBy } from "@/utils/index"
 const route=useRoute()
 const {uid}=route.params
 const scroll = ref(null)
-const mainRef=ref(null)
+
 const momentList=ref([])
+const user=ref({})
 onMounted(async()=>{
+  
+  const {res:{data}}=await getInfo(uid)
+
+  user.value=data
   const {res}=await getMomentUser(uid)
   momentList.value=getGroupBy(res.data,"pub_time")
   console.log(momentList.value)
-  scroll.value = new BScroll(mainRef.value, {
-    probeType: 2,
+  
+  scroll.value = new BScroll(".main", {
+    mouseWheel: true,
+    probeType: 3,
     click: true,
     
   })
-
+  // 滚动有问题 暂时解决了
+  setTimeout(() => {
+    scroll.value.refresh()
+  }, 0)
 })
 
-defineProps({
-  user: {
-    type: Object,
-    default: () => {
-      return {
-        nickName: "appoint",
-        userAvatar: "",
-        Autograph:"一花一草一世界"
-      }
-    }
 
-  }
-})
 
 
 </script>
 <style lang="scss" scoped>
 .momentUser {
+ position: relative;
   height: 100%;
+
   .main {
-    position: absolute;
+   position: absolute;
     top: 0;
-   
     height: 100%;
-    .scroll-area{
+    margin-bottom: 10px;
+    background-color: #F7FAFD;
+    >div{
       touch-action: none;
     }
     .bg {

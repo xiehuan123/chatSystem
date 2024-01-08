@@ -52,7 +52,7 @@ const onClick=(e)=>{
   right: 2px;
   width: 5vw;
 
-  transform: translateY(-55%);
+  transform: translateY(-50%);
   font-size: 12px;
 
   div{

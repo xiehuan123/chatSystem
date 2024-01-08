@@ -1,8 +1,10 @@
 <template>
   <div class="basic">
+      
     <AppHeader @onShowMeun="onShowMeun"></AppHeader>
     <AppMain></AppMain>
     <AppFooter></AppFooter>
+    
     <!-- 通过这种形式就不用写 事件了 子组件触发就直接改了这个值 -->
       <meunList  v-model:visible="isiMeun" ></meunList>
   </div>

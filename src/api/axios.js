@@ -1,11 +1,11 @@
 import axios from "axios"
-import {BASE_URL} from "@/utils/CONFIG_ENUM"
 import router from "@/router"
+console.log(import.meta.env.VITE_BASE_URL,"777777")
 const client = axios.create({
   headers: {
     "Cache-Control": "no-cache"
   },
-  baseURL:BASE_URL,
+  baseURL:import.meta.env.VITE_BASE_URL,
   // baseURL: "http://127.0.0.1:5000", // 设置基准地址
   timeout: 10000, // 设置请求超时时间（单位：毫秒）
 })
@@ -16,7 +16,7 @@ client.interceptors.request.use(
     const token = localStorage.getItem("token")||""
     // 设置 token 到请求头中
     if (token) {
-      config.headers["Authorization"] = token
+      config.headers["Authorization"] = "Bearer "+token
     }
     
     return config

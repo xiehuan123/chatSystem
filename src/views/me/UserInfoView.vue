@@ -15,7 +15,7 @@ const meun=ref([
     id:1,
     name:"头像",
     height:60,
-    avatar:"https://th.bing.com/th?id=OIP.T5mFPDq5L-pb9_9mMbwcNwHaFW&w=293&h=212&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
+    avatar:store.user.userAvatar
     
   },
   {

@@ -6,15 +6,15 @@
 <div class="dialog" @click.self="onClose" v-show="isVisible">
 <div class="main">
   <div class="info">
-    <Avatar  />
+    <Avatar :src="store.user.userAvatar" />
     <div>
       <Text color="#ffffff" :size="17">{{store.user.nickName}}</Text>
-      <Text>{{store.user.userRigon}}</Text>
+      <Text >{{store.user.userRigon}}</Text>
     </div>
   
   </div>
   <img :src="store.user.QRcode" alt="">
-  <Text>扫一扫上面的二维码添加我为好友</Text>
+  <Text :style="{ textAlign:'center'}">扫一扫上面的二维码添加我为好友</Text>
 </div>
 </div>
   </transition>
@@ -34,7 +34,7 @@ const props=defineProps({
 })
 const store=useStore()
 const isVisible=ref(false)
-
+console.log(store.user)
 const emit=defineEmits(["update:visible"])
 const onClose=()=>{
   isVisible.value=false
@@ -43,7 +43,7 @@ const onClose=()=>{
 }
 // 监听传递的值
 watch(()=>props.visible,(val)=>{
-  console.log(val)
+
   isVisible.value=val
 })
 </script>
@@ -58,12 +58,11 @@ watch(()=>props.visible,(val)=>{
     z-index: 99;
   
     align-items: center;
-   
+  
     background-color: $mask-bg;
     .main{
-      
       width: 90%;
-      height: 60%;
+      height: 62%;
       margin: 0 auto;
       padding: 30px;
       box-sizing: border-box;
@@ -74,6 +73,9 @@ watch(()=>props.visible,(val)=>{
         align-items: center;
         margin-bottom: 20px;
         
+        >div{
+          padding-left: 10px;     
+        }
       }
       img{
           width: 100%;

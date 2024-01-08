@@ -203,7 +203,11 @@ export const getUserMedia=(constrains)=> {
 const momentStore = localforage.createInstance({
   name: "momentStore"
 })
+const socketStore = localforage.createInstance({
+  name: "socketStore"
+})
 // momentStore.setDriver(localforage.SESSIONSTORAGE)
+socketStore.setDriver(localforage.LOCALSTORAGE)
 /**
  * @description: 
  * @param {*} image bas64字符串
@@ -216,7 +220,6 @@ export const setMometimageList=async (image)=>{
 
   // 添加图片
   newmomentImageList.push({id:+new Date(),"image":image})
-  console.log(newmomentImageList)
   // 存储到会话
   await momentStore.setItem("momentImageList",newmomentImageList)
   await momentStore.setItem("momnetImageListLength",newmomentImageList.length)
@@ -240,4 +243,16 @@ export const getMomentItem=async (key)=>{
  */
 export const clearMomentItem=async()=>{
   momentStore.clear()
+}
+/**
+ * @description: 
+ * @param {*} key 通过key获取指定里面的参数
+ * @return {*} 返回一个值
+ */
+export const getSocketItem=async (key)=>{
+  const data=await socketStore.getItem(key)
+  return data || []}
+
+export const setSocketItem=async (key,value)=>{
+  await socketStore.setItem(key,value)
 }

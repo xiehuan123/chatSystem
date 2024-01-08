@@ -41,6 +41,9 @@ import PhotoGraphView from "@/views/moment/PhotoGraphView.vue"
 import MomentPublishView from "@/views/moment/MomentPublish.vue"
 import MomentUserView from "@/views/moment/MomentUserView.vue"
 import MometDetailViewVue from "@/views/moment/MometDetailView.vue"
+
+import GroupIndexView from "@/views/group/GroupIndexView.vue"
+import groupCreateView from "@/views/group/groupCreateView.vue"
 const routes = [
   {
     path: "/", component: BasicLayout,
@@ -192,8 +195,21 @@ const routes = [
   {
     path:"/momentDetail/:mid",
     component:MometDetailViewVue
+  },
+  // test
+  // {
+  //   path:"/test",
+  //   component:()=>import("@/components/userLayout/mp.vue")
+  // },
+  // 群聊
+  {
+    path:"/groupIndex",
+    component:GroupIndexView
   }
-
+  ,{
+    path:"/groupCreate",
+    component:groupCreateView
+  }
   
  
 ]

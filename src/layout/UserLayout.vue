@@ -4,7 +4,7 @@
       <div class="back" @click="onBack()">
         <Icon iconName="icon-arrow-left" />
       </div>
-      <div class="title">{{title}}</div>
+      <div class="title">{{title}} <span v-if="store.cuurentSesstion.us==2">({{ store.cuurentSesstion.memberPerson }})</span></div>
       <div class="option" v-if="route.name=='会话'">
         <Icon iconName="icon-ellipsis" />
       </div>
@@ -51,6 +51,7 @@ const onEnd=async ()=>{
   emitter.emit("audioShow", false)
   emitter.emit("xWen", 0)
 }
+
 // // 手指移动事件
 const onMove=(e)=>{
   const clientX=e.touches[0]["clientX"]
@@ -172,14 +173,15 @@ const isInRect=(rect,mouseX,mouseY)=>{
 <style scoped lang='scss'>
 .userLayout {
   height: 100%;
-  background: $bg-color;
+  background: #F7FAFD;
   .header {
+    position: relative;
     display: flex;
     height: 40px;
     line-height: 40px;
     justify-content: center;
     background: $bg-color;
-
+    z-index: 99;
     .back {
       width: 50px;
 

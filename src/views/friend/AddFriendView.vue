@@ -1,5 +1,5 @@
 <template>
-<Dialog v-model:visible="isQrcodeVisible"/>
+<Dialog v-model:visible="isQrcodeVisible"></Dialog>
   <div class="addfriendview" >
     <h4 class="title">
       <Icon
@@ -178,5 +178,6 @@ const infoList = [
 
 :deep(.item .content > div:nth-child(2)) {
   font-size: 12px;
+  
 }
 </style>

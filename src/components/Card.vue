@@ -74,18 +74,18 @@
       </div>
     </div>
 
-    <div class="CardFooter" v-if="type == 'detail'">
+    <div class="CardFooter" v-if="type == 'detail' && (appoints.length != 0||comments.length!=0)">
       <div class="appointBox" v-if="appoints.length != 0">
         <Icon className="line" iconName="icon-aixin" color="blue" :fontSize="20"></Icon>
         <div>
-          <Avatar v-for="item in data.appoints" :key="item.uid" :size="30" @click="onGOto(item.wechat_id)"> </Avatar>
+          <Avatar v-for="item in appoints" :key="item.uid" :size="30" @click="onGOto(item.wechat_id)"> </Avatar>
         </div>
 
       </div>
       <div class="commentBox" v-if="comments.length!=0">
         <Icon className="line" iconName="icon-xiaoxi1" color="blue" :fontSize="20"></Icon>
         <div>
-          <div class="commentContent" v-for="item in data.comments" :key="item.uid"
+          <div class="commentContent" v-for="item in comments" :key="item.uid"
             @click="onShowComment(data.mid, item.uid, item)">
             <div class="head">
               <Avatar :src="item.avatar" :size="30"></Avatar>

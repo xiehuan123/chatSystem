@@ -6,24 +6,24 @@
     </main>
     <Footer @sendInfo="onSendInfo"  >
     </Footer>
-    
-
 </template>
 
 <script setup>
-import { ref,watch } from "vue"
+import { ref,watch,onMounted } from "vue"
 import { useStore } from "@/store"
 import {  useRoute } from "vue-router"
 
 import {getFormatTime}  from "@/utils/index"
+import BScroll from "better-scroll"
 const route = useRoute()
 const mainDom = ref(null)
 const store=useStore()
 const msgs = ref([
 ])
-
+const scroll=ref(null)
 //发送信息
 const onSendInfo = (data) => {
+  console.log(data,"发送的消息")
   const info={
     ...store.cuurentSesstion,
     sesstionMsg:{
@@ -36,12 +36,20 @@ const onSendInfo = (data) => {
       readStatus:true,
       sendTime:getFormatTime(),
       sendMsg: data["msg"],
+    },
+    "callback":(data)=>{
+      console.log(data,"发送成功")
     }
   }
   store.setInfoList(info)
+
   // 发过去添加到pinia里面是已读的  经过服务器中转到对方就是未读
-  store.$socket?.emit("receiveClientMessage",info)
-  mainDom.value.scrollIntoView(false)
+  store.$socket?.emit("receiveClientMessage",info,(data)=>{
+    console.log(data,"服务端回调成功")
+    
+  },
+  )
+  
 }
 //监听pinia 里面的消息 
 watch(() => store.infoList,(newValue) => {
@@ -53,6 +61,7 @@ watch(() => store.infoList,(newValue) => {
     const {sesstionMsg,...sesstion} =storeInfoLsit
     store.setCuurentSesstion(sesstion)
     msgs.value=sesstionMsg 
+    scroll.value.scrollTo(0, scroll.value.maxScrollY, 300)
   } catch (error) {
     console.log(error)
   }
@@ -69,10 +78,24 @@ try {
 } catch (error) {
   console.log(error)
 }
+onMounted(()=>{
+  scroll.value = new BScroll(".main", {
+    mouseWheel: true,
+    probeType: 3,
+    click: true,
+  })
 
+})
 // 进入需要执行当前会话未读消息设置已读 离开也需要
 store.setSesstionreadStaus()
+watch(() => msgs.value,() => {
+  console.log("msgs.value")
+  setTimeout(() => {
+    scroll.value.refresh()
+    scroll.value.scrollTo(0, scroll.value.maxScrollY, 300)
+  }, 100)
 
+}, { deep: true })
 </script>
 
 <style scoped lang='scss'>

@@ -1,9 +1,10 @@
 <template>
   <div :class="['text',className]" :style="style">
     <span :style="{fontSize:size+'px', color:color,fontWeight:weight}">
-      <slot></slot>
+      <slot ></slot>
    </span>
   </div>
+  
 </template>
 
 <script setup>

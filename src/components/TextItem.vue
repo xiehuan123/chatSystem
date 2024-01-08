@@ -65,7 +65,7 @@ const imgList = computed(() => {
   justify-content: space-between;
   box-sizing: border-box;
   background: #fff;
-
+  color: #262626;
   .Textleft {
     display: flex;
     font-size: 14px;

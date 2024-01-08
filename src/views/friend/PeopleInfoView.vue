@@ -4,11 +4,11 @@
     <div class="top">
       <div class="info">
         <div class="left">
-          <Avatar :src="info.avatar" :size="55" :border="5" />  
+          <Avatar :src="info.avatar" :size="55" :border="7" />  
         </div>
         <div class="right">
           <div>
-            <Text :size="22" color="#000000" :weight="500">{{ info.nickName }}</Text>
+            <Text :size="25" color="#000000" :weight="500">{{ info.nickName }}</Text>
             <Icon  v-if="info.gender"  :iconName="sexMap[info.gender]['iconName']" :color="sexMap[info.gender]['color']"></Icon>
           </div>
           <Text>昵称:{{ info.nickName }}</Text>
@@ -21,7 +21,7 @@
       v-for="item in infoList"
       :key="item.id"
       :item="item"
-      
+      @click="onGoToView(item.id)"
     >
  
       <template #right>
@@ -29,13 +29,13 @@
       </template>
     </TextItem>
     <div class="bottom">
-      <div class="send_msg" v-if="info['friendCode']==1 || info['friendCode']==2 ">
-        <Icon iconName="icon-xiaoxi" :fontSize="24"></Icon
-        ><span class="text" @click="onGoSendInfoView()">发消息</span>
+      <div class="send_msg" @click="onGoSendInfoView()" v-if="info['friendCode']==1 || info['friendCode']==2 ">
+        <Icon iconName="icon-message" :fontSize="24"></Icon
+        ><span class="text" >发消息</span>
       </div>
-      <div class="video_msg" v-if="info['friendCode']==1">
+      <div class="video_msg" @click="onGoSendVideoView()" v-if="info['friendCode']==1">
         <Icon iconName="icon-vst_shipintonghua" :fontSize="24"></Icon
-        ><span class="text" @click="onGoSendVideoView()">音频通话</span>
+        ><span class="text" >音频通话</span>
       </div>
       <div class="send_msg" v-if="info['friendCode']==0">
         <span  v-if="flag==1" class="text" @click="onAddfriendView()">添加到通讯录</span>
@@ -202,7 +202,25 @@ const onAddfriendView=async ()=>{
   
   // globalProperties.$message("发送成功")
 }
-
+// 根据id 跳转到指定页面
+const onGoToView=(id)=>{
+  console.log("跳转到指定页面")
+  switch(id){
+  case 1:
+    break
+  case 2:
+    break
+  case 3:
+    router.push({
+      path:`/momentUser/${info.value.uid}`,
+    })
+    break
+  case 4:
+    break
+  case 5:
+    break
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -230,6 +248,7 @@ const onAddfriendView=async ()=>{
       text-align: center;
       width: 56px;
       height: 100%;
+     
     }
   }
   .top {
