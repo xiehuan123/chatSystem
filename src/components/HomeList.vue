@@ -18,9 +18,9 @@
 </template>
 
 <script setup>
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 import { useRouter } from "vue-router"
-const store=useStore()
+const store=userStore()
 defineProps({
   infoList: {
     type: Array,

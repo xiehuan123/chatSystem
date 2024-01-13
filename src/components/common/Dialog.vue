@@ -1,8 +1,8 @@
 <template>
   <transition
     name="dialog-fade"
-    @after-enter="afterEnter"
-    @after-leave="afterLeave">
+
+   >
 <div class="dialog" @click.self="onClose" v-show="isVisible">
 <div class="main">
   <div class="info">
@@ -22,7 +22,7 @@
 
 <script setup>
 import { ref,defineProps,watch,defineEmits} from "vue"
-import {useStore}from "@/store"
+import {userStore}from "@/store"
 
 import Avatar from "@/components/common/Avatar.vue"
 import Text from "@/components/common/Text.vue"
@@ -32,7 +32,7 @@ const props=defineProps({
     default:false
   }
 })
-const store=useStore()
+const store=userStore()
 const isVisible=ref(false)
 console.log(store.user)
 const emit=defineEmits(["update:visible"])

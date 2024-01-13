@@ -6,10 +6,10 @@
 
 <script setup>
 import { ref,watch,onMounted  } from "vue"
-import {useStore} from "@/store/index"
+import {userStore} from "@/store/index"
 import HomeList from "@/components/HomeList.vue"
 import BScroll from "better-scroll"
-const store=useStore()
+const store=userStore()
 const infoList=ref(store.infoList)
 watch(() => store.infoList, (newValue, oldValue) => {
   console.log(`count 变化，新值：${newValue}，旧值：${oldValue}`)

@@ -37,7 +37,7 @@
 
 <script setup>
 import {defineProps} from "vue"
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 
 
 defineProps({
@@ -45,7 +45,7 @@ defineProps({
     type:Object,
   }
 })
-const store=useStore()
+const store=userStore()
 </script>
 
 <style scoped lang='scss'>

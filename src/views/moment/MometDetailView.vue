@@ -18,12 +18,12 @@ import { useRoute,useRouter } from "vue-router"
 import{getMomentDetail,setMomentAppoint,setMomentComment,deleteMoment} from "@/api/moment"
 import { onMounted, ref ,getCurrentInstance} from "vue"
 import emitter from "@/utils/Bus"
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 const route=useRoute()
 const {mid}=route.params
 const momentDeatil=ref(null)
 const cardRef=ref(null)
-const store = useStore()
+const store = userStore()
 const router = useRouter()
 
 const { appContext : { config: { globalProperties } } } = getCurrentInstance()

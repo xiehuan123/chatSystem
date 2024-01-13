@@ -1,5 +1,5 @@
 // 引入组件
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 
 import BasicLayout from "@/layout/BasicLayout.vue"
 import userLayout from "@/layout/UserLayout.vue"
@@ -96,7 +96,7 @@ const routes = [
         beforeRouteLeave(to, from, next) {
           // 在离开 SessionView 路由时执行的逻辑
           // 可以在这里添加你的离开路由逻辑
-          const store=useStore()
+          const store=userStore()
           store.setSesstionreadStaus()
           next() // 确保调用 next() 来允许离开路由
         },

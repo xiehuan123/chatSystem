@@ -26,12 +26,12 @@ import { ref, computed ,getCurrentInstance} from "vue"
 
 import {  login } from "@/api/index"
 import { useRouter,useRoute } from "vue-router"
-import { useStore } from "@/store/index"
+import { userStore,callStore } from "@/store/index"
 const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 const router = useRouter()
 const route=useRoute()
-const store = useStore()
-
+const store = userStore()
+const CallStore=callStore()
 const userName = ref("13087259146")
 const userPassword = ref("123456")
 const showSubmitBtn=computed(()=>{
@@ -63,12 +63,13 @@ const agreeLogin = async () => {
     useriPhone:res["data"]["phone_number"],
     userWx:res["data"]["wechat_id"],
     userRigon:res["data"]["region"],
-    uId:res["data"]["uid"],nickName:res["data"]["nickName"],
+    uid:res["data"]["uid"],nickName:res["data"]["nickName"],
     QRcode:res["data"]["QRcode"]
   })
   store.setToken(res["token"])
   store.openSocket(res["token"])
-  // const t=await test(store.user.uId)
+  CallStore.openPeer()
+  // const t=await test(store.user.uid)
   // console.log(t)
   const path=route.query.redirect||"/"
   globalProperties.$message("登陆成功")

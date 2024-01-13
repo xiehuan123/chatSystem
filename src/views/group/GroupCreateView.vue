@@ -54,13 +54,13 @@
 </template>
 <script setup >
 import {getGroupInfo,joinGroup} from "@/api/group"
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 import { computed } from "vue"
 
 const inputValue = ref([])
 const loding = ref(false)
 const show = ref(true)
-const store=useStore()
+const store=userStore()
 const router=useRouter()
 // 群成员
 const memberList=ref()

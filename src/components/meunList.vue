@@ -1,8 +1,8 @@
 <template>
    <transition
     name="dialog-fade"
-    @after-enter="afterEnter"
-    @after-leave="afterLeave">
+
+  >
   <div class="meunListBox" @click.self="onClose" v-show="isVisible">
     <div class="meunList">
       <ul>

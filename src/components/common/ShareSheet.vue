@@ -28,7 +28,7 @@ const props = defineProps({
 const router =useRouter()
 const isShow=ref(false)
 const fileDom=ref(null)
-const emit=defineEmits(["update:show"])
+const emit=defineEmits(["update:show","onOpen"])
 watch(()=>props.show,(val)=>{
   isShow.value=val
 })
@@ -36,17 +36,19 @@ const close =()=>{
   emit("update:show",false)
 }
 const onOpen=(id)=>{
-  switch (id){
-  case 1:
-    router.push({
-      path:"/photoGraph"
-    })
-    break
-  case 2:
-    fileDom.value.click()
-    break
 
-  }
+  emit("onOpen",id)
+  // switch (id){
+  // case 1:
+  //   router.push({
+  //     path:"/photoGraph"
+  //   })
+  //   break
+  // case 2:
+  //   fileDom.value.click()
+  //   break
+
+  // }
 }
 const onUploadChange = async() => {
 

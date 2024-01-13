@@ -17,7 +17,7 @@
 <script setup>
 import { ref,computed,onMounted } from "vue"
 import {useRoute,useRouter } from "vue-router"
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 import Audio from "@/components/userLayout/Audio.vue"
 import Hammer from "hammerjs"
 import Recorder from "js-audio-recorder"
@@ -25,7 +25,7 @@ import emitter from "@/utils/Bus"
 //import Icon from "@/components/common/Icon.vue"
 const router = useRouter()
 const route = useRoute()
-const store=useStore()
+const store=userStore()
 // 控制录音框的颜色
 const audioBg=ref("")
 const title=computed(()=>{
@@ -133,7 +133,7 @@ onMounted(()=>{
     const info={
       ...store.cuurentSesstion,
       sesstionMsg:{
-        uid: store.user.uId,//发送方的uid
+        uid: store.user.uid,//发送方的uid
         code: 2, //消息类型 1文本 2 语音 3 文件
         us: store.cuurentSesstion.us, //1.私聊 2.群聊
         avatar:store.user.userAvatar,

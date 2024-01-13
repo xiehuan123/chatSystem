@@ -37,12 +37,12 @@
 <script setup>
 import {ref} from "vue"
 import { useRouter } from "vue-router"
-import {useStore} from "@/store"
+import {userStore} from "@/store"
 import SearchShow from "@/components/SearchShow.vue"
 
 const isQrcodeVisible=ref(false)
 const router = useRouter()
-const store=useStore()
+const store=userStore()
 const toBack = () => {
   router.go(-1)
 }

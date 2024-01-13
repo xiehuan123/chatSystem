@@ -75,12 +75,12 @@
 <script setup>
 import {getCurrentInstance,computed,ref} from "vue"
 import {useRoute} from "vue-router"
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 import {sendhFriend,finishFriend} from "@/api/frindeShip"
 import Swtich from "@/components/common/Swtich.vue"
 const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 const route=useRoute()
-const store=useStore()
+const store=userStore()
 const {uid,flag}=route.params
 const xunzhon=ref(false)
 const greeting=computed(()=>{

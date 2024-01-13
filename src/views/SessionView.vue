@@ -10,14 +10,14 @@
 
 <script setup>
 import { ref,watch,onMounted } from "vue"
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 import {  useRoute } from "vue-router"
 
 import {getFormatTime}  from "@/utils/index"
 import BScroll from "better-scroll"
 const route = useRoute()
 const mainDom = ref(null)
-const store=useStore()
+const store=userStore()
 const msgs = ref([
 ])
 const scroll=ref(null)
@@ -27,7 +27,7 @@ const onSendInfo = (data) => {
   const info={
     ...store.cuurentSesstion,
     sesstionMsg:{
-      uid: store.user.uId,//发送方的uid
+      uid: store.user.uid,//发送方的uid
       code: data["code"], //消息类型 1文本 2 语音 3 文件
       us: store.cuurentSesstion.us, //1.私聊 2.群聊
       avatar:store.user.userAvatar,

@@ -37,11 +37,11 @@ import { useRouter,useRoute } from "vue-router"
 
 
 
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 import {serarchFriend} from "@/api/frindeShip"
 const router = useRouter()
 const route=useRoute()
-const store=useStore()
+const store=userStore()
 const info=ref({})
 const infoList=ref({})
 const {kwd}=route.params

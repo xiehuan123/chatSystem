@@ -40,7 +40,7 @@
 
 import BScroll from "better-scroll"
 import { ref, onMounted } from "vue"
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 import ShareSheet from "@/components/common/ShareSheet.vue"
 import { getMomentPublic,setMomentComment,setMomentAppoint } from "@/api/moment"
 import emitter from "@/utils/Bus"
@@ -52,7 +52,7 @@ const scroll = ref(null)
 const show = ref(false)
 // 朋友圈 列表信息
 const momentList = ref([])
-const store = useStore()
+const store = userStore()
 // 状态管理里面存储的用户信息
 const myUser={...store.user}
 // 循环子组件的dom结构

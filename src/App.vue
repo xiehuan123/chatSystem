@@ -10,9 +10,10 @@
 <script setup>
 
 import { onMounted,onBeforeMount,onBeforeUnmount } from "vue"
-import { useStore } from "@/store"
+import { userStore,callStore } from "@/store"
 // import {setSocketItem} from "@/utils/index"
-const store=useStore()
+const store=userStore()
+const CallStore=callStore()
 // 组件挂载之前
 onBeforeMount(() => {
   // 页面刷新 
@@ -33,8 +34,9 @@ onMounted(()=>{
   window.addEventListener("load", () => {
     //将浏览器里面的数据存储到pinia里面
     store.setCuurentSesstion(JSON.parse(window.sessionStorage.getItem("cuurentSesstion")))
-    console.log(store.token)
-    store.openSocket(store.user.uId,store.token)
+
+    store.openSocket(store.user.uid,store.token)
+    CallStore.openPeer()
   })
 })
 

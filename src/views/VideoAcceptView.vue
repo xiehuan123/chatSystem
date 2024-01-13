@@ -36,9 +36,9 @@
 
 //import Icon from "@/components/common/Icon.vue"
 import {ref}  from "vue"
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 import { useRouter } from "vue-router"
-const store=useStore()
+const store=userStore()
 const router=useRouter()
 const meun=ref([
 

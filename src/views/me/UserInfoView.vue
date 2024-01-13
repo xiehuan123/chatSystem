@@ -8,8 +8,8 @@
 <script setup>
 import { ref } from "vue"
 
-import { useStore } from "@/store"
-const store=useStore()
+import { userStore } from "@/store"
+const store=userStore()
 const meun=ref([
   {
     id:1,

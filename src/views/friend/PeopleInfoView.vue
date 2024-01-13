@@ -43,19 +43,24 @@
       </div>
     </div>
   </div>
+  <ShareSheet  @onOpen="onOpen"  :options="options" v-model:show="show"></ShareSheet>
 </template>
 
 <script setup>
 import {ref,onMounted} from "vue"
 import { useRouter,useRoute } from "vue-router"
-import { useStore } from "@/store"
+import { userStore } from "@/store"
+import { callStore } from "@/store/call"
 // import {getInfo} from "@/api/index"
 import {serarchFriend} from "@/api/frindeShip"
+import ShareSheet from "@/components/common/ShareSheet.vue"
 const router = useRouter()
 const route=useRoute()
-const store=useStore()
+const store=userStore()
+const CallStore=callStore()
 const info=ref({})
 const infoList=ref({})
+const show=ref(false)
 const sexMap=ref({
   "男":{
     iconName:"icon-icon-person-lingdao",
@@ -70,6 +75,8 @@ const sexMap=ref({
     color:"rgb(8, 114, 244)"
   }
 })
+
+const options=ref([{id:1,name:"视频通话"},{id:2,name:"语音通话"}])
 const {kwd,flag}=route.params
 onMounted(async()=>{
   // const {err,res}=await getInfo(uId)
@@ -176,16 +183,10 @@ const onGoSendInfoView=()=>{
    
   })
 }
-// 音视频通话跳转
+// 调用菜单栏
 const onGoSendVideoView=()=>{
+  show.value=true
   
-  router.push({
-    path:`/videocall/${info.value.uid}`,
-    query:{
-      src:info.value.avatar,
-      name:info.value.nickName
-    }
-  })
 }
 // 跳转到发送好友请求页面
 const onAddfriendView=async ()=>{
@@ -218,6 +219,26 @@ const onGoToView=(id)=>{
   case 4:
     break
   case 5:
+    break
+  }
+}
+// 根据id 打开指定的功能
+const onOpen=(id)=>{
+  switch(id){
+  case 1:
+    CallStore.localUser={"uid":info.value.uid,"avatar":info.value.avatar,"nickName":info.value.nickName}
+    console.log(info.value,8888)
+    router.push({
+      path:`/videocall/${info.value.uid}`,
+      query:{
+        type:1 // 1 为视频通话 2 为语音通话  
+      }
+      
+    })
+    console.log("视频通话")
+    break
+  case 2:
+    console.log("语音通话")
     break
   }
 }

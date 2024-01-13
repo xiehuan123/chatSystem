@@ -123,7 +123,7 @@ import { useRouter } from "vue-router"
 import { momentFormatTime } from "@/utils/index"
 import emitter from "@/utils/Bus"
 
-import { useStore } from "@/store"
+import { userStore } from "@/store"
 import Icon from "./common/Icon.vue"
 
 
@@ -197,7 +197,7 @@ const props = defineProps({
 // })
 // 路由
 const router = useRouter()
-const store = useStore()
+const store = userStore()
 const myUser = { ...store.user }
 // 组件内部点赞显示 用于做前端展示
 const appoint = ref(props.data.isAppoint)

@@ -28,8 +28,8 @@
 <script setup>
 import { ref, computed, watch } from "vue"
 import { useRoute, useRouter } from "vue-router"
-import { useStore } from "@/store"
-const store=useStore()
+import {userStore}  from "@/store"
+const store=userStore()
 const route = useRoute()
 const router = useRouter()
 // 底部菜单栏选项
