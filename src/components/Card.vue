@@ -243,11 +243,12 @@ const onShowComment = (mid, rid, user = {}) => {
   //  如果是 回复人是自己的话 就不弹出评论框
   if (rid == myUser.uId) return
   emitter.emit("ShowComment", { mid, rid, user, index: props.index })
-
+ 
 }
 // 删除
 const onDelMoment = (mid) => {
   emitter.emit("notifyMomentDelete", { mid})
+
 }
 // 点赞
 const onSetAppoint = () => {
@@ -265,6 +266,7 @@ const onSetAppoint = () => {
   } else {
     appoints.value = appoints.value.filter(item => item.uid != myUser.uId)
   }
+ 
 }
 // 监听点赞评论框 当他关闭就向后端发送点赞更新请求
 watch(() => isShow.value, (val) => {
@@ -302,13 +304,7 @@ watch(() => isShow.value, (val) => {
     padding-top: 10px;
     padding-bottom: 5px;
     overflow: hidden;
-
-
-
-    .left {
-      width: 2.5rem;
-    }
-
+   
     .right {
       margin-left: 10px;
       flex: 1;
@@ -317,7 +313,7 @@ watch(() => isShow.value, (val) => {
         margin-top: 10px;
         display: flex;
         flex-wrap: wrap;
-
+         max-height:350px ;
 
         >div {
           width: 90px;
@@ -336,11 +332,8 @@ watch(() => isShow.value, (val) => {
           }
         }
       }
-
       footer {
         position: relative;
-
-
         margin: 12px 0;
         width: 100%;
 

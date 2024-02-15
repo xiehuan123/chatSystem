@@ -56,8 +56,8 @@ const props = defineProps({
     required: true,
   },
   height: {
-    type: String,
-    default: "45",
+    type: Number,
+    default: 45,
   },
   border: {
     type: Boolean,

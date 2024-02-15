@@ -209,7 +209,17 @@ const routes = [
   ,{
     path:"/groupCreate",
     component:groupCreateView
-  }
+  },
+  // 个人所有群聊页面
+  {
+    path:"/groupList",
+    component:()=>import("@/views/group/GroupListView.vue")
+  },
+  // 群聊详情页面
+  {
+    path:"/groupDetail/:gid",
+    component:()=>import("@/views/group/GroupDetailView.vue")
+  },
   
  
 ]

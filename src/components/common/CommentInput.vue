@@ -1,9 +1,9 @@
 <template>
-  <div class="comment" v-show="commentShow" @click.self="onClose">
+  <div class="comment" v-if="commentShow" @click.self="onClose">
     <div>
  <div class="textInput">
       <div class="inputBox">
-        <input type="text" placeholder="评论" autofocus v-model="commnetContent" @keydown.enter="sendInfo()"
+        <input type="text" placeholder="评论"  v-model="commnetContent" @keydown.enter="sendInfo()"
           ref="commentRef" />
       </div>
     </div>
@@ -16,7 +16,7 @@
   </div>
 </template>
 <script setup >
-import { computed, ref } from "vue"
+import { computed, ref,nextTick } from "vue"
 import emitter from "@/utils/Bus"
 // 评论内容
 const commnetContent = ref("")
@@ -27,10 +27,10 @@ const commentMid = ref(0)
 // 是否回复文章底下的人 不是 是0 就是代表评论楼主的
 const commentRid = ref(0)
 const commetnRuser = ref({})
-// 评论dom
 const commentRef = ref(null)
 // Card组件的索引
 const CardIndex=ref(-1)
+
 // 接收card 组件发过来的文章id 以及评论信息
 emitter.on("ShowComment", ({ mid,rid, user,index }) => {
   commentMid.value = mid
@@ -38,8 +38,13 @@ emitter.on("ShowComment", ({ mid,rid, user,index }) => {
   commentRid.value = rid
   commentShow.value = true
   CardIndex.value=index
-  commentRef.value.focus()
+  // 评论框获取焦点 务必是在dom渲染完成执行
 
+  nextTick(() => {
+    
+  
+    commentRef.value?.focus()
+  })
 })
 // 关闭当前的评论框
 const onClose=()=>{

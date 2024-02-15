@@ -8,7 +8,7 @@ import loading from "@/components/common/Loading"
 import message from "@/components/common/Message"
 import confirm from "@/components/common/Confirm"
 import {installPinia} from "@/store/index"
-
+import "amfe-flexible"
 // import "@/acces"
 const app = createApp(App)
 app.config.globalProperties.$loading = loading

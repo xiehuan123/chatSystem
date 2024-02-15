@@ -33,17 +33,24 @@ onMounted(()=>{
   // 页面刷新 
   window.addEventListener("load", () => {
     //将浏览器里面的数据存储到pinia里面
-    store.setCuurentSesstion(JSON.parse(window.sessionStorage.getItem("cuurentSesstion")))
-
-    store.openSocket(store.user.uid,store.token)
-    CallStore.openPeer()
+    store.setCuurentSesstion(JSON.parse(window.sessionStorage.getItem("cuurentSesstion")||"{}"))
+    const user=JSON.parse(window.localStorage.getItem("user")||"{}")
+    const token=window.localStorage.getItem("token")
+    if(user&&token){
+      store.openSocket(token)
+      CallStore.openPeer(user.uid)
+    }
+ 
+  
   })
 })
 
 </script>
 <style scoped>
+
 #app{
   height: 100vh;
+  font-size: 18px;
   
 }
 </style>

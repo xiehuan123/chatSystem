@@ -37,6 +37,7 @@
         <Icon iconName="icon-vst_shipintonghua" :fontSize="24"></Icon
         ><span class="text" >音频通话</span>
       </div>
+      <!-- 有问题 就是 -->
       <div class="send_msg" v-if="info['friendCode']==0">
         <span  v-if="flag==1" class="text" @click="onAddfriendView()">添加到通讯录</span>
         <span  v-if="flag==2" class="text" @click="onAddfriendView()">前往验证</span>

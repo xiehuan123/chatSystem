@@ -6,14 +6,13 @@
     </li>
     <li  @click="close"> 取消</li>
   </ul>
-  <input type="file" ref="fileDom"  accept="image/*"  @change="onUploadChange" multiple hidden>
+ 
   </div>
  
 </template>
 <script setup>
 import {ref,defineProps, watch,defineEmits } from "vue"
-import { useRouter } from "vue-router"
-import {compressionFile,setMometimageList,getMomentItem} from "@/utils/index"
+
 
 const props = defineProps({
   options: {
@@ -25,9 +24,9 @@ const props = defineProps({
     default:false
   }
 })
-const router =useRouter()
+
 const isShow=ref(false)
-const fileDom=ref(null)
+
 const emit=defineEmits(["update:show","onOpen"])
 watch(()=>props.show,(val)=>{
   isShow.value=val
@@ -36,7 +35,7 @@ const close =()=>{
   emit("update:show",false)
 }
 const onOpen=(id)=>{
-
+  console.log(id)
   emit("onOpen",id)
   // switch (id){
   // case 1:
@@ -50,27 +49,7 @@ const onOpen=(id)=>{
 
   // }
 }
-const onUploadChange = async() => {
 
-  const len=parseInt(await getMomentItem("momnetImageListLength")||0)
-  const files = fileDom.value.files
-  console.log(files.length,len,77777777)
-  if(files.length+len>10){
-    alert("最多只能选中9张图片")
-    return
-  }
-  for (const key in files) {
-    if (Object.hasOwnProperty.call(files, key)) {
-      const file = files[key]
-      const compressFileBase64= await compressionFile(file) 
-      setMometimageList(compressFileBase64) 
-    }
-  }
- 
-  emit("update:show",false)
-  router.push({path:"/mometnPublish"})
- 
-}
 </script>
 <style lang="scss" scoped>
 .sharesheet {

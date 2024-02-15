@@ -116,8 +116,8 @@ export const userStore = defineStore("user", () => {
     sesstioAvatar: "https://img0.baidu.com/it/u=1441576986,4133872496&fm=253&fmt=auto&app=138&f=JPEG?w=842&h=500"
 
   })
-  const openSocket = (uid,token) => {
-    $socket.value = io(import.meta.env.VITE_BASE_URL, {
+  const openSocket = (token) => {
+    $socket.value = io(import.meta.env.VITE_SOCKET_URL, {
       extraHeaders: {
         "Authorization": `${token}`
       }
@@ -132,7 +132,6 @@ export const userStore = defineStore("user", () => {
       console.log(infoList)
       setInfoList(data)
       call("接收成功")
- 
     })
  
    

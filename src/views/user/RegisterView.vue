@@ -20,7 +20,7 @@
       </div>
     </div>
     <Input placeholder="例如：陈晨" v-model="userName" text="昵称" />
-    <Input placeholder="请填写手机号" v-model="userPhone" text="手机"  type="Number"/>
+    <Input placeholder="请填写手机号(11位)" v-model="userPhone" text="手机"  type="Number"/>
     <Input
       placeholder="请填写密码"
       v-model="userPasswod"
@@ -38,7 +38,8 @@
         /><span>我已阅读并同意</span><a href="">《软件许可及服务协议》</a>
       </div>
       <div class="center">本页面收集的信息仅用于注册账号</div>
-      <button class="agree"  @click="registerCheck">
+      <!-- <MyButton    background-color="#07c060">同意并继续</MyButton> -->
+      <button class="agree"  @click="registerCheck" :disabled="disabledCheck">
         同意并继续
       </button>
     </div>
@@ -46,13 +47,14 @@
 </template>
 
 <script setup>
-import { ref ,getCurrentInstance} from "vue"
+import { ref ,getCurrentInstance, computed} from "vue"
 import {useRouter} from "vue-router"
 
 
 import { register } from "@/api/index"
 
 import {compressionFile} from "@/utils/index"
+
 const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 const router =useRouter()
 const userName = ref("")
@@ -72,25 +74,20 @@ const onUploadImg = () => {
 const onUploadChange = async() => {
   const file = uploadImgDom.value.files[0]
   uploadImgFile.value= await compressionFile(file)  
-  console.log(uploadImgFile.value)
-  console.log(file)
   uploadImgUrl.value = URL.createObjectURL(file)
 
  
 }
+const disabledCheck=computed(()=>{
+  
+  return  !(userName.value.trim() &&userPasswod.value.trim() 
+  &&userPhone.value.trim()&&isChecked.value)
+})
 const registerCheck = async () => {
  
-  if (
-    !userName.value.trim() &&
-    !userPasswod.value.trim() &&
-    !userPhone.value.trim()
-  ) {
-    alert("Please enter")
-    return
-  }
   globalProperties.$loading("正在注册中...")
   const registerData = new FormData()
-  console.log(uploadImgFile.value,"有值")
+
   registerData.append("nickName", userName.value)
   registerData.append("password", userPasswod.value)
   registerData.append("phone_number", userPhone.value)
@@ -100,15 +97,16 @@ const registerCheck = async () => {
     globalProperties.$message("注册失败")
     return  
   }
-  console.log(res)
   if(res["code"]!=200){
     globalProperties.$message(res["message"])
     return 
   }
-  console.log(res)
+
   
   globalProperties.$message("注册成功")
-  router.back(0)
+  router.push({
+    path:"/login"
+  }) 
   
   
 
@@ -140,7 +138,6 @@ const registerCheck = async () => {
     width: 100%;
     margin-top: 236px;
     text-align: center;
-
     .top {
       height: 24px;
       line-height: 24px;
@@ -152,7 +149,7 @@ const registerCheck = async () => {
         display: inline-block;
         margin-right: -24px;
         font-size: 12px;
-        -webkit-transform: scale(0.8); /*关键*/
+        transform: scale(0.8); /*关键*/
       }
       a {
         display: inline-block;
@@ -160,17 +157,17 @@ const registerCheck = async () => {
         text-decoration: none;
         color: #416ca4;
         font-size: 12px;
-        -webkit-transform: scale(0.8); /*关键*/
+        transform: scale(0.8); /*关键*/
       }
     }
     .center {
       font-size: 12px;
-      -webkit-transform: scale(0.8); /*关键*/
+    transform: scale(0.8); /*关键*/
     }
     .agree {
       height: 40px;
       width: 144px;
-      margin-top: 30px;
+      margin-top: 10px;
       border: 0; // 去除未选中状态边框
       outline: none; // 去除选中状态边框
       background-color: #07c060;

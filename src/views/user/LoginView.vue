@@ -68,7 +68,7 @@ const agreeLogin = async () => {
   })
   store.setToken(res["token"])
   store.openSocket(res["token"])
-  CallStore.openPeer()
+  CallStore.openPeer(store.user.uid)
   // const t=await test(store.user.uid)
   // console.log(t)
   const path=route.query.redirect||"/"

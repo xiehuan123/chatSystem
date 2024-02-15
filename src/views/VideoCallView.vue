@@ -1,8 +1,8 @@
 <template>
   <div class="videocall" >
-    <video  class="myVideo" ref="myVideo" autoplay muted>
+    <video  class="myVideo" ref="myVideo" autoplay muted >
     </video>
-    <video   class="remoteVideo" ref="remoteVideo" autoplay muted>
+    <video   class="remoteVideo" ref="remoteVideo" autoplay >
 <!-- <source src="http://vjs.zencdn.net/v/oceans.mp4" /> -->
      
 </video>

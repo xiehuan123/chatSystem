@@ -18,5 +18,6 @@ a {
 .Close {
   height: 32px;
   width: 32px;
+  transform: translateX(-50%);
 }
 </style>  

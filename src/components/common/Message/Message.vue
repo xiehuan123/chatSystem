@@ -31,10 +31,8 @@ const props = defineProps({
 })
 const isVisable=ref(true)
 onMounted(() => {
-  console.log("组件显示成功")
   isVisable.value = true
   setTimeout(() => {
-    console.log("关闭成功")
     isVisable.value = false
   }, props.duration)
 })
@@ -51,6 +49,7 @@ onMounted(() => {
   width: 100vw;
   background-color: $mask-bg; /* 半透明黑色 */
   z-index: 1000; /* 调整遮罩层显示层级 */
+  font-size: 18px;
   .content {
     position: absolute;
     display: flex;

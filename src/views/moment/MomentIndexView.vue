@@ -32,7 +32,8 @@
 
 
   </div>
-  <ShareSheet v-model:show="show"></ShareSheet>
+  <ShareSheet @onOpen="onOpen" v-model:show="show" :options='[{"id":1,"name":"拍摄"},{"id":2,"name":"从相册选择"}]'></ShareSheet>
+   <input type="file" ref="fileDom"  accept="image/*"  @change="onUploadChange" multiple hidden>
   <CommentInput></CommentInput>
 </template>
 <script setup >
@@ -43,6 +44,8 @@ import { ref, onMounted } from "vue"
 import { userStore } from "@/store"
 import ShareSheet from "@/components/common/ShareSheet.vue"
 import { getMomentPublic,setMomentComment,setMomentAppoint } from "@/api/moment"
+import {compressionFile,setMometimageList,getMomentItem} from "@/utils/index"
+
 import emitter from "@/utils/Bus"
 import Icon from "@/components/common/Icon.vue"
 import { useRouter } from "vue-router"
@@ -61,6 +64,7 @@ const cardListRef=ref(null)
 const isPulldown=ref("")
 // 路由
 const router=useRouter()
+const fileDom=ref(null)
 onMounted(async () => {
   await getMomentPublicReuest()
   // 提示，因为transform是对dom操作，所以需要在这个生命周期操作
@@ -69,15 +73,17 @@ onMounted(async () => {
     probeType: 3,
     click: true,
     pullDownRefresh: {
-      threshold: 60,  // 下拉刷新的阈值
+      threshold: 20,  // 下拉刷新的阈值
       stop: 20  // 刷新停留的位置
     }
   })
+ 
   // 下拉刷新
   scroll.value.on("pullingDown", async() => {
     console.log("下拉刷新")
     // 在这里执行下拉刷新的操作，比如发送请求获取最新数据等
     await getMomentPublicReuest()
+    
     scroll.value.finishPullDown() 
   })
   scroll.value.on("scroll", (pos) => {
@@ -92,7 +98,10 @@ onMounted(async () => {
   })
 
 })
-
+nextTick(()=>{
+  console.log("dom更新完毕")
+  scroll.value.refresh()
+})
 const toMenu = () => {
   show.value = !show.value
 }
@@ -124,10 +133,12 @@ emitter.on("notifyMomentIndexComment",async({mid,rid,ruser,comment,index})=>{
     comment
   })
   setMomentComment(mid,{comment,ruser,rid})
+  scroll.value.refresh()
 })
 // 点赞数据更新
 emitter.on("notifyMomentIndexAppoint",async({mid,data})=>{
   setMomentAppoint(mid,data)
+  scroll.value.refresh()
 })
 // 跳转
 const onGOto=()=>{
@@ -135,6 +146,42 @@ const onGOto=()=>{
   router.push({
     path:`/peopleinfo/1/${myUser.userWx}`
   })
+}
+// 上传图片相关方法
+const onUploadChange = async() => {
+
+  const len=parseInt(await getMomentItem("momnetImageListLength")||0)
+  const files = fileDom.value.files
+  console.log(files.length,len,77777777)
+  if(files.length+len>10){
+    alert("最多只能选中9张图片")
+    return
+  }
+  for (const key in files) {
+    if (Object.hasOwnProperty.call(files, key)) {
+      const file = files[key]
+      const compressFileBase64= await compressionFile(file) 
+      setMometimageList(compressFileBase64) 
+    }
+  }
+ 
+  show.value=false
+  router.push({path:"/mometnPublish"})
+ 
+}
+// 选项的点击事件
+const onOpen=(id)=>{
+  switch (id){
+  case 1:
+    router.push({
+      path:"/photoGraph"
+    })
+    break
+  case 2:
+    fileDom.value.click()
+    break
+
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -153,11 +200,12 @@ const onGOto=()=>{
     position: absolute;
     top: 0;
     height: 100%;
-    margin-bottom: 10px;
+    // margin-bottom: 50px;
     background-color: #F7FAFD;
 
     >div {
       touch-action: none;
+      margin-bottom: 100px;
     }
 
     .bg {

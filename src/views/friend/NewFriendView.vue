@@ -18,7 +18,7 @@
     <div class="friends">
       <div class="friend" v-for="friends in peoples" :key="friends.title">
         <div class="listtile" :id="friends.title">{{ friends.title }}</div>
-        <div class="content" v-for="item in friends.list" :key="item.uid" @click="onGoto(item.user?.wechat_id)">
+        <div class="content" v-for="item in friends.list" :key="item.uid" @click="onGoto(item.friend_static,item.user?.wechat_id)">
           <Avatar :src="item.user?.avatar" :size="45"></Avatar>
           <div class="nickName">
             <div v-if="item.flag==1">
@@ -35,7 +35,7 @@
               <Text :size="15" color="#262626">{{ item.nickName }}</Text>
                 <Text :size="12" >{{item.user.nickName  }}:{{ item.friend_msg }}</Text>
               </div>
-              <div class="status" v-if="item.friend_static==0"   @click="onGo(item.user?.wechat_id)"><MyButton  backgroundColor="#edededb3"   color="#000">接受</MyButton></div>
+              <div class="status" v-if="item.friend_static==0"   @click="onGo(item.user?.uid)"><MyButton  backgroundColor="#edededb3"   color="#000">接受</MyButton></div>
             <div class="status" v-if="item.friend_static==1" >已添加</div>
             </div>
 
@@ -109,14 +109,24 @@ onMounted(async()=>{
 const toBack=()=>{
   router.go(-1)
 }
-const onGoto=(wechat_id)=>{
+const onGoto=(friend_static, wechat_id)=>{
+ 
+  if(wechat_id==null || friend_static==0){
+    return 
+  }
   router.push(
     {
       path:`/peopleinfo/2/${wechat_id}`
     }
   )
 }
-
+const onGo=(uid)=>{
+  router.push(
+    {
+      path:`/application/2/${uid}`
+    }
+  )
+}
 
 </script>
 <style lang="scss" scoped>
@@ -198,6 +208,7 @@ const onGoto=(wechat_id)=>{
           .status {
             text-align: center;
             width: 90px;
+            font-size: 15px;
           }
         }
       }

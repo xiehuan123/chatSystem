@@ -6,7 +6,7 @@ const client = axios.create({
     "Cache-Control": "no-cache"
   },
   baseURL:import.meta.env.VITE_BASE_URL,
-  // baseURL: "http://127.0.0.1:5000", // 设置基准地址
+ 
   timeout: 10000, // 设置请求超时时间（单位：毫秒）
 })
 // 添加请求拦截器
@@ -16,7 +16,7 @@ client.interceptors.request.use(
     const token = localStorage.getItem("token")||""
     // 设置 token 到请求头中
     if (token) {
-      config.headers["Authorization"] = "Bearer "+token
+      config.headers["Authorization"] = token
     }
     
     return config

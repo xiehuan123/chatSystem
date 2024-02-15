@@ -8,7 +8,6 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 "# chatSystem" 
 - 测试提交
 
-test1
-好友列表有问题
-拨打过去 远程有显示 但是还没想好视频流的传递 
-现在视频流是在 pinia 里面 
+socket.io
+wss 部署问题
+socket.io 得使用nginx转发一次 连接直接/ 不用加前缀

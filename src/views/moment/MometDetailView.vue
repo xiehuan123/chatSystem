@@ -7,7 +7,7 @@
 
       </template>
     </BackHeader>
-    <Card   :currentUserId="myUser.uId"  ref="cardRef" type="detail"  v-if="momentDeatil" :data="momentDeatil"></Card>
+    <Card   :currentUserId="myUser.uid"  ref="cardRef" type="detail"  v-if="momentDeatil" :data="momentDeatil"></Card>
   </div>
   <CommentInput></CommentInput>
 
@@ -29,6 +29,7 @@ const router = useRouter()
 const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 // 状态管理里面存储的用户信息
 const myUser={...store.user}
+
 onMounted(async()=>{
   const {res,err}=await getMomentDetail(mid)
   if(err){
