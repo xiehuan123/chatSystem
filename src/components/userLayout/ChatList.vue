@@ -6,7 +6,10 @@
     
           <div class="title" v-if="item.us==2">{{ item.sendName }}</div>
           <div class="msg">
-            <div v-if="item.code == 1">{{ item.sendMsg }}</div>
+            <div v-if="item.code == 1">
+              
+              <span class="text">{{ item.sendMsg }}</span>
+             </div>
 
             <div v-else-if="item.code == 2" @touchstart="onPlay(index)">
               <msgAudio :wav="item.sendMsg?.wav" :duration="item.sendMsg?.duration" :play="item.sendMsg?.play"></msgAudio>
@@ -111,6 +114,11 @@ ul {
   .other {
       // 翻转逻辑属性
       direction: rtl;
+      // rtl 会将特殊符号翻转 添加行内元素和样式解决
+      .text {
+        direction: ltr;
+        unicode-bidi: bidi-override;
+      }
     }
 
   .system {

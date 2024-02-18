@@ -35,10 +35,12 @@ defineProps({
 })
 const router =useRouter()
 const onGoDialog=(item)=>{
+  if(item.path){
+    router.push({
+      path:item.path
+    })
+  }
 
-  router.push({
-    path:item.path
-  })
 }
 </script>
 

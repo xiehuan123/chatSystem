@@ -68,6 +68,7 @@ const infoList=ref([
     avatar: "icon-shezhi",
     color:"#53719f",
     marginTop:true,
+    path:"/setting"
    
   }
 ])

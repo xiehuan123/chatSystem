@@ -9,18 +9,11 @@
     <Icon :iconName="item?.meta?.icon" :active="item.path == selectPath ? 'active' : ''" :fontSize="28">
 
     </Icon>
-  <!-- <i>
-    <svg :class="['icon',item.path == selectPath ? 'active' : '']" aria-hidden="true">
-  <use :href="item?.meta?.icon"></use>
-</svg>
-  </i> -->
-
-
-  
-      <!-- <i :class="item?.meta?.icon"></i> -->
       <span>{{ item.name }}</span>
-      <Dots  v-if="item.path=='/weixin'&&count>0"    :position="true"  :top="15" :right="28" :num="count" ></Dots>
+      <div  :class="['dots',getCount(item.meta.name)&&'double']"  v-if="item.path!='/me'&&getCount(item.meta.name)"      >
+        {{ getCount(item.meta.name) }}
       </div>
+    </div>
      
   </div>
 </template>
@@ -34,7 +27,15 @@ const route = useRoute()
 const router = useRouter()
 // 底部菜单栏选项
 const menun =  computed (() => {
+ 
   return router.options.routes[0]["children"]
+})
+// 获取状态管理里面的数量
+const getCount=computed(()=>{
+  return function (name){
+    return store.noticeCount[name]
+  }
+  
 })
 // 默认选中的菜单
 const selectPath = ref(route.path)
@@ -78,6 +79,25 @@ watch(()=>store.infoList,(val)=>{
       font-size: 12px;
     }
   }
+  .dots{
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      
+      top: 12px;
+      left: 60px;
+      border-radius: 50%;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      background: #fd0000;
+   &  .double{
+      padding: 0 2px;
+    }
+  }
+
 
 }
 

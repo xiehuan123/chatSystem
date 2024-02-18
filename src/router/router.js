@@ -54,7 +54,8 @@ const routes = [
         name: "微信",
         component: HomeView,
         meta: {
-          icon: "icon-message"
+          icon: "icon-message",
+          name:"weixin"
         }
       },
 
@@ -63,7 +64,8 @@ const routes = [
         name: "通讯录",
         component: AddressBookView,
         meta: {
-          icon: "icon-dress"
+          icon: "icon-dress",
+          name:"addressBook"
         }
       },
       {
@@ -71,7 +73,8 @@ const routes = [
         name: "发现",
         component: FindView,
         meta: {
-          icon: "icon-find"
+          icon: "icon-find",
+          name:"find"
         }
       },
       {
@@ -79,7 +82,9 @@ const routes = [
         name: "我",
         component: MeView,
         meta: {
-          icon: "icon-me"
+          icon: "icon-me",
+        
+
         }
       },
       
@@ -220,6 +225,11 @@ const routes = [
     path:"/groupDetail/:gid",
     component:()=>import("@/views/group/GroupDetailView.vue")
   },
+  // 设置页面
+  {
+    path:"/setting",
+    component:()=>import("@/views/setting/indexView.vue")
+  }
   
  
 ]

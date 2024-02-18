@@ -1,6 +1,6 @@
 <template>
   <div class="userInfo">
-    <textItem v-for="item in meun" :key="item.id" :item="item"  >
+    <textItem v-for="item in meun" :key="item.id" :item="item" @click="onGoToView(item.id)" >
     </textItem>
   </div>
 </template>
@@ -9,6 +9,8 @@
 import { ref } from "vue"
 
 import { userStore } from "@/store"
+
+
 const store=userStore()
 const meun=ref([
   {
@@ -71,6 +73,11 @@ const meun=ref([
   }
 
 ])
+
+const onGoToView=(id)=>{
+  console.log(id)
+
+}
 </script>
 
 <style scoped lang='scss'>

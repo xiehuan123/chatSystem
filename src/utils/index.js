@@ -5,21 +5,19 @@ import moment from "moment/moment"
 import emitter from "@/utils/Bus"
 import _ from "lodash"
 
-moment.defineLocale("zh-cn", {
+moment.defineLocale("zh_CN", {
   relativeTime: {
     future: "%s内",
     past: "%s前",
-    s: "几秒",
+
     m: "1分钟",
     mm: "%d分钟",
     h: "1小时",
     hh: "%d小时",
     d: "1天",
     dd: "%d天",
-    M: "1个月",
-    MM: "%d个月",
-    y: "1年",
-    yy: "%d年"
+  
+   
   },
 })
 
@@ -87,8 +85,46 @@ export const getFriendResultSort = (data) => {
  * @return {*}
  */
 export const getFormatTime = (time = null) => {
-  if (!time) return moment().format("HH:mm:ss")
-  return moment(time).format("HH:mm:ss")
+
+  let now = moment()
+ 
+  let targetMoment = time ? moment(time) : moment()
+
+  if (targetMoment.isSame(now, "day")) {
+    // 当天
+    let hour = targetMoment.hour()
+
+    if (hour >= 7 && hour < 11) {
+      return "上午 " + targetMoment.format("h:mm")
+    } else if (hour >= 12 && hour < 14) {
+      return "中午 " + targetMoment.format("h:mm")
+    } else if (hour >= 14 && hour < 18) {
+      return "下午 " + targetMoment.format("h:mm")
+    } else if (hour >= 18 && hour < 24) {
+      return "晚上 " + targetMoment.format("h:mm")
+    } else {
+      return "凌晨 " + targetMoment.format("h:mm")
+    }
+  } else if (targetMoment.isSame(now.clone().subtract(1, "day"), "day")) {
+    // 昨天
+    return "昨天"
+  } else if (targetMoment.isSame(now.clone().subtract(2, "day"), "day")) {
+    // 前天
+    return "前天"
+  } else if (targetMoment.isSame(now, "week")) {
+    // 本周
+    return targetMoment.format("dddd") // 星期几
+  } else if (targetMoment.isSame(now, "month")) {
+    // 本月
+    return targetMoment.format("M月D日")
+  } else if (targetMoment.isSame(now, "year")) {
+    // 本年
+    return targetMoment.format("M月D日")
+  } else {
+    // 超过本年
+    return targetMoment.format("YYYY年M月D日")
+  }
+  
 }
 /**
  * @description: 根据时间获取几天前
@@ -132,7 +168,6 @@ export const debounce = (func, wait = 1000) => {
     const args = [...arguments]
     console.log(timeout)
     if (timeout) clearTimeout(timeout)
-
     timeout = setTimeout(() => {
       func.apply(context, args)
     }, wait)
@@ -206,6 +241,7 @@ const momentStore = localforage.createInstance({
 const socketStore = localforage.createInstance({
   name: "socketStore"
 })
+
 // momentStore.setDriver(localforage.SESSIONSTORAGE)
 socketStore.setDriver(localforage.LOCALSTORAGE)
 /**

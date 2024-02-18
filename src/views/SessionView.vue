@@ -48,36 +48,39 @@ const onSendInfo = (data) => {
     console.log(data,"服务端回调成功")
     
   },
+  
   )
   
 }
 //监听pinia 里面的消息 
 watch(() => store.infoList,(newValue) => {
-  try {
-    const storeInfoLsit = newValue.find(item=>item.us==us&&item.sesstionId.toString()===sesstionId.toString())
-    if(!storeInfoLsit){
-      return 
-    }
-    const {sesstionMsg,...sesstion} =storeInfoLsit
-    store.setCuurentSesstion(sesstion)
-    msgs.value=sesstionMsg 
-    scroll.value.scrollTo(0, scroll.value.maxScrollY, 300)
-  } catch (error) {
-    console.log(error)
+  console.log("store.infoList 有变化了")
+ 
+  console.log(newValue,58)
+  const storeInfoLsit = newValue.find(item=>item.us==us&&item.sesstionId.toString()===sesstionId.toString())
+  if(!storeInfoLsit){
+    return 
   }
+  console.log(storeInfoLsit,777777777777)
+
+  const {sesstionMsg,...sesstion} =storeInfoLsit
+  store.setCuurentSesstion(sesstion)
+  msgs.value=sesstionMsg 
+  scroll.value.scrollTo(0, scroll.value.maxScrollY, 300)
+  
   
      
 }, { deep: true })
 //当前会话的参数 比如 是用户 还是群聊
 const {us,sesstionId}=route.params
 const storeInfoLsit = store.infoList.find(item=>item.us==us&&item.sesstionId.toString()===sesstionId.toString())
-try {
+if(storeInfoLsit){
   const {sesstionMsg,...sesstion} =storeInfoLsit
   store.setCuurentSesstion(sesstion)
   msgs.value=sesstionMsg 
-} catch (error) {
-  console.log(error)
 }
+
+
 onMounted(()=>{
   scroll.value = new BScroll(".main", {
     mouseWheel: true,

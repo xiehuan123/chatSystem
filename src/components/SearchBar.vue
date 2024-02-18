@@ -18,11 +18,12 @@
 import {ref,defineEmits,computed,watch} from "vue"
 import { useRouter } from "vue-router"
 
-import{debounce} from "@/utils/index"
-
+// import{debounce} from "@/utils/index"
+import {useBounce} from "@/hooks/index"
 
 const searcKwd=ref("")
 const router = useRouter()
+const {debounce}=useBounce()
 // 返回上一级
 const toBack = () => {
   router.go(-1)

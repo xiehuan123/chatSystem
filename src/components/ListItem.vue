@@ -79,8 +79,7 @@ const lastInfoMsg = computed(() => {
 .item {
   display: flex;
   // background: #f0eaea;
-
-  box-sizing: border-box;
+  padding: 4px 0;
   background: #fff;
   .avatar {
     display: flex;

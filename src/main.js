@@ -9,7 +9,7 @@ import message from "@/components/common/Message"
 import confirm from "@/components/common/Confirm"
 import {installPinia} from "@/store/index"
 import "amfe-flexible"
-// import "@/acces"
+import "@/acces"
 const app = createApp(App)
 app.config.globalProperties.$loading = loading
 app.config.globalProperties.$message = message

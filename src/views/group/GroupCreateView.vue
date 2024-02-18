@@ -53,7 +53,7 @@
   </div>
 </template>
 <script setup >
-import {getGroupInfo,joinGroup} from "@/api/group"
+import {getGroupInfo,joinGroup,createGroup} from "@/api/group"
 import { userStore } from "@/store"
 import { computed } from "vue"
 
@@ -144,6 +144,7 @@ const onCreateGroup = async () => {
     }
     if(res.code===200){
       console.log("加入群聊成功")
+      store.$socket?.emit("joinGroup",group.value.sesstionId)
       group.value["memberPerson"]+=1
     }else{
       console.log("已经加入群聊")
@@ -152,9 +153,45 @@ const onCreateGroup = async () => {
    
    
   }else{
-    console.log("创建群聊")
+
+    createGroup({
+      "group_name":groupPwd.value,
+      "group_pwd": groupPwd.value
+    }).then(async({res})=>{
+   
+      if(res.code==200){
+        store.$socket?.emit("joinGroup",res.data.gid)
+        
+        return joinGroup(res.data.gid)
+      }
+      throw Error("创建群聊错误")
+    }).then((gid)=>{
+
+      console.log(gid,"加入群聊成功")
+      return getGroupInfo(inputValue.value.join(""))
+    }).then(({res})=>{
+      group.value={
+        sesstionId:res.data.gid,
+        sesstionName:res.data.group_name,
+        sesstionAvatar:res.data.group_chat_avatar,
+        us:2,
+        memberPerson:res.data.memberList.length
+        
+      }
+      store.setCuurentSesstion(group.value)
+      router.push({path:`/user/sesstion/2/${group.value.sesstionId}`,})
+    }).catch((err)=>{
+
+      console.log(err)
+    })
+  
+
+     
+     
+   
   }
 }
+
 </script>
 <style lang="scss" scoped>
 .groupCreate {

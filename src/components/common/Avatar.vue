@@ -3,8 +3,10 @@
     <div :style="{width: size+'px',height:size+'px', borderRadius:border+'px'}" >
       <img :src="src" alt="图片加载失败" @error="onError" >
     </div>
-      
-      <Dots  v-if="num>0" :position="true"  :num="num" :top="0" :right="-5"></Dots>
+       <div  :class="['dots',num>9&&'double']"  v-if="num>0"      >
+       {{ num }}
+      </div>
+     
     </div>
 </template>
 
@@ -44,6 +46,26 @@ overflow: hidden;
   img{
       width: 100%;
       height: 100%;
+    }
+  }
+  .dots{
+    position: absolute;
+    position: absolute;
+      width: 20px;
+      height: 20px;
+      
+      top: 0;
+      right: 0;
+      transform: translateY(-25%) translateX(25%);
+      border-radius: 50%;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      background: #fd0000;
+   &  .double{
+      padding: 0 2px;
     }
   }
    

@@ -2,17 +2,11 @@
   <div
     v-if="props.num"
     class="dots"
-    :style="{
-      position: position ? 'absolute' : '',
-      top: top + 'px',
-      right: right + 'px',
-      height: height + 'px',
-      width: width + 'px',
-    }"
+   
   >
     {{ props.num }}
   </div>
-  <div
+  <!-- <div
     v-else
     class="dots"
     :style="{
@@ -22,7 +16,7 @@
       height: height + 'px',
       width: width + 'px',
     }"
-  ></div>
+  ></div> -->
 </template>
 
 <script setup>
@@ -57,8 +51,9 @@ const props = defineProps({
 
 <style scoped>
 .dots {
-  width: 20px;
-  height: 20px;
+  position: absolute;
+  
+  padding: 3px;
   border-radius: 50%;
   font-size: 12px;
   display: flex;

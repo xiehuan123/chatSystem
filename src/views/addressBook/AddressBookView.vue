@@ -19,7 +19,7 @@
     </div>
   
 
-         <div class="friends">
+      <div class="friends">
       <Friend v-for="item in peoples" :key="item.title" :friends="item"></Friend>
    
     </div>

@@ -42,15 +42,15 @@ import BackHeader from "@/components/common/BackHeader.vue"
 import MyButton from "@/components/common/myButton.vue"
 import {ref,onMounted,getCurrentInstance} from "vue"
 
-import{getMomentItem,clearMomentItem} from "@/utils/index"
 import emitter from "@/utils/Bus"
 import Icon from "@/components/common/Icon.vue"
 import {publishMoment} from "@/api/moment"
 import router from "@/router"
+import { momentIndexDB } from "@/store"
 const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 const imgList=ref([])
 const show=ref(false)
-
+const momentIndexDBStore=momentIndexDB()
 const imgListDom=ref(null)
 // 文本内容
 const contentRef=ref(null)
@@ -82,20 +82,20 @@ const onOpenOPtions=()=>{
 }
 
 onMounted(async ()=>{
-  imgList.value=await getMomentItem("momentImageList")
+  imgList.value=await momentIndexDBStore.getMomentItem("momentImageList")
   
 })
 // 朋友圈存储的图片数据更新
 emitter.on("moment-store",async ()=>{
-  imgList.value=await getMomentItem("momentImageList")
+  imgList.value=await momentIndexDBStore.getMomentItem("momentImageList")
 })
 // 发布朋友圈
 const onPublishMoment=async ()=>{
   globalProperties.$loading("发表中...")
   const content=contentRef.value.innerText
-  const imgList=await getMomentItem("momentImageList")
+  const imgList=await momentIndexDBStore.getMomentItem("momentImageList")
   await publishMoment({content,imgList})
-  await clearMomentItem()
+  await momentIndexDBStore.clearMomentItem()
   globalProperties.$message("发表成功")
   router.back(-1)
 }

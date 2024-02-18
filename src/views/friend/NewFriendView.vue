@@ -53,10 +53,11 @@
 import { ref,onMounted } from "vue"
 import { useRouter} from "vue-router"
 import {queryFriendHistory} from "@/api/frindeShip"
-
+import { userStore } from "@/store"
 import {getFriendResultSort} from "@/utils/index"
 import MyButton from "@/components/common/myButton.vue"
 const router=useRouter()
+const store=userStore()
 const peoples = ref(
   [
     {
@@ -93,6 +94,7 @@ const peoples = ref(
 const sendOption=ref(["等待验证","已添加"])
 
 onMounted(async()=>{
+  store.noticeCount["addressBook"]=0
   const {res,err}=await queryFriendHistory()
   if(err){
     return err

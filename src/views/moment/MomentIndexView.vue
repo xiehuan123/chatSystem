@@ -13,7 +13,6 @@
           <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="" >
         </div>
         <div class="content">
-         
           <div class="info">
             <Text color="#ffffff" :size="18">{{ store.user.nickName }} </Text>
             <Avatar :size="55" :src="store.user.userAvatar" @click="onGOto()"></Avatar>
@@ -41,10 +40,10 @@
 
 import BScroll from "better-scroll"
 import { ref, onMounted } from "vue"
-import { userStore } from "@/store"
+import { userStore,momentIndexDB } from "@/store"
 import ShareSheet from "@/components/common/ShareSheet.vue"
 import { getMomentPublic,setMomentComment,setMomentAppoint } from "@/api/moment"
-import {compressionFile,setMometimageList,getMomentItem} from "@/utils/index"
+import {compressionFile} from "@/utils/index"
 
 import emitter from "@/utils/Bus"
 import Icon from "@/components/common/Icon.vue"
@@ -65,6 +64,7 @@ const isPulldown=ref("")
 // 路由
 const router=useRouter()
 const fileDom=ref(null)
+const momentIndexDBStore=momentIndexDB()
 onMounted(async () => {
   await getMomentPublicReuest()
   // 提示，因为transform是对dom操作，所以需要在这个生命周期操作
@@ -96,12 +96,13 @@ onMounted(async () => {
       isPulldown.value=""
     }
   })
+  setTimeout(()=>{
+    console.log("dom更新完毕")
+    scroll.value.refresh()
+  },10)
 
 })
-nextTick(()=>{
-  console.log("dom更新完毕")
-  scroll.value.refresh()
-})
+
 const toMenu = () => {
   show.value = !show.value
 }
@@ -150,7 +151,7 @@ const onGOto=()=>{
 // 上传图片相关方法
 const onUploadChange = async() => {
 
-  const len=parseInt(await getMomentItem("momnetImageListLength")||0)
+  const len=parseInt(await momentIndexDBStore.getMomentItem("momnetImageListLength")||0)
   const files = fileDom.value.files
   console.log(files.length,len,77777777)
   if(files.length+len>10){
@@ -161,7 +162,7 @@ const onUploadChange = async() => {
     if (Object.hasOwnProperty.call(files, key)) {
       const file = files[key]
       const compressFileBase64= await compressionFile(file) 
-      setMometimageList(compressFileBase64) 
+      momentIndexDBStore.setMometimageList(compressFileBase64) 
     }
   }
  

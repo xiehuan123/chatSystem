@@ -21,17 +21,17 @@
      <div class="imgList" v-if="item.moment">
 
             <div    v-for=" img in imgList" :key="img"   :style="{backgroundImage:`url(${img})` }" >
-          
+
             </div>
           </div>
-    <div class="time">
+    <div class="time" v-if="item && (!item.right)">
       <img v-if="item && item.avatar" :src="item.avatar" alt="" width="50" height="50">
       <span v-if="item && item.nickName">{{ item.nickName }} </span>
       <span v-if="item && item.userWx">{{ item.userWx }} </span>
       <Icon v-if="item && item.icon" :icon-name="item.icon"></Icon>
       <span v-if="item && item.text">{{ item.text }} </span>
 
-      <Icon icon-name="icon-arrow-right"></Icon>
+      <Icon   icon-name="icon-arrow-right"></Icon>
     </div>
   </div>
 </template>
@@ -66,6 +66,10 @@ const imgList = computed(() => {
   box-sizing: border-box;
   background: #fff;
   color: #262626;
+  &:has(>:only-child){
+    justify-content: center;
+    text-align: center;
+  }
   .Textleft {
     display: flex;
     font-size: 14px;

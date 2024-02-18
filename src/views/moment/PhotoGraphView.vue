@@ -2,7 +2,7 @@
  * @Author: xiehuan123 1208044257@qq.com
  * @Date: 2023-12-05 13:38:23
  * @LastEditors: xiehuan123 1208044257@qq.com
- * @LastEditTime: 2023-12-18 17:17:12
+ * @LastEditTime: 2024-02-18 13:20:11
  * @FilePath: /chatSystem/src/views/moment/PhotoGraph.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -46,12 +46,13 @@
 </template>
 <script setup >
 import {ref,onMounted} from "vue"
-import {getUserMedia,setMometimageList} from "@/utils/index"
+import {getUserMedia} from "@/utils/index"
 import Icon from "@/components/common/Icon.vue"
 import { useRouter } from "vue-router"
+import { momentIndexDB } from "@/store"
 const router=useRouter()
 const videoDom=ref(null)
-
+const momentStore=momentIndexDB()
 const canvas=ref(null)
 //画板控制开关
 const painting = ref(false)
@@ -115,10 +116,7 @@ const onShutter=()=>{
   console.log(videoDom.value.height)
   canvas.value.height = document.documentElement.clientHeight*0.8
   ctx.value=canvas.value.getContext("2d")
-  
   ctx.value.drawImage(videoDom.value,0,0,canvas.value.width,canvas.value.height)
-  
- 
   // ctx.value.clearRect(0,0,canvas.value.width,canvas.value.height)
   show.value=false
 
@@ -216,7 +214,7 @@ const onTouchEnd = function () {
 // 完成保存图片到会话中
 const onFinish=()=>{
   const image=ctx.value.canvas.toDataURL("image/png")
-  setMometimageList(image)
+  momentStore.setMometimageList(image)
   router.push(
     {
       path:"/mometnPublish"

@@ -28,7 +28,6 @@ const searcKwd=ref("")
 // 不存在控制
 const isEmpty=ref(false)
 const router=useRouter()
-
 const searchKwd=(kwd)=>{
   searcKwd.value=kwd
   // 接收到空字符就直接空对象 

@@ -99,6 +99,7 @@ const onAddfriend=async ()=>{
   }
   
   globalProperties.$message("发送成功")
+  store.$socket.emit("messageNotice",{ message:{type:"addressBook",count:1},reception:[uid]})
   router.back()
 }
 

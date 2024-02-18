@@ -1,7 +1,7 @@
 import { ref } from "vue"
 import { defineStore } from "pinia"
 import { io } from "socket.io-client"
-
+import { getFormatTime } from "@/utils"
 
 
 export const userStore = defineStore("user", () => {
@@ -9,9 +9,14 @@ export const userStore = defineStore("user", () => {
   //存储当前登录用户信息
   const user = ref(JSON.parse(localStorage.getItem("user")|| null )   )
   const token=ref(localStorage.getItem("token")||null)
-  
-  // 远程接收的流
-  // const conn=ref(null)
+  // 底部相关的通知
+  const noticeCount=ref({
+    "weixin":0,
+    "addressBook":0,
+    "find":0
+  })
+
+
   //存储所有会话列表以及即时消息
   const infoList = ref([
     // {
@@ -107,7 +112,6 @@ export const userStore = defineStore("user", () => {
     //   "sesstioAvatar": "https://img0.baidu.com/it/u=1441576986,4133872496&fm=253&fmt=auto&app=138&f=JPEG?w=842&h=500"
     // }
   ])
-
   //存储当前会话列表
   const cuurentSesstion = ref({
     sesstionId: 1,
@@ -127,11 +131,20 @@ export const userStore = defineStore("user", () => {
       console.log("socket  连接成功")
     })
     //服务器转发过来的信息
-    $socket.value.on("receiveServeMessage", (data,call) => {
+    $socket.value.on("receiveServeMessage", (data) => {
       console.log("后台回复", data)
       console.log(infoList)
-      setInfoList(data)
-      call("接收成功")
+      const message={...data,sesstionMsg:{...data.sesstionMsg,sendTime:getFormatTime(data.sesstionMsg.sendTime)}}
+      console.log(message,data.sesstionMsg.sendTime)
+      setInfoList(message)
+    
+    })
+    // 通知信息
+    $socket.value.on("receptioMessage",(data)=>{
+      console.log(data)
+      const {type,count}=data
+      console.log("通知信息",type,count)
+      noticeCount.value[type]+=count 
     })
  
    
@@ -180,6 +193,11 @@ export const userStore = defineStore("user", () => {
     
 
   }
+  // 初始化信息
+  const initInfoList=(data)=>{
+    infoList.value=data
+  }
+
   // 设置当前会话所有消息已读
   const setSesstionreadStaus=()=>{
     console.log("zhix")
@@ -195,10 +213,12 @@ export const userStore = defineStore("user", () => {
   const setToken=(data)=>{
     token.value=data
     localStorage.setItem("token",data)
+    
   }
+  
 
 
  
 
-  return { $socket,user,token,infoList, openSocket, cuurentSesstion,setSesstionreadStaus,setUser ,setToken,setCuurentSesstion,clearUser,setInfoList}
+  return { $socket,user,token,infoList,initInfoList,noticeCount, openSocket, cuurentSesstion,setSesstionreadStaus,setUser ,setToken,setCuurentSesstion,clearUser,setInfoList}
 })

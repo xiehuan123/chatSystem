@@ -36,6 +36,7 @@ const onGoDialog=(item)=>{
     memberPerson:item.memberPerson,
     sesstioAvatar:item.sesstioAvatar
   })
+  store.noticeCount["weixin"]-=item["num"]
   router.push({
     path:`/user/sesstion/${item.us}/${item.sesstionId}`,
   })
@@ -46,10 +47,9 @@ const onGoDialog=(item)=>{
 <style scoped lang="scss">
  .left {
     position: relative;
-    // padding: 5px;
+  
     // width: 50px;
     // // background: #f07a7a;
-    box-sizing: border-box;
     margin: 10px 10px;
     display: flex;
     justify-content: center;
