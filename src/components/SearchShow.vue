@@ -8,7 +8,7 @@ import { useRouter } from "vue-router"
 const router=useRouter()
 const toSearch = () => {
   router.push({
-    path: "/addfriend/search",
+    path: "/friend/addfriend/search",
   })
 }
 

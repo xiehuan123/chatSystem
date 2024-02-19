@@ -9,7 +9,7 @@
       ></Icon
       ><span>新的朋友</span>
          <span  class="add">
-           <RouterLink to="/addfriend">  添加朋友</RouterLink>  
+           <RouterLink to="/friend/addfriend">  添加朋友</RouterLink>  
       </span>
      
     </h4>
@@ -118,7 +118,7 @@ const onGoto=(friend_static, wechat_id)=>{
   }
   router.push(
     {
-      path:`/peopleinfo/2/${wechat_id}`
+      path:`/friend/peopleinfo/2/${wechat_id}`
     }
   )
 }

@@ -48,7 +48,7 @@ const toBack = () => {
 }
 // const toSearch = () => {
 //   router.push({
-//     path: "/addfriend/search",
+//     path: "/friend/addfriend/search",
 //   })
 // }
 const  openQrcode=()=>{

@@ -1,58 +1,22 @@
 // 引入组件
 import { userStore } from "@/store"
 
-import BasicLayout from "@/layout/BasicLayout.vue"
-import userLayout from "@/layout/UserLayout.vue"
-
-import HomeView from "@/views/home/HomeView.vue"
-
-import AddressBookView from "@/views/addressBook/AddressBookView.vue"
-
-import FindView from "@/views/find/FindView.vue"
-
-import MeView from "@/views/me/MeView.vue"
-import UserInfoView from "@/views/me/UserInfoView.vue"
-
-import IndexView from "@/views/user/IndexView.vue"
-import LoginView from "@/views/user/LoginView.vue"
-import RegisterView from "@/views/user/RegisterView.vue"
-import phoneLoginView from "@/views/user/PhoneLoginView.vue"
-
-
-
 import SweepAwayView from "@/views/SweepAwayView.vue"
 
 import SesstionView from "@/views/SessionView.vue"
 import VideoCallView from "@/views/VideoCallView.vue"
 import VideoAcceptView from "@/views/VideoAcceptView.vue"
 import applicationView from "@/views/applicationView.vue"
-
-import SearchResuletView from "@/views/search/SearchResuletView.vue"
-import SearchView from "@/views/search/SearchView.vue"
-
-import AddFriendView from "@/views/friend/AddFriendView.vue"
-import NewFriendView from "@/views/friend/NewFriendView.vue"
-import PeopleInfoView from "@/views/friend/PeopleInfoView.vue"
-
-
-
-import  MomentIndexView from "@/views/moment/MomentIndexView.vue"
-import PhotoGraphView from "@/views/moment/PhotoGraphView.vue"
-import MomentPublishView from "@/views/moment/MomentPublish.vue"
-import MomentUserView from "@/views/moment/MomentUserView.vue"
-import MometDetailViewVue from "@/views/moment/MometDetailView.vue"
-
-import GroupIndexView from "@/views/group/GroupIndexView.vue"
-import groupCreateView from "@/views/group/groupCreateView.vue"
+// 定义路由
 const routes = [
   {
-    path: "/", component: BasicLayout,
+    path: "/", component: ()=>import("@/layout/BasicLayout.vue"),
     redirect: "/weixin",
     children: [
       {
         path: "/weixin",
         name: "微信",
-        component: HomeView,
+        component: ()=>import("@/views/home/HomeView.vue"),
         meta: {
           icon: "icon-message",
           name:"weixin"
@@ -62,7 +26,7 @@ const routes = [
       {
         path: "/addressbook",
         name: "通讯录",
-        component: AddressBookView,
+        component: ()=>import("@/views/addressBook/AddressBookView.vue"),
         meta: {
           icon: "icon-dress",
           name:"addressBook"
@@ -71,7 +35,7 @@ const routes = [
       {
         path: "/find",
         name: "发现",
-        component: FindView,
+        component: ()=>import("@/views/find/FindView.vue"),
         meta: {
           icon: "icon-find",
           name:"find"
@@ -80,7 +44,7 @@ const routes = [
       {
         path: "/me",
         name: "我",
-        component: MeView,
+        component: ()=>import("@/views/me/MeView.vue"),
         meta: {
           icon: "icon-me",
         
@@ -92,7 +56,7 @@ const routes = [
 
   }, 
   {
-    path: "/user", component: userLayout,
+    path: "/user", component: ()=>import("@/layout/UserLayout.vue"),
     children: [
       {
         path: "sesstion/:us/:sesstionId",
@@ -110,51 +74,30 @@ const routes = [
       {
         path: "userinfo",
         name:"个人信息",
-        component: UserInfoView,
+        component: ()=>import("@/views/me/UserInfoView.vue"),
       },
      
     ]
   },
   {
     path: "/login",
-    component: LoginView,
+    component: ()=>import("@/views/user/LoginView.vue"),
   },
   {
     path: "/register",
-    component: RegisterView,
+    component: ()=>import("@/views/user/RegisterView.vue"),
   },
   {
     path: "/index",
-    component: IndexView,
+    component: ()=>import("@/views/user/IndexView.vue"),
   },
   {
     path: "/phonelogin",
-    component: phoneLoginView,
+    component: ()=>import("@/views/user/PhoneLoginView.vue"),
   },
-  {
-    path: "/addfriend",
-    component: AddFriendView,
-  },
-  {
-    path: "/addfriend/search",
-    component: SearchView,
-  },
-  // 添加新朋友页面
-  {
-    path:"/newFriend",
-    component:NewFriendView,
-  },
-  // 搜索结果页面
-  {
-    path: "/searchresulet/:kwd",
-    name:"搜索结果",
-    component: SearchResuletView,
-  },
-  // 个人信息页面  1 代表添加个人信息页面 2 代表通过验证页面
-  {
-    path: "/peopleinfo/:flag/:kwd",
-    component: PeopleInfoView,
-  },
+ 
+  
+ 
   // 扫一扫
   {
     path: "/sweepaway",
@@ -175,62 +118,103 @@ const routes = [
     path:"/application/:flag/:uid",
     component:applicationView
   },
-  //朋友圈
-  {
-    path:"/momentIndex",
-    component:MomentIndexView
-  },
-  // 朋友圈拍照
-  {
-    path:"/photoGraph",
-    component:PhotoGraphView
-  },
-  // 朋友圈发布页面
-  {
-    path:"/mometnPublish",
-    component:MomentPublishView
-  },
-  // 朋友圈个人页面
-  {
-    path:"/momentUser/:uid",
-    component:MomentUserView
-  }
-  // 朋友圈详情页面
-  ,
-  {
-    path:"/momentDetail/:mid",
-    component:MometDetailViewVue
-  },
-  // test
-  // {
-  //   path:"/test",
-  //   component:()=>import("@/components/userLayout/mp.vue")
-  // },
-  // 群聊
-  {
-    path:"/groupIndex",
-    component:GroupIndexView
-  }
-  ,{
-    path:"/groupCreate",
-    component:groupCreateView
-  },
-  // 个人所有群聊页面
-  {
-    path:"/groupList",
-    component:()=>import("@/views/group/GroupListView.vue")
-  },
-  // 群聊详情页面
-  {
-    path:"/groupDetail/:gid",
-    component:()=>import("@/views/group/GroupDetailView.vue")
-  },
+  
+ 
+  
   // 设置页面
   {
     path:"/setting",
     component:()=>import("@/views/setting/indexView.vue")
+  },
+
+
+  // 好友相关页面
+  {
+    path:"/friend",
+    children:[
+      {
+        path: "peopleinfo/:flag/:kwd",
+        component: ()=>import("@/views/friend/PeopleInfoView.vue"),
+      },
+      // 添加好友页面
+      {
+        path: "addfriend",
+        component: ()=>import("@/views/friend/AddFriendView.vue"),
+      },
+      // 搜索好友页面
+      {
+        path: "addfriend/search",
+        component: ()=>import("@/views/search/SearchView.vue"),
+      },
+      // 新朋友页面
+      {
+        path:"newFriend",
+        component:()=>import("@/views/friend/NewFriendView.vue"),
+      },
+      //好友资料页面
+      {
+        path:"profileSettings",
+        component:()=>import("@/views/friend/ProfileSettingsView.vue")
+      }
+    ]
+  },
+  // 朋友圈相关页面
+  {
+    path:"/moment",
+    children:[
+      // 朋友圈首页
+      {
+        path:"momentIndex",
+        component:()=>import("@/views/moment/MomentIndexView.vue")
+      },
+      // 朋友圈拍照
+      {
+        path:"photoGraph",
+        component:()=>import("@/views/moment/PhotoGraphView.vue")
+      },
+      // 朋友圈发布页面
+      {
+        path:"mometnPublish",
+        component:()=>import("@/views/moment/MomentPublish.vue")
+      },
+      // 朋友圈个人页面
+      {
+        path:"momentUser/:uid",
+        component:()=>import("@/views/moment/MomentUserView.vue")
+      }
+      // 朋友圈详情页面
+      ,
+      {
+        path:"momentDetail/:mid",
+        component:()=>import("@/views/moment/MometDetailView.vue")
+      },
+    ]
+  },
+  // 群聊相关页面
+  {
+    path:"/group",
+    children:[
+      // 群聊
+      {
+        path:"groupIndex",
+        component:()=>import("@/views/group/GroupIndexView.vue")
+      }
+      ,{
+        path:"groupCreate",
+        component:()=>import("@/views/group/GroupCreateView.vue")
+      },
+      // 个人所有群聊页面
+      {
+        path:"groupList",
+        component:()=>import("@/views/group/GroupListView.vue")
+      },
+      // 群聊详情页面
+      {
+        path:"groupDetail/:gid",
+        component:()=>import("@/views/group/GroupDetailView.vue")
+      },
+    ]
   }
-  
  
 ]
 export default routes

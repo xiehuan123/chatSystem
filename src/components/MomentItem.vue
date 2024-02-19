@@ -45,7 +45,7 @@ const formatTitle=computed(()=>{
 })
 const onGoto=(mid)=>{
   router.push({
-    path:`/momentDetail/${mid}`
+    path:`/moment/momentDetail/${mid}`
   })
 }
 

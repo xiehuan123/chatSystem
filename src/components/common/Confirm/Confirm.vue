@@ -6,10 +6,10 @@
       <div class="text">{{ props.message }}</div>
       <div class="option">
         <div class="esc" @click="onEsc()">
-          取消
+          {{ props.failedText || "取消" }}
         </div>
         <div class="sure" @click="onSure()">
-          确定
+          {{ props.succedText || "确定" }}
         </div>
       </div>
     </div>
@@ -32,6 +32,16 @@ const props = defineProps({
     required: true,
     default:"icon-xiaoxi"
   },
+  failedText: {
+    type: String,
+    required: true,
+    default:"取消"
+  },
+  succedText: {
+    type: String,
+    required: true,
+    default:"确定"
+  },
 
   // 关闭时的回调
   destroy: Function,
@@ -39,6 +49,8 @@ const props = defineProps({
   succed: Function,
   // 取消回调
   failed: Function,
+  // 回调
+  finalled:Function
 })
 const isVisable=ref(false)
 onMounted(() => {
@@ -50,12 +62,15 @@ const onEsc=()=>{
   isVisable.value = false
   props.failed()
   props.destroy()
+  props.finalled()
 }
 const onSure=()=>{
   isVisable.value = false
   props.succed()
   props.destroy()
+  props.finalled()
 }
+
 
 </script>
 

@@ -20,15 +20,18 @@ import { userStore,callStore,messageIndexDB } from "@/store"
 const store=userStore()
 const CallStore=callStore()
 const messageStore=messageIndexDB()
+// setTimeout(() => {
+//   console.log("备份")
+//   messageStore.setMessageList(store.infoList)
+// }, 10000)
 // 组件挂载之前
 onBeforeMount(() => {
   // 页面刷新 
   window.addEventListener("beforeunload", () => {
-    //将vuex里面的数据存储到localstorage里面
+    //将pinia里面的数据存储到localstorage里面
     window.sessionStorage.setItem("cuurentSesstion", JSON.stringify(store.cuurentSesstion))
-  
+    // 备份消息到本地
     messageStore.setMessageList(store.infoList)
-    // console.log(store.infoList,7878)
   })
 })
 //组件卸载之前
@@ -44,7 +47,6 @@ onMounted(()=>{
     
     const user=JSON.parse(window.localStorage.getItem("user")||"{}")
     const token=window.localStorage.getItem("token")
-    console.log(messageStore.messageList,7777)
     store.initInfoList(messageStore.messageList)
     if(user&&token){
       store.openSocket(token)

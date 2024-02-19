@@ -17,10 +17,10 @@
           <!-- <div>
             {{item}}
           </div> -->
-          <div class="text" v-if="inputValue[item]">
+          <div class="text" v-if="inputValue[item]!=undefined">
             {{ inputValue[item] }}
           </div>
-          <div class="yuan" v-if="!inputValue[item]">
+          <div class="yuan" v-if="inputValue[item]==undefined">
 
           </div>
         </div>
@@ -105,14 +105,7 @@ watch(inputValue.value, async (newVal) => {
     show.value=false
     if(res.code===200){
       console.log("已经创建的群聊")
-      group.value={
-        sesstionId:res.data.gid,
-        sesstionName:res.data.group_name,
-        sesstionAvatar:res.data.group_chat_avatar,
-        us:2,
-        memberPerson:res.data.memberList.length
-        
-      }
+      group.value=res.data
     }
     // 等于true   说明已经创建了 就发起查询群人所有人请求
     if(group.value){
@@ -134,22 +127,28 @@ watch(inputValue.value, async (newVal) => {
 const onCreateGroup = async () => {
   if(group.value){
     // 已经创建了群聊 就需要将当前用户加入群聊
-    store.setCuurentSesstion(group.value)
-    console.log(groupPwd.value)
-    console.log(group.value,"group.value")
-    const {res,err}=await joinGroup(group.value.sesstionId)
+    store.setCuurentSesstion({
+      sesstionId:group.value.gid,
+      sesstionName:group.value.group_name,
+      sesstionAvatar:group.value.group_chat_avatar,
+      us:2,
+      memberPerson:group.value.group_member_count
+    })
+    const {res,err}=await joinGroup(group.value.gid)
     if(err){
       console.log(err)
       return
     }
     if(res.code===200){
       console.log("加入群聊成功")
-      store.$socket?.emit("joinGroup",group.value.sesstionId)
       group.value["memberPerson"]+=1
+      store.$socket?.emit("joinGroup",group.value)
+      
+     
     }else{
       console.log("已经加入群聊")
     }
-    router.push({path:`/user/sesstion/2/${group.value.sesstionId}`,})
+    router.push({path:`/user/sesstion/2/${group.value.gid}`,})
    
    
   }else{
@@ -157,17 +156,19 @@ const onCreateGroup = async () => {
     createGroup({
       "group_name":groupPwd.value,
       "group_pwd": groupPwd.value
-    }).then(async({res})=>{
-   
+    }).then(({res})=>{
+      
       if(res.code==200){
-        store.$socket?.emit("joinGroup",res.data.gid)
         
+        group.value=res.data
         return joinGroup(res.data.gid)
       }
       throw Error("创建群聊错误")
-    }).then((gid)=>{
-
-      console.log(gid,"加入群聊成功")
+    }).then(({res})=>{
+      if(res.code==200){
+        store.$socket?.emit("joinGroup",group.value)
+      }
+      console.log(res,"加入群聊成功")
       return getGroupInfo(inputValue.value.join(""))
     }).then(({res})=>{
       group.value={
@@ -175,7 +176,7 @@ const onCreateGroup = async () => {
         sesstionName:res.data.group_name,
         sesstionAvatar:res.data.group_chat_avatar,
         us:2,
-        memberPerson:res.data.memberList.length
+        memberPerson:res.data.group_member_count
         
       }
       store.setCuurentSesstion(group.value)

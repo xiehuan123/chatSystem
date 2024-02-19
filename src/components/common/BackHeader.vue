@@ -7,7 +7,7 @@
       </div>
       <div class="title"><slot></slot>  </div>
       <div class="option" >
-        <slot name="right"><Icon  v-show="option"  @click="toMenu"  iconName="icon-ellipsis" /></slot>
+        <slot name="right">  <Icon  v-show="option"  @click="toMenu"  iconName="icon-ellipsis" /></slot>
      
       </div>
     </header>

@@ -45,8 +45,9 @@ import {ref,onMounted,getCurrentInstance} from "vue"
 import emitter from "@/utils/Bus"
 import Icon from "@/components/common/Icon.vue"
 import {publishMoment} from "@/api/moment"
-import router from "@/router"
+
 import { momentIndexDB } from "@/store"
+import { useRouter } from "vue-router"
 const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 const imgList=ref([])
 const show=ref(false)
@@ -54,36 +55,13 @@ const momentIndexDBStore=momentIndexDB()
 const imgListDom=ref(null)
 // 文本内容
 const contentRef=ref(null)
-
-// const momentOptionList=ref([
-//   {
-//     sesstionId: 1,
-//     sesstionName: "所在位置",
-//     path:"/momentIndex",
-//     avatar: "icon-iconfontzhizuobiaozhunbduan36",
-//   },
-//   {
-//     sesstionId: 2,
-//     sesstionName: "提醒谁看",
-//     avatar: "icon-a-rongqi18",
-//     marginTop: true,
-//   },
-//   {
-//     sesstionId: 3,
-//     sesstionName: "谁可以看房",
-//     avatar: "icon-a-rongqi18",
-//     marginTop: true,
-//   },
- 
-
-// ])
+const router=useRouter()
 const onOpenOPtions=()=>{
   show.value=true
 }
 
 onMounted(async ()=>{
-  imgList.value=await momentIndexDBStore.getMomentItem("momentImageList")
-  
+  imgList.value=await momentIndexDBStore.getMomentItem("momentImageList")  
 })
 // 朋友圈存储的图片数据更新
 emitter.on("moment-store",async ()=>{
@@ -92,6 +70,7 @@ emitter.on("moment-store",async ()=>{
 // 发布朋友圈
 const onPublishMoment=async ()=>{
   globalProperties.$loading("发表中...")
+  console.log(contentRef.value)
   const content=contentRef.value.innerText
   const imgList=await momentIndexDBStore.getMomentItem("momentImageList")
   await publishMoment({content,imgList})
@@ -99,6 +78,32 @@ const onPublishMoment=async ()=>{
   globalProperties.$message("发表成功")
   router.back(-1)
 }
+// router.beforeEach((to,form,next)=>{
+
+//   if(form.path=="/mometnPublish"){
+//     globalProperties.$confirm({message:"保留此次编辑？",
+//       failedText:"不保留",
+//       succedText:"保留",
+//       succed(){
+//         console.log(contentRef.value)
+//         momentIndexDBStore.addMomentContent(contentRef.value.innerText) 
+//       },
+//       failed(){
+//         console.log("取消了")
+//         momentIndexDBStore.clearMomentItem()
+//       },
+//       finalled(){
+//         console.log("放行")
+//         next()
+//       }
+//     },
+//     ) 
+//   }
+//   else{
+//     next()
+//   }
+  
+// })
 
 </script>
 <style lang="scss" scoped>

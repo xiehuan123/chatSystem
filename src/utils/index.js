@@ -96,7 +96,7 @@ export const getFormatTime = (time = null) => {
 
     if (hour >= 7 && hour < 11) {
       return "上午 " + targetMoment.format("h:mm")
-    } else if (hour >= 12 && hour < 14) {
+    } else if (hour >= 11 && hour < 14) {
       return "中午 " + targetMoment.format("h:mm")
     } else if (hour >= 14 && hour < 18) {
       return "下午 " + targetMoment.format("h:mm")

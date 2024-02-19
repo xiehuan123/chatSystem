@@ -1,7 +1,7 @@
 <template>
   <ul class="Dialog" ref="Dialog">
     <li   :class="item.className"  v-for="(item, index) in mymsg" :key="item.mid">
-      <div >
+      <div  v-if="item.className!='system'">
         <div>
     
           <div class="title" v-if="item.us==2">{{ item.sendName }}</div>
@@ -21,6 +21,10 @@
         <Avatar :src="item.avatar" :size="35" />
 
       </div>
+      <div v-else>
+         {{ item.sendMsg }}
+      </div>
+     
     </li>
 
 
@@ -122,7 +126,7 @@ ul {
     }
 
   .system {
-    clear: both;
+    
     justify-content: center;
     color: #ccc;
   }

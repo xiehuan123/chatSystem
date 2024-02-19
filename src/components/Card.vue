@@ -228,7 +228,7 @@ const img_list = computed(() => {
   }
 })
 const onGOto = (wxID) => {
-  router.push({ path: `/peopleinfo/1/${wxID}` })
+  router.push({ path: `/friend/peopleinfo/1/${wxID}` })
 }
 
 

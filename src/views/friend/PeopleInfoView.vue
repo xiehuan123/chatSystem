@@ -1,6 +1,11 @@
 <template>
   <div class="peopleinfo" >
-    <BackHeader></BackHeader>
+    <BackHeader>
+      <template #right>
+    <RouterLink to="/friend/profileSettings"><Icon iconName="icon-ellipsis" fontSize="20"></Icon></RouterLink>
+          
+      </template>
+    </BackHeader>
     <div class="top">
       <div class="info">
         <div class="left">
@@ -214,7 +219,7 @@ const onGoToView=(id)=>{
     break
   case 3:
     router.push({
-      path:`/momentUser/${info.value.uid}`,
+      path:`/moment/momentUser/${info.value.uid}`,
     })
     break
   case 4:

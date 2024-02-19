@@ -31,7 +31,7 @@ const onSelectGroup=()=>{
 }
 
 const onCreateGroup=()=>{
-  router.push({path:"/groupCreate"})
+  router.push({path:"/group/groupCreate"})
 }
 
 </script>

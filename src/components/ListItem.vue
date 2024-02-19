@@ -40,8 +40,7 @@
 
     <div :class="['time', sesstioItem?.marginBorde ? 'marginBorde' : '']">
       <slot name="right">
-        <div>{{ lastInfoMsg?.sendTime }}</div>
-        <div></div>
+       
       </slot>
     </div>
   </div>
@@ -69,7 +68,6 @@ const lastInfoMsg = computed(() => {
   if(!(props?.sesstioItem?.sesstionMsg?.length)){
     return null
   }
-  console.log(props?.sesstioItem?.sesstionMsg,777)
   return props?.sesstioItem?.sesstionMsg[props?.sesstioItem?.sesstionMsg.length - 1]
 })
 // console.log(lastInfoMsg);
@@ -123,6 +121,21 @@ const lastInfoMsg = computed(() => {
 .marginBorde{
   position: relative;
 }
+.border {
+  position: relative;
+  &::before {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+  
+}
+}
 .marginBorde::before {
 
    position: absolute;
@@ -135,9 +148,7 @@ const lastInfoMsg = computed(() => {
     transform: scaleY(.5);
     background-color: #c8c7cc;
 }
-.border {
-  border: solid 1px $bd-color;
-}
+
 
 
 </style>

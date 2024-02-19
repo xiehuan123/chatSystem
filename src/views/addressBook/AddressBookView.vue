@@ -3,13 +3,6 @@
        <div class="wraper">
       <div class="functions">
       <ListItem v-for="item in meun" :key="item.sesstionId" :sesstio-item="item" @click="onGo(item.path)"></ListItem>
-      <!-- <div class="function" v-for="item in meun" :key="item.id">
-        <Icon :icon-name="icon-tianjiahaoyou"></Icon>
-         <div class="nickName">
-          <div>新的朋友</div>
-        </div>
-      </div> -->
-  
     </div>
     <div class="business">
       <div class="title">我的企业及企业联系人</div>
@@ -27,9 +20,6 @@
     </div>
   
     
-
- 
-
 
     <index-bar></index-bar>
 </template>
@@ -49,7 +39,7 @@ const meun =ref([
   { sesstionId:1,
     sesstionName:"新的朋友",
     avatar:"icon-Dimission-S",
-    path:"/newFriend"
+    path:"/friend/newFriend"
    
   },
   { sesstionId:2,
@@ -63,7 +53,7 @@ const meun =ref([
 
     avatar:"icon-qunliao1",
     marginBorde:true,
-    path:""
+    path:"/group/groupList"
   
   },
   { sesstionId:3,

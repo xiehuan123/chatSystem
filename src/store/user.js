@@ -146,6 +146,20 @@ export const userStore = defineStore("user", () => {
       console.log("通知信息",type,count)
       noticeCount.value[type]+=count 
     })
+    // 系统消息 比如入群 退群
+    $socket.value.on("systemMessage",(data)=>{
+      console.log("系统消息",data)
+      
+      infoList.value.push({
+        sesstionId: data.sesstionId,
+        us:2,
+        sesstioAvatar:"0",
+        sesstionName:data.sesstionName,
+        sesstionMsg:[data.sesstionMsg],
+        memberPerson:data.memberPerson
+
+      })
+    })
  
    
   }
@@ -175,7 +189,6 @@ export const userStore = defineStore("user", () => {
       infoList.value[index].sesstionMsg.push(data.sesstionMsg)
       // 给每一个会话添加未读的条数
       infoList.value.forEach(item=>{
-        console.log(item,888888888888)
         item["num"]=item.sesstionMsg.filter(msg=>!msg.readStatus).length
       })
       return 

@@ -13,7 +13,6 @@ import { ref,watch,onMounted } from "vue"
 import { userStore } from "@/store"
 import {  useRoute } from "vue-router"
 
-import {getFormatTime}  from "@/utils/index"
 import BScroll from "better-scroll"
 const route = useRoute()
 const mainDom = ref(null)
@@ -34,7 +33,7 @@ const onSendInfo = (data) => {
       sendName: store.user.nickName,
       className: "my",
       readStatus:true,
-      sendTime:getFormatTime(),
+      sendTime:+new Date(),
       sendMsg: data["msg"],
     },
     "callback":(data)=>{
@@ -45,8 +44,7 @@ const onSendInfo = (data) => {
 
   // 发过去添加到pinia里面是已读的  经过服务器中转到对方就是未读
   store.$socket?.emit("receiveClientMessage",info,(data)=>{
-    console.log(data,"服务端回调成功")
-    
+    console.log(data,"服务端回调成功") 
   },
   
   )
@@ -54,15 +52,13 @@ const onSendInfo = (data) => {
 }
 //监听pinia 里面的消息 
 watch(() => store.infoList,(newValue) => {
-  console.log("store.infoList 有变化了")
+  
  
   console.log(newValue,58)
   const storeInfoLsit = newValue.find(item=>item.us==us&&item.sesstionId.toString()===sesstionId.toString())
   if(!storeInfoLsit){
     return 
   }
-  console.log(storeInfoLsit,777777777777)
-
   const {sesstionMsg,...sesstion} =storeInfoLsit
   store.setCuurentSesstion(sesstion)
   msgs.value=sesstionMsg 

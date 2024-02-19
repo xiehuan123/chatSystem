@@ -8,10 +8,9 @@
 </template>
 <script setup>
 import BScroll from "better-scroll"
-import { onMounted } from "vue"
+import {  onMounted } from "vue"
 const  scroll=ref(null)
 onMounted(()=>{
-  console.log(858)
   scroll.value = new BScroll(".scroll", {
     mouseWheel: true,
     probeType: 3,
@@ -21,7 +20,10 @@ onMounted(()=>{
   // 滚动有问题 暂时解决了
   setTimeout(() => {
     scroll.value.refresh()
-  }, 10)
+  }, 100)
+  // nextTick(() => {
+  //   scroll.value.refresh()
+  // })
 })
 
 </script>

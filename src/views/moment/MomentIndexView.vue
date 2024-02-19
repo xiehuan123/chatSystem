@@ -145,7 +145,7 @@ emitter.on("notifyMomentIndexAppoint",async({mid,data})=>{
 const onGOto=()=>{
   console.log("跳转")
   router.push({
-    path:`/peopleinfo/1/${myUser.userWx}`
+    path:`/friend/peopleinfo/1/${myUser.userWx}`
   })
 }
 // 上传图片相关方法
@@ -167,7 +167,7 @@ const onUploadChange = async() => {
   }
  
   show.value=false
-  router.push({path:"/mometnPublish"})
+  router.push({path:"/moment/mometnPublish"})
  
 }
 // 选项的点击事件
@@ -175,7 +175,7 @@ const onOpen=(id)=>{
   switch (id){
   case 1:
     router.push({
-      path:"/photoGraph"
+      path:"/moment/photoGraph"
     })
     break
   case 2:

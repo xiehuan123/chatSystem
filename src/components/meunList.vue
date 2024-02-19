@@ -34,13 +34,13 @@ const meunList = ref([
     id: 1,
     iconName: "icon-xiaoxi_o",
     name: "发起群聊",
-    path: "/groupIndex",
+    path: "/group/groupIndex",
   },
   {
     id: 2,
     iconName: "icon-tianjiajiahaoyoutianjiapengyou",
     name: "添加朋友",
-    path: "/addfriend",
+    path: "/friend/addfriend",
   },
   {
     id: 3,

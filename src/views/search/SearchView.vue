@@ -60,7 +60,7 @@ const goSearch=async ()=>{
     
     
   router.push({
-    path:`/peopleinfo/1/${searcKwd.value}`
+    path:`/friend/peopleinfo/1/${searcKwd.value}`
   }) 
 }
 </script>
