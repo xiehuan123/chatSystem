@@ -12,6 +12,7 @@ const client = axios.create({
 // 添加请求拦截器
 client.interceptors.request.use(
   config => {
+    
     // 从本地存储或其他地方获取 token
     const token = localStorage.getItem("token")||""
     // 设置 token 到请求头中

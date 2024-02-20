@@ -42,6 +42,7 @@ defineProps({
   }
 })
 const onGoto=(kwd)=>{
+  
   router.push({
     path:`/friend/peopleinfo/1/${kwd}`
   })

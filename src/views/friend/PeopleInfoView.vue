@@ -155,6 +155,14 @@ onMounted(async()=>{
         marginBorde: true,
       },
     ]
+    console.log("设置")
+    // 这里表示当前是自己的好友 然后设置当前会话
+    store.setCuurentSesstion({
+      sesstionId:info.value.uid,
+      sesstionName:info.value.nickName,
+      us:1,sesstioAvatar:info.value.avatar
+      ,wechat_id:info.value.wechat_id,
+    })
     break
   case 2:
     infoList.value=[

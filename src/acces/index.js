@@ -9,6 +9,11 @@ router.beforeEach(async (to,form,next) => {
     console.log("重定向", to.fullPath)
     return next(`/login?redirect=${to.fullPath}`)
   }
+
+  if(!to.meta.sesstion){
+    store.clearCuurentSesstion()
+    next()
+  }
   
   next()
  

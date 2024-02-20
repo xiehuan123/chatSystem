@@ -1,19 +1,25 @@
 <template>
   <div class="home">
-    <HomeList :infoList="infoList"></HomeList>
+    <div class="list">
+    <sessionItem v-for="item in sesstionList" :key="item.sesstionId" :lastInfoMsg="lastInfoMsg(item.sesstionId)" :sesstioItem="item" :height="55" :border="true" @click="onGoDialog(item)">
+    </sessionItem>
+  </div>
+  
   </div>
 </template>
 
 <script setup>
-import { ref,watch,onMounted  } from "vue"
+import { ref,watch,onMounted,computed  } from "vue"
 import {userStore} from "@/store/index"
-import HomeList from "@/components/HomeList.vue"
 import BScroll from "better-scroll"
+import { useRouter } from "vue-router"
+
+
 const store=userStore()
-const infoList=ref(store.infoList)
-watch(() => store.infoList, (newValue, oldValue) => {
+const sesstionList=ref(store.sesstionList)
+watch(() => store.sesstionList, (newValue, oldValue) => {
   console.log(`count 变化，新值：${newValue}，旧值：${oldValue}`)
-  infoList.value = newValue
+  sesstionList.value = newValue
      
 }, { deep: true })
 onMounted(()=>{
@@ -21,6 +27,14 @@ onMounted(()=>{
   scroll.value = new BScroll(".home", {
     click:true
   })
+})
+const lastInfoMsg=computed(()=>{
+  return function (sesstionId){
+
+    console.log(store.sesstionMsgs[sesstionId][store.sesstionMsgs[sesstionId].length-1])
+    return store.sesstionMsgs[sesstionId][store.sesstionMsgs[sesstionId].length-1]
+  }
+  
 })
 // globalProperties.$loading()
 
@@ -53,12 +67,31 @@ onMounted(()=>{
 
 
 
+const router=useRouter()
+const onGoDialog=(item)=>{
+  console.log(item,789789)
+  store.setCuurentSesstion({
+    sesstionId:item.sesstionId,
+    sesstionName:item.sesstionName,
+    us:item.us,
+    memberPerson:item.memberPerson,
+    sesstioAvatar:item.sesstioAvatar,
+    wechat_id:item.wechat_id
+  })
+  store.noticeCount["weixin"]=store.noticeCount["weixin"]-item.num<0?0:store.noticeCount["weixin"]-item.num
+  router.push({
+    path:`/user/sesstion/${item.us}/${item.sesstionId}`,
+  })
+}
+
+
 </script>
 
 <style scoped lang="scss">
 .home{
   height: 100%;
   background: $white;
+ 
 
 }
 </style>

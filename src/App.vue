@@ -22,7 +22,7 @@ const CallStore=callStore()
 const messageStore=messageIndexDB()
 // setTimeout(() => {
 //   console.log("备份")
-//   messageStore.setMessageList(store.infoList)
+//   messageStore.setMessageList(store.sesstionList,store.sesstionMsgs)
 // }, 10000)
 // 组件挂载之前
 onBeforeMount(() => {
@@ -31,7 +31,8 @@ onBeforeMount(() => {
     //将pinia里面的数据存储到localstorage里面
     window.sessionStorage.setItem("cuurentSesstion", JSON.stringify(store.cuurentSesstion))
     // 备份消息到本地
-    messageStore.setMessageList(store.infoList)
+    console.log(store.sesstionList,store.sesstionMsgs,"备份消息到本地")
+    messageStore.setMessageList(store.sesstionList,store.sesstionMsgs)
   })
 })
 //组件卸载之前
@@ -47,7 +48,13 @@ onMounted(()=>{
     
     const user=JSON.parse(window.localStorage.getItem("user")||"{}")
     const token=window.localStorage.getItem("token")
-    store.initInfoList(messageStore.messageList)
+    setTimeout(() => {
+      console.log("初始化消息",messageStore.sesstionList,messageStore.sesstionMsgs)
+      store.initInfoList(messageStore.sesstionList,messageStore.sesstionMsgs)
+      
+    }, 100)
+   
+    
     if(user&&token){
       store.openSocket(token)
       CallStore.openPeer(user.uid)

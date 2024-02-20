@@ -53,7 +53,7 @@
   </div>
 </template>
 <script setup >
-import {getGroupInfo,joinGroup,createGroup} from "@/api/group"
+import {getGroupInfoByFaceToFace,joinGroup,createGroup} from "@/api/group"
 import { userStore } from "@/store"
 import { computed } from "vue"
 
@@ -96,7 +96,7 @@ watch(inputValue.value, async (newVal) => {
 
     loding.value = true
     // 发起请求 判断是否创建 群聊
-    const {res,err} = await getGroupInfo(inputValue.value.join(""))
+    const {res,err} = await getGroupInfoByFaceToFace(inputValue.value.join(""))
     if(err){
       console.log(err)
       return
@@ -126,30 +126,47 @@ watch(inputValue.value, async (newVal) => {
 }, { deep: true })
 const onCreateGroup = async () => {
   if(group.value){
-    // 已经创建了群聊 就需要将当前用户加入群聊
-    store.setCuurentSesstion({
-      sesstionId:group.value.gid,
-      sesstionName:group.value.group_name,
-      sesstionAvatar:group.value.group_chat_avatar,
-      us:2,
-      memberPerson:group.value.group_member_count
-    })
-    const {res,err}=await joinGroup(group.value.gid)
-    if(err){
-      console.log(err)
-      return
-    }
-    if(res.code===200){
-      console.log("加入群聊成功")
-      group.value["memberPerson"]+=1
-      store.$socket?.emit("joinGroup",group.value)
-      
-     
-    }else{
-      console.log("已经加入群聊")
-    }
-    router.push({path:`/user/sesstion/2/${group.value.gid}`,})
    
+    joinGroup(group.value.gid).then(({res,err})=>{
+      if(err){
+        console.log(err)
+        return
+      }
+      if(res.code==200){
+        return getGroupInfoByFaceToFace(inputValue.value.join(""))
+      }
+      throw Error("加入群聊失败")
+    })
+      .then(({res,err})=>{
+        if(err){
+          console.log(err)
+          return
+        }
+        group.value={
+          sesstionId:res.data.gid,
+          sesstionName:res.data.group_name,
+          sesstionAvatar:res.data.group_chat_avatar,
+          us:2,
+          memberPerson:res.data.group_member_count,
+          user:{
+            uid:store.user.uid,
+            nickName:store.user.nickName,
+            avatar:store.user.userAvatar,
+            wx_chat_id:store.user.userWx
+          }    
+        }
+        store.setCuurentSesstion(group.value)
+  
+        store.$socket?.emit("joinGroup",group.value)
+        router.push({path:`/user/sesstion/2/${group.value.gid}`,})
+   
+      })
+    
+
+     
+    
+  
+  
    
   }else{
 
@@ -166,20 +183,26 @@ const onCreateGroup = async () => {
       throw Error("创建群聊错误")
     }).then(({res})=>{
       if(res.code==200){
-        store.$socket?.emit("joinGroup",group.value)
+        console.log(res,"加入群聊成功")
+        return getGroupInfoByFaceToFace(inputValue.value.join(""))  
       }
-      console.log(res,"加入群聊成功")
-      return getGroupInfo(inputValue.value.join(""))
+      throw Error("加入群聊失败")
     }).then(({res})=>{
       group.value={
         sesstionId:res.data.gid,
         sesstionName:res.data.group_name,
         sesstionAvatar:res.data.group_chat_avatar,
         us:2,
-        memberPerson:res.data.group_member_count
-        
+        memberPerson:res.data.group_member_count,
+        user:{
+          uid:store.user.uid,
+          nickName:store.user.nickName,
+          avatar:store.user.userAvatar,
+          wx_chat_id:store.user.userWx
+        }  
       }
       store.setCuurentSesstion(group.value)
+      store.$socket?.emit("joinGroup",group.value)
       router.push({path:`/user/sesstion/2/${group.value.sesstionId}`,})
     }).catch((err)=>{
 

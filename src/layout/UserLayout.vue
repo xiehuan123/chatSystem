@@ -10,7 +10,12 @@
       </div>
     </header>
     <Audio :audioBg="audioBg"></Audio>
-    <router-view ></router-view>
+      <KeepAlive>
+         <router-view ></router-view>
+      </KeepAlive>
+     
+
+    
   </div>
 </template>
 

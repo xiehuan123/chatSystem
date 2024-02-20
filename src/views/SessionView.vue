@@ -1,22 +1,40 @@
 <template>
-    <main class="main" ref="mainDom"  >
-      <ChatList :msgs="msgs"></ChatList>
+  
+      <main class="main" ref="mainDom"  >
+     
+      <ChatList :msgs="msgs" ref="chatRef"></ChatList>
     </main>
     <Footer @sendInfo="onSendInfo"  >
     </Footer>
+
+    
 </template>
+<script >
+import { defineComponent } from "vue"
+import { userStore } from "@/store"
+const store=userStore()
+export default defineComponent({
+  beforeRouteEnter(to, from, next) {
+    store.setSesstionreadStaus()
+    next()
+  },
+  beforeRouteLeave(to, from, next) {
+
+    store.setSesstionreadStaus()
+    next()
+  },
+})
+</script>
 
 <script setup>
-import { ref,watch,onMounted } from "vue"
-import { userStore } from "@/store"
-import {  useRoute } from "vue-router"
+import { ref,onMounted,onActivated } from "vue"
+
 
 import BScroll from "better-scroll"
-const route = useRoute()
+// const route = useRoute()
 const mainDom = ref(null)
-const store=userStore()
-const msgs = ref([
-])
+const chatRef=ref(null)
+const msgs = ref()
 const scroll=ref(null)
 //发送信息
 const onSendInfo = (data) => {
@@ -50,30 +68,19 @@ const onSendInfo = (data) => {
   )
   
 }
-//监听pinia 里面的消息 
-watch(() => store.infoList,(newValue) => {
+onActivated(()=>{
+  console.log("缓存了")
+  scroll.value.refresh()
   
- 
-  console.log(newValue,58)
-  const storeInfoLsit = newValue.find(item=>item.us==us&&item.sesstionId.toString()===sesstionId.toString())
-  if(!storeInfoLsit){
-    return 
-  }
-  const {sesstionMsg,...sesstion} =storeInfoLsit
-  console.log(sesstion)
-  msgs.value=sesstionMsg 
-  scroll.value.scrollTo(0, scroll.value.maxScrollY, 300)
+  console.log(msgs.value,"msgs.value")
   
-  
-     
+})
+// 监听pinia 里面的消息 
+watch(() => store.sesstionMsgs[store.cuurentSesstion.sesstionId],(newValue) => {
+  console.log("pinia 里面的消息")
+  msgs.value=newValue 
 }, { deep: true })
-//当前会话的参数 比如 是用户 还是群聊
-const {us,sesstionId}=route.params
-const storeInfoLsit = store.infoList.find(item=>item.us==us&&item.sesstionId.toString()===sesstionId.toString())
-if(storeInfoLsit){
-  const {sesstionMsg} =storeInfoLsit
-  msgs.value=sesstionMsg 
-}
+
 
 
 onMounted(()=>{
@@ -82,10 +89,13 @@ onMounted(()=>{
     probeType: 3,
     click: true,
   })
+  console.log("scroll.value",scroll.value)
+  // 需要渲染当前会话的聊天记录
+  msgs.value=store.sesstionMsgs[store.cuurentSesstion.sesstionId]
+  scroll.value.scrollTo(0, scroll.value.maxScrollY, 0)
 
 })
-// 进入需要执行当前会话未读消息设置已读 离开也需要
-store.setSesstionreadStaus()
+
 watch(() => msgs.value,() => {
   console.log("msgs.value")
   setTimeout(() => {
@@ -94,6 +104,7 @@ watch(() => msgs.value,() => {
   }, 100)
 
 }, { deep: true })
+
 </script>
 
 <style scoped lang='scss'>

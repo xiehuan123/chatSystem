@@ -5,7 +5,7 @@
       <div class="back" @click="toBack">
         <Icon iconName="icon-arrow-left" :fontSize="20"/>
       </div>
-      <div class="title"><slot></slot>  </div>
+      <div class="title"><slot>{{ route.meta.title }}</slot>  </div>
       <div class="option" >
         <slot name="right">  <Icon  v-show="option"  @click="toMenu"  iconName="icon-ellipsis" /></slot>
      
@@ -15,8 +15,9 @@
 </template>
 <script setup >
 import{defineProps} from "vue"
-import { useRouter } from "vue-router"
+import { useRouter,useRoute } from "vue-router"
 const router=useRouter()
+const route=useRoute()
 defineProps({
   option:{
     type:Boolean,

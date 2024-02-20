@@ -8,23 +8,25 @@ export const messageIndexDB = defineStore("messageIndexDB",()=>{
   const messageStore =ref(localforage.createInstance({
     name: "messageStore"
   })) 
-  const messageList=ref([])
+  const sesstionList=ref([])
+  const sesstionMsgs=ref({})
   // 获取本地消息
   const getMessage= async ()=>{
-    const value= await messageStore.value.getItem("messageList")
-   
-    messageList.value= JSON.parse(value)||[]
-
+    const sesstionListValue= await messageStore.value.getItem("sesstionList")
+    const sesstionMsgsValue= await messageStore.value.getItem("sesstionMsgs")
+    sesstionList.value= JSON.parse(sesstionListValue)||[]
+    sesstionMsgs.value= JSON.parse(sesstionMsgsValue)||{}
   }
   // 备份本地消息
-  const setMessageList=async (data)=>{
-    messageStore.value.setItem("messageList",JSON.stringify(data) )
+  const setMessageList= (sesstionList,sesstionMsgs)=>{
+    messageStore.value.setItem("sesstionList",JSON.stringify(sesstionList) )
+    messageStore.value.setItem("sesstionMsgs",JSON.stringify(sesstionMsgs))
   }
 
   getMessage()
 
 
-  return {messageList,setMessageList}
+  return {sesstionList,sesstionMsgs,setMessageList}
 })
 // 朋友圈草稿备份
 

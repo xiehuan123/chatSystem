@@ -3,7 +3,7 @@
     'item',
     item?.marginTop && 'marginTop',
     item?.marginBorde && 'marginBorde'
-  ]" :style="{ height: item?.height + 'px', background: item?.bg }" >
+  ]"     :style="{ height: item?.height + 'px', background: item?.bg }" >
     <slot name="left">
       <div class="Textleft">
         <div v-if="item&&item.name">
@@ -70,6 +70,10 @@ const imgList = computed(() => {
     justify-content: center;
     text-align: center;
   }
+  &:active {
+  background: #eb0f0f;
+}
+ 
   .Textleft {
     display: flex;
     font-size: 14px;
@@ -121,6 +125,7 @@ const imgList = computed(() => {
 .marginTop {
   margin-top: 7px;
 }
+
 
 .marginBorde {
   // border-top: #ccc 1px solid;

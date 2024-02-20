@@ -47,6 +47,8 @@ declare module 'vue' {
     ScrollLayout: typeof import('./src/layout/ScrollLayout.vue')['default']
     SearchBar: typeof import('./src/components/SearchBar.vue')['default']
     SearchShow: typeof import('./src/components/SearchShow.vue')['default']
+    Session: typeof import('./src/components/userLayout/session.vue')['default']
+    SessionItem: typeof import('./src/components/userLayout/sessionItem.vue')['default']
     ShareSheet: typeof import('./src/components/common/ShareSheet.vue')['default']
     SoundWave: typeof import('./src/components/common/soundWave.vue')['default']
     Swtich: typeof import('./src/components/common/Swtich.vue')['default']

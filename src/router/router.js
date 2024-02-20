@@ -1,9 +1,7 @@
-// 引入组件
-import { userStore } from "@/store"
+
 
 import SweepAwayView from "@/views/SweepAwayView.vue"
 
-import SesstionView from "@/views/SessionView.vue"
 import VideoCallView from "@/views/VideoCallView.vue"
 import VideoAcceptView from "@/views/VideoAcceptView.vue"
 import applicationView from "@/views/applicationView.vue"
@@ -56,19 +54,18 @@ const routes = [
 
   }, 
   {
-    path: "/user", component: ()=>import("@/layout/UserLayout.vue"),
+    path: "/user",
+    meta:{
+      // 当前会话保持
+      sesstion:true
+    }
+    ,component: ()=>import("@/layout/UserLayout.vue"),
     children: [
       {
         path: "sesstion/:us/:sesstionId",
         name:"会话",
-        component: SesstionView,
-        beforeRouteLeave(to, from, next) {
-          // 在离开 SessionView 路由时执行的逻辑
-          // 可以在这里添加你的离开路由逻辑
-          const store=userStore()
-          store.setSesstionreadStaus()
-          next() // 确保调用 next() 来允许离开路由
-        },
+        component: ()=>import("@/views/SessionView.vue"),
+       
       },
       //加斜杠 没有父类前缀 一般不加 带前缀
       {
@@ -134,6 +131,10 @@ const routes = [
     children:[
       {
         path: "peopleinfo/:flag/:kwd",
+        meta:{
+          // 当前会话保持
+          sesstion:true
+        },
         component: ()=>import("@/views/friend/PeopleInfoView.vue"),
       },
       // 添加好友页面
@@ -155,13 +156,21 @@ const routes = [
       {
         path:"profileSettings/:uid/:nickName",
         name:"个人资料",
-        props:true,
+        meta:{
+          // 当前会话保持
+          sesstion:true
+        },
         component:()=>import("@/views/friend/ProfileSettingsView.vue")
       },
       //聊天信息页面
       {
         path:"chatInfo",
         name:"chatInfo",
+        meta:{
+          // 当前会话保持
+          sesstion:true,
+          title:"聊天信息"
+        },
         component:()=>import("@/views/friend/ChatInfoView.vue")
       },
       
@@ -219,8 +228,13 @@ const routes = [
       },
       // 群聊详情页面
       {
-        path:"groupDetail/:gid",
+        path:"groupDetail",
         name:"groupDetail",
+        meta:{
+          // 当前会话保持
+          sesstion:true,
+          title:"聊天信息"
+        },
         component:()=>import("@/views/group/GroupDetailView.vue")
       },
     ]

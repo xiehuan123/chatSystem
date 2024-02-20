@@ -181,6 +181,10 @@ const onOpenOtions = () => {
 //发送数据
 const sendInfo=()=>{
   console.log("传递子组件的值",textInput.value)
+  if(!textInput.value){
+    
+    return
+  }
   emit("sendInfo",{code :1,msg:textInput.value})
   textInput.value=""
 

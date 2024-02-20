@@ -1,6 +1,6 @@
 <template>
   <div class="chatInfo">
-     <BackHeader>聊天信息
+     <BackHeader>
       <template #right>
         <div></div>
       </template>
