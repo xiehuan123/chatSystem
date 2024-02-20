@@ -102,8 +102,10 @@ const onSure=()=>{
       margin-top: 20px;
     }
     .text{
-      line-height: 20vw;
-      color: #b4b2b2;
+      line-height: 30px;
+      color: #262626;
+      height: 80px;
+      padding: 10px 12px;
     }
     
     .option{

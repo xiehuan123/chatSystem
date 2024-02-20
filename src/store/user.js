@@ -1,7 +1,6 @@
 import { ref } from "vue"
 import { defineStore } from "pinia"
 import { io } from "socket.io-client"
-import { getFormatTime } from "@/utils"
 
 
 export const userStore = defineStore("user", () => {
@@ -134,9 +133,9 @@ export const userStore = defineStore("user", () => {
     $socket.value.on("receiveServeMessage", (data) => {
       console.log("后台回复", data)
       console.log(infoList)
-      const message={...data,sesstionMsg:{...data.sesstionMsg,sendTime:getFormatTime(data.sesstionMsg.sendTime)}}
-      console.log(message,data.sesstionMsg.sendTime)
-      setInfoList(message)
+      // const message={...data,sesstionMsg:{...data.sesstionMsg,sendTime:getFormatTime(data.sesstionMsg.sendTime)}}
+      // console.log(message,data.sesstionMsg.sendTime)
+      setInfoList(data)
     
     })
     // 通知信息

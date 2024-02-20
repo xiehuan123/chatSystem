@@ -2,8 +2,9 @@
   <div class="peopleinfo" >
     <BackHeader>
       <template #right>
-    <RouterLink to="/friend/profileSettings"><Icon iconName="icon-ellipsis" fontSize="20"></Icon></RouterLink>
-          
+        
+    <RouterLink   :to="{path:`/friend/profileSettings/${info.uid}/${info.nickName}`}"><Icon iconName="icon-ellipsis" fontSize="20"></Icon></RouterLink>
+
       </template>
     </BackHeader>
     <div class="top">
@@ -183,7 +184,13 @@ onMounted(async()=>{
 
 // 发送信息跳转
 const onGoSendInfoView=()=>{
-  store.setCuurentSesstion({sesstionId:info.value.uid,sesstionName:info.value.nickName,us:1,sesstioAvatar:info.value.avatar})
+  console.log(info.value)
+  // 点击发送消息的时候得把当前的会话信息存储到pinia里面
+  store.setCuurentSesstion({sesstionId:info.value.uid,sesstionName:info.value.nickName,us:1,sesstioAvatar:info.value.avatar
+    ,wechat_id:info.value.wechat_id,
+  
+  })
+
   router.push({
     path:`/user/sesstion/1/${info.value.uid}`,
    

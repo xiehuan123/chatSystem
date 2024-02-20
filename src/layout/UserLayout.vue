@@ -5,7 +5,7 @@
         <Icon iconName="icon-arrow-left" />
       </div>
       <div class="title">{{title}} <span v-if="store.cuurentSesstion.us==2">({{ store.cuurentSesstion.memberPerson }})</span></div>
-      <div class="option" v-if="route.name=='会话'">
+      <div class="option" v-if="route.name=='会话'"  @click="onGotoView()">
         <Icon iconName="icon-ellipsis" />
       </div>
     </header>
@@ -26,6 +26,22 @@ import emitter from "@/utils/Bus"
 const router = useRouter()
 const route = useRoute()
 const store=userStore()
+
+// 跳转view
+const onGotoView=()=>{
+  if(route.name!="会话"){
+    return
+  }
+  if(store.cuurentSesstion.us==1){
+    router.push({name:"chatInfo"})
+    return
+  }
+  if(store.cuurentSesstion.us==2){
+    router.push({name:"groupDetail"})
+    return
+  }
+  
+}
 // 控制录音框的颜色
 const audioBg=ref("")
 const title=computed(()=>{

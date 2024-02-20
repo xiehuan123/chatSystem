@@ -13,6 +13,7 @@ declare module 'vue' {
     Audio: typeof import('./src/components/userLayout/Audio.vue')['default']
     Avatar: typeof import('./src/components/common/Avatar.vue')['default']
     BackHeader: typeof import('./src/components/common/BackHeader.vue')['default']
+    BasicLayout: typeof import('./src/layout/BasicLayout.vue')['default']
     Card: typeof import('./src/components/Card.vue')['default']
     ChatList: typeof import('./src/components/userLayout/ChatList.vue')['default']
     'ChatList copy': typeof import('./src/components/userLayout/ChatList copy.vue')['default']
@@ -43,6 +44,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScanQRCode: typeof import('./src/components/ScanQRCode.vue')['default']
+    ScrollLayout: typeof import('./src/layout/ScrollLayout.vue')['default']
     SearchBar: typeof import('./src/components/SearchBar.vue')['default']
     SearchShow: typeof import('./src/components/SearchShow.vue')['default']
     ShareSheet: typeof import('./src/components/common/ShareSheet.vue')['default']
@@ -50,5 +52,6 @@ declare module 'vue' {
     Swtich: typeof import('./src/components/common/Swtich.vue')['default']
     Text: typeof import('./src/components/common/Text.vue')['default']
     TextItem: typeof import('./src/components/TextItem.vue')['default']
+    UserLayout: typeof import('./src/layout/UserLayout.vue')['default']
   }
 }

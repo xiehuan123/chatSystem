@@ -18,7 +18,7 @@
             <div v-else>{{ item.sendMsg }}</div>
           </div>
         </div>
-        <Avatar :src="item.avatar" :size="35" />
+        <Avatar :src="item.avatar" :size="35" @click="onGotoView(item.wechat_id)" />
 
       </div>
       <div v-else>
@@ -34,6 +34,7 @@
 <script setup>
 import { ref, defineProps, watch } from "vue"
 import msgAudio from "./msgAudio.vue"
+import router from "@/router"
 const props = defineProps({
   msgs: {
     type: Array,
@@ -49,7 +50,11 @@ watch(() => props.msgs, (newValue) => {
   Dialog.value.scrollTop = Dialog.value.scrollHeight
 })
 
+// 头像跳转
+const onGotoView=(wechat_id)=>{
 
+  router.push({path:`/friend/peopleinfo/1/${wechat_id}`})
+}
 
 
 // 开始播放

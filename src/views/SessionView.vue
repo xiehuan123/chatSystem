@@ -1,6 +1,4 @@
 <template>
-
-
     <main class="main" ref="mainDom"  >
       <ChatList :msgs="msgs"></ChatList>
     </main>
@@ -33,13 +31,15 @@ const onSendInfo = (data) => {
       sendName: store.user.nickName,
       className: "my",
       readStatus:true,
-      sendTime:+new Date(),
       sendMsg: data["msg"],
+      wechat_id:store.user.userWx
     },
+   
     "callback":(data)=>{
       console.log(data,"发送成功")
     }
   }
+  console.log(info,"底部发送的数据")
   store.setInfoList(info)
 
   // 发过去添加到pinia里面是已读的  经过服务器中转到对方就是未读
@@ -60,7 +60,7 @@ watch(() => store.infoList,(newValue) => {
     return 
   }
   const {sesstionMsg,...sesstion} =storeInfoLsit
-  store.setCuurentSesstion(sesstion)
+  console.log(sesstion)
   msgs.value=sesstionMsg 
   scroll.value.scrollTo(0, scroll.value.maxScrollY, 300)
   
@@ -71,8 +71,7 @@ watch(() => store.infoList,(newValue) => {
 const {us,sesstionId}=route.params
 const storeInfoLsit = store.infoList.find(item=>item.us==us&&item.sesstionId.toString()===sesstionId.toString())
 if(storeInfoLsit){
-  const {sesstionMsg,...sesstion} =storeInfoLsit
-  store.setCuurentSesstion(sesstion)
+  const {sesstionMsg} =storeInfoLsit
   msgs.value=sesstionMsg 
 }
 

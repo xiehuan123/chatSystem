@@ -153,9 +153,18 @@ const routes = [
       },
       //好友资料页面
       {
-        path:"profileSettings",
+        path:"profileSettings/:uid/:nickName",
+        name:"个人资料",
+        props:true,
         component:()=>import("@/views/friend/ProfileSettingsView.vue")
-      }
+      },
+      //聊天信息页面
+      {
+        path:"chatInfo",
+        name:"chatInfo",
+        component:()=>import("@/views/friend/ChatInfoView.vue")
+      },
+      
     ]
   },
   // 朋友圈相关页面
@@ -211,6 +220,7 @@ const routes = [
       // 群聊详情页面
       {
         path:"groupDetail/:gid",
+        name:"groupDetail",
         component:()=>import("@/views/group/GroupDetailView.vue")
       },
     ]

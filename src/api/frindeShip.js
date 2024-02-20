@@ -22,3 +22,7 @@ export const queryFriendHistory=async (data={})=>{
 export const finishFriend=async(data={})=>{
   return await request({url:"/frindeShip/",method:"PUT",data})
 }
+// 删除好友请求
+export const friendDelete=async(uid,data={})=>{
+  return await request({url: `/frindeShip/${uid}`,method:"DELETE",data})
+}

@@ -7,8 +7,7 @@ import eslintPlugin from "vite-plugin-eslint"
 import path from "path"
 // https://vitejs.dev/config/
 export default defineConfig({
-
-  server:{
+  server: {
     host: "localhost",
     port: 5173, // 修改成你的开发服务器端口
     proxy: {
@@ -25,10 +24,18 @@ export default defineConfig({
     },
   },
   // basicSsl()
-  plugins: [vue(),Components({}),
-    AutoImport({ imports: ["vue", "vue-router"], eslintrc: {enabled: true,
-    // 1、改为true用于生成eslint配置。2、生成后改回false，避免重复生成消耗
-    }, }),
+  plugins: [
+    vue(),
+    Components({
+      dirs: ["src/components", "src/layout"],
+    }),
+    AutoImport({
+      imports: ["vue", "vue-router"],
+      eslintrc: {
+        enabled: true,
+        // 1、改为true用于生成eslint配置。2、生成后改回false，避免重复生成消耗
+      },
+    }),
     // 启用 eslint 插件
     eslintPlugin({
       // 自动修复代码中的 ESLint 错误
@@ -38,20 +45,20 @@ export default defineConfig({
           "import/resolver": {
             alias: {
               map: [
-                ["vue-router", "vue-router/dist/vue-router.esm-bundler.js"]
+                ["vue-router", "vue-router/dist/vue-router.esm-bundler.js"],
               ],
-              extensions: [".js", ".jsx", ".json"]
-            }
-          }
-        }
-      }
+              extensions: [".js", ".jsx", ".json"],
+            },
+          },
+        },
+      },
     }),
   ],
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: "@import \"./src/styles/var.scss\";" // 加载全局样式，使用scss特性
-      }
+        additionalData: "@import \"./src/styles/var.scss\";", // 加载全局样式，使用scss特性
+      },
     },
   },
 
@@ -61,5 +68,4 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-
 })

@@ -22,6 +22,7 @@ const confirm = ( {message, icon,failedText,succedText,  succed=()=>{},failed=()
   })
   // 使用 render 函数将 vnode 渲染为真实DOM并挂载到 body 上
   render(vnode, document.body)
+  
 }
 
 export  default confirm

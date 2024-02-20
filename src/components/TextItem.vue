@@ -3,10 +3,10 @@
     'item',
     item?.marginTop && 'marginTop',
     item?.marginBorde && 'marginBorde'
-  ]" :style="{ height: item?.height + 'px', background: item?.bg }">
+  ]" :style="{ height: item?.height + 'px', background: item?.bg }" >
     <slot name="left">
       <div class="Textleft">
-        <div>
+        <div v-if="item&&item.name">
           {{ item.name }}
         </div>
 
@@ -30,8 +30,8 @@
       <span v-if="item && item.userWx">{{ item.userWx }} </span>
       <Icon v-if="item && item.icon" :icon-name="item.icon"></Icon>
       <span v-if="item && item.text">{{ item.text }} </span>
-
-      <Icon   icon-name="icon-arrow-right"></Icon>
+      <Swtich  v-if="item.select"  ></Swtich>
+      <Icon   v-else icon-name="icon-arrow-right"></Icon>
     </div>
   </div>
 </template>
