@@ -65,7 +65,7 @@ watch(()=>store.infoList,(val)=>{
   position: fixed;
   display: flex;
   bottom: 0;
-  height: 70px;
+  height: 60px;
   width: 100%;
   background: $taBar-bg;
   > div {

@@ -23,3 +23,10 @@ export const joinGroup = async (groupId,data={}) => {
   return await request({ url: `/group/${groupId}`, method: "PUT", data })
 }
 // 退出群聊
+export const quitGroup = async (groupId,data={}) => {
+  return await request({ url: `/group/${groupId}`, method: "POST", data })
+}
+// 解散群聊
+export const dismissGroup = async (groupId,data={}) => { 
+  return await request({ url: `/group/${groupId}`, method: "DELETE", data })
+}

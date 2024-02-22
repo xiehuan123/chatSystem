@@ -1,5 +1,5 @@
 <template>
-  <div class="avatar"  >
+  <div :class="['avatar',className]"  >
     <div :style="{width: size+'px',height:size+'px', borderRadius:border+'px'}" >
       <img :src="src" alt="图片加载失败" @error="onError" >
     </div>
@@ -29,6 +29,10 @@ defineProps({
     type:Number,
     default:0,
   },
+  className:{
+    type:String,
+    default:""
+  }
 
 
 })
@@ -68,7 +72,8 @@ overflow: hidden;
       padding: 0 2px;
     }
   }
-   
-  
+} 
+.pointer{
+  pointer-events: none;
 }
 </style>

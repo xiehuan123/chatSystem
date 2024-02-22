@@ -216,7 +216,12 @@ export const userStore = defineStore("user", () => {
       }
       console.log("存在当前会话",sesstionList.value)
       //如果当前会话 存在将信息部分添加到会话消息中就行
-      sesstionMsgs.value[data.sesstionId].push(data.sesstionMsg)
+      if(sesstionMsgs.value[data.sesstionId]){
+        sesstionMsgs.value[data.sesstionId].push(data.sesstionMsg)
+      }else{
+        sesstionMsgs.value[data.sesstionId]=[data.sesstionMsg]
+      }
+     
       // 给每一个会话添加未读的条数
    
 

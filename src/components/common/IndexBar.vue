@@ -1,8 +1,6 @@
 <template>
   <div class="indexBar"  @click="onClick($event)">
     <div v-for="(item,index) in alphas" :key="item"    :class="index!=0&&index==selectIndex&&'activt'" :data-index="index" :data-id="item"> 
-      <!-- <Text :size="12" color="#000000"><a href="" style="transform: scale(.2);" >  {{ item }}</a></Text>  -->
-      <!-- <a :href="filterHref(item)" :data-index="index">{{ item }}</a> -->
       <div :data-index="index" :data-id="item">
         {{ item }}
       </div>
@@ -15,6 +13,7 @@ import {ref} from "vue"
 const alphas = ref([])
 // 选中
 const selectIndex=ref(-1)
+const emit=defineEmits(["update:alpha"])
 let start = "A".charCodeAt(0) //65
 let last = "Z".charCodeAt(0)  //90
 alphas.value.push("↑") 
@@ -22,25 +21,15 @@ for (start; start <= last; start++) {
   alphas.value.push(String.fromCharCode(start))
 }
 alphas.value.push("#") 
-// const filterHref=computed(()=>{
-//   return function (href){
-//     return  "#"+href
-//   }
-// })
+
 //点击选项变蓝色
 const onClick=(e)=>{
-
-  if(e.target.hasAttribute("data-index")){
-    
-    selectIndex.value=e.target.getAttribute("data-index")
-    console.log(e.target.getAttribute("data-index"))
-    if(selectIndex.value==0){
-      document.querySelector(".addressBook").scrollIntoView({block:"start"})
-      return 
-    }
-
-    document.getElementById(e.target.getAttribute("data-id"))?.scrollIntoView()
-    // console.log(selectIndex.value)
+  const {id,index}=e.target.dataset
+  if(id){
+    selectIndex.value=index
+    console.log(id)
+    if(index==0) return emit("update:alpha","0")
+    return emit("update:alpha",id) 
   }
 }
 </script>

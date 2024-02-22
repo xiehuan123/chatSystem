@@ -29,7 +29,7 @@
 </template>
 <script setup >
 import {   onMounted, ref } from "vue"
-import {getGroupInfo,} from "@/api/group"
+import {getGroupInfo,quitGroup,dismissGroup} from "@/api/group"
 import { userStore } from "@/store"
 const store=userStore()
 // 群聊信息
@@ -161,12 +161,25 @@ onMounted(async () => {
   
 })
 
-const onClick=(item)=>{
+const onClick=async (item)=>{
   if(item.id===14){
     if(groupInfo.value.user.uid===store.user.uid){
-      console.log("解散群聊")
+      const {res,err} = await dismissGroup(groupInfo.value.gid)
+      if(err){
+        throw err
+      }
+      if(res.code===200){
+        router.push({path:"/weixin"})
+      }
     }else{
       console.log("退出群聊")
+      const {res,err} = await quitGroup(groupInfo.value.gid)
+      if(err){
+        throw err
+      }
+      if(res.code===200){
+        router.push({path:"/weixin"})
+      }
     }
   }
 }

@@ -40,24 +40,24 @@ export const getInitials = (str) => {
  */
 export const getResultSort = (data) => {
 
-  const result = []
-
+  const result = {}
+  let pinyinFirst = []
   for (const key in data) {
     // 获取昵称首字母拼音 不是字母就是#
     const first = getInitials(data[key]["nickName"])
     // 判断数组有没有相同的分组名
-    const index = result.findIndex(item => item.title == first)
-    if (index != -1) {
-      result[index]["list"].push(data[key])
-    } else {
-      result.push({
-        title: first,
-        list: [data[key]]
-      })
+    if(pinyinFirst.includes(first)){
+      result[first].push(data[key])
+    }else{
+      pinyinFirst.push(first)
+      result[first]=[data[key]]
     }
+   
   }
-  result.sort((a, b) => a.title.localeCompare(b.title))
-  return result
+  pinyinFirst=pinyinFirst.filter(item=>item!=="#")
+  pinyinFirst.sort((a, b) => a.localeCompare(b))
+  pinyinFirst.push("#")
+  return {result,pinyinFirst}
 }
 export const getFriendResultSort = (data) => {
 

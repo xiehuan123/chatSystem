@@ -1,7 +1,7 @@
 
 <template>
-  <div class="myButton" :style="{display:display}">
-    <button :style="{fontSize:size+'px', color:color,fontWeight:weight,backgroundColor:backgroundColor}">
+  <div class="myButton" :style="{display:display}" >
+    <button  v-bind="attrs"  :style="{fontSize:size+'px', color:color,fontWeight:weight,backgroundColor:backgroundColor}">
       <slot></slot>
    </button>
 
@@ -9,8 +9,9 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue"
+import { defineProps,useAttrs } from "vue"
 defineProps({
+  
   size:{
     type:Number,
     default:12
@@ -33,6 +34,7 @@ defineProps({
   }
 
 })
+const attrs=useAttrs()
 </script>
 
 <style scoped lang='scss'>
@@ -45,6 +47,10 @@ button{
   color: #ffffff;
   background-color: #45b910;
 }
+ button[disabled] {
+      background-color: #e1e1e1;
+      color: #b4b4b4;
+    }
 
  
 }

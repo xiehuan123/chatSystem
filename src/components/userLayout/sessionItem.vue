@@ -5,9 +5,20 @@
     border && 'border',
   ]" :style="{ height: height + 'px' }">
 
-    <div class="left">
+    <div class="left" v-if="sesstioItem.us==1">
       <Avatar :src="sesstioItem.sesstioAvatar" :size="40" :num="sesstioItem.num"></Avatar>
     </div>
+
+    <div v-if="sesstioItem.us==2">
+       <div class="avatarBox" >
+            <img v-for="image in sesstioItem.sesstioAvatar" :key="image"  :src="image" />
+            
+            <div v-for="empty in 9-sesstioItem.sesstioAvatar.length" :key="empty">
+            </div> 
+    </div>
+    </div>  
+   
+
     <div class="content">
       <div>{{ sesstioItem.sesstionName }}</div>
       <div v-if="sesstioItem.us == 2">
@@ -54,7 +65,6 @@ defineProps({
     required: true,
   },
 })
-
 </script>
 
 <style scoped lang="scss">
@@ -70,14 +80,30 @@ defineProps({
     display: flex;
     justify-content: center;
     align-items: center;
+  
+    
   }
+  .avatarBox{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;
+      gap: 1px;
+      // margin-right: 10px;
+      padding: 2px;
+      margin: 10px 10px;
+      background-color: $bd-color;
+      border-radius: 3px;
+      width: 36px;
+      height: 36px;
+  
+      >img{
+        width: 10px;
+        height: 10px;
+      }
+      
+    }
 
-  .avatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-  }
+
 
   .content {
     display: flex;

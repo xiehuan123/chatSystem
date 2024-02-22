@@ -212,11 +212,18 @@ const routes = [
   {
     path:"/group",
     children:[
-      // 群聊
+      // 群聊首页
       {
         path:"groupIndex",
         component:()=>import("@/views/group/GroupIndexView.vue")
       }
+      // 加入群聊页面
+      ,
+      {
+        path:"groupJoin/:gid",
+        component:()=>import("@/views/group/GroupJoinView.vue")
+      }
+      // 创建群聊页面
       ,{
         path:"groupCreate",
         component:()=>import("@/views/group/GroupCreateView.vue")

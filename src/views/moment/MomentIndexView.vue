@@ -167,7 +167,7 @@ const onUploadChange = async() => {
   }
  
   show.value=false
-  router.push({path:"/moment/mometnPublish"})
+  router.push({path:"/mometnPublish"})
  
 }
 // 选项的点击事件

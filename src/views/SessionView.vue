@@ -10,6 +10,7 @@
     
 </template>
 <script >
+// ps 下拉加载有问题
 import { defineComponent } from "vue"
 import { userStore } from "@/store"
 const store=userStore()
@@ -27,17 +28,21 @@ export default defineComponent({
 </script>
 
 <script setup>
-import { ref,onMounted,onActivated } from "vue"
+import { ref,onMounted } from "vue"
 
 
 import BScroll from "better-scroll"
-// const route = useRoute()
 const mainDom = ref(null)
 const chatRef=ref(null)
 const msgs = ref()
 const scroll=ref(null)
+const index=ref(1)
+const pageSize=ref(10)
+// 是否在下拉
+const isPulldown=ref(false)
 //发送信息
 const onSendInfo = (data) => {
+  isPulldown.value=false
   console.log(data,"发送的消息")
   const info={
     ...store.cuurentSesstion,
@@ -68,13 +73,7 @@ const onSendInfo = (data) => {
   )
   
 }
-onActivated(()=>{
-  console.log("缓存了")
-  scroll.value.refresh()
-  
-  console.log(msgs.value,"msgs.value")
-  
-})
+
 // 监听pinia 里面的消息 
 watch(() => store.sesstionMsgs[store.cuurentSesstion.sesstionId],(newValue) => {
   console.log("pinia 里面的消息")
@@ -88,20 +87,62 @@ onMounted(()=>{
     mouseWheel: true,
     probeType: 3,
     click: true,
+   
+    pullDownRefresh: {
+      threshold: 5,  // 下拉刷新的阈值
+      stop: 20  // 刷新停留的位置
+    }
   })
-  console.log("scroll.value",scroll.value)
+  // 下拉刷新
+  scroll.value.on("pullingDown", async() => {
+    console.log("下拉刷新")
+    isPulldown.value=true
+    // 在这里执行下拉刷新的操作，比如发送请求获取最新数据等
+    const sesstionMsgs=store.sesstionMsgs[store.cuurentSesstion.sesstionId]
+    const start=-(pageSize.value*index.value)
+    const  end=sesstionMsgs.length - (index.value-1)*pageSize.value
+    console.log(start,end,"下拉刷新")
+    if(-start>=sesstionMsgs.length) {
+      console.log("没有更多数据了")
+      return 
+    }
+    msgs.value.unshift(...sesstionMsgs.slice(start,end ))
+    console.log(pageSize.value*index.value,sesstionMsgs.length - (index.value-1)*pageSize.value)
+    index.value++
+    scroll.value.finishPullDown() 
+    setTimeout(() => {
+      scroll.value.scrollTo(0, 0, 300)
+      scroll.value.refresh()
+      
+    }, 100)
+  
+  })
+  
   // 需要渲染当前会话的聊天记录
-  msgs.value=store.sesstionMsgs[store.cuurentSesstion.sesstionId]
-  scroll.value.scrollTo(0, scroll.value.maxScrollY, 0)
+  const sesstionMsgs=store.sesstionMsgs[store.cuurentSesstion.sesstionId]
+  if(sesstionMsgs){
+
+    
+    msgs.value=sesstionMsgs.slice(-(pageSize.value*index.value),sesstionMsgs.length - (index.value-1)*pageSize.value)
+    index.value++
+  }
+ 
+
 
 })
 
 watch(() => msgs.value,() => {
-  console.log("msgs.value")
-  setTimeout(() => {
-    scroll.value.refresh()
-    scroll.value.scrollTo(0, scroll.value.maxScrollY, 300)
-  }, 100)
+  // 不在下拉的时候 滚动到最底部
+  if(!isPulldown.value){
+    setTimeout(() => {
+      scroll.value.refresh()
+      scroll.value.scrollTo(0, scroll.value.maxScrollY, 300)
+    }, 100)
+  }
+  // setTimeout(() => {
+  //   scroll.value.refresh()
+  //   scroll.value.scrollTo(0, scroll.value.maxScrollY, 300)
+  // }, 100)
 
 }, { deep: true })
 
@@ -136,5 +177,7 @@ watch(() => msgs.value,() => {
     height: calc(100% - 90px);
     margin-bottom: 50px;
   }
+   
+
 }
 </style>

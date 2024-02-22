@@ -6,11 +6,25 @@
     
           <div class="title" v-if="item.us==2">{{ item.sendName }}</div>
           <div class="msg">
-            <div v-if="item.code == 1">
-              
-              <span class="text">{{ item.sendMsg }}</span>
+            <div v-if="item.code==1">
+ <span class="text">{{ item.sendMsg }}</span>
+            </div>
+            <div v-else-if="item.code == 3" class="invite" >
+                <Text>邀请你加入了群聊</Text>
+              <div class="content">
+                <Text> "{{ item.sendName }}"邀请你加入了群聊"{{item.sendName }}"</Text>
+               <div>
+                 <div class="avatarBox">
+                  <img v-for="image in item.sesstioAvatar" :key="image"  :src="image" />
+            
+                  <div v-for="empty in 9-item.sesstioAvatar.length" :key="empty">
+                </div>
+               </div>
+               
+              </div>  
+             
              </div>
-
+             </div>
             <div v-else-if="item.code == 2" @touchstart="onPlay(index)">
               <msgAudio :wav="item.sendMsg?.wav" :duration="item.sendMsg?.duration" :play="item.sendMsg?.play"></msgAudio>
 
@@ -89,22 +103,15 @@ ul {
 
     .msg {
       position: relative;
-      max-width: 150px;
-      background: $msg-box-bg;
+      max-width: 200px;
+      background:$msg-box-bg ;
       word-wrap: break-word;
       word-break: normal;
       padding: 7px 10px;
       border-radius: 5px;
       margin-inline-end: 10px;
-
-      div {
-        position: relative;
-        z-index: 1;
-      }
-    }
-
-    .msg::before {
-      content: "";
+      &::before{
+        content: "";
       position: absolute;
 
       inset-inline-end: -5px;
@@ -116,8 +123,59 @@ ul {
       border-inline-start: 26px solid $msg-box-bg;
       border-block-end: 13px solid transparent;
       border-block-start: 13px solid transparent;
-
+      }
+      &:has(.invite) {
+        background-color: $white;
+        &::before{
+          border-inline-start: 26px solid $white;
+        }
+      }
+      div {
+        position: relative;
+        z-index: 1;
+      }
+      .invite{
+       
+        .content{
+          display: flex;
+        }
+      }
+      .avatarBox{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;
+      gap: 1px;
+      // margin-right: 10px;
+      padding: 2px;
+      margin: 10px 10px;
+      background-color: $bd-color;
+      border-radius: 3px;
+      width: 36px;
+      height: 36px;
+  
+      >img{
+        width: 10px;
+        height: 10px;
+      }
+      
     }
+    }
+
+    // .msg::before {
+    //   content: "";
+    //   position: absolute;
+
+    //   inset-inline-end: -5px;
+    //   top: 1px;
+
+    //   width: 0;
+    //   height: 0;
+    //   // border-top: 13px solid transparent;
+    //   border-inline-start: 26px solid $msg-box-bg;
+    //   border-block-end: 13px solid transparent;
+    //   border-block-start: 13px solid transparent;
+
+    // }
 
   }
   .other {
@@ -166,4 +224,7 @@ ul {
       background-position: 100%;
     }
   }
-}</style>
+}
+
+
+</style>

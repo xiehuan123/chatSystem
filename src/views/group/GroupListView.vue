@@ -8,7 +8,7 @@
       <ScrollLayout>
 
 
-        <div  class="group"  @click="onGotoView(item.group)" v-for="item in groupList" :key="item.id">
+        <div  class="group"  @click="onGotoView(item.group,item.image_urls)" v-for="item in groupList" :key="item.id">
           <div class="avatarBox">
             <img v-for="image in item.image_urls" :key="image"  :src="image" />
             <div v-for="empty in 9-item.image_urls.length" :key="empty">
@@ -37,13 +37,14 @@ const getGroupListData = async () => {
 getGroupListData()
 console.log(groupList.value,2525)
 
-const onGotoView=(item)=>{
-  const {gid,group_member_count,group_name}=item
+const onGotoView=(group,image_urls)=>{
+  const {gid,group_member_count,group_name}=group
+  console.log(group)
   store.setCuurentSesstion({
 
     sesstionId:gid,
     sesstionName:group_name,
-    avatar:"icon-qunliao1",
+    sesstioAvatar:image_urls,
     memberPerson:group_member_count,
     us:2
   })
@@ -64,7 +65,7 @@ const onGotoView=(item)=>{
       gap: 1px;
       margin-right: 10px;
       padding: 2px;
-      background-color: rgb(156, 163, 163);
+   background-color: $bd-color;
       border-radius: 3px;
       width: 36px;
       height: 36px;
