@@ -3,7 +3,7 @@
     'item',
     sesstioItem?.marginTop && 'marginTop',
     border && 'border',
-  ]" :style="{ height: height + 'px' }">
+  ]" :style="{ height: px2rem(height) }">
 
     <div class="left" v-if="sesstioItem.us==1">
       <Avatar :src="sesstioItem.sesstioAvatar" :size="40" :num="sesstioItem.num"></Avatar>
@@ -44,9 +44,8 @@
 </template>
 
 <script setup>
-import {  defineProps } from "vue"
-//import Icon from "@/components/common/Icon.vue"
-import { getFormatTime } from "@/utils"
+
+import { getFormatTime,px2rem} from "@/utils"
 defineProps({
   sesstioItem: {
     type: Object,

@@ -37,17 +37,7 @@ const close =()=>{
 const onOpen=(id)=>{
   console.log(id)
   emit("onOpen",id)
-  // switch (id){
-  // case 1:
-  //   router.push({
-  //     path:"/photoGraph"
-  //   })
-  //   break
-  // case 2:
-  //   fileDom.value.click()
-  //   break
 
-  // }
 }
 
 </script>
@@ -55,8 +45,8 @@ const onOpen=(id)=>{
 .sharesheet {
   position: fixed;
   top: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-color: $mask-bg;
   z-index: 999999;
   ul{

@@ -6,7 +6,9 @@
         <Icon @click="toMenu" :fontSize="25" iconName="icon-paishe" />
       </template>
     </BackHeader>
+   
     <main class="main">
+       <ScrollLayout>
       <div class="scroll-area">
         <div class="bg">
           <Icon :class-name="['pyqlogo',isPulldown]" :font-size="22"  icon-name="icon-iconfontzhizuobiaozhunbduan36"></Icon>
@@ -24,7 +26,7 @@
         </div>
 
       </div>
-
+      </ScrollLayout>
 
     </main>
 
@@ -38,7 +40,7 @@
 <script setup >
 
 
-import BScroll from "better-scroll"
+// import BScroll from "better-scroll"
 import { ref, onMounted } from "vue"
 import { userStore,momentIndexDB } from "@/store"
 import ShareSheet from "@/components/common/ShareSheet.vue"
@@ -48,6 +50,7 @@ import {compressionFile} from "@/utils/index"
 import emitter from "@/utils/Bus"
 import Icon from "@/components/common/Icon.vue"
 import { useRouter } from "vue-router"
+import ScrollLayout from "@/layout/ScrollLayout.vue"
 // 主要滚动
 const scroll = ref(null)
 // 选择图片 组件显示
@@ -68,38 +71,38 @@ const momentIndexDBStore=momentIndexDB()
 onMounted(async () => {
   await getMomentPublicReuest()
   // 提示，因为transform是对dom操作，所以需要在这个生命周期操作
-  scroll.value = new BScroll(".main", {
-    mouseWheel: true,
-    probeType: 3,
-    click: true,
-    pullDownRefresh: {
-      threshold: 20,  // 下拉刷新的阈值
-      stop: 20  // 刷新停留的位置
-    }
-  })
+  // scroll.value = new BScroll(".main", {
+  //   mouseWheel: true,
+  //   probeType: 3,
+  //   click: true,
+  //   pullDownRefresh: {
+  //     threshold: 20,  // 下拉刷新的阈值
+  //     stop: 20  // 刷新停留的位置
+  //   }
+  // })
  
-  // 下拉刷新
-  scroll.value.on("pullingDown", async() => {
-    console.log("下拉刷新")
-    // 在这里执行下拉刷新的操作，比如发送请求获取最新数据等
-    await getMomentPublicReuest()
+  // // 下拉刷新
+  // scroll.value.on("pullingDown", async() => {
+  //   console.log("下拉刷新")
+  //   // 在这里执行下拉刷新的操作，比如发送请求获取最新数据等
+  //   await getMomentPublicReuest()
     
-    scroll.value.finishPullDown() 
-  })
-  scroll.value.on("scroll", (pos) => {
-    if (pos.y > 1) {
-    // 用户正在下拉，可以在这里执行相应的操作
-    // 比如修改下拉提示的显示状态等
-      isPulldown.value="isPulldown"
-    }
-    if(pos.y==0){
-      isPulldown.value=""
-    }
-  })
-  setTimeout(()=>{
-    console.log("dom更新完毕")
-    scroll.value.refresh()
-  },10)
+  //   scroll.value.finishPullDown() 
+  // })
+  // scroll.value.on("scroll", (pos) => {
+  //   if (pos.y > 1) {
+  //   // 用户正在下拉，可以在这里执行相应的操作
+  //   // 比如修改下拉提示的显示状态等
+  //     isPulldown.value="isPulldown"
+  //   }
+  //   if(pos.y==0){
+  //     isPulldown.value=""
+  //   }
+  // })
+  // setTimeout(()=>{
+  //   console.log("dom更新完毕")
+  //   scroll.value.refresh()
+  // },10)
 
 })
 
@@ -167,7 +170,7 @@ const onUploadChange = async() => {
   }
  
   show.value=false
-  router.push({path:"/mometnPublish"})
+  router.push({path:"/moment/momentPublish"})
  
 }
 // 选项的点击事件
@@ -202,7 +205,7 @@ const onOpen=(id)=>{
     top: 0;
     height: 100%;
     // margin-bottom: 50px;
-    background-color: #F7FAFD;
+    background-color: #fff;
 
     >div {
       touch-action: none;
@@ -248,7 +251,7 @@ const onOpen=(id)=>{
 
     .content {
       position: relative;
-      background-color: $bg-color;
+
 
       padding-top: 70px;
       padding-bottom: 10px;

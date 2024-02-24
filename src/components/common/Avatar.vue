@@ -1,6 +1,6 @@
 <template>
   <div :class="['avatar',className]"  >
-    <div :style="{width: size+'px',height:size+'px', borderRadius:border+'px'}" >
+    <div :style="{width: px2rem(size),height:px2rem(size), borderRadius:px2rem(borderRadius)}" >
       <img :src="src" alt="图片加载失败" @error="onError" >
     </div>
        <div  :class="['dots',num>9&&'double']"  v-if="num>0"      >
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue"
+import {px2rem} from "@/utils"
 defineProps({
   size:{
     type:Number,
@@ -21,7 +21,7 @@ defineProps({
     type:String,
     default:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
   },
-  border:{
+  borderRadius:{
     type:Number,
     default:3,
   },

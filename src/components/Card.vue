@@ -35,20 +35,20 @@
             </div>
             <ul :class="isShow && 'active'">
               <li v-show="appoint">
-                <Icon iconName="icon-aixin" :fontSize="18" color="#FF0000" @click="onSetAppoint"></Icon>赞
+                <Icon iconName="icon-aixin" :fontSize="18" color="#FF0000" @click="onSetAppoint"></Icon>取消
 
               </li>
               <li v-show="!appoint">
                 <Icon iconName="icon-aixin" :fontSize="18" @click="onSetAppoint"></Icon>赞
               </li>
-              |
+              <span >|</span>
               <li @click="onShowComment(data.mid, 0)">
                 <Icon iconName="icon-tubiao_pinglun" :fontSize="18"></Icon>评论
               </li>
             </ul>
           </div>
         </footer>
-        <div v-if="type == 'public'">
+        <div v-if="type == momentType.PUBLIC">
 
 
           <div class="appoint" v-if="appoints.length != 0">
@@ -74,7 +74,7 @@
       </div>
     </div>
 
-    <div class="CardFooter" v-if="type == 'detail' && (appoints.length != 0||comments.length!=0)">
+    <div class="CardFooter" v-if="type == momentType.DETAIl && (appoints.length != 0||comments.length!=0)">
       <div class="appointBox" v-if="appoints.length != 0">
         <Icon className="line" iconName="icon-aixin" color="blue" :fontSize="20"></Icon>
         <div>
@@ -126,6 +126,7 @@ import emitter from "@/utils/Bus"
 import { userStore } from "@/store"
 import Icon from "./common/Icon.vue"
 
+import {momentType}  from "@/constant"
 
 const props = defineProps({
   data: {
@@ -281,7 +282,7 @@ watch(() => isShow.value, (val) => {
 <style lang="scss" scoped>
 .Card {
   height: 100%;
-  background-color: #F7FAFD;
+  background-color: #fff;
 
   .public {
     &::after {
@@ -307,6 +308,7 @@ watch(() => isShow.value, (val) => {
    
     .right {
       margin-left: 10px;
+      margin-right: 20px;
       flex: 1;
 
       .imgList {
@@ -314,14 +316,14 @@ watch(() => isShow.value, (val) => {
         display: flex;
         flex-wrap: wrap;
          max-height:350px ;
-
+        overflow: hidden;
         >div {
           width: 90px;
           height: 90px;
           margin: 2px;
 
           &:only-child {
-            width: 90%;
+            width: 70%;
             height: auto;
 
           }
@@ -332,36 +334,48 @@ watch(() => isShow.value, (val) => {
           }
         }
       }
-      footer {
-        position: relative;
-        margin: 12px 0;
-        width: 100%;
-
-        .option {
-          position: absolute;
-          width: 55px;
-          height: 30px;
-          top: -11px;
-          right: 0px;
-
-          >div {
+     
+        footer{
+          position: relative;
+         
+          margin: 7px 0;
+          height: 40px;
+          display: flex;
+          line-height: 40px;
+          .text{
             position: absolute;
-            width: 65px;
-            height: 45px;
-            display: flex;
-            padding: 0 5px;
-            align-items: center;
-            background-color: $bg-color;
-            z-index: 5;
+            left: 0;
+          }
+          .option{
+            position: absolute;
+            right: 0;
+            height: 100%;
+            width: 45px;
+         
+        
+            .active {
+        
+            width: 150px;
 
-            >div {
+          }
+           >div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        
+            align-items: center;
+            justify-content: end;
+            background-color: #fff;
+            z-index: 5;
+                  >div {
               position: relative;
               display: flex;
               justify-content: center;
               align-items: center;
               width: 32px;
               height: 20px;
-              background-color: #e3e2eb;
+              background-color: #F7FAFD;
               border-radius: 4px;
 
               &::before {
@@ -382,52 +396,41 @@ watch(() => isShow.value, (val) => {
                 background-color: #6f718f;
               }
             }
-
+           }
           }
-
-          >ul {
+          ul{
             position: absolute;
-            display: flex;
-            align-items: center;
-
-            top: 1px;
+  
+            z-index: 4;
             width: 150px;
             height: 40px;
             border-radius: 7px;
             list-style: none;
             background-color: #404040;
             color: #000000;
-
-
             transition: all .5s;
-
+            right: 45px;
+            width: 0;
+            overflow: hidden;
+            
+            >span{
+              position: absolute;
+            }
             li {
-              flex: 1;
+              width: 70px;
               text-align: center;
               color: #ffffff;
+              float: left;
             }
           }
-
-          .active {
-
-            transform: translateX(-100%);
-
-          }
-
-
-
         }
-
-      }
-
       .appoint {
         display: flex;
         align-items: center;
         padding: 2px;
-        background-color: #e3e2eb;
+        background-color: #F7FAFD;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
-        margin-right: 17px;
 
         >span {
 
@@ -436,11 +439,11 @@ watch(() => isShow.value, (val) => {
       }
 
       .comment {
-        background-color: #e3e2eb;
+        background-color: #F7FAFD;
         padding: 0 4px;
         border-bottom-left-radius: 3px;
         border-bottom-right-radius: 3px;
-        margin-right: 17px;
+   
       }
 
     }

@@ -45,8 +45,8 @@ onMounted(() => {
 .Message {
   position: fixed;
   inset: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-color: $mask-bg; /* 半透明黑色 */
   z-index: 1000; /* 调整遮罩层显示层级 */
   font-size: 18px;

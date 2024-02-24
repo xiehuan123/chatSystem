@@ -6,7 +6,7 @@
       sesstioItem?.marginTop && 'marginTop',
       border && 'border',
     ]"
-    :style="{ height: height + 'px' }"
+    :style="{ height:px2rem(height) }"
   
   >
   <slot name="left">
@@ -47,8 +47,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps } from "vue"
-//import Icon from "@/components/common/Icon.vue"
+import { px2rem } from "@/utils"
 const props = defineProps({
   sesstioItem: {
     type: Object,
@@ -56,7 +55,7 @@ const props = defineProps({
   },
   height: {
     type: Number,
-    default: 45,
+    default: 50,
   },
   border: {
     type: Boolean,
@@ -76,8 +75,6 @@ const lastInfoMsg = computed(() => {
 <style scoped lang="scss">
 .item {
   display: flex;
-  // background: #f0eaea;
-  padding: 4px 0;
   background: #fff;
   .avatar {
     display: flex;

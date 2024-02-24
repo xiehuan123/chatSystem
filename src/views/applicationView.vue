@@ -6,7 +6,7 @@
     <div class="option" v-if="flag==1"> 
       <Text :size="12">发送添加朋友申请</Text>
 
-        <textarea :style="{ height: 80 + 'px' }" v-model="greeting"> </textarea>
+        <textarea  v-model="greeting"> </textarea>
     </div>
     <div class="option">
       <Text :size="12" >设置备注</Text>
@@ -123,7 +123,7 @@ const onFinishfriend=async ()=>{
 .application{
   
   main{
-    height:  calc(100vh - 140px);
+    height:  calc(100% - 140px);
     overflow: scroll;
 .option {
   padding: 5px 20px;
@@ -157,6 +157,7 @@ const onFinishfriend=async ()=>{
   }
   textarea{
     padding: 10px;
+    height: 80px;
   }
 }
 

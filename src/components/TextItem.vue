@@ -3,7 +3,7 @@
     'item',
     item?.marginTop && 'marginTop',
     item?.marginBorde && 'marginBorde'
-  ]"     :style="{ height: item?.height + 'px', background: item?.bg }" >
+  ]"     :style="{ height: px2rem(item?.height??45), background: item?.bg }" >
     <slot name="left">
       <div class="Textleft">
         <div v-if="item&&item.name">
@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from "vue"
+import { px2rem } from "@/utils"
 const props = defineProps({
   item: {
     type: Object,

@@ -26,7 +26,7 @@ const register = () => {
 
 <style scoped lang="scss">
 .index {
-  height: 100vh;
+  height: 100%;
   position: relative;
   background-image: url(@/assets/image/index.jpg);
   margin: 0px;

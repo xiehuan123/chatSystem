@@ -54,9 +54,11 @@ export const getResultSort = (data) => {
     }
    
   }
-  pinyinFirst=pinyinFirst.filter(item=>item!=="#")
   pinyinFirst.sort((a, b) => a.localeCompare(b))
-  pinyinFirst.push("#")
+  if(pinyinFirst.includes("#")){
+    pinyinFirst=pinyinFirst.filter(item=>item!=="#")
+    pinyinFirst.push("#")
+  }
   return {result,pinyinFirst}
 }
 export const getFriendResultSort = (data) => {
@@ -291,5 +293,16 @@ export const getSocketItem=async (key)=>{
 
 export const setSocketItem=async (key,value)=>{
   await socketStore.setItem(key,value)
+}
+
+export const  px2rem=(px)=>{
+  if(/%/ig.test(px)){ // 有百分号%，特殊处理，表述pc是一个有百分号的数，比如：90%
+    return px
+  }else{
+    if(px>=12){
+      return (parseFloat(px) / 37.5) + "rem"
+    }
+    return px + "px"
+  }
 }
 

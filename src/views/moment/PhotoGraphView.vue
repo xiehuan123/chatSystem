@@ -217,15 +217,15 @@ const onFinish=()=>{
   momentStore.setMometimageList(image)
   router.push(
     {
-      path:"/moment/mometnPublish"
+      path:"/moment/moment/momentPublish"
     }
   )
 }
 </script>
 <style lang="scss" scoped>
 .photograph{
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   .content{
     position: relative;
     width: 100%;

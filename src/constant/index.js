@@ -2,11 +2,11 @@
 // 消息常量
 export const  messageType={
 
-  TEXT:"text", 
-  IMAGE:"image",
-  AUDIO:"audio",
+  TEXT:1, 
+  IMAGE:2,
+  AUDIO:2,
   VIDEO:"video",
-  FILE:"file",
+  FILE:3,
   LOCATION:"location", 
   SYSTEM:"system",
   // 以下是区分群聊还是私聊
@@ -14,12 +14,12 @@ export const  messageType={
   GROUP:"group",
 }
 // 朋友圈常量
-export const  moment={
+export const  momentType={
   DETAIl:"detail",
   PUBLIC:"public",
 }
 // 好友关系常量
-export const  friendShip={
+export const  friendShipType={
   IS_FRIEND :1,
   NOT_FRIEND:0,
   SELF:2,
@@ -28,7 +28,7 @@ export const  friendShip={
   
 }
 // 好友历史记录常量
-export const  friendHistory={
+export const  friendHistoryType={
   AGREE:0,
   // 已添加
   ADD:1,

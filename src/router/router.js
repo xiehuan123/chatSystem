@@ -192,8 +192,8 @@ const routes = [
       },
       // 朋友圈发布页面
       {
-        path:"mometnPublish",
-        component:()=>import("@/views/moment/MomentPublish.vue")
+        path:"momentPublish",
+        component:()=>import("@/views/moment/MomentPublishView.vue")
       },
       // 朋友圈个人页面
       {

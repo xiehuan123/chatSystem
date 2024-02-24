@@ -1,5 +1,5 @@
 <template>
-  <div class="scroll" :style="{ height: `calc( 100vh - ${bottom}px)`}" >
+  <div class="scroll" :style="{ height: `calc( 100% - ${bottom}px)`}" >
     <div class="wrapper">
       <slot></slot>
     </div>
@@ -51,7 +51,7 @@ watch(()=>props.alpha,()=>{
 
 <style lang="scss">
 .scroll{
-  // height: 100vh calc(100vh - 60px);
+  // height: 100% calc(100% - 60px);
   overflow: hidden;
   
   

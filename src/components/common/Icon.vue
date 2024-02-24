@@ -1,5 +1,5 @@
 <template>
-  <i :class="['icon', active,className]" :style="{fontSize:fontSize+'px',color:color}">
+  <i :class="['icon', active,className]" :style="{fontSize:px2rem(fontSize),color:color}">
     <svg class="icon" aria-hidden="true">
       <use :href="'#' + iconName"></use>
     </svg>
@@ -8,6 +8,7 @@
 
 <script setup>
 import { defineProps } from "vue"
+import { px2rem } from "@/utils"
 defineProps({
   iconName: {
     type: String,

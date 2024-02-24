@@ -68,7 +68,7 @@ onMounted(()=>{
 <style scoped>
 
 #app{
-  height: 100vh;
+  height: 100%;
   font-size: 18px;
   
 }

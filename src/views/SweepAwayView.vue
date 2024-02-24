@@ -98,7 +98,7 @@ const onClose=()=>{
   height: 100%;
   .head {
     position: absolute;
-    top: 5%;
+    top: 20px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -194,14 +194,14 @@ const onClose=()=>{
     }
  
     .qr-scanner .box {
-        width: 75vw;
-        height: 75vw;
-        max-height: 75vh;
-        max-width: 75vh;
+        width: 287px;
+        height: 287px;
+        max-height: 287px;
+        max-width: 287px;
         position: relative;
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -60%);
         overflow: hidden;
         border: 0.1rem solid rgba(0, 255, 51, 0.2);
     }

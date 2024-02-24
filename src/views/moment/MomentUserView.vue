@@ -7,7 +7,8 @@
       </template>
     </BackHeader>
     <div class="main" >
-      <div class="scroll-area">
+      <ScrollLayout>
+
         <div class="bg">
 
           <img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt="">
@@ -25,8 +26,8 @@
           
         </div>
 
-      </div>
 
+      </ScrollLayout>
 
     </div>
 
@@ -34,15 +35,14 @@
 </template>
 <script setup >
 import MomentItem from "@/components/MomentItem.vue"
-import BScroll from "better-scroll"
 import { ref, onMounted } from "vue"
 import { useRoute } from "vue-router"
 import { getMomentUser } from "@/api/moment"
 import {getInfo} from "@/api/index"
 import { getGroupBy } from "@/utils/index"
+import ScrollLayout from "@/layout/ScrollLayout.vue"
 const route=useRoute()
 const {uid}=route.params
-const scroll = ref(null)
 
 const momentList=ref([])
 const user=ref({})
@@ -55,16 +55,6 @@ onMounted(async()=>{
   momentList.value=getGroupBy(res.data,"pub_time")
   console.log(momentList.value)
   
-  scroll.value = new BScroll(".main", {
-    mouseWheel: true,
-    probeType: 3,
-    click: true,
-    
-  })
-  // 滚动有问题 暂时解决了
-  setTimeout(() => {
-    scroll.value.refresh()
-  }, 0)
 })
 
 
@@ -75,13 +65,14 @@ onMounted(async()=>{
 .momentUser {
  position: relative;
   height: 100%;
-
+  width: 100%;
   .main {
    position: absolute;
     top: 0;
     height: 100%;
     margin-bottom: 10px;
     background-color: #F7FAFD;
+    width: 100%;
     >div{
       touch-action: none;
     }

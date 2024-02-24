@@ -31,7 +31,7 @@
     <div class="content"   :data-id="item.uid"  v-for="item in peoples[firstPinyin]" :key="item.uid" >
       <div class="checkBox" >
 
-          <input type="checkbox"   v-model="item.selected" @change="updateSelectedCount">
+          <input type="checkbox"   v-model="item.selected" >
       </div>
       
 

@@ -68,8 +68,8 @@ const  sendInfo=()=>{
 <style lang="scss" scoped>
 .comment{
   position: fixed;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   top: 0;
 
   z-index: 9999;

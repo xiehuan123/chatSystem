@@ -1,7 +1,7 @@
 
 <template>
   <div class="myButton" :style="{display:display}" >
-    <button  v-bind="attrs"  :style="{fontSize:size+'px', color:color,fontWeight:weight,backgroundColor:backgroundColor}">
+    <button  v-bind="attrs"  :style="{fontSize:px2rem(size), color:color,fontWeight:weight,backgroundColor:backgroundColor}">
       <slot></slot>
    </button>
 
@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { defineProps,useAttrs } from "vue"
+import { px2rem } from "@/utils"
 defineProps({
   
   size:{

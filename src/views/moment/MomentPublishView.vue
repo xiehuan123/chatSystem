@@ -80,7 +80,7 @@ const onPublishMoment=async ()=>{
 }
 // router.beforeEach((to,form,next)=>{
 
-//   if(form.path=="/mometnPublish"){
+//   if(form.path=="/moment/momentPublish"){
 //     globalProperties.$confirm({message:"保留此次编辑？",
 //       failedText:"不保留",
 //       succedText:"保留",

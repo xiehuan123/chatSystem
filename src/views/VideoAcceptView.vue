@@ -130,15 +130,15 @@ const onTouchStart=(id)=>{
 <style scoped lang='scss'>
 .videoaccept{
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background: #6f6363;
   flex-direction: column;
   .myVideo{
     position: absolute;
     z-index: 1;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     
   }
