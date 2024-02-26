@@ -7,11 +7,11 @@ export const  messageType={
   AUDIO:2,
   VIDEO:"video",
   FILE:3,
-  LOCATION:"location", 
+  LOCATION:4, 
   SYSTEM:"system",
   // 以下是区分群聊还是私聊
-  PRIVATE:"private",
-  GROUP:"group",
+  PRIVATE:1,
+  GROUP:2,
 }
 // 朋友圈常量
 export const  momentType={
@@ -33,4 +33,11 @@ export const  friendHistoryType={
   // 已添加
   ADD:1,
 }
-
+// 群聊常量
+export const  groupType={
+  "VALID_INVITE_LINK": 1,
+  "INVALID_INVITE_LINK": 0,
+  "ALREADY_JOINED_GROUP": 1,
+  "NOT_JOINED_GROUP": 0,
+  
+}

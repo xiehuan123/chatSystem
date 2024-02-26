@@ -76,6 +76,9 @@ const lastInfoMsg = computed(() => {
 .item {
   display: flex;
   background: #fff;
+  &:active{
+    background-color: rgba(237, 237, 237,.2);
+  }
   .avatar {
     display: flex;
     justify-content: center;
@@ -87,6 +90,7 @@ const lastInfoMsg = computed(() => {
     flex-direction: column;
     justify-content: center;
     flex: 1;
+    pointer-events: none;
 
     > div:nth-child(1) {
       font-size: 17px;

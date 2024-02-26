@@ -348,6 +348,9 @@ const onOpen=(id)=>{
     transform: scaleY(.5);
     background-color: #c8c7cc;
       }
+      &:active{
+        background-color: rgba(237, 237, 237,.2);
+      }
     }
     .send_msg {
       background-color: white;

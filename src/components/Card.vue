@@ -26,7 +26,7 @@
         </div>
         <footer>
           <Text :style="{ display: 'inline-block' }">{{ momentformat(data.pub_time) }}</Text>
-          <Icon v-if=" type=='detail'&&  currentUserId == data.uid" iconName="icon-shanchu" @click="onDelMoment(data.mid)"></Icon>
+          <Icon v-if=" type==momentType.DETAIl&&  currentUserId == data.uid" iconName="icon-shanchu" @click="onDelMoment(data.mid)"></Icon>
           <div class="option">
             <div @click="onShow()">
               <div>
@@ -105,7 +105,7 @@
             </div>
             <div class="time">
               {{ item.date }}
-              9:25
+            
             </div>
             <!-- <Text  v-if="item.rid" color="#737cfe"  :style="{display:'inline-block'}" >回复{{ item.ruser.nickName }}:</Text> 
 

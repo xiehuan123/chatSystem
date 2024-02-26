@@ -35,7 +35,7 @@ const getGroupListData = async () => {
   groupList.value = res.data
 }
 getGroupListData()
-console.log(groupList.value,2525)
+
 
 const onGotoView=(group,image_urls)=>{
   const {gid,group_member_count,group_name}=group
@@ -55,6 +55,7 @@ const onGotoView=(group,image_urls)=>{
 </script>
 <style lang="scss" scoped>
 .groupList{
+  height: 100%;
   .group{
     display: flex;
     padding: 10px;

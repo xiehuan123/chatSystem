@@ -305,4 +305,8 @@ export const  px2rem=(px)=>{
     return px + "px"
   }
 }
+// 判断对象是否有某个属性
+export const hasOwnProperty=(obj, key)=>{
+  return Object.prototype.hasOwnProperty.call(obj, key)
+}
 

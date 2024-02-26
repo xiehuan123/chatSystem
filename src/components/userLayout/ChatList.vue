@@ -3,13 +3,16 @@
     <li   :class="item.className"  v-for="(item, index) in mymsg" :key="item.mid">
       <div  v-if="item.className!='system'">
         <div>
-    
           <div class="title" v-if="item.us==2">{{ item.sendName }}</div>
           <div class="msg">
-            <div v-if="item.code==1">
- <span class="text">{{ item.sendMsg }}</span>
+            <div v-if="item.code==messageType.TEXT">
+            <span class="text">{{ item.sendMsg }}</span>
             </div>
-            <div v-else-if="item.code == 3" class="invite" >
+            <div v-else-if="item.code == messageType.AUDIO" @touchstart="onPlay(index)">
+              <msgAudio :wav="item.sendMsg?.wav" :duration="item.sendMsg?.duration" :play="item.sendMsg?.play"></msgAudio>
+
+            </div>
+              <div v-else-if="item.code == messageType.LOCATION" class="invite" >
                 <Text>邀请你加入了群聊</Text>
               <div class="content">
                 <Text> "{{ item.sendName }}"邀请你加入了群聊"{{item.sendName }}"</Text>
@@ -25,10 +28,6 @@
              
              </div>
              </div>
-            <div v-else-if="item.code == 2" @touchstart="onPlay(index)">
-              <msgAudio :wav="item.sendMsg?.wav" :duration="item.sendMsg?.duration" :play="item.sendMsg?.play"></msgAudio>
-
-            </div>
             <div v-else>{{ item.sendMsg }}</div>
           </div>
         </div>
@@ -49,6 +48,7 @@
 import { ref, defineProps, watch } from "vue"
 import msgAudio from "./msgAudio.vue"
 import router from "@/router"
+import { messageType } from "@/constant"
 const props = defineProps({
   msgs: {
     type: Array,
@@ -60,6 +60,7 @@ const mymsg = ref(props.msgs)
 //监听对话框 当发送消息拖到底部
 const Dialog = ref(null)
 watch(() => props.msgs, (newValue) => {
+  console.log(newValue,"new")
   mymsg.value = newValue
   Dialog.value.scrollTop = Dialog.value.scrollHeight
 })
@@ -160,22 +161,6 @@ ul {
       
     }
     }
-
-    // .msg::before {
-    //   content: "";
-    //   position: absolute;
-
-    //   inset-inline-end: -5px;
-    //   top: 1px;
-
-    //   width: 0;
-    //   height: 0;
-    //   // border-top: 13px solid transparent;
-    //   border-inline-start: 26px solid $msg-box-bg;
-    //   border-block-end: 13px solid transparent;
-    //   border-block-start: 13px solid transparent;
-
-    // }
 
   }
   .other {

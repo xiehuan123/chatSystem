@@ -13,7 +13,7 @@ import { ref,watch,onMounted,computed  } from "vue"
 import {userStore} from "@/store/index"
 import BScroll from "better-scroll"
 import { useRouter } from "vue-router"
-
+import {hasOwnProperty} from "@/utils/index"
 
 const store=userStore()
 const sesstionList=ref(store.sesstionList)
@@ -30,8 +30,10 @@ onMounted(()=>{
 })
 const lastInfoMsg=computed(()=>{
   return function (sesstionId){
-
-    console.log(store.sesstionMsgs[sesstionId][store.sesstionMsgs[sesstionId].length-1])
+    if(!hasOwnProperty(store.sesstionMsgs,sesstionId)){
+      return {}
+    }
+    
     return store.sesstionMsgs[sesstionId][store.sesstionMsgs[sesstionId].length-1]
   }
   

@@ -5,9 +5,9 @@ export const getFriendsList=async (data={})=>{
   return await request({url:"/frindeShip/",method:"GET",data })
 }
 // 通过手机号或者微信号搜索好友
-export const serarchFriend=async (kwd,data={})=>{
+export const serarchFriend= (kwd,data={})=>{
 
-  return await request({ url: `/frindeShip/${kwd}`, method: "GET", data })
+  return  request({ url: `/frindeShip/${kwd}`, method: "GET", data })
 }
 // 发送好友请求
 export const sendhFriend=async (data={})=>{

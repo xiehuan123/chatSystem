@@ -217,11 +217,16 @@ const routes = [
         path:"groupIndex",
         component:()=>import("@/views/group/GroupIndexView.vue")
       }
-      // 加入群聊页面
+      // 邀请入群群聊页面
       ,
       {
-        path:"groupJoin/:gid",
-        component:()=>import("@/views/group/GroupJoinView.vue")
+        path:"groupInvite/:inviteUrl",
+        component:()=>import("@/views/group/GroupInviteView.vue")
+        ,meta:{
+          // 当前会话保持
+          sesstion:true,
+          title:"邀请入群"
+        },
       }
       // 创建群聊页面
       ,{
@@ -244,6 +249,7 @@ const routes = [
         },
         component:()=>import("@/views/group/GroupDetailView.vue")
       },
+     
     ]
   }
  

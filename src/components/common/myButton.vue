@@ -7,7 +7,12 @@
 
   </div>
 </template>
-
+<script>
+// 使用一个简单的 <script> to declare options
+export default {
+  inheritAttrs: false//关闭默认绑定行为。
+}
+</script>
 <script setup>
 import { px2rem } from "@/utils"
 defineProps({
@@ -35,6 +40,7 @@ defineProps({
 
 })
 const attrs=useAttrs()
+
 </script>
 
 <style scoped lang='scss'>

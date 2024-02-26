@@ -7,14 +7,14 @@
       <div  v-if="item.className!='system'">
         <div>
     
-          <div class="title" v-if="item.us==2">{{ item.sendName }}</div>
+          <div class="title" v-if="item.us==messageType.GROUP">{{ item.sendName }}</div>
           <div class="msg">
-            <div v-if="item.code == 1">
+            <div v-if="item.code == messageType.TEXT">
               
               <span class="text">{{ item.sendMsg }}</span>
              </div>
 
-            <div v-else-if="item.code == 2" @touchstart="onPlay(index)">
+            <div v-else-if="item.code == messageType.AUDIO" @touchstart="onPlay(index)">
               <msgAudio :wav="item.sendMsg?.wav" :duration="item.sendMsg?.duration" :play="item.sendMsg?.play"></msgAudio>
 
             </div>
@@ -46,6 +46,7 @@
 <script >
 import { defineComponent } from "vue"
 import { userStore } from "@/store"
+import { messageType } from "@/constant"
 const store=userStore()
 export default defineComponent({
   beforeRouteEnter(to, from, next) {

@@ -53,8 +53,10 @@ watch(()=>props.alpha,()=>{
 .scroll{
   // height: 100% calc(100% - 60px);
   overflow: hidden;
-  
-  
+ 
+  .wrapper{
+     padding-bottom: 40px;
+  }
 }
 </style>
 

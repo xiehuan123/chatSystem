@@ -1,14 +1,17 @@
 <template>
-  <router-link to="/index">
-    <div class="Close">
+    
+    <div class="Close" @click="onBack()">
       <Icon iconName="icon-cuowuguanbiquxiao" :fontSize="24"></Icon>
    
     </div>
-  </router-link>
+
 </template>
 
 <script setup>
-
+const router = useRouter()
+const  onBack=()=>{
+  router.back()
+}
 </script>
 
 <style scoped lang="scss">

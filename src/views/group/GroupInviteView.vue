@@ -1,51 +1,85 @@
 <template>
   <div class="groupJoin"  v-if="groupInfo" >
+    <div v-if="groupInfo.code==groupType.NOT_JOINED_GROUP">
     <Close></Close>
     <div class="head">
        <div class="avatarBox" >
-            <img v-for="image in groupInfo.image_urls" :key="image"  :src="image" />
+            <img v-for="image in groupInfo.groupAvatar" :key="image"  :src="image" />
    
-            <div v-for="empty in 9-groupInfo.image_urls.length" :key="empty">
+            <div v-for="empty in 9-groupInfo.groupAvatar.length" :key="empty">
             </div> 
     </div>
-    <h2>{{ groupInfo.group_name }}({{ groupInfo.group_member_count }})</h2>
+    <h2>{{ groupInfo.groupName }}({{ groupInfo.groupCount }})</h2>
     <Text>你和群里其他人都不是朋友关系，请注意隐私安全。</Text>
     </div>
-    
     <ul>
       <li><Text :size="14">该群聊人数较多，为减少新消息给你带来的打扰，建议谨慎加入。</Text>  </li>
       <li><Text :size="14">为维护微信平台绿色网络环境，请勿在群内传播违法违规内容。</Text>  </li>
     </ul>
-
-        <button class="agree"  @click="joinGroup">
+        <button class="agree"  @click="onJoinGroup()">
         加入群聊
       </button>
+    </div>
+  
+    <div v-if="groupInfo.code==groupType.ALREADY_JOINED_GROUP">
+    <Close></Close>
+    <div class="main">
+      <Text>你已经加入了本群</Text>
+    </div>
+    </div>
   </div>
+
+  <div v-else class="quitGroup">
+    <Close></Close>
+    <div class="main">
+      <Text>该群聊不存在或已解散</Text>
+    </div>
+    
+  </div>
+
 </template>
 <script setup >
-import { getGroupInfo } from "@/api/group"
+import { inviteGroup,joinGroup } from "@/api/group"
 import { onMounted,ref } from "vue"
 import { useRoute } from "vue-router"
+import {groupType} from "@/constant"
 const route = useRoute()
-const {gid}=route.params
+const router = useRouter()
+const {inviteUrl}=route.params
 const groupInfo=ref(null)
 onMounted(async () => {
-  console.log(789)
-  const {res,err}=await getGroupInfo(gid)
+  const {res,err}=await inviteGroup(inviteUrl)
+  if(err){
+    throw err
+  }
+  if(res.code==404){
+    return 
+  }
+
+  if(res.code===200){
+    groupInfo.value=res.data
+    // console.log(groupInfo.value.image_urls.length)
+  }
+})
+
+const onJoinGroup=async ()=>{
+  const {res,err}=await joinGroup(groupInfo.value.groupId)
   if(err){
     throw err
   }
   if(res.code===200){
-    groupInfo.value=res.data
-    console.log(groupInfo.value.image_urls.length)
+    router.back()
   }
-})
+}
 </script>
 <style lang="scss" scoped>
 .groupJoin{
-  height: 100%;
+ height: 100%;
+  >div{
+     height: 100%;
   padding: 5px 10px;
   position: relative;
+  }
   .head{
     position: relative;
     display: flex;
@@ -112,5 +146,20 @@ onMounted(async () => {
       left: 50%;
       transform: translateX(-50%);
     }
+  }
+
+.quitGroup{
+      height: 100%;
+  padding: 5px 10px;
+  position: relative;
+  
+
+  
+}
+  .main{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 </style>

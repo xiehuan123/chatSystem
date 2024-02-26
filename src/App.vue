@@ -9,7 +9,7 @@
 </template>
 <script setup>
 
-import { onMounted,onBeforeMount,onBeforeUnmount } from "vue"
+import { onBeforeMount,onBeforeUnmount } from "vue"
 import { userStore,callStore,messageIndexDB } from "@/store"
 
 // import {useMessage} from "@/hooks/useMessage"
@@ -34,16 +34,9 @@ onBeforeMount(() => {
     console.log(store.sesstionList,store.sesstionMsgs,"备份消息到本地")
     messageStore.setMessageList(store.sesstionList,store.sesstionMsgs)
   })
-})
-//组件卸载之前
-onBeforeUnmount(() => {
-  window.removeEventListener("beforeunload", () => { 
-  } )
-})
-onMounted(()=>{
   // 页面刷新 
   window.addEventListener("load", () => {
-    //将浏览器里面的数据存储到pinia里面
+    //将浏览器里面的数据转化到pinia里面
     store.setCuurentSesstion(JSON.parse(window.sessionStorage.getItem("cuurentSesstion")||"{}"))
     
     const user=JSON.parse(window.localStorage.getItem("user")||"{}")
@@ -63,6 +56,12 @@ onMounted(()=>{
   
   })
 })
+//组件卸载之前
+onBeforeUnmount(() => {
+  window.removeEventListener("beforeunload", () => { 
+  } )
+})
+
 
 </script>
 <style scoped>

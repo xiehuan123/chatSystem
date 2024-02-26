@@ -26,7 +26,7 @@
     </ul>
      <div class="friends">
       
-      <div class="friend"  v-for="firstPinyin in pinyinList" :key="firstPinyin" @click="onAddGroup($event)">
+      <div class="friend"  v-for="firstPinyin in pinyinList" :key="firstPinyin" >
     <div class="title" :id="firstPinyin">{{firstPinyin}}</div>
     <div class="content"   :data-id="item.uid"  v-for="item in peoples[firstPinyin]" :key="item.uid" >
       <div class="checkBox" >
@@ -47,18 +47,19 @@
     
     </ScrollLayout>
     <footer>
-      <MyButton  :disabled="selectedCount.length<=0" >完成({{ selectedCount.length }})</MyButton>
+      <MyButton  :disabled="selectedCount.length<=0"  @click="onFinish">完成({{ selectedCount.length }})</MyButton>
     </footer>
   </div>
   <IndexBar></IndexBar>
 </template>
+
 <script setup >
 import {useFriendRequest} from "@/hooks/useFirendRequest"
-import MyButton from "@/components/common/myButton.vue"
-import { computed } from "vue"
-import ScrollLayout from "@/layout/ScrollLayout.vue"
-const router = useRouter()
+import { createGroup, joinGroup,getGroupInfo} from "@/api/group"
+import { userStore } from "@/store"
 
+const router = useRouter()
+const store = userStore()
 const { peoples,pinyinList } = useFriendRequest()
 
 const onSelectGroup=()=>{
@@ -69,15 +70,7 @@ const onSelectGroup=()=>{
 const onCreateGroup=()=>{
   router.push({path:"/group/groupCreate"})
 }
-// 添加进去
-const onAddGroup=(e)=>{
-  const {id}=e.target.dataset
-  if(id){
-    console.log(id)
-    
-  }
 
-}
 const selectedCount=computed(()=>{
   
   const uids=[]
@@ -87,7 +80,7 @@ const selectedCount=computed(()=>{
     const user=peoples.value[item].filter(item=>item.selected)
     // 如果有用户就把用户的uid添加到uids中
     if(user.length>0){
-      uids.push(...user.map(item=>item.uid))
+      uids.push(...user.map(item=>{return {"uid":item.uid,"nickName":item.nickName}}))
     }
   }
   )
@@ -95,7 +88,55 @@ const selectedCount=computed(()=>{
   return uids
  
 })
+const onFinish=()=>{
+  // 1.拿到选中的用户的id
+  // 2.创建群聊
+  // 3.发送消息给相关用户
+  console.log("选中的id",selectedCount.value)
+  createGroup({group_name:selectedCount.value.map(item=>item.nickName).join("、")}
+  ).then(({res})=>{
+      
+    if(res.code==200){
+      return joinGroup(res.data.gid)
+    }
+    throw Error("创建群聊错误")
+  }).then(({res})=>{
+    if(res.code==200){
+      console.log(res,"加入群聊成功")
+      return getGroupInfo(res.data.gid)  
+    }
+    throw Error("加入群聊失败")
+  }).then(({res})=>{
+    store.$socket.emit("inviteGroup",{
+      roomIds: selectedCount.value.map(item=>item.uid),
+      sesstionName: store.user.nickName,
+      us: 1,
+      sesstioAvatar:store.user.userAvatar ,
+      wechat_id: store.user.userWx,
+      sesstionMsg: {
+        uid: store.user.uid,
+        code: 4,
+        us: 1,
+        groupId: res.data.gid,
+        groupName: res.data.group_name,
+        groupAvatar: res.data.image_urls,
+        groupCount: res.data.group_member_count,
+        sendName: store.user.nickName,
+        className: "other",
+        readStatus: true,
+        avatar: store.user.userAvatar,
+        wechat_id: store.user.userWx
+      }
+    })
 
+  })
+  
+
+
+ 
+
+  // router.push({path:"/group/groupCreate",query:{uids:selectedCount.value}})
+}
 </script>
 <style lang="scss" scoped>
 .groupIndex {

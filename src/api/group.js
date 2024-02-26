@@ -30,3 +30,7 @@ export const quitGroup = async (groupId,data={}) => {
 export const dismissGroup = async (groupId,data={}) => { 
   return await request({ url: `/group/${groupId}`, method: "DELETE", data })
 }
+// 邀请入群链接认证
+export const inviteGroup = async (inviteUrl,data={}) => {
+  return await request({ url: `/group/invite/${inviteUrl}`, method: "GET", data })
+}

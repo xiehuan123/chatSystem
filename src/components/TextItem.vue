@@ -70,16 +70,15 @@ const imgList = computed(() => {
     justify-content: center;
     text-align: center;
   }
-  &:active {
-  background: #eb0f0f;
-}
- 
+&:active{
+        background-color: rgba(237, 237, 237,.2);
+      }
   .Textleft {
     display: flex;
     font-size: 14px;
     align-items: center;
     padding: 5px 10px;
-
+    pointer-events: none;
     >div:nth-child(1) {
       min-width: 60px;
     }
