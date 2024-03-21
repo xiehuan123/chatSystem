@@ -191,7 +191,7 @@ const hangUp=()=>{
     console.log("挂断电话")
     // 挂断电话
     console.log(CallStore.conn)
-    CallStore.cancelMediaStream(CallStore.remoterCall,remoteVideo.value.srcObject)
+    CallStore.cancelMediaStream(CallStore.remoterCall,remoteVideo.value?.srcObject)
     CallStore.remoterCall.close()
   }
   if(CallStore.callType==1){
@@ -199,7 +199,7 @@ const hangUp=()=>{
   else if(CallStore.callType==2){
     CallStore.remoterConn.send({flag:"hangUp"})
   }
-  CallStore.cancelMediaStream(CallStore.locahostCall,myVideo.value.srcObject)
+  CallStore.cancelMediaStream(CallStore.locahostCall,myVideo.value?.srcObject)
  
   router.push({
     path:"/"

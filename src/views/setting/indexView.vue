@@ -30,7 +30,7 @@ const meun = ref([
   {
     id: 2,
     name: "青少年模式",
-    marginBorde: true,
+
     marginTop: true,
     height: 45,
 
@@ -47,7 +47,7 @@ const meun = ref([
     id: 4,
     name: "新消息通知",
     height: 45,
-    marginBorde: true,
+
     marginTop: true,
 
   },

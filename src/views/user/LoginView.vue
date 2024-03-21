@@ -24,7 +24,7 @@
 <script setup>
 import { ref, computed ,getCurrentInstance} from "vue"
 
-import {  login } from "@/api/index"
+import { login, ackLogin } from "@/api/index"
 import { useRouter,useRoute } from "vue-router"
 import { userStore,callStore } from "@/store/index"
 const { appContext : { config: { globalProperties } } } = getCurrentInstance()
@@ -54,7 +54,55 @@ const agreeLogin = async () => {
   }
     
   console.log(res)
+  if (res["code"] === 100001){
+    globalProperties.$confirm({
+      message: "您的账号已经在异地成功登录，如登录当前设备，已成功登录的设备将强制下线，请确认是否需要登录",
+      failedText:"取消",
+      succedText:"确认",
+      async succed(){
+        // 确认需要登录
+        // 触发确认登录接口 
+  
+        const {res:data}=await ackLogin({
+          userName: userName.value,
+          userPassword: userPassword.value,
+        })
+        console.log(data,"data")
+        if (data["code"] != 200) {
+          globalProperties.$message(data["message"])
+          return
+        }
+        console.log("二次登录成功")
+        store.setUser({
+          userAvatar: data["data"]["avatar"],
+          userSex: data["data"]["gender"],
+          useriPhone: data["data"]["phone_number"],
+          userWx: data["data"]["wechat_id"],
+          userRigon: data["data"]["region"],
+          uid: data["data"]["uid"], nickName: data["data"]["nickName"],
+          QRcode: data["data"]["QRcode"]
+        })
+        store.setToken(data["data"]["token"])
+        store.openSocket(data["data"]["token"])
+        CallStore.openPeer(store.user.uid)
+        const path = route.query.redirect || "/"
+        globalProperties.$message("登陆成功")
+
+        router.push({
+          path: path
+        })
+      },
+      failed(){
+        console.log("取消了")
+      },
+     
+    },)
+    // 异地登录
+    return 
+  }
   if(res["code"]!=200){
+
+    
     globalProperties.$message(res["message"])
     return 
   }
@@ -66,14 +114,12 @@ const agreeLogin = async () => {
     uid:res["data"]["uid"],nickName:res["data"]["nickName"],
     QRcode:res["data"]["QRcode"]
   })
-  store.setToken(res["token"])
-  store.openSocket(res["token"])
+  store.setToken(res["data"]["token"])
+  store.openSocket(res["data"]["token"])
   CallStore.openPeer(store.user.uid)
-  // const t=await test(store.user.uid)
-  // console.log(t)
   const path=route.query.redirect||"/"
   globalProperties.$message("登陆成功")
-  console.log(path)
+
   router.push({
     path:path
   })

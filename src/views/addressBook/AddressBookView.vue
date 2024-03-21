@@ -1,7 +1,6 @@
 <template>
   <div class="addressBook">
-    <ScrollLayout :bottom="100" :alpha="alpha">
-
+    <ScrollLayout  :alpha="alpha">
         <div class="functions">
           <ListItem v-for="item in meun" :key="item.sesstionId" :sesstio-item="item" @click="onGotoView(item.path)">
           </ListItem>
@@ -19,9 +18,6 @@
               <div class="title" :id="firstPinyin">{{ firstPinyin }}</div>
               <div class="content" :data-wechat_id="item.wechat_id" :data-id="item.uid"
                 v-for="item in peoples[firstPinyin]" :key="item.uid">
-
-
-
                 <Avatar className="pointer" :src="item.avatar" :size="35"></Avatar>
 
                 <div class="nickName">
@@ -52,15 +48,14 @@ import { ref, } from "vue"
 import { useRouter } from "vue-router"
 import { useFriendRequest } from "@/hooks/useFirendRequest"
 import ScrollLayout from "@/layout/ScrollLayout.vue"
+
 const router = useRouter()
 const meun = ref([
-
   {
     sesstionId: 1,
     sesstionName: "新的朋友",
     avatar: "icon-Dimission-S",
     path: "/friend/newFriend"
-
   },
   {
     sesstionId: 2,

@@ -35,17 +35,20 @@
 </template>
 
 <script setup>
-import {ref} from "vue"
-import { useRouter } from "vue-router"
-import {userStore} from "@/store"
-import SearchShow from "@/components/SearchShow.vue"
 
+import {userStore} from "@/store"
+import {  getQrcode} from "@/api/index"
+import { onMounted } from "vue"
 const isQrcodeVisible=ref(false)
 const router = useRouter()
 const store=userStore()
 const toBack = () => {
   router.go(-1)
 }
+onMounted(async()=>{
+  const {res:{data}}=await getQrcode(store.user.uid)
+  store.user.QRcode=data
+})
 // const toSearch = () => {
 //   router.push({
 //     path: "/friend/addfriend/search",

@@ -34,7 +34,7 @@ const search=  debounce(function(e){
 })
 // 关闭标签显示
 const isShow=computed(()=>{
-  return searcKwd.value.length
+  return searcKwd.value.length>0
 })
 // 清空搜索
 const cleanKwd=()=>{

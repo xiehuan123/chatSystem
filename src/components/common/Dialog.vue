@@ -8,8 +8,8 @@
   <div class="info">
     <Avatar :src="store.user.userAvatar" />
     <div>
-      <Text color="#ffffff" :size="17">{{store.user.nickName}}</Text>
-      <Text >{{store.user.userRigon}}</Text>
+      <Text color="#000000" :size="17">{{store.user.nickName}}</Text>
+      <Text color="#000000">{{store.user.userRigon}}</Text>
     </div>
   
   </div>
@@ -67,7 +67,8 @@ watch(()=>props.visible,(val)=>{
       padding: 30px;
       box-sizing: border-box;
       border: solid 1px #ccc;
-      background: linear-gradient(70deg,#EF54C0,#F9F871);
+      // background: linear-gradient(70deg,#EF54C0,#F9F871);
+      background-color: #fff;
       .info{
         display: flex;
         align-items: center;

@@ -58,19 +58,36 @@
 import { ref } from "vue"
 import { QrcodeStream } from "vue-qrcode-reader"
 import {useRouter} from "vue-router"
-
+import {decryptData} from "@/utils/index"
 const paused = ref(false)
-const result = ref("")
+const result = ref(JSON.stringify({"type": "wx", "result": "3913aa67f49071f41e440b469c2654f95c25ec3bb59930974db49d1bc550f5bc3260e83513beb33d"}) )
 const showScanConfirmation = ref(false)
 const selectIndex = ref(0)
-
+decryptData("12345678", "3913aa67f49071f41e440b469c2654f95c25ec3bb59930974db49d1bc550f5bc3260e83513beb33d")
 const router=useRouter()
 const onCameraOn = () => {
   showScanConfirmation.value = false
 }
-
+try {
+  const data=JSON.parse(result.value)
+  console.log(data)
+  if(data.type==="wx"){
+    const {us,wechat_id}=JSON.parse(decryptData(data.result)) 
+    console.log(us,wechat_id)
+    if(us===1){
+      console.log("私聊")
+      router.push(`/friend/peopleinfo/1/${wechat_id}`)
+    }else{
+      console.log("群聊")
+    }
+  }
+} catch (error) {
+  console.log(error)
+}
 const onCameraOff = () => {
   console.log(result.value)
+  // {type:'wx',resulet:加密({us: "1", wechat_id: "wx_4bc488f2"}||{us: "2", gid: "77",pwd:"123456"})}      
+  // {us: "2", gid: "77",pwd:"123456"}
   showScanConfirmation.value = true
 }  
 const onError = (err) => {
@@ -81,6 +98,21 @@ const onDetect = async (detectedCodes) => {
   paused.value = true
   await timeout(500)
   paused.value = false
+  try {
+    const {type,resulet}=JSON.parse(result.value)
+    if(type==="wx"){
+      const {us,wechat_id,gid,pwd}=JSON.parse( decryptData(resulet))
+      if(us==="1"){
+        router.push(`/chat/${wechat_id}`)
+      }else{
+        router.push(`/groupChat/${gid}/${pwd}`)
+      }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+    
+
 }
 const timeout = (ms) => {
   return new Promise((resolve) => {

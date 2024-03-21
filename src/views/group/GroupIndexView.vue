@@ -57,7 +57,7 @@
 import {useFriendRequest} from "@/hooks/useFirendRequest"
 import { createGroup, joinGroup,getGroupInfo} from "@/api/group"
 import { userStore } from "@/store"
-
+const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 const router = useRouter()
 const store = userStore()
 const { peoples,pinyinList } = useFriendRequest()
@@ -89,6 +89,7 @@ const selectedCount=computed(()=>{
  
 })
 const onFinish=()=>{
+  globalProperties.$loading("发起群聊中...")
   // 1.拿到选中的用户的id
   // 2.创建群聊
   // 3.发送消息给相关用户
@@ -128,7 +129,23 @@ const onFinish=()=>{
         wechat_id: store.user.userWx
       }
     })
+    store.setCuurentSesstion({
+      
+      sesstionId:res.data.gid,
+      sesstionName:res.data.group_name,
+      us:2,
+      memberPerson:res.data.group_member_count,
+      sesstioAvatar:res.data.image_urls,
+      wechat_id:"0"
+    })
+    router.push({path:`/user/sesstion/2/${res.data.gid}`})
+    
 
+  }).catch(err=>{
+    console.log(err)
+  }).finally(()=>{
+
+    globalProperties.$loading("",false)
   })
   
 

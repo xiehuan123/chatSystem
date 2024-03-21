@@ -5,6 +5,7 @@ import moment from "moment/moment"
 import emitter from "@/utils/Bus"
 import _ from "lodash"
 
+import CryptoJS from "crypto-js"
 moment.defineLocale("zh_CN", {
   relativeTime: {
     future: "%s内",
@@ -310,3 +311,19 @@ export const hasOwnProperty=(obj, key)=>{
   return Object.prototype.hasOwnProperty.call(obj, key)
 }
 
+export const  decryptData=(encryptedData,secretKey="12345678")=>{
+  const keyBytes = CryptoJS.enc.Utf8.parse(secretKey)
+  const encryptedBytes = CryptoJS.enc.Hex.parse(encryptedData)
+
+  const decryptedBytes = CryptoJS.DES.decrypt(
+    { ciphertext: encryptedBytes },
+    keyBytes,
+    {
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7,
+      iv: keyBytes,
+    }
+  )
+  console.log("结果",CryptoJS.enc.Utf8.stringify(decryptedBytes))
+  return CryptoJS.enc.Utf8.stringify(decryptedBytes)
+}

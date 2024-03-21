@@ -190,6 +190,7 @@ const onGotoView=(wechat_id)=>{
 <style lang="scss" scoped>
 .groupDetail {
   background: $bg-color;
+  height: 100%;
   .headInfo{
     display: flex;
     padding: 5px 10px;

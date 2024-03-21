@@ -1,20 +1,20 @@
 <template>
-    <transition name="fade" @after-leave="destroy">
-  <div class="Confirm" v-if="isVisable">
-    <div class="content">
-      <div class="title">提示</div>
-      <div class="text">{{ props.message }}</div>
-      <div class="option">
-        <div class="esc" @click="onEsc()">
-          {{ props.failedText || "取消" }}
-        </div>
-        <div class="sure" @click="onSure()">
-          {{ props.succedText || "确定" }}
+  <transition name="fade" @after-leave="destroy">
+    <div class="Confirm" v-if="isVisable">
+      <div class="content">
+        <div class="title">提示</div>
+        <div class="text">{{ props.message }}</div>
+        <div class="option">
+          <div class="esc" @click="onEsc()" v-if="props.failedText">
+            {{ props.failedText || "取消" }}
+          </div>
+          <div class="sure" @click="onSure()" v-if="props.succedText">
+            {{ props.succedText || "确定" }}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</transition>
+  </transition>
 </template>
 
 <script setup>

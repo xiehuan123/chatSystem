@@ -2,13 +2,13 @@ import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import Components from "unplugin-vue-components/vite"
 import AutoImport from "unplugin-auto-import/vite"
-// import basicSsl from "@vitejs/plugin-basic-ssl"
 import eslintPlugin from "vite-plugin-eslint"
 import path from "path"
-// https://vitejs.dev/config/
+import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   server: {
-    host: "localhost",
+
+     host:"0.0.0.0",
     port: 5173, // 修改成你的开发服务器端口
     proxy: {
       "/uploads": {
@@ -26,6 +26,39 @@ export default defineConfig({
   // basicSsl()
   plugins: [
     vue(),
+    VitePWA({
+    injectRegister: 'auto',
+    registerType: 'autoUpdate',
+    devOptions: {
+        enabled: true  // 是否支持开发模式下也使 pwa 生效
+    },
+
+    // MANIFEST PWA https://vite-pwa-org.netlify.app/guide/pwa-minimal-requirements.html
+    includeAssets: ['wx.svg', 'apple-touch-icon.png', 'mask-icon.svg', 'favicon.png'], // 应该是下面 manifest 中可能用到的文件名字吧
+    manifest: {
+        name: 'IM',
+        short_name: "IM",
+        theme_color: "#373737",
+        start_url: "./",
+        display: "standalone",
+        background_color: "#373737",
+        icons: [
+            {
+                src: "wx.svg",
+                sizes: "512x512",
+                type: "image/svg+xml",
+                purpose: "any",
+            },
+            {
+                src: "appicon-apple.png",
+                sizes: "512x512",
+                type: "image/png",
+                purpose: "any",
+            },
+        ],
+    },
+})
+,
     Components({
       dirs: ["src/components", "src/layout"],
     }),
