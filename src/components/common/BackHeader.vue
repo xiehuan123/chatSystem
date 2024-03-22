@@ -32,7 +32,7 @@ defineProps({
 const toBack = () => {
 
   console.log("aaa")
-  router.go(-1)
+  router.back()
 }
 const toMenu = () => {
   console.log("菜单")

@@ -1,5 +1,5 @@
 <template>
-<Dialog v-model:visible="isQrcodeVisible"></Dialog>
+<Dialog :dialog="dialog"></Dialog>
   <div class="addfriendview" >
     <h4 class="title">
       <Icon
@@ -42,6 +42,7 @@ import { onMounted } from "vue"
 const isQrcodeVisible=ref(false)
 const router = useRouter()
 const store=userStore()
+const dialog =ref({})
 const toBack = () => {
   router.go(-1)
 }
@@ -57,6 +58,18 @@ onMounted(async()=>{
 const  openQrcode=()=>{
   console.log("打开二维码")
   isQrcodeVisible.value=true
+  dialog.value={
+    title: "二维码",
+    open:true,
+    data:{
+      nickName: store.user.nickName,
+      userRigon: store.user.userRigon,
+      QRcode: store.user.QRcode,
+      userAvatar: store.user.userAvatar,
+    }
+   
+  }
+  console.log(dialog.value,"userAvatar")
 }
 const infoList = [
   {

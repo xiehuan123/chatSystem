@@ -245,13 +245,23 @@ const routes = [
         meta:{
           // 当前会话保持
           sesstion:true,
-          title:"聊天信息"
+          title:"聊天信息",
+          keepAlive: true // 缓存该组件
         },
         component:()=>import("@/views/group/GroupDetailView.vue")
       },
      
-    ]
-  }
- 
+    ],
+  
+  },
+  // 通用二维码页面
+  {
+    path:"/qrcode/:us/:kw",
+    component:()=>import("@/views/qrcode/QrcodeView.vue"),
+    meta:{
+      // 当前会话保持
+      sesstion:true
+    }
+  }, 
 ]
 export default routes

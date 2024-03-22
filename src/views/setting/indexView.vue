@@ -10,7 +10,7 @@
       <textItem v-for="item in meun" :key="item.id" :item="item">
       </textItem>
       <Text :style="{ color: 'red', padding: '10px 10px' }" :weight="400" color="#272727" :size="12">隐私</Text>
-      <textItem v-for="item in yinsi" :key="item.id" :item="item">
+      <textItem v-for="item in yinsi" :key="item.id" :item="item" @click="onGotoView(item.id)">
       </textItem>
 
     </ScrollLayout>
@@ -19,7 +19,10 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+
+import { logoutFunc } from "@/store/index"
+import confirm from "@/components/common/Confirm"
+
 const meun = ref([
   {
     id: 1,
@@ -142,11 +145,23 @@ const yinsi = ref([
   },
   
 ])
-
+const onGotoView=(id)=>{
+  switch (id) {
+  case 15:
+    confirm({"message":"确认退出登录", succed(){
+      logoutFunc()
+    }})
+    break
+  
+  default:
+    break
+  }
+}
 </script>
 
 <style scoped lang='scss'>
 .userInfo {
+  height: 100%;
   background: $bg-color;
 }
 </style>

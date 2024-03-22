@@ -66,7 +66,7 @@ const onGotoView=(group,image_urls)=>{
       gap: 1px;
       margin-right: 10px;
       padding: 2px;
-   background-color: $bd-color;
+      background-color: $bd-color;
       border-radius: 3px;
       width: 36px;
       height: 36px;

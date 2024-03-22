@@ -1,16 +1,15 @@
 import { ref } from "vue"
 import { defineStore } from "pinia"
 import { io } from "socket.io-client"
-import { callStore } from "."
+import {compulsionLogout } from "."
 import router from "@/router"
 import confirm from "@/components/common/Confirm"
 
 export const userStore = defineStore("user", 
   () => {
-    const callStoreInstance=callStore()
     const $socket = ref(null)
     //存储当前登录用户信息
-    const user = ref( null )   
+    const user = ref( JSON.parse(localStorage.getItem("user")||null) )   
     const token=ref(localStorage.getItem("token")||null)
     // 底部相关的通知
     const noticeCount=ref({
@@ -20,7 +19,7 @@ export const userStore = defineStore("user",
     })
     // 指纹id
     const fingerprint=ref(0)
-    const test=ref(0)
+
     //存储所有会话列表以及即时消息
     const sesstionList = ref([
     // {
@@ -188,22 +187,17 @@ export const userStore = defineStore("user",
           },
           failedText:""
         })
-        // 清除本地浏览器缓存的登录状态 关闭当前的socket 以及peejs 服务
-        // 重定向的到登录页面
-        localStorage.clear()
-        sessionStorage.clear()
-        $socket.value.disconnect()
-        console.log(callStoreInstance.peer)
-        callStoreInstance.peer.disconnect()
-        
+    
+        // 调用退出登录方法
+        compulsionLogout()
       })
     }
     //登录完过后  存储数据
     const setUser=(data)=>{
       console.log(data)
       user.value=data
-      // localStorage.setItem("user", JSON.stringify(data))
-      test.value++
+      localStorage.setItem("user", JSON.stringify(data))
+   
     }
     //存储当前会话方法
     const setCuurentSesstion=(data)=>{
@@ -291,7 +285,7 @@ export const userStore = defineStore("user",
     
     }
   
-    return {  test,$socket,user,fingerprint,token,sesstionList,clearCuurentSesstion,sesstionMsgs,initInfoList,noticeCount, openSocket, cuurentSesstion,setSesstionreadStaus,setUser ,setToken,setCuurentSesstion,clearUser,setInfoList}
+    return {  $socket,user,fingerprint,token,sesstionList,clearCuurentSesstion,sesstionMsgs,initInfoList,noticeCount, openSocket, cuurentSesstion,setSesstionreadStaus,setUser ,setToken,setCuurentSesstion,clearUser,setInfoList}
   },
  
   

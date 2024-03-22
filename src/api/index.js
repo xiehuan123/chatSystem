@@ -21,6 +21,10 @@ export const ackLogin=async (data = {}) => {
     "fingerprint":localStorage.getItem("fingerprint")||""
   }})
 }
+// 退出登录请求
+export const logout=async (uId,data={})=>{
+  return await request({ url: `/user/logout/${uId}`, method: "POST", data })
+}
 // 注册用户
 export const register = async (data = {}) => {
   console.log("data", data)

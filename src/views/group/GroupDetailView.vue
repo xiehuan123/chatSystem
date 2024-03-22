@@ -31,6 +31,7 @@
 import {   onMounted, ref } from "vue"
 import {getGroupInfo,quitGroup,dismissGroup} from "@/api/group"
 import { userStore } from "@/store"
+import confirm from "@/components/common/Confirm"
 const store=userStore()
 // 群聊信息
 const groupInfo=ref({})
@@ -163,24 +164,43 @@ onMounted(async () => {
 
 const onClick=async (item)=>{
   if(item.id===14){
+   
     if(groupInfo.value.user.uid===store.user.uid){
-      const {res,err} = await dismissGroup(groupInfo.value.gid)
-      if(err){
-        throw err
-      }
-      if(res.code===200){
-        router.push({path:"/weixin"})
-      }
+
+      confirm({
+        message: "确认是否需要解散群聊",
+        async succed() {
+          const { res, err } = await dismissGroup(groupInfo.value.gid)
+          if (err) {
+            throw err
+          }
+          if (res.code === 200) {
+            router.push({ path: "/weixin" })
+          }
+        }
+      })
+     
     }else{
+
+      confirm({
+        message: "确认是否需要退出群聊",
+        async succed() {
+          const { res, err } = await quitGroup(groupInfo.value.gid)
+          if (err) {
+            throw err
+          }
+          if (res.code === 200) {
+            router.push({ path: "/weixin" })
+          }
+        }
+      })
       console.log("退出群聊")
-      const {res,err} = await quitGroup(groupInfo.value.gid)
-      if(err){
-        throw err
-      }
-      if(res.code===200){
-        router.push({path:"/weixin"})
-      }
+     
     }
+  }
+  else if (item.id===2){
+    console.log("群二维码", )
+    router.push({ path: `/qrcode/2/${groupInfo.value.gid}`})
   }
 }
 const onGotoView=(wechat_id)=>{

@@ -27,6 +27,7 @@ declare module 'vue' {
     FindList: typeof import('./src/components/FindList.vue')['default']
     Footer: typeof import('./src/components/userLayout/Footer.vue')['default']
     Friend: typeof import('./src/components/Friend.vue')['default']
+    GroupAvatar: typeof import('./src/components/common/GroupAvatar.vue')['default']
     HomeList: typeof import('./src/components/HomeList.vue')['default']
     Icon: typeof import('./src/components/common/Icon.vue')['default']
     IndexBar: typeof import('./src/components/common/IndexBar.vue')['default']

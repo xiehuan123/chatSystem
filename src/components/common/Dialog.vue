@@ -1,50 +1,53 @@
 <template>
-  <transition
-    name="dialog-fade"
+  <transition name="dialog-fade">
+    <div class="dialog" @click.self="onClose" v-if="isVisible">
+      <div class="main" >
+        <div class="info">
+          <Avatar :src="data.userAvatar" v-if="data.userAvatar" />
+          <div>
+            <Text color="#000000" :size="17" v-if="data.nickName">{{data.nickName}}</Text>
+            <Text color="#000000" v-if="data.userRigon">{{data.userRigon}}</Text>
+          </div>
 
-   >
-<div class="dialog" @click.self="onClose" v-show="isVisible">
-<div class="main">
-  <div class="info">
-    <Avatar :src="store.user.userAvatar" />
-    <div>
-      <Text color="#000000" :size="17">{{store.user.nickName}}</Text>
-      <Text color="#000000">{{store.user.userRigon}}</Text>
+        </div>
+        <img :src="data.QRcode" alt="" v-if="data.QRcode">
+        <Text :style="{ textAlign:'center'}">扫一扫上面的二维码添加我为好友</Text>
+      </div>
+      
     </div>
-  
-  </div>
-  <img :src="store.user.QRcode" alt="">
-  <Text :style="{ textAlign:'center'}">扫一扫上面的二维码添加我为好友</Text>
-</div>
-</div>
   </transition>
 </template>
 
 <script setup>
-import { ref,defineProps,watch,defineEmits} from "vue"
-import {userStore}from "@/store"
+import { ref,defineProps,watch,} from "vue"
 
 import Avatar from "@/components/common/Avatar.vue"
 import Text from "@/components/common/Text.vue"
 const props=defineProps({
-  visible:{
-    type:Boolean,
-    default:false
+  dialog:{
+    type:Object,
+    default:()=>{
+      return {
+        title:"",
+        open:false,
+        data:{
+   
+        }
+      }
+    }
   }
 })
-const store=userStore()
-const isVisible=ref(false)
-console.log(store.user)
-const emit=defineEmits(["update:visible"])
+const isVisible=ref(props.dialog.open)
+const data = ref(props.dialog.data)
 const onClose=()=>{
   isVisible.value=false
-  emit("update:visible",false)
-  
 }
 // 监听传递的值
-watch(()=>props.visible,(val)=>{
-
-  isVisible.value=val
+watch(() => props.dialog,(val)=>{
+  isVisible.value = val.open
+  if(val.open){
+    data.value = val.data
+  }
 })
 </script>
 
@@ -83,5 +86,6 @@ watch(()=>props.visible,(val)=>{
          
         }
     }
+  
 }
 </style>

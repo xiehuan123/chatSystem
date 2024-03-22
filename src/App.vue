@@ -1,6 +1,9 @@
 <template>
   <div id="app" @touchmove.prevent>
-    <router-view></router-view>
+
+      <router-view></router-view>
+
+
   </div>
 
 </template>
@@ -15,7 +18,7 @@ import { userStore, callStore, messageIndexDB } from "@/store"
 
 
 const store = userStore()
-const CallStore = callStore()
+const callStoreInstance = callStore()
 const messageStore = messageIndexDB()
 // setTimeout(() => {
 //   console.log("备份")
@@ -29,7 +32,11 @@ onBeforeMount(() => {
     window.sessionStorage.setItem("cuurentSesstion", JSON.stringify(store.cuurentSesstion))
     // 备份消息到本地
     console.log(store.sesstionList, store.sesstionMsgs, "备份消息到本地")
+
     messageStore.setMessageList(store.sesstionList, store.sesstionMsgs)
+    // 将当前的socket以及peer 服务关闭
+    store.$socket.disconnect()
+    callStoreInstance.peer.disconnect()
   })
   // 页面刷新 
   window.addEventListener("load", () => {
@@ -47,7 +54,7 @@ onBeforeMount(() => {
 
     if (user && token) {
       store.openSocket(token)
-      CallStore.openPeer(user.uid)
+      callStoreInstance.openPeer(user.uid)
     }
 
 
@@ -57,7 +64,7 @@ onBeforeMount(() => {
 onMounted(async () => {
 
   const fpPromise = FingerprintJS.load()
-  // Get the visitor identifier when you need it.
+
   const fp = await fpPromise
   const result = await fp.get()
   console.log(result.visitorId)
@@ -65,11 +72,11 @@ onMounted(async () => {
   store.fingerprint = result.visitorId
   // 存入浏览器缓存
   localStorage.setItem("fingerprint", result.visitorId)
-  const CallStore = callStore()
-  if (store.token){
-    store.openSocket(store.token)
-    CallStore.openPeer(store.user.uid)
-  }
+  // const callStoreInstance = callStore()
+  // if (store.token){
+  //   store.openSocket(store.token)
+  //   callStoreInstance.openPeer(store.user.uid)
+  // }
 
 })
 

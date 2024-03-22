@@ -34,3 +34,7 @@ export const dismissGroup = async (groupId,data={}) => {
 export const inviteGroup = async (inviteUrl,data={}) => {
   return await request({ url: `/group/invite/${inviteUrl}`, method: "GET", data })
 }
+// 查询群聊分享二维码
+export const getGroupQrcode = async (groupId,data={}) => { 
+  return await request({ url: `/group/qrcode/${groupId}`, method: "GET", data })
+}

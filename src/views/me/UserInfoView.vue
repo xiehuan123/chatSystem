@@ -12,6 +12,7 @@ import { userStore } from "@/store"
 
 
 const store=userStore()
+const router=useRouter()
 const meun=ref([
   {
     id:1,
@@ -76,6 +77,14 @@ const meun=ref([
 
 const onGoToView=(id)=>{
   console.log(id)
+  switch (id) {
+  case 5:
+    router.push({ path: `/qrcode/1/${store.user.uid}` })
+    break
+  
+  default:
+    break
+  }
 
 }
 </script>
