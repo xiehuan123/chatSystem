@@ -30,6 +30,7 @@
 + pinia 状态管理
 + peerjs 视频通话
 + VueRouter 路由管理
++ postcss 适配设备
 + vite 打包工具
 + fingerprintjs 指纹iD
 + axios http请求
