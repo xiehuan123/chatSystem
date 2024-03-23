@@ -1,11 +1,4 @@
-<!--
- * @Author: xiehuan123 1208044257@qq.com
- * @Date: 2023-12-05 13:38:23
- * @LastEditors: xiehuan123 1208044257@qq.com
- * @LastEditTime: 2024-02-19 12:37:25
- * @FilePath: /chatSystem/src/views/moment/PhotoGraph.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
+
 <template>
   <div class="photograph">
     <div class="content" v-show="show">
@@ -93,12 +86,32 @@ const firstIndex=ref(-1)
 // 二级选项选中i(ndex
 const secondIndex=ref(-1)
 // 默认是在拍照的状态下面
-const show=ref(true)
-onMounted(async ()=>{
-  const stream= await getUserMedia({video:true})
-  videoDom.value.srcObject=stream
+const show = ref(true)
+onMounted( () => {
+
+  getLocalMedia()
 })
-const toBack=()=>{
+const option=ref({
+  video:{
+    facingMode: { exact: "user" } 
+  }
+})
+// 获取摄像头本地视频流
+const getLocalMedia = async () => {
+  try {
+    console.log(option.value)
+    const stream = await getUserMedia({
+      video: {
+        facingMode: { exact: "user" }
+      }
+    })
+    videoDom.value.srcObject = stream
+  } catch (error) {
+    alert("获取摄像头失败")
+  }
+
+}
+const toBack = () => {
   // 停止视频流
   var stream = videoDom.value.srcObject
   var tracks = stream.getTracks()
@@ -217,7 +230,7 @@ const onFinish=()=>{
   momentStore.setMometimageList(image)
   router.push(
     {
-      path:"/moment/moment/momentPublish"
+      path:"/moment/momentPublish"
     }
   )
 }
