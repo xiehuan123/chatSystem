@@ -1,6 +1,6 @@
 
 import { render, h } from "vue"
-import messageComponent from "./message.vue"
+import messageComponent from "./Message.vue"
 
 const message = (message, icon,duration = 2000) => {
   const handleDestroy = () => {
