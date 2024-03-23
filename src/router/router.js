@@ -257,7 +257,7 @@ const routes = [
   // 通用二维码页面
   {
     path:"/qrcode/:us/:kw",
-    component:()=>import("@/views/qrcode/QrcodeView.vue"),
+    component:()=>import("@/views/qrcodeInfo/QrcodeVIew.vue"),
     meta:{
       // 当前会话保持
       sesstion:true
