@@ -34,7 +34,7 @@ jobs:
         run: npm run build
       # 部署到服务器
       - name: deploy
-        uses: easingthemes/ssh-deploy@v2.1.1
+        uses: root
         env:
           # 本地.ssh文件下的私钥id_rsa，存在secrets的PRIVATE_KEY中
           SSH_PRIVATE_KEY: ${{ secrets.REMOTE_SSH }}
