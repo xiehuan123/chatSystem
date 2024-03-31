@@ -300,7 +300,7 @@ watch(() => msgs.value, () => {
           padding: 7px 10px;
           border-radius: 5px;
           margin-inline-end: 10px;
-          overflow: hidden;
+          
 
           &::before {
             content: "";

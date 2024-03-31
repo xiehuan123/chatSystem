@@ -127,6 +127,8 @@ export const userStore = defineStore("user",
     })
     const openSocket = (token) => {
       $socket.value = io(import.meta.env.VITE_SOCKET_URL, {
+        timeout: 30000, // 设置服务器连接超时时间为 30 秒
+        pingInterval: 5000, // 设置服务器发送心跳消息的间隔为 5 秒
         extraHeaders: {
           "Authorization": `${token}`
         }
