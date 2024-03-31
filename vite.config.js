@@ -6,6 +6,7 @@ import eslintPlugin from "vite-plugin-eslint"
 import path from "path"
 import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
+ 
   server: {
     
     host:"0.0.0.0",
@@ -57,6 +58,24 @@ export default defineConfig({
             },
         ],
     },
+    workbox:{
+  
+      globDirectory: 'dist',
+      globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg}'],
+
+      runtimeCaching: [                     // 配置自定义运行时缓存
+		     {
+            urlPattern: /^http:\/\/127\.0\.0\.1:5001\/.*$/, // 接口缓存 此处填你想缓存的接口正则匹配
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'interface-cache',
+            },
+          },
+		      ]
+
+        }
+      
+
 })
 ,
     Components({
