@@ -365,7 +365,7 @@ watch(() => isShow.value, (val) => {
             display: flex;
         
             align-items: center;
-            justify-content: end;
+            justify-content: flex-end;
             background-color: #fff;
             z-index: 5;
                   >div {

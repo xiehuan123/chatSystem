@@ -1,33 +1,33 @@
 <template>
   <div class="home">
-    <div class="list">
-    <sessionItem v-for="item in sesstionList" :key="item.sesstionId" :lastInfoMsg="lastInfoMsg(item.sesstionId)" :sesstioItem="item" :height="55" :border="true" @click="onGoDialog(item)">
-    </sessionItem>
-  </div>
-  
+    <div class="list" >
+
+      <sessionItem v-for="item in sesstionList" :key="item.sesstionId" :lastInfoMsg="lastInfoMsg(item.sesstionId)"
+        :sesstioItem="item" :height="55" :border="true" @click="onGoDialog(item)">
+      </sessionItem>
+    </div>
+
   </div>
 </template>
 
 <script setup>
-import { ref,watch,onMounted,computed  } from "vue"
+import { ref,watch,computed  } from "vue"
 import {userStore} from "@/store/index"
-import BScroll from "better-scroll"
+
 import { useRouter } from "vue-router"
 import {hasOwnProperty} from "@/utils/index"
 
+
 const store=userStore()
-const sesstionList=ref(store.sesstionList)
+
+const sesstionList = ref(store.sesstionList)
 watch(() => store.sesstionList, (newValue, oldValue) => {
   console.log(`count 变化，新值：${newValue}，旧值：${oldValue}`)
+  console.log(JSON.stringify(newValue),9999)
   sesstionList.value = newValue
      
 }, { deep: true })
-onMounted(()=>{
-// 提示，因为transform是对dom操作，所以需要在这个生命周期操作
-  scroll.value = new BScroll(".home", {
-    click:true
-  })
-})
+
 const lastInfoMsg=computed(()=>{
   return function (sesstionId){
     if(!hasOwnProperty(store.sesstionMsgs,sesstionId)){

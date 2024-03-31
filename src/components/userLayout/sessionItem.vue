@@ -1,5 +1,5 @@
 <template>
-  <div v-show="Object.keys(sesstioItem).length != 0" :class="[
+  <div v-show="Object.keys(sesstioItem).length> 0" :class="[
     'item',
     sesstioItem?.marginTop && 'marginTop',
     border && 'border',
@@ -10,34 +10,33 @@
     </div>
 
     <div v-if="sesstioItem.us==2">
-       <div class="avatarBox" >
-            <img v-for="image in sesstioItem.sesstioAvatar" :key="image"  :src="image" />
-            
-            <div v-for="empty in 9-sesstioItem.sesstioAvatar.length" :key="empty">
-            </div> 
+      <div class="avatarBox">
+        <img v-for="image in sesstioItem.sesstioAvatar" :key="image" :src="image" />
+
+        <div v-for="empty in 9-sesstioItem.sesstioAvatar.length" :key="empty">
+        </div>
+      </div>
     </div>
-    </div>  
-   
 
     <div class="content">
       <div>{{ sesstioItem.sesstionName }}</div>
       <div v-if="sesstioItem.us == 2">
         <span v-if="sesstioItem.num>1">[{{ sesstioItem.num }}]</span>
-        <span>{{ lastInfoMsg.sendName }}:</span>{{ lastInfoMsg.sendMsg }}
+        <span>{{ lastInfoMsg?.sendName }}:</span>{{ lastInfoMsg?.sendMsg }}
       </div>
       <div v-if="sesstioItem.us == 1">
-       
+
         <!-- 文本 -->
-        <span v-if="lastInfoMsg.code == 1">{{ lastInfoMsg.sendMsg }}</span>
+        <span v-if="lastInfoMsg?.code == messageType.TEXT">{{ lastInfoMsg?.sendMsg }}</span>
         <!-- 语音 -->
-        <span v-if="lastInfoMsg.code == 2">语音</span>
+        <span v-if="lastInfoMsg?.code == messageType.AUDIO">语音</span>
         <!-- 文件 -->
-        <span v-if="lastInfoMsg.code == 3">文件</span>
+        <span v-if="lastInfoMsg?.code == messageType.FILE">文件</span>
       </div>
     </div>
 
     <div class="time">
-      <div>{{ getFormatTime(lastInfoMsg.sendTime) }}
+      <div>{{ getFormatTime(lastInfoMsg?.sendTime) }}
       </div>
     </div>
   </div>
@@ -46,6 +45,7 @@
 <script setup>
 
 import { getFormatTime,px2rem} from "@/utils"
+import {messageType} from "@/constant"
 defineProps({
   sesstioItem: {
     type: Object,
@@ -64,6 +64,8 @@ defineProps({
     required: true,
   },
 })
+
+
 </script>
 
 <style scoped lang="scss">
@@ -85,7 +87,7 @@ defineProps({
   .avatarBox{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      align-items: start;
+
       gap: 1px;
       // margin-right: 10px;
       padding: 2px;

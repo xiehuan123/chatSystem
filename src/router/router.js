@@ -85,6 +85,14 @@ const routes = [
     component: ()=>import("@/views/user/RegisterView.vue"),
   },
   {
+    path:"/retrieve",
+    component:()=>import("@/views/user/RetrieveView.vue")
+  },
+  {
+    path:"/phonecode",
+    component:()=>import("@/views/user/PhoneCodeVIew.vue")
+  },
+  {
     path: "/index",
     component: ()=>import("@/views/user/IndexView.vue"),
   },

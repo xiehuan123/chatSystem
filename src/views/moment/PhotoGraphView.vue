@@ -102,7 +102,7 @@ const getLocalMedia = async () => {
     console.log(option.value)
     const stream = await getUserMedia({
       video: {
-        facingMode: { exact: "user" }
+        facingMode:"environment"
       }
     })
     videoDom.value.srcObject = stream
@@ -227,7 +227,7 @@ const onTouchEnd = function () {
 // 完成保存图片到会话中
 const onFinish=()=>{
   const image=ctx.value.canvas.toDataURL("image/png")
-  momentStore.setMometimageList(image)
+  momentStore.setMometimageList(+new Date() ,image)
   router.push(
     {
       path:"/moment/momentPublish"
@@ -237,8 +237,10 @@ const onFinish=()=>{
 </script>
 <style lang="scss" scoped>
 .photograph{
+  position: relative;
   width: 100%;
   height: 100%;
+
   .content{
     position: relative;
     width: 100%;
@@ -268,6 +270,7 @@ const onFinish=()=>{
     justify-content: space-around;
     padding-top: 20px;
     box-sizing: border-box;
+    overflow: hidden;
     .shutter{
       position: relative;
       width: 65px;

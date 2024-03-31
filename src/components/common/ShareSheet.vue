@@ -49,12 +49,14 @@ const onOpen=(id)=>{
   width: 100%;
   background-color: $mask-bg;
   z-index: 999999;
+  
   ul{
     position: absolute;
     width: 100%;
     bottom: 0;
     background-color: #ffff;
     border-radius: 10px 10px 0 0;
+    list-style: none;
     // 当前 ul 下面除了最后一个元素生效
     :not(:last-child){
        &::before {

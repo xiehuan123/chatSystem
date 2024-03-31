@@ -1,5 +1,6 @@
 <template>
   <div class="register">
+
     <Close></Close>
     <h3 class="title">手机号注册</h3>
     <div class="form-group">
@@ -9,39 +10,33 @@
             <img :src="uploadImgUrl" alt="" v-show="uploadImgUrl">
           </div>
 
-          <input
-            id="file-upload1"
-            type="file"
-            ref="uploadImgDom"
-            hidden
-            @change="onUploadChange"
-          />
+          <input id="file-upload1" type="file" ref="uploadImgDom" hidden  @change="onUploadChange" />
         </div>
       </div>
     </div>
-    <Input placeholder="例如：陈晨" v-model="userName" text="昵称" />
-    <Input placeholder="请填写手机号(11位)" v-model="userPhone" text="手机"  type="Number"/>
-    <Input
-      placeholder="请填写密码"
-      v-model="userPasswod"
-      text="密码"
-      type="password"
-    />
-    <div class="footer">
-      <div class="top">
-        <input
-          type="radio"
-          name=""
-          id=""
-          :checked="isChecked"
-          @click="checked"
-        /><span>我已阅读并同意</span><a href="">《软件许可及服务协议》</a>
+    <div class="main">
+      <Input placeholder="例如：陈晨" v-model="userName" text="昵称" />
+      <Input placeholder="请填写手机号(11位)" v-model="userPhone" text="手机" type="Number" @change="onPhoneCheck" />
+      <div class="code">
+        <Input placeholder="请输入验证码" v-model="code" text="验证码" type="Number" />
+        <CountDown ref="counDownRef" :isIphoneCheck="isIphoneCheck" @sendCode="onSendCode"></CountDown>
       </div>
-      <div class="center">本页面收集的信息仅用于注册账号</div>
-      <!-- <MyButton    background-color="#07c060">同意并继续</MyButton> -->
-      <button class="agree"  @click="registerCheck" :disabled="disabledCheck">
+      <Input placeholder="请填写密码" v-model="userPasswod" text="密码" type="password" />
+    </div>
+
+    <div class="footer">
+      <div>
+        <div class="top">
+          <input type="radio" name="" id="" :checked="isChecked" @click="checked" /><span>我已阅读并同意</span><a
+            href="">《软件许可及服务协议》</a>
+        </div>
+        <div class="center">本页面收集的信息仅用于注册账号</div>
+
+      </div>
+      <button class="agree" @click="onRegisterSubmit" :disabled="disabledCheck">
         同意并继续
       </button>
+
     </div>
   </div>
 </template>
@@ -51,39 +46,81 @@ import { ref ,getCurrentInstance, computed} from "vue"
 import {useRouter} from "vue-router"
 
 
-import { register } from "@/api/index"
+import { register, sendCode } from "@/api/index"
 
 import {compressionFile} from "@/utils/index"
 
 const { appContext : { config: { globalProperties } } } = getCurrentInstance()
 const router =useRouter()
+// 用户名
 const userName = ref("")
+// 用户手机号
 const userPhone = ref("")
+// 用户密码
 const userPasswod = ref("")
+// 是否同意协议
 const isChecked = ref(false)
+// 上传图片dom
 const uploadImgDom = ref(null)
+// 上传图片地址
 const uploadImgUrl=ref("")
+// 上传图片文件
 const uploadImgFile=ref(null)
+// 验证码
+const code = ref("")
+// 验证码控制
+const isIphoneCheck=ref(false)
+//倒计时验证组件
+const counDownRef=ref(null)
+// 手机号验证
+const onPhoneCheck = () => {
+  const reg_tel = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/    //11位手机号码正则
+  if (!reg_tel.test(userPhone.value)) {
+    globalProperties.$message("不正确")
+    isIphoneCheck.value = false
+    return 
+  }
+  console.log("手机号正确")
+  isIphoneCheck.value = true
+}
+// 发送验证码
+const onSendCode = async () => {
+  console.log("发送验证码")
+  const {err,res}= await sendCode(userPhone.value)
+  if(err){
+    globalProperties.$message("发送失败")
+    return 
+  }
 
+  if(res["code"]==200){
+    globalProperties.$message("发送成功")
+    return 
+  }
+  if(res["code"]!=200){
+    globalProperties.$message(res["message"])
+    counDownRef.value.countdown=0
+    return 
+  }
+
+}
 const checked = () => {
   isChecked.value = !isChecked.value
 }
 const onUploadImg = () => {
+  console.log("上传图片", uploadImgDom.value)
   uploadImgDom.value.click()
 }
 const onUploadChange = async() => {
   const file = uploadImgDom.value.files[0]
   uploadImgFile.value= await compressionFile(file)  
   uploadImgUrl.value = URL.createObjectURL(file)
-
- 
 }
 const disabledCheck=computed(()=>{
   
   return  !(userName.value.trim() &&userPasswod.value.trim() 
-  &&userPhone.value.trim()&&isChecked.value)
+  &&userPhone.value.trim()&&isChecked.value &&code.value.trim())
 })
-const registerCheck = async () => {
+const onRegisterSubmit = async () => {
  
   globalProperties.$loading("正在注册中...")
   const registerData = new FormData()
@@ -92,12 +129,14 @@ const registerCheck = async () => {
   registerData.append("password", userPasswod.value)
   registerData.append("phone_number", userPhone.value)
   registerData.append("avatar", uploadImgFile.value)
+  registerData.append("code", code.value)
   const {err,res}= await register(registerData)
   if(err){
     globalProperties.$message("注册失败")
     return  
   }
   if(res["code"]!=200){
+    globalProperties.$loading("正在注册中...")
     globalProperties.$message(res["message"])
     return 
   }
@@ -115,12 +154,20 @@ const registerCheck = async () => {
 
 <style scoped lang="scss">
 .register {
-  padding: 5px 18px;
+  padding: 18px 18px;
+  display: flex;
+  height: 100%;
+  flex-direction: column; 
+  box-sizing: border-box;
 
   .title {
     text-align: center;
     font-weight: normal;
   }
+  .code {
+          display: flex;
+
+        }
   .userName {
     width: 100%;
     height: 48px;
@@ -135,9 +182,14 @@ const registerCheck = async () => {
     border-bottom: 1.4px solid #dedede;
   }
   .footer {
-    width: 100%;
-    margin-top: 236px;
-    text-align: center;
+  
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+
     .top {
       height: 24px;
       line-height: 24px;

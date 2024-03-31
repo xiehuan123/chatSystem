@@ -144,7 +144,7 @@ ul {
       .avatarBox{
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      align-items: start;
+
       gap: 1px;
       // margin-right: 10px;
       padding: 2px;

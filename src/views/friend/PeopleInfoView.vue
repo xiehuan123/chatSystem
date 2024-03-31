@@ -298,7 +298,7 @@ const onOpen=(id)=>{
 
     .info {
       display: flex;
-      align-items: flex-start;
+
       margin: 0 12px;
       padding: 10px 0;
       .left {

@@ -32,6 +32,22 @@ export const register = async (data = {}) => {
     "Content-Type": "multipart/form-data"
   } })
 }
+// 注册验证码发送
+export const sendCode = async (phone,data = {}) => {
+  return await request({ url: `/user/code/${phone}`, method: "POST", data })
+}
+// 找回密码验证码
+export const sendRetrievevCode=async (phone,data = {}) => {
+  return await request({ url: `/user/code/${phone}`, method: "patch", data })
+}
+// 修改密码 手机号
+export const modifyPassword=async (data = {}) => {
+  return await request({ url: "/user/updatePassword", method: "patch", data })
+}
+// 上传图片
+export const uploadImage=async(data={})=>{
+  return await request({ url: "/user/upload", method: "post", data, })
+}
 // 测试请求
 export const test = async (uId,data={}) => {
   return await request({ url: `/user/test/${uId}`, method: "get", data })

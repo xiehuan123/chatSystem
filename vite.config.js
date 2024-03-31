@@ -7,8 +7,8 @@ import path from "path"
 import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   server: {
-
-     host:"0.0.0.0",
+    
+    host:"0.0.0.0",
     port: 5173, // 修改成你的开发服务器端口
     proxy: {
       "/uploads": {

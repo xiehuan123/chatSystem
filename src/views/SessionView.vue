@@ -17,23 +17,27 @@
               </div>
               <div v-else-if="item.code == messageType.LOCATION" class="invite">
                 <RouterLink :to="`/group/groupInvite/${item.inviteUrl}`">
-                <Text>邀请你加入了群聊</Text>
-                <div class="content">
-                  <Text> "{{ item.sendName }}"邀请你加入了群聊"{{ item.groupName }}"</Text>
-                  <div>
-                    <div class="avatarBox">
-                      <img v-for="image in item.groupAvatar" :key="image" :src="image" />
+                  <Text>邀请你加入了群聊</Text>
+                  <div class="content">
+                    <Text> "{{ item.sendName }}"邀请你加入了群聊"{{ item.groupName }}"</Text>
+                    <div>
+                      <div class="avatarBox">
+                        <img v-for="image in item.groupAvatar" :key="image" :src="image" />
 
-                      <div v-for="empty in 9 - item.groupAvatar.length" :key="empty">
+                        <div v-for="empty in 9 - item.groupAvatar.length" :key="empty">
+                        </div>
                       </div>
+
                     </div>
 
                   </div>
-
-                </div>
                 </RouterLink>
               </div>
-
+              <div v-else-if="item.code == messageType.IMAGE">
+                <div class="imagewrape">
+                  <img :src="item.sendMsg" />
+                </div>
+              </div>
             </div>
           </div>
           <Avatar :src="item.avatar" :size="35" @click="onGotoView(item.wechat_id)" />
@@ -51,7 +55,7 @@
   <Footer @sendInfo="onSendInfo">
   </Footer>
 </template>
-<script >
+<script>
 // ps 下拉加载有问题
 import { defineComponent } from "vue"
 import { userStore } from "@/store"
@@ -82,6 +86,41 @@ const router = useRouter()
 const isPulldown = ref(false)
 //发送信息
 const onSendInfo = (data) => {
+  // 发送文件
+  if (data["code"] == messageType.IMAGE && data["msg"].length > 0) {
+    isPulldown.value = false
+
+    const sesstionMsg = {
+      uid: store.user.uid,//发送方的uid
+      code: data["code"], //消息类型 
+      us: store.cuurentSesstion.us, //1.私聊 2.群聊
+      avatar: store.user.userAvatar,
+      sendName: store.user.nickName,
+      className: "my",
+      readStatus: true,
+      wechat_id: store.user.userWx
+    }
+    const callback = (data) => {
+      console.log(data, "发送成功")
+    }
+    const imageList = data["msg"]
+    for (const key in imageList) {
+      const info = {
+        ...store.cuurentSesstion, sesstionMsg: {
+          ...sesstionMsg,
+          sendMsg: imageList[key]
+        }, callback
+      }
+      // 拼接相关数据发送
+      store.setInfoList(info)
+      // 发送给对方
+      store.$socket?.emit("receiveClientMessage", info, (data) => {
+        console.log(data, "服务端回调成功")},)
+    }
+ 
+    return
+  }
+  console.log("这里不会触发")
   isPulldown.value = false
   const info = {
     ...store.cuurentSesstion,
@@ -261,6 +300,7 @@ watch(() => msgs.value, () => {
           padding: 7px 10px;
           border-radius: 5px;
           margin-inline-end: 10px;
+          overflow: hidden;
 
           &::before {
             content: "";
@@ -285,9 +325,24 @@ watch(() => msgs.value, () => {
             }
           }
 
+          &:has(.imagewrape) {
+            background-color: transparent;
+
+            &::before {
+              border-inline-start: 26px solid $white;
+            }
+          }
+
           div {
             position: relative;
             z-index: 1;
+          }
+
+          .imagewrape {
+            img {
+              width: 100%;
+              height: 100%;
+            }
           }
 
           .invite {
@@ -300,7 +355,7 @@ watch(() => msgs.value, () => {
           .avatarBox {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            align-items: start;
+
             gap: 1px;
             // margin-right: 10px;
             padding: 2px;
@@ -371,4 +426,5 @@ watch(() => msgs.value, () => {
   }
 
 
-}</style>
+}
+</style>

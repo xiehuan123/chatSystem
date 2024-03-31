@@ -2,9 +2,8 @@
   <div class="login">
     <Close></Close>
     <h3 class="title">微信号/QQ号/邮箱登陆</h3>
- 
-      <Input text="账号" type="text"  v-model="userName" placeholder="请填写微信号/QQ号/邮箱" ></Input>
-      <Input text="密码" type="password"  v-model="userPassword" placeholder="请输入密码" ></Input>
+    <Input text="账号" type="text" v-model="userName" placeholder="请填写微信号/QQ号/邮箱"></Input>
+    <Input text="密码" type="password" v-model="userPassword" placeholder="请输入密码"></Input>
 
     <div class="login_phone" @click="phoneLogin">用手机号登陆</div>
     <div class="footer">
@@ -13,7 +12,8 @@
         同意并登录
       </button>
       <div class="menu">
-        <a href="#">找回密码</a>
+        <RouterLink to="/retrieve">找回密码</RouterLink>
+        <!-- <a href="#">找回密码</a> -->
         <a href="#">紧急冻结</a>
         <a href="#">安全中心</a>
       </div>
@@ -130,6 +130,11 @@ const agreeLogin = async () => {
 <style scoped lang="scss">
 .login {
   padding: 14px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
   .close {
     height: 32px;
     width: 32px;
@@ -175,12 +180,13 @@ const agreeLogin = async () => {
     }
   }
   .footer {
-    width: 100%;
+    width: calc(100% - 28px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 250px;
+    position: absolute;
+    bottom: 20px;
     .tip {
       font-size: 10px;
       margin-bottom: 20px;

@@ -1,11 +1,15 @@
 <template>
   <div class="input" >
-    {{text}}<input
+    <span class="text">
+      {{text}}
+    </span>
+    <input
       :type=type
       class="ipt"
       :placeholder="placeholder"
       @input="updateValue"
       :value="modelValue"
+      @change="$emit('change', $event.target.value)"
     />
   </div>
 </template>
@@ -41,12 +45,16 @@ const updateValue = (event) => {
 
 <style scoped lang="scss">
 .input {
+  display: flex;
   width: 100%;
   height: 48px;
   font-size: 14px;
   line-height: 48px;
+  .text{
+    min-width: 60px;
+  }
   .ipt {
-    margin-left: 50px;
+    flex: 1;
     border: 0; // 去除未选中状态边框
     outline: none; // 去除选中状态边框
     background-color: rgba(0, 0, 0, 0); // 透明背景

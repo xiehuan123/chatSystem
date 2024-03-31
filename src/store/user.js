@@ -284,8 +284,10 @@ export const userStore = defineStore("user",
       localStorage.setItem("token",data)
     
     }
-  
-    return {  $socket,user,fingerprint,token,sesstionList,clearCuurentSesstion,sesstionMsgs,initInfoList,noticeCount, openSocket, cuurentSesstion,setSesstionreadStaus,setUser ,setToken,setCuurentSesstion,clearUser,setInfoList}
+    const testfunc=(id)=>{
+      console.log(id)
+    }
+    return {  testfunc,$socket,user,fingerprint,token,sesstionList,clearCuurentSesstion,sesstionMsgs,initInfoList,noticeCount, openSocket, cuurentSesstion,setSesstionreadStaus,setUser ,setToken,setCuurentSesstion,clearUser,setInfoList}
   },
  
   

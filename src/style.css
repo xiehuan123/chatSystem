@@ -1,7 +1,4 @@
-*{
-  margin: 0;
-  padding: 0;
-}
+
 #app{
   width: 100%;
 }
@@ -24,5 +21,30 @@ a {
 .mb-10{
   margin: 10px;
 }
+.pb-20{
+  padding-bottom: 20px;
+}
+.flex-column{
+  display: flex;
+flex-direction: column;
+}
+.jc-center{
+
+  justify-content: center;
+}
+.jc-end{
+  justify-content: flex-end;
+
+}
+.ai-center{
+  align-items: center;
+}
+.flex-1{
+  flex: 1;
+}
+.flex-end{
+  justify-content: flex-end;
+}
+
 
 

@@ -4,9 +4,9 @@ export const  messageType={
 
   TEXT:1, 
   IMAGE:2,
-  AUDIO:2,
+  AUDIO:3,
   VIDEO:"video",
-  FILE:3,
+  FILE:5,
   LOCATION:4, 
   SYSTEM:"system",
   // 以下是区分群聊还是私聊

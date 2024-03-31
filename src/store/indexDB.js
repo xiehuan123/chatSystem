@@ -41,14 +41,14 @@ export const momentIndexDB = defineStore("momentIndexDB",()=>{
  
     return data || []
   }
-  
+ 
   // 保存草稿  {imageList:[{id:1,image:"图片地址"}]}
-  const setMometimageList=async (image)=>{
+  const setMometimageList=async (id,image)=>{
   // 获取当前会话存储的朋友圈图片
     const momentImageList=await momentStore.value.getItem("momentImageList")
     const newmomentImageList=momentImageList||[]   
     // 添加图片
-    newmomentImageList.push({id:+new Date(),"image":image})
+    newmomentImageList.push({id:id,"image":image})
     // 存储到会话
     await momentStore.value.setItem("momentImageList",newmomentImageList)
     await momentStore.value.setItem("momnetImageListLength",newmomentImageList.length)

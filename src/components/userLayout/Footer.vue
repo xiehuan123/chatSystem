@@ -1,34 +1,38 @@
 <template>
-  
-  <div class="footer" >
+
+  <div class="footer">
     <div class="main">
       <div class="speech">
-        <Icon :iconName="isShowAduioKeyboard" :fontSize="$fs - 35"  @click="handoff"      />
+        <Icon :iconName="isShowAduioKeyboard" :fontSize="$fs - 35" @click="handoff" />
       </div>
       <div class="textInput">
         <div class="inputBox">
-          <input  v-show="aduioKeyboard"  type="text" v-model="textInput" @keydown.enter="sendInfo()"  ref="inputRef"  />
+          <input v-show="aduioKeyboard" type="text" v-model="textInput" @keydown.enter="sendInfo()" ref="inputRef" />
           <!-- <div v-else  @touchstart ="startLongPress()" @touchend ="endLongPress()">按住 说话</div> -->
-          <div v-show="!aduioKeyboard"  data-Long="1"   @load="onLoad()" ref="startLongRef"  >按住 说话</div>
-          
+          <div v-show="!aduioKeyboard" data-Long="1" @load="onLoad()" ref="startLongRef">按住 说话</div>
+
         </div>
       </div>
       <div class="operation">
-        <Icon  iconName="icon-xiaolian" :fontSize="35" />
-        <Icon  iconName="icon-jiahao2" v-show="!isTextDom" @click="onOpenOtions()" :fontSize="35"/>
-        <div class="sendInfo" v-show="isTextDom" @click="sendInfo()" >发送</div>
+        <Icon iconName="icon-xiaolian" :fontSize="35" />
+        <Icon iconName="icon-jiahao2" v-show="!isTextDom" @click="onOpenOtions()" :fontSize="35" />
+        <div class="sendInfo" v-show="isTextDom" @click="sendInfo()">发送</div>
       </div>
     </div>
 
     <div class="option" v-show="isOption">
-      <ul
-        ref="ul"
-        @touchstart="onTouchstart($event)"
-        @touchmove="onTouchmove($event)"
-        @touchend="onTouchEnd($event)"
-      >
+      <ul ref="ul" @touchstart="onTouchstart($event)" @touchmove="onTouchmove($event)" @touchend="onTouchEnd($event)">
         <li>
-          <div class="item" v-for="oItem in optionsFirst" :key="oItem.key">
+
+          <div class="item">
+            <ImageUpload triggerId="image-upload" :multiple="true" @change="onImageChang"></ImageUpload>
+            <label for="image-upload" class="bg">
+              <Icon iconName="icon-tupian" :fontSize="30" />
+
+            </label>
+            <div>相册</div>
+          </div>
+          <div class="item" v-for="oItem in optionsFirst" :key="oItem.oId" @touchstart="onTouchOpen(oItem.oId)">
             <div class="bg">
               <Icon :iconName="oItem.oIcon" :fontSize="30" />
             </div>
@@ -37,9 +41,11 @@
           </div>
         </li>
         <li>
-          <div class="item" v-for="oItem in optionsSecond" :key="oItem.key">
-            <div class="bg"><Icon  :iconName="oItem.oIcon"  :fontSize="30"/></div>
-          
+          <div class="item" v-for="oItem in optionsSecond" :key="oItem.oId" :data-oId="oItem.oId">
+            <div class="bg">
+              <Icon :iconName="oItem.oIcon" :fontSize="30" />
+            </div>
+
             <div>{{oItem.oName}}</div>
           </div>
         </li>
@@ -54,8 +60,7 @@
 </template>
 
 <script setup>
-import { ref, computed ,defineEmits} from "vue"
-//import Icon from "@/components/common/Icon.vue"
+import { messageType } from "@/constant"
 
 const textInput = ref("")
 const aduioKeyboard=ref(true)
@@ -69,11 +74,7 @@ const isTextDom = computed(() => {
 
 //第一页
 const optionsFirst = ref([
-  {
-    oId: 1,
-    oName: "相册",
-    oIcon: "icon-tupian",
-  },
+
   {
     oId: 2,
     oName: "拍摄",
@@ -144,8 +145,9 @@ const isOption=ref(false)
 //目前选项第几页标识
 const activeIndex=ref(1)
 const inputRef=ref(null)
+
 const onTouchstart=(e)=>{
-  console.log(ul.value)
+  console.log(e)
   
   clientX.value=e.changedTouches[0].clientX
 }
@@ -180,16 +182,21 @@ const onOpenOtions = () => {
 }
 //发送数据
 const sendInfo=()=>{
+
   console.log("传递子组件的值",textInput.value)
   if(!textInput.value){
-    
     return
   }
   emit("sendInfo",{code :1,msg:textInput.value})
   textInput.value=""
 
 }
+// 图片发送
+const onImageChang=(imageList)=>{
+  
+  emit("sendInfo", { code: messageType.IMAGE, msg: imageList })
 
+}
 //判断显示键盘还是鼠标
 const isShowAduioKeyboard=computed(()=>{
 
@@ -201,6 +208,18 @@ const handoff=()=>{
 
 }
 
+// 选项点击
+const onTouchOpen=(oId)=>{
+
+  switch (oId) {
+  case 1:
+      
+    break
+  
+  default:
+    break
+  }
+}
 
 </script>
 
@@ -212,6 +231,9 @@ const handoff=()=>{
   background: #dfdfdf;
   transition: 1s;
   z-index: 999;
+  input[type="file"] {
+      display: none;
+    }
   .main {
     width: 100%;
 
@@ -301,7 +323,7 @@ const handoff=()=>{
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, 1fr);
         justify-content: flex-start;
-        align-items: flex-start;
+     
         .item {
           display: flex;
           width: 100%;

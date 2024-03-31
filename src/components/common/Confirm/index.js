@@ -7,6 +7,7 @@ const confirm = ( {message, icon,failedText,succedText,  succed=()=>{},failed=()
     // 从 body 上移除组件
     render(null, document.body)
   }
+  
   console.log(message)
   // 使用 h 函数创建 vnode
   const vnode = h(ConfirmComponent, {

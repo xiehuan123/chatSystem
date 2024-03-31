@@ -127,7 +127,7 @@ const onAddfriend=()=>{
     }
     .info {
       display: flex;
-      align-items: flex-start;
+   
       margin: 0 12px;
       padding: 20px 0;
       .left {

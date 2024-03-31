@@ -21,7 +21,6 @@
           </div>
           <Card v-for="(item,index) in momentList" :key="item.mid" :data="item" :index="index" @ShowComment="onShowComment" ref="cardListRef"></Card>
 
-          
       
         </div>
 
@@ -165,7 +164,7 @@ const onUploadChange = async() => {
     if (Object.hasOwnProperty.call(files, key)) {
       const file = files[key]
       const compressFileBase64= await compressionFile(file) 
-      momentIndexDBStore.setMometimageList(compressFileBase64) 
+      momentIndexDBStore.setMometimageList(+new Date() ,compressFileBase64) 
     }
   }
  

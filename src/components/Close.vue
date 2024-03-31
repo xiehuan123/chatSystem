@@ -19,12 +19,11 @@ defineProps({
 </script>
 
 <style scoped lang="scss">
-a {
-  text-decoration: none;
-}
+
 .Close {
   height: 32px;
   width: 32px;
-  transform: translateX(-50%);
+  transform: translateX(-20%);
+  // text-align: center;
 }
 </style>  

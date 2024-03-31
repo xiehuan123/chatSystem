@@ -7,6 +7,7 @@ const loading = (message = "加载中...", isVisableLoading = true) => {
     // 从 body 上移除组件
     render(null, document.body)
   }
+  
   // 使用 h 函数创建 vnode
   const vnode = h(LoadingComponent, {
     message,
