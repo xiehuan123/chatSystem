@@ -34,4 +34,4 @@ jobs:
         pass: "${{ secrets.USER_PASS }}"
         connect_timeout: 100s
         local: './chatSystem/*'
-        remote: '/www/wwwroot/dist'
+        remote: '/www/wwwroot/chatSystem'
