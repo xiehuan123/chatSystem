@@ -8,7 +8,7 @@
       <div class="textInput">
         <div class="inputBox">
           <input v-show="aduioKeyboard" type="text" v-model="textInput" @keydown.enter="sendInfo()" ref="inputRef" />
-          <!-- <div v-else  @touchstart ="startLongPress()" @touchend ="endLongPress()">按住 说话</div> -->
+          <!-- <div v-else  @touchstart ="startRecording()" @touchend ="endRecording()">按住 说话</div> -->
           <div v-show="!aduioKeyboard" data-Long="1" @load="onLoad()" ref="startLongRef">按住 说话</div>
 
         </div>
@@ -55,12 +55,16 @@
         <div :class="activeIndex == 2 ? 'active' : ''"></div>
       </div>
     </div>
+    <MediaUpload :isAudio="isAudio" @escRecording="escRecording" @sendRecording="sendRecording" />
+
   </div>
 
 </template>
 
 <script setup>
 import { messageType } from "@/constant"
+
+import { ref } from "vue"
 
 const textInput = ref("")
 const aduioKeyboard=ref(true)
@@ -208,19 +212,34 @@ const handoff=()=>{
 
 }
 
+
 // 选项点击
 const onTouchOpen=(oId)=>{
-
+  console.log(oId)
   switch (oId) {
   case 1:
       
     break
-  
+  case 7:
+    isOption.value=false
+    isAudio.value=true
+    break
   default:
     break
   }
 }
+// 录音界面控制
+const isAudio=ref(false)
+// 取消录音
+const escRecording=()=>{
+  isAudio.value=false
+  isOption.value=true
+}
+// 发送录音
+const sendRecording=(data)=>{
+  emit("sendInfo", data)
 
+}
 </script>
 
 <style scoped lang='scss'>
@@ -231,8 +250,8 @@ const onTouchOpen=(oId)=>{
   background: #dfdfdf;
   transition: 1s;
   z-index: 999;
-  input[type="file"] {
-      display: none;
+
+  input[type="file"] {     display: none;
     }
   .main {
     width: 100%;
@@ -258,9 +277,6 @@ const onTouchOpen=(oId)=>{
         height: 100%;
         border-radius: 7px;
         background: #fff;
-    
-        
-
         input {
           outline: none;
           border: none;
@@ -306,7 +322,6 @@ const onTouchOpen=(oId)=>{
   }
   .option {
     height: 300px;
-
     margin-top: 50px;
     transition: all 5s;
     ul {
@@ -322,7 +337,7 @@ const onTouchOpen=(oId)=>{
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, 1fr);
-        justify-content: flex-start;
+        
      
         .item {
           display: flex;
@@ -369,6 +384,48 @@ const onTouchOpen=(oId)=>{
       left: 50%;
       transform: translateX(-50%);
       border-radius: 50%;
+    }
+  }
+  .audio{
+    height: 300px;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .message{
+      position: absolute;
+      top: 70px;
+    }
+    .send{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #0bae36;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .start{
+      width: 50px;
+      height: 50px;
+      margin-left: 20px;
+      border-radius: 50%;
+      background: #0bae36;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+    }
+    .end{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #d53333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      margin-left: 20px;
     }
   }
   .show {

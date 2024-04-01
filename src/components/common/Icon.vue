@@ -41,7 +41,8 @@ defineProps({
   height: 1.1em;
   vertical-align: -0.15em;
   fill: currentColor;
-  padding: 2px 3px;
+  // ps 暂时注释
+  // padding: 2px 3px;
 }
 .active {
   color: rgb(16, 185, 99);

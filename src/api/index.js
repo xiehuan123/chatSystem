@@ -48,6 +48,12 @@ export const modifyPassword=async (data = {}) => {
 export const uploadImage=async(data={})=>{
   return await request({ url: "/user/upload", method: "post", data, })
 }
+// 上传音频
+export const uploadAudio=async(data={})=>{
+  return await request({ url: "/user/uploadMedia", method: "post", data,headers: {
+    "Content-Type": "multipart/form-data"
+  } })
+}
 // 测试请求
 export const test = async (uId,data={}) => {
   return await request({ url: `/user/test/${uId}`, method: "get", data })

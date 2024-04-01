@@ -36,6 +36,7 @@ declare module 'vue' {
     Input: typeof import('./src/components/common/Input.vue')['default']
     ListItem: typeof import('./src/components/ListItem.vue')['default']
     Loading: typeof import('./src/components/common/Loading/Loading.vue')['default']
+    MediaUpload: typeof import('./src/components/mediaUpload.vue')['default']
     Meinfo: typeof import('./src/components/Meinfo.vue')['default']
     Message: typeof import('./src/components/common/Message/Message.vue')['default']
     MeunList: typeof import('./src/components/meunList.vue')['default']

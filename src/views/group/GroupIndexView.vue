@@ -199,7 +199,7 @@ const onFinish=()=>{
     width: 100%;
     display: flex;
     box-sizing: border-box;
-    justify-content: end;
+    justify-content: flex-end;
     padding-right: 20px;
     
   }

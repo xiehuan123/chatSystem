@@ -11,7 +11,8 @@
                 <span class="text">{{ item.sendMsg }}</span>
               </div>
               <div v-else-if="item.code == messageType.AUDIO" @touchstart="onPlay(index)">
-                <msgAudio :wav="item.sendMsg?.wav" :duration="item.sendMsg?.duration" :play="item.sendMsg?.play">
+                <msgAudio :mediaPath="item.sendMsg?.mediaPath" :duration="item.sendMsg?.duration"
+                  :play="item.sendMsg?.play">
                 </msgAudio>
 
               </div>
@@ -167,9 +168,10 @@ const onGotoView = (wechat_id) => {
 
 
 // 开始播放
-// const onPlay = (index) => {
-//   mymsg.value[index]["sendMsg"]["play"] = !mymsg.value[index]["sendMsg"]["play"]
-// }
+const onPlay = (index) => {
+  console.log(index, "开始播放")
+  msgs.value[index].sendMsg.play = !msgs.value[index].sendMsg.play
+}
 
 onMounted(() => {
   scroll.value = new BScroll(".main", {

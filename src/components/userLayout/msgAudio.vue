@@ -1,6 +1,6 @@
 <template>
   <div class="msgaudio" v-bind="$attrs">
-    <audio :src="wav" ref="audioMedia"  controls style="display: none;"></audio>
+    <audio :src="mediaPath" ref="audioMedia"  controls style="display: none;"></audio>
 
             
 {{duration }}"
@@ -20,7 +20,7 @@ import { ref,defineProps,watch ,useAttrs} from "vue"
 const attrs=useAttrs()
 console.log(attrs)
 const props=defineProps({
-  wav:{
+  mediaPath:{
     type:String,
     default:"",
 
@@ -47,7 +47,7 @@ watch(()=>props.play,(newVal)=>{
 <style scoped lang='scss'>
 .msgaudio{
   width: 50px;
-  height: 50px;
+  height: 30px;
   .box {
   position: relative;
   width: 240px;
