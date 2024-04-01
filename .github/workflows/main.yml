@@ -5,7 +5,7 @@ on:
   push:
     branches:
       # mian分支，你也可以改成其他分支
-      - main
+      - xiehuan
 jobs:
   # 任务ID
   build:
