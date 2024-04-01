@@ -5,7 +5,7 @@ on:
   push:
     branches:
       # mian分支，你也可以改成其他分支
-      - main
+      - xiehuan
 jobs:
   # 任务ID
   build:
@@ -29,18 +29,12 @@ jobs:
         WELCOME: "ssh scp ssh pipelines"
         LASTSSH: "Doing something after copying"
       with:
-<<<<<<< HEAD
+
         host: "${{ secrets.USER_HOST }}"
         user:  "${{ secrets.USER_NAME }}"
         pass: "${{ secrets.USER_PASS }}"
         connect_timeout: 100s
-=======
-        host: ${{ secrets.USER_HOST }}
-        user: ${{ secrets.USER_NAME }}
-        # 秘钥
-        ssh-private-key: ${{ secrets.USER_PASS }}
-        connect_timeout: 10s
->>>>>>> f5a994a (修改扫一扫显示组件)
-        local: './dist/*'
-        remote: '/www/wwwroot/dist'
+
+  
+
 
