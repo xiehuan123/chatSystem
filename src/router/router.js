@@ -90,7 +90,7 @@ const routes = [
   },
   {
     path:"/phonecode",
-    component:()=>import("@/views/user/PhoneCodeVIew.vue")
+    component:()=>import("@/views/user/PhoneCodeView.vue")
   },
   {
     path: "/index",

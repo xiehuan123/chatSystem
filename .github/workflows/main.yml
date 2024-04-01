@@ -1,5 +1,5 @@
 
-name: Build app and deploy to Tencent
+name: Build chatsystem
 on:
   #监听push操作
   push:
