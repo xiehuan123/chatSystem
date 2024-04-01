@@ -24,7 +24,10 @@ export default defineConfig({
       // },
     },
   },
-  // basicSsl()
+  build: {
+    outDir: 'chatSystem', // 指定输出文件夹的名称
+  },
+
   plugins: [
     vue(),
     VitePWA({
