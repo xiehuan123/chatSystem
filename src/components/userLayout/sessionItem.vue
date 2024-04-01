@@ -22,12 +22,14 @@
       <div>{{ sesstioItem.sesstionName }}</div>
       <div v-if="sesstioItem.us == 2">
         <span v-if="sesstioItem.num>1">[{{ sesstioItem.num }}]</span>
-        <span>{{ lastInfoMsg?.sendName }}:</span>{{ lastInfoMsg?.sendMsg }}
+        <span>{{ lastInfoMsg?.sendName }}:</span>
+        <span class="text">{{ lastInfoMsg?.sendMsg }}</span>
+
       </div>
       <div v-if="sesstioItem.us == 1">
 
         <!-- 文本 -->
-        <span v-if="lastInfoMsg?.code == messageType.TEXT">{{ lastInfoMsg?.sendMsg }}</span>
+        <span v-if="lastInfoMsg?.code == messageType.TEXT" class="text">{{ lastInfoMsg?.sendMsg }}</span>
         <!-- 语音 -->
         <span v-if="lastInfoMsg?.code == messageType.AUDIO">语音</span>
         <!-- 文件 -->
@@ -120,7 +122,17 @@ defineProps({
     >div:nth-child(2) {
       font-size: 13px;
       color: #ccc;
-      margin-top: 5px;
+      margin-top: 2px;
+    }
+    .text{
+        display: inline-block;
+        white-space: nowrap;
+        /* 禁止换行 */
+        overflow: hidden;
+        /* 隐藏溢出内容 */
+        text-overflow: ellipsis;
+        /* 显示省略号 */
+        max-width: 210px;
     }
   }
 
