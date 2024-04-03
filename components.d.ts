@@ -21,6 +21,7 @@ declare module 'vue' {
     CloseBg: typeof import('./src/components/CloseBg.vue')['default']
     CommentInput: typeof import('./src/components/common/CommentInput.vue')['default']
     Confirm: typeof import('./src/components/common/Confirm/Confirm.vue')['default']
+    copy: typeof import('./src/components/userLayout/ChatList copy.vue')['default']
     CountDown: typeof import('./src/components/common/CountDown.vue')['default']
     Dialog: typeof import('./src/components/common/Dialog.vue')['default']
     Dots: typeof import('./src/components/Dots.vue')['default']
