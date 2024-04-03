@@ -6,7 +6,10 @@ import eslintPlugin from "vite-plugin-eslint"
 import path from "path"
 import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
- 
+    esbuild:{
+        drop: ['console','debugger']
+       // 删除 所有的console 和 debugger
+    },
   server: {
     
     host:"0.0.0.0",

@@ -184,7 +184,7 @@ onMounted(async()=>{
     ]
     break
   }
-  console.log(sexMap.value[info.value.gender]["iconName"])
+
 
  
 })

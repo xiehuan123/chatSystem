@@ -46,7 +46,7 @@ import { ref ,getCurrentInstance, computed} from "vue"
 import {useRouter} from "vue-router"
 
 
-import { register, sendCode } from "@/api/index"
+import { register, sendRegisterCode } from "@/api/index"
 
 import {compressionFile} from "@/utils/index"
 
@@ -86,7 +86,7 @@ const onPhoneCheck = () => {
 // 发送验证码
 const onSendCode = async () => {
   console.log("发送验证码")
-  const {err,res}= await sendCode(userPhone.value)
+  const { err, res } = await sendRegisterCode(userPhone.value)
   if(err){
     globalProperties.$message("发送失败")
     return 

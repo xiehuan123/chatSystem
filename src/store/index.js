@@ -11,14 +11,17 @@ export const installPinia = (app) => {
 }
 // 这里需要重构  实例化全部在这个文件使用 
 const logoutFunc = async () => {
-  const callStoreInstance = callStore()
   const userStoreInstance = userStore()
+  const callStoreInstance = callStore()
+  const messageIndexDBInstance=messageIndexDB()
+  const momentIndexDBInstance=momentIndexDB()
   await logout(userStoreInstance.user.uid)
-  localStorage.clear()
-  sessionStorage.clear()
-  userStoreInstance.$socket.disconnect()
-  callStoreInstance.peer.disconnect()
-  router.push("/login")
+  // 用户实例相关页面数据清空
+  userStoreInstance.clear()
+  callStoreInstance.clear()
+  messageIndexDBInstance.clear()
+  momentIndexDBInstance.clear()
+  router.push("/index")
 
 }
 const compulsionLogout=async()=>{

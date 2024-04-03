@@ -218,10 +218,15 @@ export const userStore = defineStore("user",
       }
     }
     // 清除用户数据 (退出登录)
-    const clearUser=()=> {
+    const clear=()=> {
+      // 用户数据置空
       user.value = null
-      localStorage.removeItem("user")
-    
+      // 用户会话以及消息列表删除
+      sesstionList.value=[]
+      sesstionMsgs.value={}
+      $socket.value.disconnect()
+      localStorage.clear()
+      sessionStorage.clear()
     }
     //设置即时消息  判断消息存不在存在会话 
     const setInfoList=(data)=>{
@@ -289,7 +294,7 @@ export const userStore = defineStore("user",
     const testfunc=(id)=>{
       console.log(id)
     }
-    return {  testfunc,$socket,user,fingerprint,token,sesstionList,clearCuurentSesstion,sesstionMsgs,initInfoList,noticeCount, openSocket, cuurentSesstion,setSesstionreadStaus,setUser ,setToken,setCuurentSesstion,clearUser,setInfoList}
+    return { clear, testfunc,$socket,user,fingerprint,token,sesstionList,clearCuurentSesstion,sesstionMsgs,initInfoList,noticeCount, openSocket, cuurentSesstion,setSesstionreadStaus,setUser ,setToken,setCuurentSesstion,setInfoList}
   },
  
   

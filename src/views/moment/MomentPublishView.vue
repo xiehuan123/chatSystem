@@ -74,7 +74,7 @@ const onPublishMoment=async ()=>{
   const content=contentRef.value.innerText
   const imgList=await momentIndexDBStore.getMomentItem("momentImageList")
   await publishMoment({content,imgList})
-  await momentIndexDBStore.clearMomentItem()
+  await momentIndexDBStore.clear()
   globalProperties.$message("发表成功")
   router.back(-1)
 }

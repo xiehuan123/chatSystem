@@ -9,7 +9,7 @@
 </template>
 <script setup>
 import FingerprintJS from "@fingerprintjs/fingerprintjs"
-import {  onMounted } from "vue"
+import { onMounted, onBeforeMount } from "vue"
 import { userStore, callStore, messageIndexDB } from "@/store"
 
 // import {useMessage} from "@/hooks/useMessage"
@@ -20,11 +20,7 @@ import { userStore, callStore, messageIndexDB } from "@/store"
 const store = userStore()
 const callStoreInstance = callStore()
 const messageStore = messageIndexDB()
-// setTimeout(() => {
-//   console.log("备份")
-//   messageStore.setMessageList(store.sesstionList,store.sesstionMsgs)
-// }, 10000)
-// 组件挂载之前
+// ps 这里有问题呢 应该是组件销毁的时候才备份信息 但是 现在实现是刷新之前备份信息
 onBeforeMount(() => {
   // 页面刷新 
   window.addEventListener("beforeunload", () => {
@@ -34,31 +30,24 @@ onBeforeMount(() => {
     console.log(store.sesstionList, store.sesstionMsgs, "备份消息到本地")
 
     messageStore.setMessageList(store.sesstionList, store.sesstionMsgs)
-    // 将当前的socket以及peer 服务关闭
+    // 将当前的socket以及peer 服务关闭 perr 服务关闭 这样就不会导致 peer key 连接占用问题 
     store.$socket.disconnect()
     callStoreInstance.peer.disconnect()
   })
-  // 页面刷新 
-  window.addEventListener("load", () => {
-    //将浏览器里面的数据转化到pinia里面
-    store.setCuurentSesstion(JSON.parse(window.sessionStorage.getItem("cuurentSesstion") || "{}"))
+  // 页面刷新的时候将数据从localstorage里面取出来
+  store.setCuurentSesstion(JSON.parse(window.sessionStorage.getItem("cuurentSesstion") || "{}"))
+  setTimeout(() => {
+    console.log("初始化消息", messageStore.sesstionList, messageStore.sesstionMsgs)
+    store.initInfoList(messageStore.sesstionList, messageStore.sesstionMsgs)
 
-    const user = JSON.parse(window.localStorage.getItem("user") || "{}")
-    const token = window.localStorage.getItem("token")
-    setTimeout(() => {
-      console.log("初始化消息", messageStore.sesstionList, messageStore.sesstionMsgs)
-      store.initInfoList(messageStore.sesstionList, messageStore.sesstionMsgs)
-
-    }, 100)
-
-
-    if (user && token) {
-      store.openSocket(token)
-      callStoreInstance.openPeer(user.uid)
-    }
-
-
-  })
+  }, 100)
+  const user = JSON.parse(window.localStorage.getItem("user") || "{}")
+  const token = window.localStorage.getItem("token")
+  if (user && token) {
+    store.openSocket(token)
+    callStoreInstance.openPeer(user.uid)
+  }
+  
 })
 
 onMounted(async () => {
@@ -72,13 +61,10 @@ onMounted(async () => {
   store.fingerprint = result.visitorId
   // 存入浏览器缓存
   localStorage.setItem("fingerprint", result.visitorId)
-  // const callStoreInstance = callStore()
-  // if (store.token){
-  //   store.openSocket(store.token)
-  //   callStoreInstance.openPeer(store.user.uid)
-  // }
 
+  
 })
+
 
 
 </script>

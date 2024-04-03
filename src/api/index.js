@@ -33,11 +33,11 @@ export const register = async (data = {}) => {
   } })
 }
 // 注册验证码发送
-export const sendCode = async (phone,data = {}) => {
+export const sendRegisterCode = async (phone,data = {}) => {
   return await request({ url: `/user/code/${phone}`, method: "POST", data })
 }
-// 找回密码验证码
-export const sendRetrievevCode=async (phone,data = {}) => {
+// 找回密码验证码 || 验证码 登录
+export const sendRLCode=async (phone,data = {}) => {
   return await request({ url: `/user/code/${phone}`, method: "patch", data })
 }
 // 修改密码 手机号

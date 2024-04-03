@@ -4,8 +4,8 @@
     <h3 class="title">微信号/QQ号/邮箱登陆</h3>
     <Input text="账号" type="text" v-model="userName" placeholder="请填写微信号/QQ号/邮箱"></Input>
     <Input text="密码" type="password" v-model="userPassword" placeholder="请输入密码"></Input>
+    <RouterLink class="login_phone" to="/phonelogin">用手机号登陆</RouterLink>
 
-    <div class="login_phone" @click="phoneLogin">用手机号登陆</div>
     <div class="footer">
       <h4 class="tip">上述微信号/QQ号/邮箱仅用于登陆验证</h4>
       <button class="agree" :disabled="!showSubmitBtn" @click="agreeLogin">
@@ -13,7 +13,6 @@
       </button>
       <div class="menu">
         <RouterLink to="/retrieve">找回密码</RouterLink>
-        <!-- <a href="#">找回密码</a> -->
         <a href="#">紧急冻结</a>
         <a href="#">安全中心</a>
       </div>
@@ -32,22 +31,23 @@ const router = useRouter()
 const route=useRoute()
 const store = userStore()
 const CallStore=callStore()
-const userName = ref("13087259146")
+const userName = ref("18573744797")
 const userPassword = ref("123456")
 const showSubmitBtn=computed(()=>{
   return userName.value.length&&userPassword.value.length
 })
 
-const phoneLogin = () => {
-  router.push({
-    path: "/phonelogin",
-  })
-}
+// const phoneLogin = () => {
+//   router.push({
+//     path: "/phonelogin",
+//   })
+// }
 const agreeLogin = async () => {
   globalProperties.$loading("正在登录中...")
   const {res,err}=await login({
     userName:userName.value,
     userPassword:userPassword.value,
+    type:"account"
   })
   if(err){
     throw err 
@@ -145,6 +145,7 @@ const agreeLogin = async () => {
     }
   }
   .login_phone {
+    display: inline-block;
     margin-top: 26px;
     color: #3c759e;
   }

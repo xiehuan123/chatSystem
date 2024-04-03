@@ -9,14 +9,17 @@
       :placeholder="placeholder"
       @input="updateValue"
       :value="modelValue"
-      @change="$emit('change', $event.target.value)"
+      @change="onChange"
+      :maxlength="maxlength"
+      
+
     />
   </div>
 </template>
 
 <script setup>
 import { defineEmits } from "vue"
-defineProps({
+const props=defineProps({
   
   
   text:{
@@ -34,12 +37,23 @@ defineProps({
   modelValue:{
     type:String,
     default:"text"
+  },
+  maxlength:{
+    type:Number
   }
 
 })
-const emit = defineEmits(["update:modelValue"])
+const emit = defineEmits(["update:modelValue","change"])
 const updateValue = (event) => {
+
+  if (event.target.value.length > props.maxlength){
+    event.target.value = event.target.value.slice(0,props.maxlength)
+  }
   emit("update:modelValue", event.target.value)
+  emit("input", event.target.value)
+}
+const onChange = (event) => {
+  emit("change", event.target.value)
 }
 </script>
 

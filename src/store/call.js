@@ -112,7 +112,13 @@ export const callStore = defineStore("callStore", () => {
       connObj.on("open", () => {})
     })
   }
+  // 清空
+  const clear=()=>{
+    
+    peer.value.disconnect()
+  }
   return {
+    clear,
     peer,
     openPeer,
     callType,

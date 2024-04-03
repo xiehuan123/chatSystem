@@ -1,5 +1,6 @@
 import axios from "axios"
 import router from "@/router"
+console.log(import.meta.env.VITE_BASE_URL,"777777")
 const client = axios.create({
   headers: {
     "Cache-Control": "no-cache"

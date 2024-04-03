@@ -24,9 +24,13 @@ export const messageIndexDB = defineStore("messageIndexDB",()=>{
   }
 
   getMessage()
+  const clear=()=>{
+    sesstionList.value=[]
+    sesstionMsgs.value={}
+    messageStore.value.clear()
+  }
 
-
-  return {sesstionList,sesstionMsgs,setMessageList}
+  return {sesstionList,sesstionMsgs,setMessageList,clear}
 })
 // 朋友圈草稿备份
 
@@ -61,8 +65,8 @@ export const momentIndexDB = defineStore("momentIndexDB",()=>{
     await momentStore.value.setItem("momentContent",JSON.stringify(content))
   }
   // 清空本地保存的朋友圈相关内容
-  const clearMomentItem=async()=>{
+  const clear=async()=>{
     momentStore.value.clear()
   }
-  return {setMometimageList,addMomentContent,getMomentItem,clearMomentItem}
+  return {setMometimageList,addMomentContent,getMomentItem,clear}
 })

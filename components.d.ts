@@ -34,6 +34,7 @@ declare module 'vue' {
     ImageUpload: typeof import('./src/components/ImageUpload.vue')['default']
     IndexBar: typeof import('./src/components/common/IndexBar.vue')['default']
     Input: typeof import('./src/components/common/Input.vue')['default']
+    InputCode: typeof import('./src/components/common/InputCode.vue')['default']
     ListItem: typeof import('./src/components/ListItem.vue')['default']
     Loading: typeof import('./src/components/common/Loading/Loading.vue')['default']
     MediaUpload: typeof import('./src/components/MediaUpload.vue')['default']
