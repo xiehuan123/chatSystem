@@ -292,6 +292,19 @@ const routes = [
     path:"/qrcodeTool",
     component:()=>import("@/views/find/QrcodeToolView.vue")
   }
+  // 音乐播放 未完成
+  ,
+  {
+    path:"/music",
+    component:()=>import("@/views/find/MusicView.vue")
+  },
+  // 表情包管理
+  {
+    path:"/emoticon",
+    component:()=>import("@/views/me/EmojiPackView.vue")
+  }
+
+
   
 ]
 export default routes

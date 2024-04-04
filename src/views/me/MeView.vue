@@ -16,14 +16,14 @@ const meinfoData=
    
 }
 const infoList=ref([
-  {
-    sesstionId: 1,
-    sesstionName: "服务",
-    avatar: "icon-iconfontzhizuobiaozhunbduan36",
-    marginTop:true,
+  // {
+  //   sesstionId: 1,
+  //   sesstionName: "服务",
+  //   avatar: "icon-iconfontzhizuobiaozhunbduan36",
+  //   marginTop:true,
  
     
-  },
+  // },
   {
     sesstionId: 2,
     sesstionName: "收藏",
@@ -47,19 +47,20 @@ const infoList=ref([
     marginBorde:true
    
   },
-  {
-    sesstionId: 5,
-    sesstionName: "卡包",
-    avatar: "icon-kabao",
-    color:"#53719f",
-    marginBorde:true
-  },
+  // {
+  //   sesstionId: 5,
+  //   sesstionName: "卡包",
+  //   avatar: "icon-kabao",
+  //   color:"#53719f",
+  //   marginBorde:true
+  // },
   {
     sesstionId: 6,
     sesstionName: "表情",
     avatar: "icon-biaoqing",
     color:"#d2a467",
-    marginBorde:true
+    marginBorde:true,
+    path:"/emoticon"
    
   },
   {
