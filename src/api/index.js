@@ -54,6 +54,11 @@ export const uploadAudio=async(data={})=>{
     "Content-Type": "multipart/form-data"
   } })
 }
+
+export const getTranslate = async (data={}) => {
+  return await request({ url: "/user/translate", method: "post", data })
+
+}
 // 测试请求
 export const test = async (uId,data={}) => {
   return await request({ url: `/user/test/${uId}`, method: "get", data })

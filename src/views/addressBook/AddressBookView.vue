@@ -5,12 +5,12 @@
           <ListItem v-for="item in meun" :key="item.sesstionId" :sesstio-item="item" @click="onGotoView(item.path)">
           </ListItem>
         </div>
-        <div class="business">
+        <!-- <div class="business">
           <div class="title">我的企业及企业联系人</div>
           <div class="content">
             <Icon icon-name="icon-qiyeweixinEnterprise-WeChat"></Icon><span>企业微信联系人</span>
           </div>
-        </div>
+        </div> -->
         <div class="friends">
           <div class="friends">
 
@@ -57,13 +57,13 @@ const meun = ref([
     avatar: "icon-Dimission-S",
     path: "/friend/newFriend"
   },
-  {
-    sesstionId: 2,
-    sesstionName: "仅聊天的朋友",
-    avatar: "icon-tianjiahaoyou",
-    marginBorde: true,
-    path: ""
-  },
+  // {
+  //   sesstionId: 2,
+  //   sesstionName: "仅聊天的朋友",
+  //   avatar: "icon-tianjiahaoyou",
+  //   marginBorde: true,
+  //   path: ""
+  // },
   {
     sesstionId: 3,
     sesstionName: "群聊",
@@ -73,26 +73,26 @@ const meun = ref([
     path: "/group/groupList"
 
   },
-  {
-    sesstionId: 3,
-    sesstionName: "标签",
+  // {
+  //   sesstionId: 3,
+  //   sesstionName: "标签",
 
-    avatar: "icon-biaoqian",
-    marginBorde: true,
-    path: ""
-
-
-  },
-  {
-    sesstionId: 3,
-    sesstionName: "公众号",
-
-    avatar: "icon-qunliao1",
-    marginBorde: true,
-    path: ""
+  //   avatar: "icon-biaoqian",
+  //   marginBorde: true,
+  //   path: ""
 
 
-  }
+  // },
+  // {
+  //   sesstionId: 3,
+  //   sesstionName: "公众号",
+
+  //   avatar: "icon-qunliao1",
+  //   marginBorde: true,
+  //   path: ""
+
+
+  // }
 
 ])
 // 点击的字母

@@ -207,7 +207,7 @@ const dataURLToImage = (dataURL) => {
  * @param {Nubmber} quality 压缩质量参数
  * @returns 压缩后的新图片
  */
-export const compressionFile = async (file, type = "image/jpeg", quality = 0.5) => {
+export const compressionFile = async (file, type = "image/jpeg", quality = 0.3) => {
 
   const canvas = document.createElement("canvas")
   const context = canvas.getContext("2d")
@@ -326,4 +326,10 @@ export const  decryptData=(encryptedData,secretKey="12345678")=>{
   )
   console.log("结果",CryptoJS.enc.Utf8.stringify(decryptedBytes))
   return CryptoJS.enc.Utf8.stringify(decryptedBytes)
+}
+import domtoimage from "dom-to-image"
+// dom 转换为图片
+export const canvasToImage = async (dom,quality=0.95) => {
+  const dataUrl=await domtoimage.toPng(dom, { quality:quality })
+  return dataUrl
 }

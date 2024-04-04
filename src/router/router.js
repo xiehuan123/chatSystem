@@ -271,5 +271,21 @@ const routes = [
       sesstion:true
     }
   }, 
+  // 小游戏页面
+  {
+    path:"/game",
+    component:()=>import("@/views/find/GameView.vue")
+  },
+  // 在线翻译 
+  {
+    path:"/translator",
+    component:()=>import("@/views/find/TranslatorView.vue")
+  }
+  // 图片编辑
+  ,
+  {
+    path:"/imageEdit",
+    component:()=>import("@/views/find/ImageEditView.vue")
+  }
 ]
 export default routes

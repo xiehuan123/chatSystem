@@ -15,23 +15,24 @@ const infoList=ref([
     path:"/moment/momentIndex",
     avatar: "icon-iconfontzhizuobiaozhunbduan36",
   },
-  {
-    sesstionId: 2,
-    sesstionName: "视频号",
-    avatar: "icon-a-rongqi18",
-    marginTop: true,
-  },
-  {
-    sesstionId: 3,
-    sesstionName: "直播",
-    avatar: "icon-icon-test",
-    marginBorde: true,
-  },
+  // {
+  //   sesstionId: 2,
+  //   sesstionName: "视频号",
+  //   avatar: "icon-a-rongqi18",
+  //   marginTop: true,
+  // },
+  // {
+  //   sesstionId: 3,
+  //   sesstionName: "直播",
+  //   avatar: "icon-icon-test",
+  //   marginBorde: true,
+  // },
   {
     sesstionId: 4,
     sesstionName: "扫一扫",
     avatar: "icon-saoyisao",
     marginTop: true,
+    path:"/sweepaway"
   },
   {
     sesstionId: 5,
@@ -41,8 +42,9 @@ const infoList=ref([
   },
   {
     sesstionId: 6,
-    sesstionName: "附近",
+    sesstionName: "图片编辑",
     avatar: "icon-fujin",
+    path:"/imageEdit"
   },
 
   {
@@ -50,12 +52,14 @@ const infoList=ref([
     sesstionName: "游戏",
     avatar: "icon-leidatu",
     marginTop: true,
+    path: "/game"
   },
   {
     sesstionId: 9,
-    sesstionName: "小程序",
+    sesstionName: "翻译",
     avatar: "icon-xiaochengxu",
     marginTop: true,
+    path: "/translator"
   },
 ])
 </script>
