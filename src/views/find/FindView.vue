@@ -36,9 +36,10 @@ const infoList=ref([
   },
   {
     sesstionId: 5,
-    sesstionName: "看一看",
+    sesstionName: "二维码工具",
     avatar: "icon-kanyikan",
     marginTop: true,
+    path:"/qrcodeTool"
   },
   {
     sesstionId: 6,

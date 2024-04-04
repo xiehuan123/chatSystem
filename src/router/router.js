@@ -286,6 +286,12 @@ const routes = [
   {
     path:"/imageEdit",
     component:()=>import("@/views/find/ImageEditView.vue")
+  },
+  // 二维码工具
+  {
+    path:"/qrcodeTool",
+    component:()=>import("@/views/find/QrcodeToolView.vue")
   }
+  
 ]
 export default routes

@@ -1,5 +1,9 @@
 <template>
-  <BackHeader > 打地鼠小游戏</BackHeader>
+  <BackHeader> 打地鼠小游戏
+    <template #right>
+      <div></div>
+    </template>
+  </BackHeader>
   <div class="game">
 
     <div class="scoped">
@@ -9,7 +13,7 @@
           速度： <input type="number" v-model="setSpeed">
         </p>
         <p>
-          总数：<input type="number" v-model="setNum" >
+          总数：<input type="number" v-model="setNum">
         </p>
         <p>
           <button @click="playGame">开始</button>

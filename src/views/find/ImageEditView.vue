@@ -1,5 +1,9 @@
 <template>
-  <BackHeader> 在线编辑</BackHeader>
+  <BackHeader> 在线编辑
+    <template #right>
+      <div></div>
+    </template>
+  </BackHeader>
   <div class="image-editor">
 
 
