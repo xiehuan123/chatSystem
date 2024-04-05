@@ -302,6 +302,11 @@ const routes = [
   {
     path:"/emoticon",
     component:()=>import("@/views/me/EmojiPackView.vue")
+  },
+  // 通用解析二维码内容组件
+  {
+    path:"/webframe",
+    component:()=>import("@/views/webFrame/WebFrameView.vue")
   }
 
 

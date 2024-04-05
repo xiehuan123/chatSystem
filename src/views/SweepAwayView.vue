@@ -1,41 +1,42 @@
 <template>
   <div class="sweepAway">
     <p class="head">
-      <CloseBg :isShow="true" @click="onClose"/>
+      <CloseBg :isShow="true" @click="onClose" />
       <Icon iconName="icon-ellipsis" color="#fff" />
     </p>
-    <qrcode-stream
-      :paused="paused"
-      @detect="onDetect"
-      @camera-on="onCameraOn"
-      @camera-off="onCameraOff"
-      @error="onError"
-    >
+    <qrcode-stream :paused="paused" @detect="onDetect" @camera-on="onCameraOn" @camera-off="onCameraOff"
+      @error="onError">
       <div v-show="showScanConfirmation" class="scan-confirmation">
         <!-- <img :src="withBase('/checkmark.svg')" alt="Checkmark" width="128" /> -->
-      扫描成功
+        扫描成功
       </div>
     </qrcode-stream>
     <div class="qr-scanner">
-        <div class="box">
-            <div class="line"></div>
-            <div class="angle"></div>
-        </div>
+      <div class="box">
+        <div class="line"></div>
+        <div class="angle"></div>
+      </div>
     </div>
     <div class="option">
-      <div>
-        <div class="iconBg">
-          <Icon icon-name="icon-erweima"></Icon>
-        </div>
 
-        <Text>我的二维码</Text>
+      <div>
+        <router-link :to="{ path: `/qrcode/1/${store.user.uid}` }">
+          <div class="iconBg">
+            <Icon icon-name="icon-erweima"></Icon>
+          </div>
+
+          <Text>我的二维码</Text>
+        </router-link>
       </div>
+
       <div>
         <div class="iconBg">
-          <Icon icon-name="icon-tupian"></Icon>
+          <label for="album">
+            <Icon icon-name="icon-tupian"></Icon>
+          </label>
         </div>
-
-        <Text>相册</Text>
+        <input id="album" hidden type="file" accept="image/*" @change="handleFile" />
+        <Text> <label for="album"> 相册</label> </Text>
       </div>
     </div>
     <div class="footer">
@@ -43,13 +44,13 @@
         扫一扫
         <div class="point" :style="{ background: selectIndex && '#fff' }"></div>
       </div>
+
       <div :style="{ color: !selectIndex && '#fff' }">
-        翻译
-        <div
-          class="point"
-          :style="{ background: !selectIndex && '#fff' }"
-        ></div>
+        <router-link :to="{ path: `/translator` }">
+          翻译 </router-link>
+        <div class="point" :style="{ background: !selectIndex && '#fff' }"></div>
       </div>
+
     </div>
   </div>
 </template>
@@ -59,32 +60,20 @@ import { ref } from "vue"
 import { QrcodeStream } from "vue-qrcode-reader"
 import {useRouter} from "vue-router"
 import {decryptData} from "@/utils/index"
+import {userStore} from "@/store"
+import jsQR from "jsqr"
+
 const paused = ref(false)
 const result = ref(null)
 const showScanConfirmation = ref(false)
-const selectIndex = ref(0)
+const selectIndex = ref(1)
 const router=useRouter()
+const store=userStore()
 const onCameraOn = () => {
   showScanConfirmation.value = false
 }
-// try {
-//   const data=JSON.parse(result.value)
-//   console.log(data)
-//   if(data.type==="wx"){
-//     const {us,wechat_id}=JSON.parse(decryptData(data.result)) 
-//     console.log(us,wechat_id)
-//     if(us===1){
-//       console.log("私聊")
-//       router.push(`/friend/peopleinfo/1/${wechat_id}`)
-//     }else{
-//       console.log("群聊")
-//     }
-//   }
-// } catch (error) {
-//   console.log(error)
-// }
+
 const onCameraOff = () => {
-  // console.log(result.value)
   // {type:'wx',resulet:加密({us: "1", wechat_id: "wx_4bc488f2"}||{us: "2", gid: "77",pwd:"123456"})}      
   // {us: "2", gid: "77",pwd:"123456"}
   showScanConfirmation.value = true
@@ -94,10 +83,22 @@ const onError = (err) => {
 }
 const onDetect = async (detectedCodes) => {
   console.log("扫码中", detectedCodes)
-  const dataObject = JSON.parse(detectedCodes[0]["rawValue"]) 
   paused.value = true
-  console.log("扫码成功", dataObject)
+
+  const text = detectedCodes[0]["rawValue"]
   await timeout(500)
+  // 正则表达式
+  const pattern = /{"type":\s*"wx",\s*"result":\s*"[^"]*"\s*}/
+
+  // 使用正则表达式进行匹配
+  if (!pattern.test(text)) {
+    console.log("是以 http:// 或 https:// 开头的 URL")
+    router.push(`/webframe?content=${text}`)
+    return
+  }
+
+  const dataObject = JSON.parse(text)
+
   paused.value = false
   result.value = dataObject 
 
@@ -132,7 +133,41 @@ const timeout = (ms) => {
 const onClose=()=>{
   router.back(0)
 }
+// 解析二维码
+const handleFile = async (e) => {
+  const file = e.target.files[0]
+  const reader = new FileReader()
+
+  reader.onload = function (event) {
+    const imageData = event.target.result
+    const image = new Image()
+    image.onload = function () {
+      const canvas = document.createElement("canvas")
+      const ctx = canvas.getContext("2d")
+      canvas.width = image.width
+      canvas.height = image.height
+      ctx.drawImage(image, 0, 0)
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+      const code = jsQR(imageData.data, imageData.width, imageData.height)
+      if (code) {
+        console.log("Found QR code", code)
+        onDetect([{ rawValue: code.data }])
+      } else {
+        console.log("No QR code found", code)
+      }
+    }
+    image.src = imageData
+  }
+
+  reader.readAsDataURL(file)
+
+
+  
+ 
+}
 </script>
+
+
 
 <style lang="scss"  scoped>
 .sweepAway {
@@ -184,7 +219,8 @@ const onClose=()=>{
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: #ccc;
+      background: rgba(96, 91, 91, 0.7);
+
       text-align: center;
       line-height: 50px;
     }

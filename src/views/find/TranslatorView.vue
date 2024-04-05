@@ -1,6 +1,11 @@
 
 <template>
-  <BackHeader> 在线翻译</BackHeader>
+  <BackHeader> 在线翻译
+    <template #right>
+      <div></div>
+    </template>
+
+  </BackHeader>
   <div class="translator">
 
     <div class="input-container">

@@ -221,6 +221,7 @@ export const compressionFile = async (file, type = "image/jpeg", quality = 0.3) 
   return base64String
 }
 
+
 /**
  * @description: 兼容浏览器获取视频流的方法
  * @param {*} constrains
