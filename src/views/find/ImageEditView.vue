@@ -5,11 +5,12 @@
     </template>
   </BackHeader>
   <div class="image-editor">
-
-
     <div class="wraper" ref="wraper" :style="{ 'filter': filterList[fileterIndex].value }">
       <img v-if="image" :src="image">
       <canvas ref="canvas" @touchend="onTouchEnd" @touchmove="onTouchMove" @touchstart="onTouchStart"></canvas>
+      <input class="textInput"
+        :style="{ 'left': inputLeft + 'px', 'top': inputTop + 'px', 'color': color, 'font':`${textSize}px/2 Arial` }"
+        v-show="textInput" @keydown.enter="onText" v-model="inputValue">
     </div>
     <div class="buttons">
       <input id="import-image" type="file" @change="importImage" accept="image/*" hidden>
@@ -25,10 +26,27 @@
       </div>
     </div>
     <div class="tools">
-      <input type="color" v-model="color" class="color-picker" @input="painting = true" @change="painting = false">
-      <button class="button" @click="changeTool('pen')">画笔</button>
-      <button class="button" @click="changeTool('eraser')">橡皮擦</button>
-      <button class="button" @click="revolk">撤销</button>
+      <div class="option">
+        <input type="color" v-model="color" class="color-picker" @input="painting = true" @change="painting = false">
+        <div>
+          <input id="brushSizeInput" type="range" min="1" max="5" v-model="brushSize">
+          <label for="brushSizeInput">线条:{{ brushSize }}</label>
+          <!-- 文字大小 -->
+          <input id="textSizeInput" type="range" min="12" max="24" v-model="textSize">
+          <label for="textSizeInput">文字:{{ textSize }}</label>
+        </div>
+
+      </div>
+      <div class="edit">
+        <button @click="changeTool('pen')">画笔</button>
+        <button @click="changeTool('eraser')">橡皮擦</button>
+        <button @click="changeTool('text')">文字</button>
+        <button @click="revolk">撤销</button>
+      </div>
+      <!-- <input id="brushSizeInput" type="range" min="1" max="50" value="10">
+      <label for="brushSizeInput">Brush Size</label> -->
+
+
     </div>
   </div>
 </template>
@@ -43,6 +61,10 @@ const canvas = ref(null)
 const ctx = ref(null)
 // 颜色选择器
 const color = ref("#000000")
+// 线条大小
+const brushSize = ref(1)
+// 文字大小
+const textSize = ref(16)
 const tool = ref("")
 // 点击开始坐标
 const startPoint = ref({ x: undefined, y: undefined })
@@ -75,15 +97,22 @@ const filterList = ref([
 ])
 // fileter index
 const fileterIndex = ref(0)
+
+
 onMounted(() => {
   canvas.value.width = wraper.value.clientWidth// 设置画布宽度
   // 设置 Canvas 背景色为透明
   canvas.value.style.backgroundColor = "transparent"
   canvas.value.height = wraper.value.clientHeight// 设置画布高度
   ctx.value = canvas.value.getContext("2d")
-  ctx.value.lineWidth = 3
+  ctx.value.lineWidth = brushSize.value
+  ctx.value.strokeStyle = color.value
+
+  // 设置字体大小
+  ctx.value.font = `${textSize.value}px/2 Arial`
   // 获取距离设备高宽度
   const rect = canvas.value.getBoundingClientRect()
+  console.log(rect)
   offsetX.value = rect.left
   offsetY.value = rect.top
 
@@ -108,9 +137,15 @@ const downloadImage = async () => {
 const changeTool = (newTool) => {
   tool.value = newTool
 }
+// canvas 移动开始
 const onTouchStart = (e) => {
   let x = e.touches[0].clientX - offsetX.value
   let y = e.touches[0].clientY - offsetY.value
+  // 初始化为状态对象
+  canvasState.value[index.value] = {
+    type: tool.value,
+    data: []
+  }
   if(tool.value==="eraser"){
     painting.value = true
     ctx.value.clearRect(x,y, 20, 20)
@@ -119,16 +154,26 @@ const onTouchStart = (e) => {
     painting.value = true
     startPoint.value.x = x
     startPoint.value.y = y
-    ctx.value.lineWidth = 3
+    ctx.value.lineWidth = brushSize.value
     ctx.value.strokeStyle = color.value
  
-    // 初始化为数组
-    canvasState.value[index.value] = []
+    
     console.log("开始", canvasState.value)
+  }
+  if(tool.value==="text"){
+    //每次点击 将之前的 画上去
+    onText()
+    ctx.value.font = `${textSize.value}px/2 Arial`
+    ctx.value.fillStyle = color.value
+    textInput.value=true
+    console.log("文本",x,y)
+    inputLeft.value = x
+    inputTop.value = y
+
   }
 
 }
-
+// canvas 移动
 const onTouchMove=(e)=>{
   console.log(e.touches[0].clientX,"移动")
 
@@ -138,31 +183,41 @@ const onTouchMove=(e)=>{
   if(tool.value==="eraser"){
     console.log("橡皮擦",x,y)
     ctx.value.clearRect(x, y, 20, 20)
+    canvasState.value[index.value]["data"].push(
+      {
+        xStart: startPoint.value.x,
+        yStart: startPoint.value.y,
+        xEnd: 20,
+        yEnd: 20,
+       
+      }
+    )
   }
 
   let newPoint = { x: x, y: y }
   if(tool.value==="pen"){
  
     console.log("按钮移动",x,y)
-    canvasState.value[index.value].push(
+    canvasState.value[index.value]["data"].push(
       {
         xStart: startPoint.value.x,
         yStart: startPoint.value.y,
         xEnd: newPoint.x,
-        yEnd: newPoint.y
+        yEnd: newPoint.y,
+        lineWidth: brushSize.value,
+        color: color.value
       }
     )
     drawLine(startPoint.value.x, startPoint.value.y, newPoint.x, newPoint.y)
   }
+
   startPoint.value.x = newPoint.x
   startPoint.value.y = newPoint.y
 }
-//画线条函数
+//canvas画线条函数
 const drawLine = (xStart, yStart, xEnd, yEnd) => {
   //开始绘制路径
   ctx.value.beginPath()
-  //线宽
-  ctx.value.lineWidth = 2
   //起始位置
   ctx.value.moveTo(xStart, yStart)
   //停止位置
@@ -172,7 +227,7 @@ const drawLine = (xStart, yStart, xEnd, yEnd) => {
   //结束绘制
   ctx.value.closePath()
 }
-// 移动结束事件
+// canvas移动结束事件
 const onTouchEnd = async function () {
   // 如果 之前开启了画版 才将之前的图片数据缓存起来
   if (!painting.value) return
@@ -194,22 +249,48 @@ const onTouchEnd = async function () {
 
 // 撤销
 const revolk = () => {
-  console.log("撤销")
+  console.log("撤销",index.value)
   ctx.value.clearRect(0, 0, canvas.value.width, canvas.value.height)
   if (index.value == 0) {
     globalProperties.$message("暂无记录")
     return
   }
+  // 撤销 索引减减
   index.value--
   console.log("index",index.value)
   console.log("canvasState",canvasState.value)
   for (let i = 0; i < index.value; i++) {
-    const cuurrentState = canvasState.value[i]
+    const cuurrentType = canvasState.value[i]["type"]
+    const cuurrentState = canvasState.value[i]["data"]
+    console.log("cuurrentType", cuurrentType)
     console.log("cuurrentState",cuurrentState)
-    for (const key in cuurrentState) {
-      const { xStart, yStart, xEnd, yEnd } = cuurrentState[key]
-      drawLine(xStart, yStart, xEnd, yEnd)
+    // 画笔
+    if (cuurrentType === "pen") {
+      for (const key in cuurrentState) {
+        const { xStart, yStart, xEnd, yEnd, lineWidth,color } = cuurrentState[key]
+        ctx.value.lineWidth = lineWidth
+        ctx.value.strokeStyle = color
+        drawLine(xStart, yStart, xEnd, yEnd)
+      }
     }
+    // 橡皮擦
+    if (cuurrentType === "eraser") {
+      for (const key in cuurrentState) {
+        const { xStart, yStart, xEnd, yEnd } = cuurrentState[key]
+        ctx.value.clearRect(xStart, yStart, xEnd, yEnd)
+      }
+    }
+    // 文本
+    if (cuurrentType === "text") {
+      console.log("文本",cuurrentState)
+      for (const key in cuurrentState) {
+        const { text, x, y,font } = cuurrentState[key]
+        ctx.value.font = font
+        ctx.value.fillStyle = color.value
+        ctx.value.fillText(text, x, y)
+      }
+    }
+   
   }
  
   /*ps 这里是使用保存 图片的方式实现撤销getTempImage()*/
@@ -238,21 +319,54 @@ const revolk = () => {
 //   sessionStorage.setItem("tempImageList", JSON.stringify(tempImageList))
 // }
 */
-
+// 滤镜点击事件
 const filterImage=(index)=> {
   fileterIndex.value=index
+}
+// 文字输入框显示
+const textInput = ref(true)
+// 文字输入框内容
+const inputValue = ref("")
+// 文字输入框left
+const inputLeft = ref(0)
+// 文字输入框top
+const inputTop = ref(0)
+// 文字回车
+const onText=()=>{
+  textInput.value = false
+  if(inputValue.value==="")return
+  
+  // ctx.value.font = "16px/2 Arial"
+  // ctx.value.fillStyle = color.value
+  console.log(inputValue.value,inputLeft.value, inputTop.value)
+  // ps 文字绘制的时候 会有一个基线的问题  所以这里加上20 不太理解 有待研究
+  ctx.value.fillText(inputValue.value, inputLeft.value, inputTop.value+20)
+  canvasState.value[index.value]["data"].push(
+    {
+      font: `${textSize.value}px/2 Arial`,
+      text: inputValue.value,
+      x: inputLeft.value,
+      y: inputTop.value + 20
+    }
+  )
+  // 每次回车代表   一个新的步骤
+  index.value++
+  console.log("文本",canvasState.value)
+  inputValue.value=""
+  
 }
 </script>
 
 <style  lang="scss" scoped>
 .image-editor {
-  padding: 20px;
+  padding: 5px 20px;
+
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 .file-upload {
@@ -277,7 +391,38 @@ const filterImage=(index)=> {
 .tools {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 6px;
+  .option{
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    flex: 2;
+    input[type="range"] {
+      width: 40px;
+      border: none;
+      cursor: pointer;
+    }
+    font-size: 12px;
+  }
+  .edit{
+    display: flex;
+    flex: 5;
+   
+    flex-wrap: wrap;
+    button{
+      height: 35px;
+      padding: 2px 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      outline: none;
+      margin: 5px;
+      font-size: 12px;
+   
+    }
+  }
 }
 
 .color-picker {
@@ -285,7 +430,8 @@ const filterImage=(index)=> {
 }
 
 .button {
-  padding: 8px 12px;
+  
+  padding: 4px 12px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -293,6 +439,7 @@ const filterImage=(index)=> {
   cursor: pointer;
   outline: none;
   filter: blur();
+  font-size: 14px;
 }
 
 .button:hover {
@@ -304,18 +451,44 @@ const filterImage=(index)=> {
 }
 .wraper{
   position: relative;
-  margin-bottom: 10px;
+  
   border: 1px solid #ccc;
   height: 300px;
+  width: 100%;
+  box-sizing: border-box;
   img{
     position: absolute;
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
   canvas{
     position: absolute;
  
   }
+  .textInput{
+    position: absolute;
+    z-index: 2;
+    border: none;
+    /* 去除边框 */
+    outline: none;
+    /* 去除聚焦时的边框 */
+    background-color: transparent;
+    /* 透明背景 */
+    font-size: 16px;
+    /* 字体大小 */
+    font-family: Arial, sans-serif;
+    /* 字体 */
+    color: black;
+    /* 文本颜色 */
+    text-decoration: underline;
+    /* 添加下划线 */
+    &::placeholder {
+      color: #ccc;
+      /* 占位符颜色 */
+    }
+  }
+  
 }
 .filterList {
   display: flex;

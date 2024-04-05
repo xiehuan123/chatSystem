@@ -20,11 +20,16 @@ export default defineConfig({
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, ""),
       },
-      // "/api": {
-      //   target: "http://124.71.84.62:5001",
-      //   changeOrigin: true,
-      //   rewrite: (path) => path.replace(/^\/api/, ""),
-      // },
+      "/api": {
+        target: "http://127.0.0.1:5001",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+        "/socket.io": {
+        target: "http://127.0.0.1:5001",
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, ""),
+      },
     },
   },
   build: {
