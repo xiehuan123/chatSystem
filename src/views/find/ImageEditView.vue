@@ -107,7 +107,8 @@ onMounted(() => {
   ctx.value = canvas.value.getContext("2d")
   ctx.value.lineWidth = brushSize.value
   ctx.value.strokeStyle = color.value
-
+  // 设置图片平滑
+  ctx.value.imageSmoothingEnabled = true
   // 设置字体大小
   ctx.value.font = `${textSize.value}px/2 Arial`
   // 获取距离设备高宽度

@@ -29,7 +29,7 @@ import { ref, getCurrentInstance, computed } from "vue"
 
 
 
-import { sendRetrievevCode, modifyPassword } from "@/api/index"
+import { sendRLCode, modifyPassword } from "@/api/index"
 
 
 const { appContext: { config: { globalProperties } } } = getCurrentInstance()
@@ -39,7 +39,6 @@ const userPhone = ref("")
 const userPasswod = ref("")
 //倒计时验证组件
 const counDownRef = ref(null)
-
 // 验证码
 const code = ref("")
 // 验证码控制
@@ -58,7 +57,7 @@ const onPhoneCheck = () => {
 // 发送验证码
 const onSendCode = async () => {
   console.log("发送验证码")
-  const { err, res } = await sendRetrievevCode(
+  const { err, res } = await sendRLCode(
     userPhone.value
   )
   if (err) {
